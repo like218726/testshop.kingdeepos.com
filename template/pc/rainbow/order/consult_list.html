@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>咨询记录</title>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/myaccount.css" />
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="shortcut  icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+	</head>
+	<body class="bg-f5">
+		<include file="user/header"/>
+		<div class="home-index-middle">
+			<div class="w1224">
+				<div class="g-crumbs">
+			       	<a href="{:U('Home/User/index')}">我的商城</a>
+			       	<i class="litt-xyb"></i>
+			       	<span>咨询记录</span>
+			    </div>
+			    <div class="home-main">
+				<include file="user/menu"/>
+					<div class="ri-menu fr">
+						<div class="menumain p">
+							<div class="goodpiece">
+								<h1>咨询记录</h1>
+							</div>
+							<div class="grou_num_list address_list_jl ma-to-20">
+								<ul class="grou_tite">
+									<li class="sx2"><span>咨询人</span></li>
+									<li class="sx1"><span>咨询内容</span></li>
+									<li class="sx3"><span>商品名称</span></li>
+									<li class="sx5"><span>咨询时间</span></li>
+								</ul>
+								<volist name="consultList" id="consultList">
+									<ul class="" data-address-id="">
+										<li class="sx2"><span>{$consultList.username}</span></li>
+										<li class="sx1"><span>{$consultList.content}</span></li>
+										<li class="sx3"><span>{$consultList.goods}</span></li>
+										<li class="sx5">
+											<span>{:date('Y-m-d H:i',$consultList.add_time)}</span>
+										</li>
+
+										<foreach name="consultList.replyList" item="reply">
+											<li class="store-reply p" style="float: none;width: 80%;text-align: left;padding:0 8%">
+												<span class="visitor-name">商家 <i class="reply-tips" style="color: #ec6909;">回复</i>{$consult.username}：</span>
+												{$reply.content}
+												<i class="send-time" style="float: right">{:date('Y-m-d H:i',$reply.add_time)}</i>
+											</li>
+											<br>
+										</foreach>
+									</ul>
+
+								</volist>
+							</div>
+							<p class="gp_num2">{$page}</p>
+						</div>
+					</div>
+
+			    </div>
+			</div>
+		</div>
+		<!--footer-s-->
+		<include file="user/footer" />
+		<!--footer-e-->
+		<script type="text/javascript">
+			$(function(){
+				$('.cn-apply a').click(function(){
+					$(this).addClass('curp').siblings().removeClass('curp')
+				})
+			})
+		</script>
+	</body>
+</html>

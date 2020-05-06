@@ -1,0 +1,54 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+<div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i class="icon-angle-right"></i>消费者保障服务</div>
+    <div class="main-content" id="mainContent">
+<div class="tabmenu">
+    <ul class="tab pngFix">
+  <li class="normal"><a href="{:U('Guarantee/index')}">消费者保障服务</a></li><li class="active"><a href="">保障服务详情</a></li></ul>
+</div>
+
+<div class="ncsc-form-default">
+	<dl>
+		<dt><em class="pngFix"></em>项目名称：</dt>
+		<dd>{$item_info.grt_name}</dd>
+	</dl>
+	<dl>
+		<dt><em class="pngFix"></em>所需保证金：</dt>
+		<dd>{$item_info.grt_cost}&nbsp;元&nbsp;</dd>
+	</dl>
+	<dl>
+		<dt><em class="pngFix"></em>状态：</dt>
+		<dd><if condition="$guarantee.joinstate eq 0">
+		 	未申请<else/>{$auditstate}</if>
+		</dd>
+	</dl>
+	<h3>保障服务日志</h3>
+	<table class="ncsc-default-table">
+		<thead>
+			<tr>
+				<th class="w30"></th>
+				<th class="w120 tl">操作人</th>
+				<th class="w200">操作时间</th>
+				<th class="tl">操作描述</th>
+			</tr>
+		</thead>
+		<tbody>
+		    <foreach name="handle_log" item="vo">
+		  	<tr class="bd-line">
+				<td>&nbsp;</td>
+			  	<td class="tl">{$vo.log_username}({$vo.log_role})</td>
+			  	<td>{$vo.log_addtime|date='Y-m-d H:i:s',###}</td>
+				<td class="tl">{$vo.log_msg}</td>
+			</tr>
+			</foreach>
+		</tbody>
+		<tfoot>
+		  		 
+		 </tfoot>
+	</table>
+</div>    </div>
+  </div>
+    </div>
+<include file="public/foot"/>

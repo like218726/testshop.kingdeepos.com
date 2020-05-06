@@ -1,0 +1,385 @@
+<body class="g4" style="min-height: 27.73333rem;position: relative;">
+<div id="spire-tire" style="width: 21.333rem"></div>
+<include file="public/header" title="添加地址" body="pore_add"/>
+<include file="public/header_nav" title="添加地址" href="javascript:history.back(-1)"/>
+<style>
+    .classreturn .content .return,.classreturn .content .menu{
+         top: .6rem !important;
+     }
+     .myorder .order .fl span{
+        font-size: .555rem;
+        color: #999;
+     }
+     .edit .myorder .order .fl input{
+        font-size: .555rem;
+     }
+     .myorder .order .two{
+         width: 11rem;
+     }
+     #area{
+         width: 9rem;
+     }
+     .myorder .order .fl.bot{
+        width: 11rem;
+     }
+     .my .content .floor{
+         border-radius: .213rem;
+     }
+</style>
+		<div class="floor my p edit">
+			<form action="{:U('Mobile/User/add_address')}" method="post" id="addressForm">
+				<div class="content">
+					<div class="floor list7">
+						<div class="myorder p">
+							<div class="content30">
+								<a href="javascript:void(0)">
+									<div class="order">
+										<div class="fl">
+											<span>收件人姓名:</span>
+										</div>
+										<div class="fl two">
+											<input placeholder="请输入姓名" type="text" value="{$address.consignee}" name="consignee"/>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="myorder p">
+							<div class="content30">
+								<a href="javascript:void(0)">
+									<div class="order">
+										<div class="fl">
+											<span>手机号码:</span>
+										</div>
+										<div class="fl two">
+											<input placeholder="请输入手机号码" type="tel" value="{$address.mobile}" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" name="mobile"/>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="myorder p">
+							<div class="content30">
+								<a href="javascript:void(0)" onclick="locationaddress(this);">
+									<div class="order">
+                                        <div class="fl">
+                                            <span>所在地区: </span>
+                                        </div>
+                                        <div class="fl">
+                                            <span id="area">请选择您的地址</span>
+                                            <input type="hidden" value="{$address['province']}" name="province" class="hiddle_area"/>
+                                            <input type="hidden" value="{$address['city']}" name="city" class="hiddle_area"/>
+                                            <input type="hidden" value="{$address['district']}" name="district" class="hiddle_area"/>
+                                            <input type="hidden" value="{$address['twon']}" name="twon" class="hiddle_area"/>
+                                        </div>
+										<div class="fr">
+											<i class="Mright"></i>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="myorder p">
+							<div class="content30">
+								<a href="javascript:void(0)">
+									<div class="order">
+										<div class="fl">
+											<span>详细地址:</span>
+										</div>
+										<div class="fl bot">
+											<input placeholder="请输入您的详细地址" type="text" value="{$address.address}" name="address"/>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="myorder p">
+							<div class="content30">
+								<a href="javascript:void(0)">
+									<div class="order">
+										<div class="fl">
+											<span>设为默认地址</span>
+										</div>
+										<div class="fr">
+											<i id='default_addr' class="Mright turnoff <if condition="$address.is_default == 1">turnup</if>"></i>
+										</div>
+                                        </div>
+                                        <input type="hidden" name="is_default" value="{$address.is_default}"/>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+                <input type="hidden" name="id" value="{$address.address_id}" />
+				<div class="edita">
+					<div class="content30">
+                        <?php $source = $Request.param.source;?>
+                        <notempty name="$source"> <!--如果是下订单时提交过了的页面-->
+                            <input type="button" value="保存并使用该地址" class="dotm_btn1 beett" onclick="checkForm()" />
+                            <input type="hidden" name="source" value="{$Request.param.source}" />
+                            <input type="hidden" name="order_id" value="{$Request.param.order_id}" />
+                            <input type="hidden" name="goods_id" value="{$Request.param.goods_id}" />
+                            <input type="hidden" name="goods_num" value="{$Request.param.goods_num}" />
+                            <input type="hidden" name="item_id" value="{$Request.param.item_id}" />
+                            <input type="hidden" name="action" value="{$Request.param.action}" />
+                            <input type="hidden" name="prom_id" value="{$Request.param.prom_id}" />
+                        <else/>
+                            <input type="button" value="保存该地址" class="dotm_btn1 beett" onclick="checkForm()" />
+                        </notempty>
+					</div>
+				</div>
+			</form>
+		</div>
+		<!--选择地区-s-->
+        <!-- <div class="container" >
+            <div class="city">
+                <div class="screen_wi_loc">
+                    <div class="classreturn loginsignup">
+                        <div class="content">
+                            <div class="ds-in-bl return seac_retu">
+                                <a href="javascript:void(0);" onclick="closelocation();"><img src="__STATIC__/images/return.png" alt="返回"></a>
+                            </div>
+                            <div class="ds-in-bl search center">
+                                <span class="sx_jsxz">选择地区</span>
+                            </div>
+                            <div class="ds-in-bl suce_ok">
+                                <a href="javascript:void(0);">&nbsp;</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="province-list"></div>
+                <div class="city-list" style="display:none"></div>
+                <div class="area-list" style="display:none"></div>
+            </div>
+        </div> -->
+
+        <div class="address_container">
+            <div class="add_show ">
+              <span class="show_text sel_show" onclick="toGetProvince();" data-id="{$address['province']}">
+                <volist name="province" id="sub">
+                  <if condition="$address['province'] eq $sub['id']"> {$sub.name}</if>
+                </volist>
+              </span>
+              <span class="show_text no_sel" onclick="toGetCity();" data-id="{$address['city']}">
+               <volist name="city" id="sub">
+                 <if condition="$address['city'] eq $sub['id']"> {$sub.name}</if>
+               </volist>
+             </span>
+             <span class="show_text no_sel" onclick="toGetDistrict();">
+              <volist name="district" id="sub">
+                <if condition="$address['district'] eq $sub['id']"> {$sub.name}</if>
+              </volist>
+            </span>
+            <span class="show_text no_sel" onclick="toGetTwon();">
+             <volist name="twon" id="sub">
+               <if condition="$address['twon'] eq $sub['id']"> {$sub.name}</if>
+             </volist>
+           </span>
+           <div class="close_add" onclick="closelocation()">取消</div>
+         </div>
+         <div style="clear:both;"></div>
+         <div class="add_select">
+          <div class="province-list2"></div>
+          <div class="city-list2" style="display: none;"></div>
+          <div class="area-list2" style="display: none"></div>
+          <div class="twon-list2" style="display: none"></div>
+        </div>
+      </div>
+        <!--选择地区-e-->
+		<div class="ed_shdele">
+			<div class="sfk">是否删除该地址?</div>
+			<div class="lineq">
+				<span class="clos">取消</span>
+				<span class="sur">确定</span>
+			</div>
+		</div>
+		<div class="mask-filter-div" style="display: none;"></div>
+
+    <style type="text/css">
+     .area_roll{
+            width: 100%;
+        }
+        .address_container {
+            position: fixed;
+            width: 100%;
+            bottom: -10.8rem;
+            padding: 0 3%;
+            background: #fff;
+            z-index: 999999;
+            font-size:0.64rem;
+        }
+        .show_text {
+            float: left;
+            display: block;
+            padding: 0.8em 0;
+
+            margin: 0px 1em 0 0;
+        }
+
+        .sel_show {
+             border-bottom: 2px solid red;
+             color:red;
+        }
+        .no_sel {
+            border-bottom: '';
+             color:#000;
+        }
+        .close_add {
+            float: right;
+            display: block;
+            padding: 0.8em;
+            color: #999;
+            cursor:pointer;
+        }
+        .sel_info {
+            padding: 1em 0;
+            border-top: 1px solid #e5e5e5;
+            color: #666;
+            cursor:pointer;
+        }
+        .Mrightt{
+            float: right;
+            width: .2033rem;
+            height: .3733rem;
+            margin-top: -0.8em;
+            margin-right: 1em;
+        }
+        .add_select {
+            height: 9rem;
+            bottom: 0px;
+            overflow: auto;
+        }
+
+    .city-list2, .province-list2, .area-list2, .twon-list2{
+      animation: bounceInLeft 1s 1
+    }
+    @keyframes bounceInLeft {
+      0% {
+        /*opacity: 0;*/
+        transform: translate3d(100px, 0, 0);
+      }
+      25% {
+        /*opacity: 1;*/
+        transform: translate3d(10px, 0, 0);
+      }
+      50% {
+        transform: translate3d(5px, 0, 0);
+      }
+      75% {
+        transform: translate3d(1px, 0, 0);
+      }
+      100% {
+         transform: translate3d(0, 0, 0);
+      }
+    }
+</style>
+        <script>var auto_bd=0;</script>
+        <script src="__STATIC__/js/mobile-location.js?11"></script>
+        <script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('.turnoff').click(function(){
+					$(this).toggleClass('turnup');
+                    $("input[name=is_default]").val(Number($(this).hasClass('turnup')));
+				});
+			})
+		</script>
+		<script type="text/javascript">
+			$(function(){
+				$('.menu').click(function(){
+					$('.ed_shdele').show();
+					$('.mask-filter-div').show();
+				})
+				$('.ed_shdele .clos').click(function(){
+					$('.ed_shdele').hide();
+					$('.mask-filter-div').hide();
+				})
+			});
+		</script>
+        <script type="text/javascript">
+            var ajax_status = 1;
+            function checkForm(){
+                var consignee = $('input[name="consignee"]').val();
+                var address = $('input[name="address"]').val(); 
+                var mobile = $('input[name="mobile"]').val();
+                var area = $('#area').html();
+                var error = '';
+                if(consignee == ''){
+                    error = '收货人不能为空 <br/>';
+                }
+                if(address == ''){
+                    error = '请填写地址 <br/>';
+                }
+                if(!checkMobile(mobile)){
+                    error = '手机号码格式有误 <br/>';
+                }
+                if(area == '') {
+                    error = '所在地区不能为空 <br/>';
+                }
+                if(error){
+                    layer.open({content:error,time:2});
+                    return false;
+                }
+                if(!ajax_status){
+                    return false;
+				}
+                ajax_status = 0;
+                $.ajax({
+                    type : "POST",
+                    url:"{:U('Mobile/User/add_address')}",//+tab,
+                    dataType:'JSON',
+                    data :$('#addressForm').serialize(),
+                    success: function(data)
+                    {
+                        ajax_status = 1;
+                        if(data.status == 1){
+                            layer.open({content:data.msg,time:2,end:function(){
+                                window.location.href=data.url;
+                            }});
+                        }else{
+                            layer.open({content:data.msg,time:2});
+                        }
+                    },
+                    error:function(){
+                        ajax_status = 1;
+                        layer.open({content:'请稍后再试',time:2});
+                    }
+                });
+            }
+		</script>
+        <script type="text/javascript">
+          
+            
+            function locationaddress(e){
+            $('.address_container').animate({height: $('#spire-tire').width()+'px', opacity: 'show'}, 'normal',function(){
+              $('.address_container').show();
+            });
+            if(!$('.address_container').is(":hidden")){
+              $('body').css('overflow','hidden')
+              cover();
+              $('.mask-filter-div').css('z-index','9999');
+            }
+          }
+          
+          function closelocation() {
+           $('.address_container').hide();
+           undercover();
+           
+         }
+
+
+            //选择地址回调
+            function select_area_callback(province_name , city_name , district_name , twon_name,  province_id , city_id , district_id , twon_id){ 
+            	var area = province_name+' '+city_name+' '+district_name+ ' ' +twon_name; 
+                $("#area").html(area);
+                $("input[name=province]").val(province_id);
+                $("input[name=city]").val(city_id);
+                $("input[name=district]").val(district_id);
+                $("input[name=twon]").val(twon_id);
+            }
+          
+        </script>
+	</body>
+</html>

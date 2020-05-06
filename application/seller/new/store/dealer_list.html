@@ -1,0 +1,96 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+<include file="public/left"/>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>供应商<i class="icon-angle-right"></i>我的销售商</div>
+    <div class="main-content" id="mainContent">
+<div class="tabmenu">
+    <ul class="tab pngFix">
+  <li class="active"><a  href="">我的销售商</a></li>
+  <li class="normal"><a href="{:U('Seller/Store/dealer_apply_list')}">申请列表</a></li>
+  <li class="normal"><a href="{:U('Seller/Store/dealer_handle_list')}">审理列表</a></li>
+  </ul>
+    <a href="javascript:void(0)" class="ncbtn ncbtn-mint" dialog_title="新增供货商" dialog_width="480" onclick="addDealer()">新增销售商</a>
+</div>
+<div class="alert mt15 mb5">
+	操作提示：
+	<ul>
+		<li>
+		1.再这里，你的身份是供应商，请勿和销售商混淆<br>
+		</li>
+	</ul>
+</div>
+<table class="search-form">
+  <form method="get" action="">
+    <tr>
+      <td>&nbsp;</td>
+      <th class="w150">销售商名称</th>
+      <td class="w160"><input type="text" class="text" name="dealer_name" value="{$Request.param.dealer_name}"/></td>
+      <td class="w70 tc"><label class="submit-border"><input type="submit" class="submit" value="搜索" /></label></td>
+    </tr>
+  </form>
+</table>
+<table class="ncsc-default-table">
+  <thead>
+    <tr>
+    <th class="w20">&nbsp;</th>
+      <th class="tl">销售商</th>
+      <th class="tl" id="remark">备注</th>
+      <th class="w100">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <empty name="list">
+    <tr>
+      <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+    </tr>
+  <else/>
+  <foreach name="list" item="vo">
+   <tr class="bd-line">
+      <td></td>
+      <td class="tl"><a target="_blank" href="{:U('Home/Store/index',['store_id' => $vo.store_id])}">{$vo.store_name} <i class="icon-external-link"></i></a></td>
+      <td class="tl">{$vo.dealer_remark}</td>
+      <td class="nscs-table-handle">
+     	<span><a href="javascript:void(0)" onclick="editRemark(this)" class="btn-bluejeans" data-id="{$vo.id}"><i class="icon-edit"></i><p>编辑备注</p></a></span>
+    </tr>
+  </foreach>
+  </empty>  
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="20"><div class="pagination">{$page}</div></td>
+    </tr>
+  </tfoot>
+</table>
+    </div>
+  </div>
+</div>
+<include file="public/foot"/>
+<script type="text/javascript">
+function addDealer(){
+	layer.open({
+		  type: 2,
+		  title: '新增销售商',
+	      shadeClose: true,
+	      shade: 0.2,
+	      skin: 'layui-layer-rim',
+	      area: ['450px', '350px'],
+		  content: ['{:U("Store/seller_apply")}' + '?target=dealer','no']
+	}); 
+}
+
+function editRemark(obj){
+	layer.open({
+		  type: 2,
+		  title: '编辑销售商备注',
+	      shadeClose: true,
+	      shade: 0.2,
+	      skin: 'layui-layer-rim',
+	      area: ['450px', '350px'],
+		  content: ['{:U("Store/edit_remark")}' + '?role=dealer&remark=' + $('#remark').html() + '&id=' + $(obj).attr('data-id'),'no']
+	}); 
+}
+
+</script>
+</body>
+</html>

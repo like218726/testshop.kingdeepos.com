@@ -1,0 +1,801 @@
+<include file="public/head"/>
+<script type="text/javascript" src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+
+<style>
+table{
+  border-collapse: inherit !important;
+}
+.ncsc-order-contnet thead td {
+    background-color: #f5f5f5;
+}
+.ncsc-order-contnet tfoot td {
+    padding: 10px 0;
+}
+
+.ncsc-order-contnet h3 {
+    background-color: #f5f5f5;
+    clear: both;
+    color: #000;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 22px;
+    padding: 5px 0 5px 12px;
+}
+h3 {
+    font-size: 18px;
+}
+.ncsc-order-contnet  td .sum em {
+    color: #c00;
+    font: 16px/24px Verdana,Arial;
+    margin: 0 4px;
+    vertical-align: bottom;
+}
+.ncsc-order-step dl.step-first{
+  margin-left: 0;
+}
+.ncsc-order-contnet h3{
+  display: inline-block;
+}
+.is_show{
+    display: block;
+}
+.is_hidden{
+    display: none;
+}
+</style>
+<style>
+    /*自提发货弹窗 s*/
+    .z-ztfh-bg{
+        position: fixed;
+        max-width: 1920px;
+        margin: 0 auto;
+        width: 100%;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 12;
+        background: rgba(0,0,0,0.4);
+    }
+    .z-ztfh-pop{
+        width: 730px;
+        min-height: 555px;
+        box-sizing: border-box;
+        text-align: center;
+        color: #333;
+        background-color: #fff;
+        overflow: hidden;
+        box-shadow: 1px 1px 0 rgba(0,0,0,.3);
+        z-index: 899;
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin:0 auto;
+        -webkit-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+    .z-ztfh-head h3{
+        text-align: left;
+        height: 43px;
+        line-height: 43px;
+        background-color: #f9f9f9;
+        color: #313132;
+        padding-left: 53px;
+        border-bottom: 1px solid #e3e3e3;
+    }
+    .z-ztfh-head{
+        position: relative;
+    }
+    .z-ztfh-head .z-ztfh-close{
+        width: 15px;
+        height: 15px;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 16px;
+        background: url(__PUBLIC__/static/images/close.png) no-repeat;
+        background-size: 100% 100%;
+    }
+    .z-ztfh-tab{
+        margin: 30px auto 0;
+        width: 683px;
+    }
+    .z-ztfh-tab .tab-ul-title,.z-ztfh-tab .tab-ul-cont{
+        overflow: hidden;
+        width: 100%;
+        border: 1px solid #e3e3e3;
+    }
+    .z-ztfh-tab .tab-ul-cont{
+        border-top: 0;
+    }
+    .z-ztfh-tab .tab-ul-title li{
+        height: 45px;
+        line-height: 45px;
+        background-color: #f9fbfd;
+    }
+    .z-ztfh-tab .tab-ul-title li,.z-ztfh-tab .tab-ul-cont li{
+        text-align: center;
+        float: left;
+        border-right:1px solid #e3e3e3;
+
+    }
+    .z-ztfh-tab .tab-ul-title li:last-of-type{
+        border-right:0px;
+    }
+    .z-ztfh-tab .tab-ul-cont li:last-of-type{
+        border-right:0px;
+    }
+    .z-ztfh-tab .tab-ul-cont li{
+        height: 88px;
+        line-height: 88px;
+    }
+    .z-ztfh-information{
+        margin-top: 10px;
+    }
+    .z-ztfh-information h5{
+        line-height: 45px;
+        text-align: left;
+        font-size: 13px;
+        color: #313132;
+        padding-left: 63px;
+    }
+    .ztfh-information-cont{
+        margin: 0 auto;
+        width: 555px;
+        padding: 30px 25px;
+        background-color:#e3e3e3;
+        overflow: hidden;
+    }
+    .information-list{
+        line-height: 27px;
+        color: #313132;
+        font-size: 13px;
+        float: left;
+        width: 50%;
+        text-align: left;
+    }
+    .z-ztfh-select{
+        overflow: hidden;
+        margin-top: 25px
+    }
+    .z-ztfh-select span{
+        float: left;
+        padding-left: 63px;
+        font-size: 13px;
+        color: #313132;
+        font-weight: 600;
+    }
+    .z-ztfh-select .z-ztfh-hema{
+        float: left;
+        margin-left: 15px;
+    }
+    .z-ztfh-select .z-ztfh-wuma{
+        float: left;
+        margin-left: 50px
+    }
+    .ztfh-label label{
+
+        margin-right: 5px;
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius:25px ;
+        border: 1px solid #999;
+        cursor: pointer;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+    .ztfh-lab-bg{
+        background: url(__PUBLIC__/static/images/withdraw-radio.png)no-repeat 2px 2px;
+        background-size: 70% 70%;
+    }
+    .z-ztfh-input{
+        text-align: left;
+        margin-top: 20px;
+    }
+    .z-ztfh-input span{
+        padding-left: 63px;
+        font-size: 13px;
+        color: #313132;
+        font-weight: 600;
+    }
+    .z-ztfh-input input{
+        margin-left: 13px;
+    }
+    .z-ztfh-btns{
+        margin:20px ;
+    }
+    .z-ztfh-btns input{
+        width: 108px;
+        height: 32px;
+        color: #fff;
+        border: 0px;
+        background-color:#5eb978 ;
+        cursor: pointer;
+    }
+    .fbutton_span {
+        border-radius: 4px;padding: 2px 7px;height: 20px;font-size: 12px;
+    }
+    .fbutton_right{
+        display: inline-block;margin-left: 310px;
+    }
+
+
+    /*自提发货弹窗 e*/
+</style>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>订单详情</div>
+        <div class="main-content" id="mainContent">
+            <div class="ncsc-oredr-show">
+            <!--<div class="ncsc-order-info" >-->
+                <!--<div class="ncsc-order-condition">-->
+                <!--&lt;!&ndash;<if condition="isset($button['edit'])">-->
+                  <!--<a class="ncbtn ncbtn-grapefruit mt5"   href="{:U('order/edit_order',array('order_id'=>$order['order_id']))}" data-original-title="修改订单">修改订单</a>-->
+               <!--</if>&ndash;&gt;-->
+               <!--<if condition="isset($order['seller_button']['split'])">-->
+                  <!--<a class="ncbtn ncbtn-grapefruit mt5"   href="{:U('order/split_order',array('order_id'=>$order['order_id']))}"  ata-original-title="拆分订单">拆分订单</a>-->
+               <!--</if>-->
+               <!--<a class="ncbtn ncbtn-grapefruit mt5"   href="{:U('Order/order_print',array('ids'=>$order['order_id']))}"  ata-original-title="打印订单"><i class="fa fa-print"></i>打印订单</a>-->
+
+                <!--</div>-->
+            <!--</div>-->
+              <div class="ncsc-order-info" style="margin-top:30px">
+                <div class="ncsc-order-details">
+                    <div class="title">订单信息<em style="color: red">{$order['store_id'] == $default_store_id?'（平台订单）':''}</em></div>
+                  <div class="content">
+                      <if condition="$order[shop_id] neq 0">
+                          <dl>
+                            <dt>提货人 :</dt>
+                            <dd>{$order[consignee]}  {$order.mobile}&nbsp;</dd>
+                          </dl>
+                          <dl>
+                              <dt>自提点:</dt>
+                              <dd>&nbsp;{$order[shop][AddressRegion]}</dd>
+                          </dl>
+                          <dl>
+                              <dt>联系电话:</dt>
+                              <dd>&nbsp;{$order[shop][shop_phone_code]}-{$order[shop][shop_phone]}</dd>
+                          </dl>
+                          <dl>
+                              <dt>自提时间:</dt>
+                              <dd>&nbsp;{$order[shop_order][take_time]}
+                              </dd>
+                          </dl>
+                          <else />
+                          <dl>
+                              <dt>收&nbsp;&nbsp;货&nbsp;&nbsp;人：</dt>
+                              <dd>{$order.consignee}&nbsp; {$order.mobile}&nbsp; {$order.FullAddress}</dd>
+                          </dl>
+                      </if>
+                    <dl>
+                      <dt>支付方式:</dt>
+                      <dd> 
+						  <if condition="$order[pay_status] eq 1 and empty($order.pay_name)">
+	                          在线支付
+	                          <else/>
+	                          {$order.pay_name}
+	                      </if>
+					  </dd>
+                    </dl>
+                      <if condition="$order.invoice_title">
+                          <dl>
+                              <dt>发票抬头：</dt>
+                              <dd>{$order.invoice_title}</dd>
+                          </dl>
+                      </if>
+
+                      <if condition="$order.taxpayer">
+                          <dl>
+                              <dt>纳税人识别号:</dt>
+                              <dd>&nbsp;&nbsp;{$order.taxpayer}</dd>
+                          </dl>
+                      </if>
+
+                    <dl>
+                      <dt>买家留言:</dt>
+                      <dd>&nbsp;&nbsp;{$order.user_note}</dd>
+                    </dl>
+                    <dl class="line">
+                      <dt>订单编号：</dt>
+                      <dd>{$order.order_sn}</dd>
+                    </dl>
+                    <dl >
+                      <dt>配送方式：</dt>
+
+                        <if condition="$order[shop_id] neq 0">
+                            <dd>
+                                自提
+                            </dd>
+
+                        </if>
+                        <foreach name="express" item="v">
+                            <dd>{$v.shipping_name} -- {$v.invoice_no}</dd>
+                        </foreach>
+                    </dl>
+                    <dl>
+                      <dt></dt>
+                      <dd></dd>
+                    </dl>
+                  </div>
+                </div>
+                <div class="ncsc-order-condition">
+                  <dl>
+                    <dt><i class="icon-ok-circle green"></i>订单状态：</dt>
+                    <dd>{$Think.config.ORDER_STATUS[$order[order_status]]}</dd>
+                  </dl>
+                  <ul>
+                        <!--<li>该订单还未确认</li>-->
+                  </ul>
+                </div>
+                </div>
+
+                <div id="order-step" class="ncsc-order-step" style="padding-left: 100px">
+                    <if condition="$order[shop_id] eq 0">
+                             <!-- 订单未支付 -->
+                            <dl  <if condition="$order['order_status'] neq 3 and $order['order_status'] neq 5"> class="step-first current" <else /> class="step-first"</if> >
+                                <dt>提交订单</dt>
+                                <dd class="bg"></dd>
+                                <dd class="date" title="下单时间">{$order.add_time|date='Y-m-d H:i:s',###}</dd>
+                            </dl>
+                            <!-- 已经支付, 单还未发货 -->
+                            <dl  <if condition="$order['show_status'] egt 2"> class="current" </if>>
+                            <dt>支付订单</dt>
+                            <dd class="bg"> </dd>
+                            <dd class="date" title="付款时间">{$order.pay_time|date='Y-m-d H:i:s',###}</dd>
+                            </dl>
+                            <dl <if condition="$order['show_status'] egt 3">class="current"</if>>
+                            <dt>商家发货 </dt>
+                            <dd class="bg"> </dd>
+                            <dd class="date" title="发货时间">{$order.shipping_time|date='Y-m-d H:i:s',###}</dd>
+                            </dl>
+                            <dl <if condition="$order['show_status'] egt 4 ">class="current"</if>>
+                            <dt>确认收货</dt>
+                            <dd class="bg"> </dd>
+                            <dd class="date" title="收货时间">{$order.confirm_time|date='Y-m-d H:i:s',###}</dd>
+                            </dl>
+                            <dl <if condition="$order['show_status'] eq 5">class="current"</if>>
+                            <dt>评价</dt>
+                            <dd class="bg"> </dd>
+                            <dd class="date" title="评价时间">{$comment_time|date='Y-m-d H:i:s',###}</dd>
+                            </dl>
+                        <else />
+                            <!-- 订单未支付 -->
+                            <dl class="step-first current">
+                                <dt>提交订单</dt>
+                                <dd class="bg"></dd>
+                                <dd class="date" title="下单时间">{$order.add_time|date='Y-m-d H:i:s',###}</dd>
+                            </dl>
+                            <!-- 已经支付, 单还未发货 -->
+                            <dl  <if condition="$order['show_status'] egt 2"> class="current" </if>>
+                            <dt>支付订单</dt>
+                            <dd class="bg"> </dd>
+                            <dd class="date" title="付款时间">{$order.pay_time|date='Y-m-d H:i:s',###}</dd>
+                            </dl>
+                        <dl <if condition="$order[order_status] gt 0 and $order[order_status] neq 3 and $order[order_status] neq 5 and $order['shop_order']['is_write_off'] == 1">class="current"</if>>
+                        <dt>等待自提</dt>
+                        <dd class="bg"> </dd>
+                        <dd class="date" title="收货时间"><if condition="$order[shipping_status] eq 1">{$order.confirm_time|date='Y-m-d H:i:s',###}</if></dd>
+                        </dl>
+                            <dl <if condition="$order['show_status'] eq 5">class="current"</if>>
+                            <dt>评价</dt>
+                            <dd class="bg"> </dd>
+                            <dd class="date" title="评价时间">{$comment_time|date='Y-m-d H:i:s',###}</dd>
+                            </dl>
+
+                    </if>
+
+              </div>
+              <div class="ncsc-order-contnet">
+                    <table class="ncsc-default-table order">
+                      <thead>
+                        <tr>
+                          <th class="w10">&nbsp;</th>
+                          <th colspan="2">商品</th>
+                          <th class="w120">单价(元)</th>
+							<if condition="$order.suppliers_id gt 0">
+								<th class="w120">供货价(元)</th>
+							</if>
+                          <th class="w60">数量</th>
+                          <th class="w100">规格属性</th>
+                          <th class="w200">实际购买单价</th>
+                        </tr>
+                      </thead>
+                        <tbody>
+                        <volist name="order_goods" id="good">
+                         <tr class="bd-line">
+                          <td>&nbsp;</td>
+                          <td class="w50"><div class="pic-thumb">
+                            <a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$good['goods_id']))}"><img src="{$good['goods_id']|goods_thum_images=200,200,$good.item_id}"></a></div>
+                          </td>
+                          <td class="tl">
+                            <dl class="goods-name">
+                                <dt><a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$good['goods_id']))}">{$good.goods_name}</a></dt>
+                            </dl>
+                          </td>
+                          <td>{$good.goods_price}<p class="green"></p></td>
+								<if condition="$order.suppliers_id gt 0">
+									<td>{$good.cost_price}</td>
+								</if>
+                          <td>{$good.goods_num}</td>
+                          <td>{$good.spec_key_name}</td>
+                          <td>{$good.final_price}</td>
+                          </tr>
+                        </volist>
+                       </tbody>
+                    <tfoot>
+                      <tr>
+                      <td colspan="20">
+                          <!--<if condition="$order['shipping_status'] eq 1">-->
+                            <!--<a href="javascript:void(0)" class="ncbtn ncbtn-grapefruit mt5">查看物流信息</a>-->
+                          <!--</if>-->
+                          <dl class="sum">
+                          <dt>小计：</dt>
+                          <dd><em>{$order.goods_price}</em>元</dd>
+                                </dl>
+                            </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+                <script>
+                    $(document).on('click','.ncbtn-grapefruit',function () {
+                        if($('.shipping').hasClass('is_hidden')){
+                            $('.shipping').removeClass('is_hidden').addClass('show')
+                        }else {
+                            $('.shipping').removeClass('show').addClass('is_hidden')
+                        }
+                    })
+                </script>
+            <!--物流信息-->
+            <if condition="$order['shipping_status'] eq 1 && $order['shipping_name'] !=''">
+                <!--<div class="ncsc-order-contnet is_hidden shipping">-->
+                <div class="ncsc-order-contnet shipping">
+                    <foreach name="express" item="v">
+                    <table class="ncsc-default-table order">
+                        <thead>
+                        <tr>
+                                <td colspan="20">
+                                    <dl class="freight">
+                                        <h3>查看物流信息</h3>
+                                    </dl>
+                                </td>
+                        </tr>
+                        <tr>
+                            <th class="w100">时间</th>
+                            <th class="w500">状态</th>
+                        </tr>
+                        </thead>
+                        <tbody id="express_info_{$v['id']}">
+                        </tbody>
+                    </table>
+                        <script>
+                            $(function(){
+                                var shipping_code = "{$v['shipping_code']}";
+                                var invoice_no = "{$v['invoice_no']}";
+								var phone = "{$v['mobile']}";
+                                var id = "{$v['id']}";
+                                $.ajax({
+                                    type : "GET",
+                                    dataType: "json",
+                                    url: "/index.php?m=Home&c=Api&a=queryExpress&shipping_code=" + shipping_code + "&invoice_no=" + invoice_no+"&phone="+phone,//+tab,
+                                    success: function (data) {
+                                        var html = '';
+                                        if(data.data.length >0){
+                                            $.each(data.data, function(i,n){
+                                                if(i == 0){
+                                                    html += '<tr class="bd-line"><td class="w100">'+n.time+'</td><td class="w500">'+n.context+'</td></tr>'
+                                                }else{
+                                                    html += '<tr class="bd-line"><td class="w100">'+n.time+'</td><td class="w500">'+n.context+'</td></tr>'
+                                                }
+                                            });
+                                        }else{
+                                            html += '<tr class="bd-line"><td class="w100">'+data.message+'</td></tr>'
+                                        }
+                                        $("#express_info_"+id).html(html);
+                                    }
+                                });
+                            })
+                        </script>
+                    </foreach>
+                </div>
+            </if>
+            <!-- 费用信息 -->
+             <div class="ncsc-order-contnet">
+                    <table class="ncsc-default-table order">
+                      <thead>
+                        <tr>
+                          <td colspan="20"><dl class="freight">
+                                <h3>费用信息</h3>
+                                <if condition="$order.pay_status lt 1 and $order.order_status lt 2">
+                                <span><a title="修改费用信息" class="ncbtn-mini"  href="{:U('Order/editprice',array('order_id'=>$order['order_id']))}"><i class="icon-edit"></i>修改费用信息</a></span>
+                                </if>
+                            </dl></td>
+                        </tr>
+                        <tr>
+                          <th class="w100">小计</th>
+                          <th class="w100">运费</th>
+                          <th class="w100">积分</th>
+                          <th class="w100">余额抵扣</th>
+                          <th class="w200">优惠券抵扣</th>
+                          <th class="w100">订单优惠</th>
+                          <th class="w100">价格调整</th>
+                          <th class="w100">应付</th>
+                        </tr>
+                      </thead>
+                        <tbody>
+                         <tr class="bd-line">
+                          <td class="w100">{$order.goods_price}</td>
+                          <td class="w100">+{$order.shipping_price}</td>
+                          <td class="w100">-{$order.integral_money}</td>
+                          <td class="w100">-{$order.user_money}</td>
+                          <td class="w100">-{$order.coupon_price}</td>
+                          <td class="w100">减:{$order.order_prom_amount}</td>
+                          <td class="w100">{$order.discount}</td>
+                          <td class="w100">
+                            <dl class="sum"><em>{$order.order_amount} </em>元
+                            </dl>
+                           </td>
+                        </tr>
+                       </tbody>
+                </table>
+              </div>
+              <!--操作信息-->
+             <div class="ncsc-form-goods" style="margin-top:30px">
+                    <h3 id="demo1">操作</h3>
+                    <dl>
+                        <dt>操作备注</dt>
+                        <dd>
+                        <form id="order-action">
+                          <textarea name="note" placeholder="请输入操作备注" class="textarea h60 w400 valid" maxlength="140"></textarea>
+                        </form>
+                          <span></span>
+                          <p class="hint">备注字不能超过140个汉字</p>
+                        </dd>
+                    </dl>
+                    <dl style="display:{$order['store_id'] == $default_store_id && $default_store_id != $store_id && $order['shop_id'] ==0 && $order['suppliers_id'] != $store_id?'none':''} ">
+                        <dt>可执行操作</dt>
+                        <!--上面显示过的按钮这里不再显示-->
+                        <!-- 去掉商家的付款按钮  pay -->
+                        <?php unset($button['edit']); unset($button['split']);unset($button['pay']);  ?>
+                        <foreach name="button" item="vo" key="k">
+                            {$vo}
+                            <if condition="$k eq 'pay_cancel'">
+                                <a href="javascript:void(0)" class="ncbtn ncbtn-grapefruit mt5"   data-url="{:U('Order/pay_cancel',array('order_id'=>$order['order_id']))}" onclick="pay_cancel(this)">{$vo}</a>
+                                <elseif condition="$k eq 'delivery'"/>
+                                    <!--判断自提订单及普通订单-->
+                                    <if condition="$order[shop_id] eq 0">
+                                        <a class="ncbtn ncbtn-grapefruit mt5"   href="{:U('Order/delivery_info',array('order_id'=>$order['order_id']))}">{$vo}</a>
+                                        <else />
+                                        <a class="ncbtn ncbtn-grapefruit mt5" onclick="deliverGoods({$order.order_id})">{$vo}</a>
+                                    </if>
+                                <elseif condition="$k eq 'delivery_confirm'  && $order['shop_order']['is_write_off'] == 0"/>
+                                    <!--判断自提订单 确认发货，但是没有核销-->
+                                    <if condition="$order[shop_id] gt 0">
+                                        <a class="ncbtn ncbtn-grapefruit mt5" onclick="deliverGoods({$order.order_id})">核销</a>
+                                    </if>
+
+                                <elseif condition="$k eq 'refund'"/>
+                                <!--退货商品列表-->
+                                <!--<input class="btn btn-primary" type="button" onclick="selectGoods2({$order['order_id']})" value="退货申请"> 	-->
+                                <elseif condition="$k neq 'delivery_confirm'"/>
+                                <label class="submit-border">
+                                    <input class="submit" nctype="formSubmit" type="button" 
+										onclick="ajax_submit_form('order-action','{:U('Order/order_action',array('order_id'=>$order['order_id'],'type'=>$k))}');"  
+										value="{$vo}">
+                                </label>
+                            </if>
+                        </foreach>
+                        </dd>
+                    </dl>
+              </div>
+
+              <!-- 操作记录 -->
+              <div class="ncsc-order-contnet">
+                    <table class="ncsc-default-table order">
+                      <thead>
+                        <tr>
+                          <td colspan="20"><dl class="freight"><h3>操作记录</h3></dl></td>
+                        </tr>
+                        <tr>
+                          <th class="w100">操作者</th>
+                          <th class="w160">操作时间</th>
+                          <th class="w100">订单状态</th>
+                          <th class="w100">付款状态</th>
+                          <th class="w200">发货状态</th>
+                          <th class="w80">描述</th>
+                          <th class="w200">备注</th>
+                        </tr>
+                      </thead>
+                        <tbody>
+                        <volist name="action_log" id="log">
+                         <tr class="bd-line">
+                          <td class="w100">
+                              <if condition="$log['seller'][seller_name]">{$log['seller'][seller_name]} <else/><if condition="$log.user_type eq 0">管理员<else />用户</if></if>
+                          </td>
+                          <td class="w160">{$log.log_time|date='Y-m-d H:i:s',###}</td>
+                          <td class="w100">{$order_status[$log[order_status]]}</td>
+                          <td class="w100">{$pay_status[$log[pay_status]]}<if condition="$order['pay_code'] eq 'code'"><span style="color: red">(货到付款)</span></if></td>
+                             <td class="w100">{$shipping_status[$log[shipping_status]]}<if condition='$order[shop_id] neq 0 and $order[pay_status] eq 1'>/{$log[shipping_status]==1 && $order[shop_order]['is_write_off']==1?'已自提':'待自提'}</if></td>
+                          <td class="w80">{$log.status_desc}</td>
+                          <td class="w200">{$log.action_note}</td>
+                        </tr>
+                        </volist>
+                       </tbody>
+                </table>
+            </div>
+
+            </div>
+    </div>
+</div>
+<div class="z-ztfh-bg" hidden>
+</div>
+<div class="z-ztfh-pop" hidden>
+    <form>
+        <div class="z-ztfh-head">
+            <i class="z-ztfh-close"></i>
+            <h3>商品发货</h3>
+        </div>
+        <div class="z-ztfh-tab">
+            <ul class="tab-ul-title">
+                <li style="width: 21%;">订单编号</li>
+                <li style="width: 24%;">下单时间</li>
+                <li style="width: 15%;">会员ID</li>
+                <li style="width: 15%;">订单总额</li>
+                <li style="width: 12%;">发货状态</li>
+                <li style="width: 12%;">配送方式</li>
+            </ul>
+            <ul class="tab-ul-cont" id="shop-order-info">
+            </ul>
+        </div>
+        <div class="z-ztfh-information">
+            <h5>自提信息:</h5>
+            <div class="ztfh-information-cont" id="shop-info"></div>
+        </div>
+        <div class="z-ztfh-select">
+            <span>提供方式:</span>
+            <div class="z-ztfh-hema ztfh-label">
+                <label ints="1" class="ztfh-lab-bg" data-val="1"></label>核码提货
+            </div>
+            <div class="z-ztfh-wuma ztfh-label">
+                <label data-val="0"></label>无码提货
+            </div>
+        </div>
+        <div class="z-ztfh-input">
+            <span>提      货 &nbsp;码:</span>
+            <label  ></label>
+            <input type="hidden" name="old_shop_order_id" id="old-shop-order-id" />
+            <input type="text" name="shop_order_id" id="shop-order-id" placeholder="请输入提货码" />
+        </div>
+        <div class="z-ztfh-btns">
+            <label></label>
+            <input type="button" id="fahuo" value="发货" />
+        </div>
+    </form>
+</div>
+<script>
+    function deliverGoods(order_id){
+        var ordreStr = '',shopStr = '';
+        $.ajax({
+            type:"POST",
+            url:"/index.php?m=seller&c=ShopOrder&a=getOrderGoodsInfo",
+            data:{order_id:order_id},
+            dataType:"json",
+            success: function (data) {
+                $("#old-shop-order-id").val(data.shop_order.shop_order_id);
+                ordreStr += '<li style="width: 21%;">' + data.order_sn + '</li><li style="width: 24%;">' + time_format(data.add_time) + '</li><li style="width: 15%;">' + data.user_id + '</li><li style="width: 15%;">' + data.total_amount + '</li><li style="width: 12%;">' + data.shipping_status_desc + '</li><li style="width: 12%;">' + data.delivery_method + '</li>';
+                $("#shop-order-info").html(ordreStr);
+
+                shopStr += '<div class="information-list">提货人：<em>' + data.consignee + '</em></div><div class="information-list">自提点：<em>' + data.shop.shop_name + '</em></div><div class="information-list">联系电话：<em>' + data.mobile + '</em></div><div class="information-list">自提时间：<em>' + data.shop_order.take_time + '</em></div>';
+                $("#shop-info").html(shopStr);
+
+                $(".z-ztfh-bg,.z-ztfh-pop").show();
+            }
+        })
+    }
+    //小时分钟秒的后尾补零
+    function checkTime(i){
+        if (i<10){
+            i = "0" + i;
+        }
+        return i;
+    }
+    //将时间戳转成字符串
+    function time_format(timestamp)
+    {
+        var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
+        return (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + (d.getDate()) + " " + (checkTime(d.getHours())) + ":" + (checkTime(d.getMinutes()));
+    }
+    $(".ztfh-label label").click(function  () {
+        var index= $(this).attr("ints")
+        $(".ztfh-label label").removeClass("ztfh-lab-bg");
+        $(this).addClass("ztfh-lab-bg");
+        if (index==1) {
+            $(".z-ztfh-input").show();
+        } else{
+            $(".z-ztfh-input").hide();
+        }
+    });
+    $(".z-ztfh-close").click(function  () {
+        $(".z-ztfh-bg,.z-ztfh-pop").hide();
+    })
+    $("#fahuo").click(function(){
+        var shopOrderId = $("#shop-order-id").val();
+        var oldShopOrderId = $("#old-shop-order-id").val();
+        console.log(shopOrderId,oldShopOrderId)
+        var isCode = $(".ztfh-lab-bg").data().val;
+        var newShopOrderId = oldShopOrderId;
+        if (isCode == 1) {
+            if(shopOrderId != oldShopOrderId){
+                layer.alert("提货码错误", {icon: 2});
+                return;
+            }
+            if(shopOrderId == ""){
+                layer.alert("请输入提货码", {icon: 2});
+                return;
+            }
+            newShopOrderId = shopOrderId;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=seller&c=ShopOrder&a=writeOff",
+            data: {shop_order_id: newShopOrderId},
+            dataType: "json",
+            success: function (data) {
+                if(data.status == 1){
+                    location.reload();
+                }else{
+                    layer.alert(data.msg, {icon: 2});
+                }
+            }
+        })
+    })
+    function pay_cancel(obj){
+        var url =  $(obj).attr('data-url');
+        layer.open({
+            type: 2,
+            title: '退款操作',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['45%', '50%'],
+            content: url,
+        });
+    }
+    //取消付款
+    function pay_callback(s){
+        if(s==1){
+            layer.msg('操作成功', {icon: 1});
+            layer.closeAll('iframe');
+        }else{
+            layer.msg(s, {icon: 3});
+            layer.closeAll('iframe');
+        }
+        setTimeout(function () {
+            location.href =	location.href;
+        },1000);
+    }
+
+    // 弹出退换货商品
+    function selectGoods2(order_id){
+        var url = "/index.php?m=Seller&c=Order&a=get_order_goods&order_id="+order_id;
+        layer.open({
+            type: 2,
+            title: '选择商品',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['60%', '60%'],
+            content: url,
+        });
+    }
+    // 申请退换货
+    function call_back(order_id,goods_id)
+    {
+        var url = "/index.php?m=Seller&c=Order&a=add_return_goods&order_id="+order_id+"&goods_id="+goods_id;
+        location.href = url;
+    }
+</script>
+<include file="public/foot"/>
+</body>
+</html>

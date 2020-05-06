@@ -1,0 +1,172 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>供应商品</div>
+<div class="main-content" id="mainContent">
+      
+	<div class="tabmenu">
+	  <ul class="tab pngFix">
+	  <li class="active"><a href="">供应商品</a></li>
+	  <li class="normal"><a href="{:U('Seller/Goods/supplierGoodsHandleList')}">供应商品审理</a></li>
+	  </ul>
+	</div>
+	<div class="alert mt15 mb5">
+		操作提示：
+		<ul>
+			<li>1、当源供应商品进行部分商品数据的修改时（如供货价、运费等），商品状态将显示为“数据修改”，此时需要你再次审理修改的商品数据，同意后可再次上架</li>
+			<li>2、当商品状态为“数据修改”，操作栏显示“待源供应商品审核”时，表示源供应商品还在审核中，请等待源供应商品审核成功后再进行操作</li>
+		</ul>
+	</div>
+	<form method="get" action="">
+	  <table class="search-form">
+	    <input type="hidden" name="act" value="goods_offline" />
+	    <tr>
+	      <td>&nbsp;</td>
+		  <th style="width: 75px;">供应商品状态</th>
+		  <td class="w90">
+	        <select name="supplier_goods_status">
+	          	<option value="-1">请选择...</option>
+	            <option value="0" <if condition="$Request.param.supplier_goods_status eq 0">selected</if>>正常供应</option>
+	            <option value="1" <if condition="$Request.param.supplier_goods_status eq 1">selected</if>>数据修改</option>
+	            <option value="2" <if condition="$Request.param.supplier_goods_status eq 2">selected</if>>暂停供应</option>
+	          </select>
+	      </td>
+	      <th>审核状态</th>
+	      <td class="w90">
+	        <select name="goods_state">
+	          	<option value="">请选择...</option>
+	            <option value="0" <if condition="$Request.param.goods_state heq 0">selected</if>>待审核</option>
+	            <option value="1" <if condition="$Request.param.goods_state eq 1">selected</if>>审核通过</option>
+	            <option value="2" <if condition="$Request.param.goods_state eq 2">selected</if>>未通过</option>
+	          </select>
+	      </td>
+	      <td class="w160"><input type="text" class="text" name="key_word" value="{$Request.param.key_word}" placeholder="搜索词"/></td>
+	      <td class="tc w70"><label class="submit-border"><input type="submit" class="submit" value="搜索" /></label></td>
+	    </tr>
+	  </table>
+	</form>
+	  <table class="ncsc-default-table">
+	  <thead>
+	    <tr nc_type="table_header">
+	      <th class="w80">ID</th>
+	      <th class="w50"></th>
+	      <th>商品名称</th>
+	      <th class="w80">供应商</th>
+	      <th class="w50">上架</th>
+	      <th style="min-width: 80px;">商品状态</th>
+	      <th class="w80">审核状态</th>
+	      <th class="w80">供货价</th>
+	      <th class="w50">销量</th>
+	      <th class="w50">库存</th>
+	      <th class="w200">操作</th>
+	    </tr>
+	      </thead>
+	  	  <tbody>
+	  	  	  <foreach name="goodsList" item="vo">
+		      <tr id="list_{$vo[goods_id]}">
+		      <td class="trigger">
+                  <!--<i class="icon-plus-sign" nctype="ajaxGoodsList"></i>-->
+                  {$vo.goods_id}</td>
+		      <td>
+				<div class="pic-thumb">
+					<img src="{$vo.goods_id|goods_thum_images=50,50}"/>
+				</div>
+			  </td>
+		      <td class="tl">
+		      	<dl class="goods-name">
+		          <dt style="max-width: 450px !important;">
+		          {$vo.goods_name|getSubstr=0,33}</dt>
+		          <dd>商家货号：{$vo.goods_sn}</dd>
+		        </dl>
+		      </td>
+			  <td>
+				{$vo.store_name}
+			  </td>
+		      <td><img width="20" height="20" src="__PUBLIC__/images/<if condition='$vo[is_on_sale] eq 1'>yes.png<else />cancel.png</if>" 
+					<if condition="$vo[goods_state] neq 1">
+						onclick="layer.msg('该商品需通过审核才能上架',{icon:2});"
+					<elseif condition="$vo[supplier_goods_status] eq 1" />
+						onclick="modifyGoods({$vo.goods_id})"
+					<elseif condition="$vo[supplier_goods_status] eq 2" />
+						onclick="layer.msg('该供应商品已暂停供应，请在供应商恢复供应后再尝试上架',{icon:2});"
+					<else />
+						onclick="changeTableVal2('goods','goods_id','{$vo.goods_id}','is_on_sale',this)"
+					</if> /></td>
+				<php>
+					$sgs_txt = [
+						'0' => '正常供应',
+						'1' => '变价修改',
+						'2' => '暂停供应',
+						'3' => '暂停供应',
+					];
+				</php>
+		      <td>{$sgs_txt[$vo[supplier_goods_status]]}<if condition="$vo[supplier_goods_status] eq 1 and $modify_status_list[$vo[root_goods_id]][dealer_status] eq 2">(拒绝变价)</if></td>
+		      <td>{$state[$vo[goods_state]]}</td>
+		       <td>{$vo.cost_price}</td>
+		      <td>{$vo.sales_sum}</td>
+		      <td>{$vo.store_count}</td>
+			  <td class="nscs-table-handle tr">
+				<if condition="$vo.supplier_goods_status eq 1">
+					<if condition="$modify_status_list[$vo[root_goods_id]][modify_status] == 1">
+						<span><a href="{:U('Goods/supplierGoodsModify',array('goods_id'=>$vo['goods_id']))}" class="btn-bluejeans"><i class="icon-check"></i><p>查看修改</p> </a></span>
+					<else />
+						<span><a href="javascript:void(0);" class="btn-bluejeans"><p>待源供应</p><p>商品审核</p> </a></span>
+					</if>
+				</if>
+				<span><a href="{:U('Goods/addEditGoods',array('goods_id'=>$vo['goods_id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p> </a></span>
+		        <span><a href="javascript:void(0);" onclick="del('{$vo[goods_id]}')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+		      </td>
+		      </tr>
+		      </foreach>
+	      </tbody>
+	      <tfoot>
+		    <tr>
+		       <td colspan="20">{$page}</td>
+		    </tr>
+		  </tfoot>
+	  </table>
+   </div>
+  </div>
+</div>
+<include file="public/foot"/>
+<script>
+// 删除操作
+function del(id) {
+	layer.confirm('确定要删除吗？', {
+				btn: ['确定','取消'] //按钮
+			}, function(){
+				// 确定
+				$.ajax({
+					url: "/index.php?m=Seller&c=goods&a=delGoods&ids=" + id,
+                    dataType:'json',
+					success: function (data) {
+						layer.closeAll();
+						if (data.status == 1){
+                            layer.msg(data.msg, {icon: 1, time: 1000},function () {
+                               $('#list_'+id).remove();
+                            });
+
+                        }else{
+                            layer.msg(data.msg, {icon: 2, time: 1000}); //alert(v.msg);
+                        }
+
+					}
+				});
+			}, function(index){
+				layer.close(index);
+			}
+	);
+}
+
+function modifyGoods(goods_id) {
+	layer.confirm('该供应商品存在数据（如供货价）修改，是否前往查看并审理新的供应商品数据？', {
+	  btn: ['前往','取消'] //按钮
+	}, function(){
+	  window.location.href = '{:U("seller/Goods/supplierGoodsModify")}' + '?goods_id=' + goods_id;
+	}, function(){
+	});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,493 @@
+<include file="public/head"/>
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<script type="text/javascript" src="//api.map.baidu.com/api?ak=iR2qhnXd5vrFI9wUuIRG9AWGIqykVNok&v=2.0"></script>
+<link href="__PUBLIC__/static/css/timePicker.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/static/js/jquery-timepicker.js"></script>
+<style>
+    .select-business-map {
+        width: 485px;
+        height: 270px;
+    }
+</style>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>门店<i class="icon-angle-right"></i>门店管理</div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="normal"><a href="{:U('Shop/index')}">门店列表</a></li>
+                    <li class="active"><a>新增/编辑门店</a></li>
+                </ul>
+            </div>
+            <div class="ncsc-form-default">
+                <form id="handleposition" method="post" onsubmit="return false;">
+                    <input type="hidden" name="shop_id" value="{$shop.shop_id}">
+                    <input name="longitude" type="hidden" value="{$shop['longitude']}" />
+                    <input name="latitude" type="hidden" value="{$shop['latitude']}" />
+                    <dl>
+                        <dt><i class="required">*</i>门店自提点后台账号：</dt>
+                        <dd>
+                            <input class="w400 text" type="text" name="shopper_name" value="{$shop.shopper_name}" maxlength="30"/>
+                            <span class="err" id="err_shopper_name"></span>
+                            <p class="hint">门店自提点后台账号</p>
+                        </dd>
+                    </dl>
+
+                    <empty name="shop">
+                        <dl>
+                            <dt><i class="required">*</i>会员账号：</dt>
+                            <dd>
+                                <input class="w400 text" type="text" name="user_name" value="{$shop.user_name}" maxlength="30"/>
+                                <span class="err" id="err_user_name"></span>
+                                <p class="hint">请输入手机号或者邮箱，用于登录会员中心</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>登录密码：</dt>
+                            <dd>
+                                <input type="password" name="password" value="" maxlength="16" class="w400 txt">
+                                <span class="err" id="err_password"></span>
+                                <p class="hint">登录密码</p>
+                            </dd>
+                        </dl>
+                    </empty>
+
+                    <dl>
+                        <dt><i class="required">*</i>自提点名称：</dt>
+                        <dd>
+                            <input class="w400 text" type="text" name="shop_name" value="{$shop.shop_name}" maxlength="30"/>
+                            <span class="err" id="err_shop_name"></span>
+                            <p class="hint">请填写自提点名称</p>
+                        </dd>
+                    </dl>
+                    <!-- <dl>
+                        <dt>是否允许门店修改基本信息：</dt>
+                        <dd>
+                            <input type="radio" name="is_base_edit" value="1"  checked="checked"/>是
+                            <input type="radio" name="is_base_edit" value="0"/>否
+                            <p class="hint">门店基本基本信息包括：门店名称、门店网址、门店主图、门店电话</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>是否允许门店修改销售\配送范围：</dt>
+                        <dd>
+                            <input type="radio" name="is_sales_edit" value="1"  checked="checked"/>允许修改
+                            <input type="radio" name="is_sales_edit" value="0"/>禁止修改
+                        </dd>
+                    </dl><dl>
+                    <dl>
+                        <dt><i class="required">*</i>销售\配送范围：</dt>
+                        <dd>
+                            <input type="radio" name="all_sales" value="1"  checked="checked"/>全国模板
+                            <input type="radio" name="all_sales" value="0"/>同城模板
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>门店是否作为自提点：</dt>
+                        <dd>
+                            <input type="radio" name="is_shop" value="1"  checked="checked"/>是
+                            <input type="radio" name="is_shop" value="0"/>否
+                            <p class="hint">是：支持买家网上下单后到门店提取的服务</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>门店是否自动接单：</dt>
+                        <dd>
+                            <input type="radio" name="is_auto_order" value="1"/>是
+                            <input type="radio" name="is_auto_order" value="0"  checked="checked"/>否
+                            <p class="hint">是：消费者收货地址距离门店地址最近时，订单自动指派给门店；否：门店不接受消费者下单后自动派单</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>门店是否支持拒绝接单：</dt>
+                        <dd>
+                            <input type="radio" name="is_refuse_order" value="1"/>是
+                            <input type="radio" name="is_refuse_order" value="0" checked="checked"/>否
+                            <p class="hint">是：门店可拒绝接受店铺指派的订单；否：门店无拒绝接受店铺指派订单权限</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>门店分佣比例：</dt>
+                        <dd>
+                            <input class="text" style="width: 30px;" type="text" name="shop_commision" value="" maxlength="3" onblur="if(!/(^0$)|(^100$)|(^\d{1,2}$)/.test(value)){value='';alert('门店分佣比例输入格式不正确!');}"/>%
+                            <p class="hint">分佣比例为0-100之间，按订单比例进行计算</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>结算周期：</dt>
+                        <dd>
+                            <select>
+                                <option>1天</option>
+                            </select>
+                        </dd>
+                    </dl> -->
+                    <!-- <dl>
+                        <dt>门店状态：</dt>
+                        <dd>
+                            <input type="radio" name="is_shop_status" value="1" checked="checked"/>开启
+                            <input type="radio" name="is_shop_status" value="0"/>关闭
+                            <p class="hint">开启：网点可接受抢单和指派订单。关闭：门店暂停使用、无法接受抢单和指派订单。</p>
+                        </dd>
+                    </dl> -->
+                    <dl>
+                        <dt><i class="required">*</i>联系电话：</dt>
+                        <dd>
+                            <input type="text" name="shop_phone_code" value="{$shop.shop_phone_code}" class="input-txt" placeholder="区号"> - <input type="text"  name="shop_phone" value="{$shop.shop_phone}" class="w200 input-txt" placeholder="请输入电话号码，区号可为空">
+                            <span class="err" id="err_shop_phone"></span>
+                            <p class="hint">联系电话</p>
+                        </dd>
+                    </dl>
+
+                    <dl class="required">
+                        <dt><i class="required">*</i>营业时间</dt>
+                        <dd class="opt">
+                            <div class="fl">
+                                <input type="text" class="time-picker" name="work_start_time" value="9:00" readonly />~<input type="text" class="time-picker" name="work_end_time" value="18:00" readonly />
+                            </div>
+                            <div class="z-week fl p">
+                                <div class="z-week-list">
+                                    周一
+                                    <input type="hidden" name="monday" value="{$shop['monday']}"/>
+                                </div>
+                                <div class="z-week-list">
+                                    周二
+                                    <input type="hidden" name="tuesday" value="{$shop['tuesday']}"/>
+                                </div>
+                                <div class="z-week-list">
+                                    周三
+                                    <input type="hidden" name="wednesday" value="{$shop['wednesday']}"/>
+                                </div>
+                                <div class="z-week-list">
+                                    周四
+                                    <input type="hidden" name="thursday" value="{$shop['thursday']}"/>
+                                </div>
+                                <div class="z-week-list">
+                                    周五
+                                    <input type="hidden" name="friday" value="{$shop['friday']}"/>
+                                </div>
+                                <div class="z-week-list">
+                                    周六
+                                    <input type="hidden" name="saturday" value="{$shop['saturday']}"/>
+                                </div>
+                                <div class="z-week-list">
+                                    周日
+                                    <input type="hidden" name="sunday" value="{$shop['sunday']}"/>
+                                </div>
+                                <span class="err" id="err_monday"></span>
+                            </div>
+
+                        </dd>
+
+                    </dl>
+
+
+                    <dl>
+                        <dt><i class="required">*</i>自提点地址</dt>
+                        <dd>
+                            <select onchange="get_city(this,{$shop[province_id]|default='0'})" id="province" name="province_id">
+                                <option value="0">选择省份</option>
+                                <volist name="province_list" id="province">
+                                    <option value="{$province.id}">{$province.name}</option>
+                                </volist>
+                            </select>
+                            <select onchange="get_area(this)" id="city" name="city_id">
+                                <option value="0">选择城市</option>
+                                <volist name="city_list" id="city">
+                                    <option value="{$city.id}">{$city.name}</option>
+                                </volist>
+                            </select>
+                            <select id="district" name="district_id">
+                                <option value="0">选择区域</option>
+                                <volist name="district_list" id="district">
+                                    <option value="{$district.id}">{$district.name}</option>
+                                </volist>
+                            </select>
+                            <span class="err" id="err_province_id"></span>
+                            <span class="err" id="err_city_id"></span>
+                            <span class="err" id="err_district_id"></span>
+                        </dd>
+                    </dl>
+
+                    <dl>
+                        <dt><i class="required">*</i>详细地址：</dt>
+                        <dd>
+                            <input class="w400 text" type="text" name="shop_address" value="{$shop.shop_address}" maxlength="30"/>
+                            <a class="btn" id="search_map"><i class="fa icon-search"></i>搜索地图</a>
+                            <span class="err" id="err_shop_address"></span>
+                            <p class="hint">详细地址</p>
+                        </dd>
+                    </dl>
+
+                    <dl class="row">
+                        <dt><i class="required">*</i>地图定位：</dt>
+                        <dd class="opt">
+                            <div class="select-business-wrap p">
+                                <div class="select-business-map fl">
+                                    <div id="container" style="width: 100%;height: 100%;"></div>
+                                </div>
+                                <script type="text/javascript">
+                                    function MarkerPoint(lng, lat) {
+                                        this.lng = lng;
+                                        this.lat = lat;
+                                    }
+                                    var map = new BMap.Map("container");
+                                    var geoc = new BMap.Geocoder();   //地址解析对象
+                                    var markersArray = [];
+                                    var geolocation = new BMap.Geolocation();
+                                    var local = new BMap.LocalSearch(map, {
+                                        renderOptions:{map: map}
+                                    });
+
+                                    var longitude = $("input[name='longitude']").val();
+                                    var latitude = $("input[name='latitude']").val();
+                                    var shop_id = $("input[name='shop_id']").val();
+                                    if(longitude == '' || latitude == ''){
+                                        longitude = 113.869117;
+                                        latitude = 22.581735;
+                                    }
+                                    var markerPoint = new MarkerPoint(longitude,latitude);
+                                    var point = new BMap.Point(longitude, latitude);
+                                    map.centerAndZoom(point, 12); // 中心点
+                                    if(shop_id == '' || shop_id== 0){
+                                        geolocation.getCurrentPosition(function (r) {
+                                            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                                                console.log(r.point);
+                                                var mk = new BMap.Marker(r.point);
+//									map.addOverlay(mk);
+                                                map.panTo(r.point);
+                                                map.enableScrollWheelZoom(true);
+                                            }
+                                            else {
+                                                alert('failed' + this.getStatus());
+                                            }
+                                        }, {enableHighAccuracy: true})
+                                    }else{
+                                        var mk = new BMap.Marker(markerPoint);
+                                        map.addOverlay(mk);
+                                        map.panTo(markerPoint);
+                                        map.enableScrollWheelZoom(true);
+                                    }
+
+                                    map.addEventListener("click", showInfo);
+
+
+                                    //清除标识
+                                    function clearOverlays() {
+                                        if (markersArray) {
+                                            for (i in markersArray) {
+                                                map.removeOverlay(markersArray[i])
+                                            }
+                                        }
+                                    }
+                                    //地图上标注
+                                    function addMarker(point) {
+                                        var marker = new BMap.Marker(point);
+                                        markersArray.push(marker);
+                                        clearOverlays();
+                                        map.addOverlay(marker);
+                                    }
+                                    //点击地图事件处理
+                                    function showInfo(e) {
+                                        $("input[name='longitude']").val(e.point.lng);
+                                        $("input[name='latitude']").val(e.point.lat);
+                                        geoc.getLocation(e.point, function (rs) {
+                                            var addComp = rs.addressComponents;
+                                            var address = addComp.street + addComp.streetNumber;
+                                            if(address != ''){
+                                                $("input[name='shop_address']").val(address);
+                                            }
+                                        });
+                                        addMarker(e.point);
+                                    }
+                                    $(function() {
+                                        $(document).on('click', '#search_map', function() {
+                                            var province_id = $("#province");
+                                            var city_id = $("#city");
+                                            var district_id = $("#district");
+                                            var shop_address = $("input[name='shop_address']").val();
+                                            if(province_id.val() == 0){
+                                                layer.open({icon:2,time:2000,content:"请选择省份"});
+                                                return;
+                                            }
+                                            if(city_id.val() == 0){
+                                                layer.open({icon:2,time:2000,content:"请选择市"});
+                                                return;
+                                            }
+                                            if(district_id.val() == 0){
+                                                layer.open({icon:2,time:2000,content:"请选择镇/区"});
+                                                return;
+                                            }
+                                            if(shop_address == ''){
+                                                layer.open({icon:2,time:2000,content:"请填写详细地址"});
+                                                return;
+                                            }
+                                            var address = province_id.find("option:selected").text() + city_id.find("option:selected").text() + district_id.find("option:selected").text() + shop_address;
+                                            local.search(address);
+                                        });
+                                    })
+                                </script>
+                            </div>
+                            <span class="err" id="err_longitude"></span>
+                        </dd>
+                    </dl>
+
+                    <dl class="row">
+                        <dt><i class="required">*</i>门店照片：</dt>
+                        <dd class="opt">
+                            <div class="ncap-form-default">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <volist name="shop_image_list" id="shop_image" item="vo" key="k" >
+                                                <div style="width:100px; text-align:center; margin: 5px; display:inline-block;" class="goods_xc">
+                                                    <input type="hidden" value="{$shop_image['image_url']}" name="shop_images[]">
+                                                    <a href="{$shop_image['image_url']}" target="_blank"><img width="100" height="100" src="{$shop_image['image_url']}"></a>
+                                                    <br>
+                                                    <a href="javascript:void(0)" onClick="shop_image_del(this,'{$shop_image.image_url}')">删除</a>
+                                                </div>
+                                            </volist>
+
+                                            <div class="goods_xc" style="width:100px; text-align:center; margin: 5px; display:inline-block;">
+                                                <a href="javascript:void(0);" onClick="GetUploadify3(10,'','shop','shop_image_call_back');"><img src="/public/images/add-button.jpg" width="100" height="100" /></a>
+                                                <br/>
+                                                <a href="javascript:void(0)">&nbsp;&nbsp;</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <span class="err" id="err_shop_images"></span>
+                            </div>
+                        </dd>
+                    </dl>
+
+                    <!--<dl class="row">
+                        <dt>供货商：</dt>
+                        <dd class="opt">
+                            <select name="suppliers_id">
+                                <option  value="0">不选则无供货商</option>
+                                <volist name="suppliers_list" id="s">
+                                    <option <if condition="$shop['suppliers_id'] eq $s['suppliers_id']">selected="selected"</if>  value="{$s.suppliers_id}">{$s.suppliers_name}</option>
+                                </volist>
+                            </select>
+                        </dd>
+                    </dl>-->
+
+                    <div class="bottom"><label class="submit-border">
+                        <input id="submit" type="submit" class="submit" value="提交"></label>
+                    </div>
+                </form>
+            </div>
+            <script type="text/javascript">
+
+                $('#province').val({$shop.province_id});
+                $('#city').val({$shop.city_id});
+                $('#district').val({$shop.district_id});
+                $(function () {
+                    $(document).on("click", '#submit', function (e) {
+                        $('span.err').hide();
+                        $('#submit').attr('disabled',true);
+                        verifyForm();
+                    })
+                })
+                function verifyForm(){
+
+                    var url = "{:U('Shop/save')}";
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $('#handleposition').serialize(),
+                        async:false,
+                        dataType: "json",
+                        error: function () {
+                            layer.alert("服务器繁忙, 请联系管理员!");
+                        },
+                        success: function (data) {
+                            if (data.status == 1) {
+                                layer.msg(data.msg,{icon: 1,time: 2000},function(){
+                                    location.href = "{:U('Seller/Shop/index')}";
+                                });
+                            } else {
+                                $('#submit').attr('disabled',false);
+                                $.each(data.result, function (index, item) {
+                                    $('#err_'+index).show();
+                                    $('#err_'+index).text(item);
+                                });
+                                layer.msg(data.msg, {icon: 2,time: 3000});
+                            }
+                        }
+                    });
+                }
+                // 上传商品相册回调函数
+                function shop_image_call_back(paths) {
+                    var last_div = $(".goods_xc:last").prop("outerHTML");
+                    for (var i = 0; i < paths.length; i++) {
+                        $(".goods_xc:eq(0)").before(last_div);	// 插入一个 新图片
+                        $(".goods_xc:eq(0)").find('a:eq(0)').attr('href', paths[i]).attr('onclick', '').attr('target', "_blank");// 修改他的链接地址
+                        $(".goods_xc:eq(0)").find('img').attr('src', paths[i]);// 修改他的图片路径
+                        $(".goods_xc:eq(0)").find('a:eq(1)').attr('onclick', "shop_image_del(this,'" + paths[i] + "')").text('删除');
+                        var input_obj = $("<input type='hidden' name='shop_images[]' value='"+paths[i]+"'/>");
+                        $(".goods_xc:eq(0)").find('a:eq(0)').before(input_obj);
+//			$(".goods_xc:eq(0)").find('input').val(paths[i]); // 设置隐藏域 要提交的值
+                    }
+                }
+
+                $(document).ready(function(e) {
+                    var shop_id = $("input[name='shop_id']").val();
+                    if (shop_id > 0) {
+                        $("input[name='shopper_name']").attr('disabled', 'disabled');
+                    }
+                    $('.z-week').find('.z-week-list').each(function(i,o){
+                        var day = $(this).find('input').val();
+                        if(day == 1){
+                            $(this).addClass('week-list-bg');
+                        }else{
+                            $(this).removeClass('week-list-bg');
+                        }
+                    })
+                    $(".time-picker").hunterTimePicker();
+                    $(".z-week-list").click(function  () {
+                        if($(this).hasClass('week-list-bg')){
+                            $(this).find("input").val(0);
+                            $(this).removeClass('week-list-bg')
+                        }else{
+                            $(this).find("input").val(1);
+                            $(this).addClass('week-list-bg')
+                        }
+                    })
+                });
+
+                /**
+                 * 上传之后删除组图input
+                 * @access   public
+                 * @val      string  删除的图片input
+                 */
+                function shop_image_del(obj,path)
+                {
+                    $.ajax({
+                        type:'GET',
+                        url:"{:U('Admin/Uploadify/delupload')}",
+                        data:{action:"del", filename:path},
+                        success:function(){
+                            $(obj).parent().remove(); // 删除完服务器的, 再删除 html上的图片
+                        }
+                    });
+                    // 删除数据库记录
+                    $.ajax({
+                        type:'GET',
+                        url:"{:U('seller/Shop/shopImageDel')}",
+                        data:{filename:path},
+                        success:function(){
+                            //
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

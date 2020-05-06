@@ -1,0 +1,88 @@
+<div class="top-hander p">
+    <div class="w1224 pr">
+        <div class="fl">
+            <div class="ls-dlzc fl nologin">
+                <a href="{:U('Home/user/login')}">Hi,请登录</a>
+                <a class="red" href="{:U('Home/user/reg')}">免费注册</a>
+            </div>
+            <div class="ls-dlzc fl islogin">
+                <a class="red userinfo" href="{:U('Home/user/index')}">{$user['nickname']|default=$user['mobile']}</a>
+                <a href="{:U('Home/user/logout')}">退出</a>
+            </div>
+            <div class="fl spc" style="margin-top:10px"></div>
+            <div class="sendaddress pr fl">
+            </div>
+        </div>
+        <div class="top-ri-header fr">
+            <ul>
+                <li><a target="_blank" href="{:U('Home/Order/order_list')}">我的订单</a></li>
+                <li class="spacer"></li>
+                <li><a target="_blank" href="{:U('Home/User/account')}">我的积分</a></li>
+                <li class="spacer"></li>
+                <li><a target="_blank" href="{:U('Home/User/coupon')}">我的优惠券</a></li>
+                <li class="spacer"></li>
+                <li><a target="_blank" href="{:U('Home/User/goods_collect')}">我的收藏</a></li>
+                <li class="spacer"></li>
+                <li class="hover-ba-navdh">
+                    <div class="nav-dh">
+                        <span>客户服务</span>
+                        <i class="jt-x"></i>
+                        <div class="conta-hv-nav">
+                            <ul>
+                                <li><a href="{:U('Seller/Index/index')}">商家后台</a></li>
+                                <li><a href="{:U('Home/Newjoin/index')}">商家帮助</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="spacer"></li>
+                <li class="navoxth">
+                    <div class="nav-dh">
+                        <i class="fl ico"></i>
+                        <span>手机{$tpshop_config.shop_info_store_name|default='TPshop商城'}</span>
+                        <i class="jt-x"></i>
+                    </div>
+                    <div class="sub-panel m-lst">
+                        <p>扫一扫，下载{$tpshop_config.shop_info_store_name|default='TPshop商城'}客户端</p>
+                        <dl>
+                            <dt class="fl mr10"><a target="_blank" href=""><img height="80" width="80" img-url="/index.php?m=Home&c=Index&a=qr_code&data={$mobile_url}&head_pic={$head_pic}&back_img={$back_img}"></a></dt>
+                            <dd class="fl mb10"><a target="_blank" href=""><i class="andr"></i> Andiord</a></dd>
+                            <dd class="fl"><a target="_blank" href=""><i class="iph"></i> iPhone</a></dd>
+                        </dl>
+                    </div>
+                </li>
+                <li class="spacer"></li>
+                <!--<li class="wxbox-hover">-->
+                    <!--<a target="_blank" href="">关注我们：</a>-->
+                    <!--<img class="wechat-top" src="__STATIC__/images/wechat.png" alt="">-->
+                    <!--<div class="sub-panel wx-box">-->
+                        <!--<span class="arrow-b">◆</span>-->
+                        <!--<span class="arrow-a">◆</span>-->
+                        <!--<p class="n"> 扫描二维码 <br>  关注{$tpshop_config.shop_info_store_name|default='TPshop商城'}微信 </p>-->
+                        <!--<img src="__STATIC__/images/qrcode_vmall_app01.png">-->
+                    <!--</div>-->
+                <!--</li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+//用户登录或为登录状态显示
+function user_login_or_no()
+{
+	var uname = getCookie('uname');
+	var head_pic = getCookie('head_pic');
+	if (uname == '') {
+		$('.islogin').remove();
+		$('.nologin').show();
+	} else {
+		$('.nologin').remove();
+		$('.islogin').show();
+		$('.userinfo').html(decodeURIComponent(uname));
+	}
+}
+
+$(document).ready(function(){
+	user_login_or_no();
+});
+</script>

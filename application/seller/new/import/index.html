@@ -1,0 +1,280 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper"> <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>淘宝CSV导入</div>
+<div class="main-content" id="mainContent">
+
+
+<script type="text/javascript">
+function pre_submit()
+{
+	var sels=$("#gcategory").find("select");
+	var i=0;
+	var txt="";
+	 sels.each(function(){
+		 i++;
+		 $(this).attr("name","cls_"+i);
+		 var tmp=$(this).find("option:selected").text();
+		 if(i!=3)tmp+="&gt;";
+		 txt+=tmp;
+		
+	 });
+	 $("#cate_name").val(txt);
+	 return true;
+}
+</script>
+<!-- S setp -->
+<ul class="add-goods-step">
+  <li class="current"><i class="icon icon-list-alt"></i>
+    <h6>STIP.1</h6>
+    <h2>导入CSV</h2>
+    <!--i class="arrow icon-angle-right"></i--> </li>
+  <!--li class=""><i class="icon icon-camera-retro "></i>
+    <h6>STIP.2</h6>
+    <h2>上传图片</h2></li>
+      <li class=""><i class="icon icon-ok-circle "></i>
+    <h6>STIP.3</h6>
+    <h2>完成导入</h2></li-->
+</ul>
+<!--S 分类选择区域-->
+<!--S 分类选择区域-->
+<div class="alert mt15 mb5"><strong>{$tpshop_config.shop_info_store_name}</strong> 操作提示：
+  <ul>
+<li>
+1.请将解压后的csv文件和图片文件夹里的图片文件同时上传，多图可使用Ctrl键勾选上传<br>    
+2.如果修改CSV文件请务必使用微软excel软件，修改时请勿修改其表格结构、行列名称，修改完成后务必不要修改文件编码格式及文件后缀名<br>
+3.请务必不要修改图片文件名称，否则将造成图片丢失，商品相册多图排序可在导入成功后点击商品编辑操作<br>
+4.上传时请注意商品分类及店铺分类为必选项. 如果导入后报错看<a href="http://help.tp-shop.cn/Index/Help/info/cat_id/5/id/663.html" style="color:red" target="_blank" >文档</a><br>
+</li>
+  </ul>
+</div>
+<form method="post" action="{:U('Seller/import/add_data')}" enctype="multipart/form-data" id="goods_form" onsubmit="return check();">
+  <div class="ncsc-form-goods">
+
+    <dl>
+      <dt><i class="required">*</i>CSV文件：</dt>
+      <dd>
+        <div class="handle">
+        <div class="ncsc-upload-btn"> 
+          <a href="javascript:void(0);"><span><input type="file" hidefocus="true" size="15" name="csv"></span></a>
+        </div>
+        </div>
+      </dd>
+    </dl>
+
+    <dl>
+      <dt><i class="required">*</i>图片文件：</dt>
+      <dd>
+        <div class="handle">
+        <div class="ncsc-upload-btn"> 
+          <a href="javascript:void(0);"><span><input type="file" hidefocus="false" size="150" multiple='multiple' name="images[]"></span></a>
+        </div>
+        </div>
+          <p class="hint">选择商品图片和商品详情的图片一起上传</p>
+      </dd>
+    </dl>
+
+    <dl>
+      <dt><i class="required">*</i>商品分类：</dt>
+      <dd id="gcategory"> 
+      <span nctype="gc1">
+        <select name="goods_class_id1" id="goods_cat_id1" onchange="get_category(this.value,'goods_cat_id2','1');">
+            <option value="0">请选择分类</option>
+            <volist name="goodsCategoryLevelOne" id="v">
+                <option value="{$v.id}">
+                {$v.name}
+                </option>
+            </volist>
+        </select>
+      </span> 
+
+      <span nctype="gc2">
+        <select name="goods_class_id2" id="goods_cat_id2" onchange="get_category(this.value,'goods_cat_id3','2');">
+            <option value="0">请选择分类</option>
+        </select>
+      </span> 
+
+      <span nctype="gc3">
+        <select name="goods_class_id3" id="goods_cat_id3">
+            <option value="0">请选择分类</option>
+        </select>
+      </span>
+      <p class="hint">请选择商品分类（必须选到最后一级）</p>
+      <!--input type="hidden" id="gc_id" name="gc_id" value="" class="mls_id">
+      <input type="hidden" id="cate_name" name="cate_name" value="" class="mls_names"-->
+      </dd>
+    </dl>
+    
+    <!--transport info begin-->
+    <dl>
+      <dt><i class="required">*</i>本店分类：</dt>
+      <dd><span class="new_add"><a href="javascript:void(0)" id="add_sgcategory" class="ncsc-btn">新增分类</a> </span>
+              <select name="store_cat_id1" id="store_cat_id1" onchange="get_store_category(this.value,'store_cat_id2','0');">
+                  <option value="0">请选择分类</option>
+                  <foreach name="store_goods_class_list" item="v" key="k" >
+                      <option value="{$v['cat_id']}">
+                      {$v['cat_name']}
+                      </option>
+                  </foreach>
+              </select>
+              <select name="store_cat_id2" id="store_cat_id2">
+                  <option value="0">请选择分类</option>
+              </select>
+          <p class="hint">商品可以从属于店铺的多个分类之下，店铺分类可以由 "商家中心 -&gt; 店铺 -&gt; 店铺分类" 中自定义</p>
+      </dd>
+    </dl>
+
+    <!--dl>
+      <dt>字符编码：</dt>
+      <dd>
+        <p>unicode</p>
+      </dd>
+    </dl-->
+
+    <!--dl>
+      <dt>文件格式：</dt>
+      <dd>
+        <p>csv文件</p>
+      </dd>
+    </dl-->
+
+    <dl>
+      <dt>&nbsp;</dt>
+      <dd>
+        <input type="submit" class="submit" value="导入">
+      </dd>
+    </dl>
+  </div>
+</form>
+
+<script>
+$(function() {
+  function sgcInit(){
+  	var sgcate	= $("select[name='stc_id[]']").clone();
+  	$("select[name='stc_id[]']").remove();
+  	sgcate.clone().appendTo('#div_sgcate');
+  	$("#add_sgcategory").click(function(){
+  		sgcate.clone().appendTo('#div_sgcate');
+  	});
+  }
+		sgcInit();
+	
+    // 查询下级分类，分类不存在显示当前分类绑定的规格
+    $('select[nctype="gc"]').change(function(){
+        $(this).parents('td:first').nextAll().html('');
+        getClassSpec($(this));
+    });
+});
+
+
+
+function get_category(id,next,select_id){
+    var url = '/index.php?m=Seller&c=import&a=return_goods_category';
+    var store_id = "{$store_id}";
+    $.ajax({
+        type : "GET",
+        url : url,
+        data:{'store_id':store_id,'parent_id':id},
+        error: function(request) {
+            layer.alert("服务器繁忙, 请联系管理员!",{icon:2});
+            return;
+        },
+        success: function(v) {
+          //console.log(v);return false;
+            v = "<option value='0'>请选择商品分类</option>" + v;
+            $('#'+next).empty().html(v);
+            if(select_id==1){
+              $('#goods_cat_id3').empty().html("<option value='0'>请选择商品分类</option>");
+            }
+            //(select_id > 0) && $('#'+next).val(select_id);//默认选中
+        }
+    });
+}
+
+function get_store_category(id,next,select_id){
+    var url = '/index.php?m=Home&c=api&a=get_store_category';
+    var store_id = "{$store_id}";
+    $.ajax({
+        type : "GET",
+        url : url,
+        data:{'store_id':store_id,'parent_id':id},
+        error: function(request) {
+            layer.alert("服务器繁忙, 请联系管理员!",{icon:2});
+            return;
+        },
+        success: function(v) {
+            v = "<option value='0'>请选择商品分类</option>" + v;
+            $('#'+next).empty().html(v);
+            //(select_id > 0) && $('#'+next).val(select_id);//默认选中
+        }
+    });
+}
+
+function check(){
+  if($('#goods_cat_id3').val()==0){
+    layer.msg('商品分类必须选到最后一级', {icon: 2, time: 1000});
+    return false;
+  }
+  if($('#store_cat_id2').val()==0){
+    layer.msg('店铺分类必须选到最后一级', {icon: 2, time: 1000});
+    return false;
+  }
+  return true;
+}    
+// ajax选择商品分类
+/*function getClassSpec($this) {
+    var id = parseInt($this.val());
+    var data_str = ''; eval('data_str =' + $this.attr('data-param'));
+    var deep = data_str.deep;
+    if (isNaN(id)) {
+        // 清理分类
+        clearClassHtml(parseInt(deep)+1);
+    }
+	document.getElementById('gc_id').value=id;
+    $.getJSON('index.php?act=store_spec&op=ajax_class&id=' + id + '&deep=' + deep, function(data){
+  
+        if (data) {
+            if (data.type == 'class') {
+                nextClass(data.data, data.deep);
+            } 
+        }
+    });
+	
+}*/
+
+// 下一级商品分类
+/*function nextClass(data, deep) {
+    $('span[nctype="gc' + deep + '"]').html('').append('<select data-param="{deep:' + deep + '}"></select>')
+        .find('select').change(function(){
+            getClassSpec($(this));
+        }).append('<option>请选择...</option>');
+    $.each(data, function(i, n){
+        if (n != null) {
+            $('span[nctype="gc' + deep + '"] > select').append('<option value="' + n.gc_id + '">' + n.gc_name + '</option>');
+		
+        }
+			  document.getElementById('gc_id').value=n.gc_id;
+    });
+    // 清理分类
+    clearClassHtml(parseInt(deep)+1);
+	
+}*/
+
+// 清理二级分类信息
+/*function clearClassHtml(deep) {
+    switch (deep) {
+
+        case 2:
+            $('span[nctype="gc2"]').empty();
+        case 3:
+            $('span[nctype="gc3"]').empty();
+            break;
+    }
+}*/
+
+</script>     
+</div>
+    </div>
+</div>
+<include file="public/foot"/> 
+</body></html>

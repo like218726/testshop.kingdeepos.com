@@ -1,0 +1,1157 @@
+@charset "utf-8";
+/*
+*name:公共初始化样式
+*create in 20174/11/28
+*version:tphsop-1.0
+*/
+
+.tpd-none{
+	display: none !important;
+}
+.tpd-block{
+	display: block !important;
+}
+.ui-flex{
+	    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.cell{
+	 -webkit-box-flex: 1; 
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1; 
+    width: 0; 
+    -webkit-flex-basis: 0;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0; 
+     max-width: 100%; 
+    display: block;
+   padding: 0 !important; 
+    position: relative;
+}
+.not-select{
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+.tp-decorate-wrap{
+    padding-top: 35px;
+    min-width: 1200px;
+}
+.tap-magin-left10{
+	margin-left: 10px;
+}
+.tpd-head{
+    height: 30px;
+    padding: 13px 16px;
+    font-size: 14px;
+    line-height: 30px;
+    background-color: #f1f1f1;
+}
+.tpd-head>li{
+    float: left;
+}
+.tpd-head>li+li{
+    margin-left: 36px;
+}
+.tpd-head label{
+    float: left;
+    color: #333;
+    margin-left: 19px;
+}
+.tpd-head input{
+    float: left;
+    padding: 0 10px;
+    font-size: inherit;
+    line-height: inherit;
+    color: #999;
+    background-color: #fff;
+}
+.tpd-module-name{
+    width: 150px;
+}
+
+.tpd-foot-wrap{
+    height: 101px;
+}
+.tpd-foot{
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    width: 100%;
+    left: 0;
+    height: 50px;
+    text-align: center;
+   /* background-color: #2a3542;*/
+    background-color: #4fc0e8;
+    border-top: 1px solid #ddd;
+}
+.tpd-foot a{
+    display: inline-block;
+    width: 86px;
+    margin: 10px 20px;
+    height: 32px;
+    line-height: 32px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px solid #4fc0e8;
+    border-radius: 4px;
+    /* font: bold 15px/48px 'Microsoft YaHei'; */
+    background-color: #fff;
+    color: #4fc0e8;
+}
+.tpd-foot-cont{
+	width: 300px;
+    position: absolute;
+    right: 0;
+}
+.tpd-foot>a+a{
+    background-color: #4fc0e8;
+    color: #fff;
+}
+.tpd-main{
+    margin-top: 16px;
+    padding: 0 16px 84px 14px;
+    background-color: #f1f1f1;
+}
+.tpd-scetion-title{
+    padding-left:38.6%;
+    line-height: 54px;
+    font-size: 16px;
+    color: #333;
+}
+.tpd-scetion-cont{
+    min-width: 1180px;
+    position: relative;
+}
+.tpd-mobile-show{
+    position: relative;
+    overflow: hidden;
+    float: left;
+    margin-left: 39.6%;
+}
+.tpd-mobile-scroll{
+    width: 375px;
+    height: 667px;
+    padding-right: 24px;
+    padding-left: 2px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.tpd-mobile-views{
+    width: 375px;
+    min-height:667px;
+    padding-bottom:40px;
+    padding-top: 2px;
+    background-color: #fff;
+}
+.tpd-eidt-tools{
+    float: left;
+    width:430px;
+    height: 680px;
+    padding: 0 16px 30px;
+    margin-left: 16px;
+    min-width: 100px;
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    top: -43px;
+}
+.tpd-tools{
+	width: 295px;
+	float: left;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.tpd-tools-title{
+    line-height: 54px;
+    font-size: 12px;
+    color: #666;
+}
+.tpd-tools-title>b{
+    font-size:16px;
+    color: #333;
+}
+.tpd-tool-wrap{
+    float: left;
+    height: 710px;
+    padding: 0 16px;
+    background-color: #4fc0e8;
+    color: #fff;
+    margin: -43px 10px 10px 0;
+}
+.tpd-tool-wrap:last-child{
+ /*   margin-right: 0;*/
+}
+.tpd-tool-wrap>h5{
+    line-height: 40px;
+    border-bottom: 1px solid #fff;
+    font-size: 12px;
+    font-weight: normal;
+}
+.tpd-tool-wrap>h5>em{
+    font-size: 14px;
+}
+.tpd-tool-list{
+    padding-top: 12px;
+}
+.tpd-tool-list>li{
+    float: left;
+    width: 84px;
+    height: 84px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.tpd-tool-list>li:hover,.tpd-tool-list>.draging-li{
+    color:#4fc0e8;
+    background-color: #fff;
+}
+.tpd-tool-list>li:hover .tpd-ico,.tpd-tool-list>.draging-li .tpd-ico{
+    background-position-y:-38px;
+}
+.tpd-tool-list .tpd-ico{
+    display: block;
+    width: 41px;
+    height: 38px;
+    margin:10px auto 0;
+    background-image: url("../images/tpd-form-icos.png");
+    background-repeat: no-repeat;
+}
+.ico-menus1{
+    background-position: 0 0;
+}
+.ico-menus2{
+    background-position:-41px 0;
+}
+.ico-menus3{
+    background-position:-82px 0;
+}
+.ico-menus4{
+    background-position:-123px 0;
+}
+.ico-menus5{
+    background-position:-164px 0;
+}
+.ico-menus6{
+    background-position:-205px 0;
+}
+.ico-menus7{
+    background-position:-246px 0;
+}
+.ico-menus8{
+    background-position:-287px 0;
+}
+.ico-menus9{
+    background-position:-328px 0;
+}
+.ico-menus10{
+    background-position:-369px 0;
+}
+.ico-menus11{
+    background-position:-410px 0;
+}
+.ico-menus12{
+    background-position:-451px 0;
+}
+.tpd-tool-list>li>label{
+    display: block;
+    padding-top: 4px;
+    line-height: 32px;
+    font-size: 12px;
+    text-align: center;
+}
+.tpd-edits-hidden{
+    width: 100%;
+    min-height:60px;
+    /*background-color: rgba(185,230,246,.4);*/
+    margin-bottom: 10px;
+    border: 1px solid #dddddd;
+}
+/*模拟占位黑块*/
+.tpd-guide-box{
+    box-sizing: border-box;
+    border:2px dashed #4fc0e8;
+    width: 100%;
+    height:60px;
+    line-height: 60px;
+    text-align: center;
+    background-color: rgba(0,0,0,.1);
+}
+/*拖拽滑块*/
+.drag-module{
+    position: fixed;
+    z-index: 11;
+    width: 84px;
+    height: 84px;
+    cursor: move;
+    border-radius:4px;
+    background-color: rgba(79,192,232,.3);
+}
+.drag-module2{
+    position: fixed;
+    left: 39.75%;
+    width: 375px;
+    height: 60px;
+    cursor: move;
+    background-color: rgba(79,192,232,.3);
+}
+/*模块选中样式*/
+.tpd-editing{
+    position: relative;
+    z-index:10;
+    box-shadow: 0 0 0 2px #4fc0e8;
+}
+.tpd-editing .tpd-editing-close{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    z-index: 9;
+    background:url("../images/tpd-form-icos.png") no-repeat -400px -76px;
+    cursor: pointer;
+}
+.tpd-editing:after{
+    content: '';
+    position: absolute;
+    top: 30px;
+    right: 0;
+    width: 30px;
+    height: 50px;
+/*    background:url("../images/tpd-icos.png") no-repeat -430px -76px;*/
+    cursor: pointer;
+}
+.tpd-edit-module{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 7;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(185,230,246,.4);
+    cursor:move;
+}
+.tpd-edit-module:before{
+    content: '编辑';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -20px;
+    margin-left: -60px;
+    padding-left: 56px;
+    width: 64px;
+    line-height: 40px;
+    border-radius: 20px;
+    font-size: 16px;
+    color: #fff;
+    text-align: left;
+    background:rgba(92,142,160,.5) url("../images/tpd-form-icos.png") no-repeat -492px 0;
+    cursor: pointer;
+}
+.tpd-edit-hover{
+    position: relative;
+}
+.tpd-edit-hover .tpd-edit-module{
+    display: block;
+}
+.tpd-edit-hover .tpd-edit-module:before{
+    display: none;
+}
+.tpd-editing .tpd-edit-module{
+    display: block;
+}
+.tpd-editing .tpd-edit-module:before{
+    display: block;
+    position: relative;
+}
+/*编辑diy设置页面-共用-s*/
+.tpd-diy-box{
+    padding: 0 16px 30px;
+    width: 400px;
+    height: 550px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border:1px solid #d6d6d6;
+}
+
+.tpd-diy-js{
+    display: none;
+}
+.diy-ac{
+    display: block;
+}
+.tpd-diy-title{
+    padding-top: 8px;
+    line-height: 32px;
+    border-bottom: 1px solid #d6d6d6;
+    font-size: 14px;
+    color: #333;
+}
+.tpd-diy-subtitle{
+    line-height: 36px;
+    font-size: 12px;
+    color: #333;
+}
+.tpd-cdiy-font28{
+    height: 28px;
+    font-size: 12px;
+    line-height: 28px;
+    color: #333;
+}
+.tpd-cdiy-font28>input{
+    vertical-align: top;
+    height: 26px;
+    border: 1px solid #d6d6d6;
+    color: #333;
+}
+.tpd-diy-bb{
+    display: block;
+}
+.tpd-diy-bb>input{
+    width:60px;
+    padding: 0 9px;
+    background-color: #fff;
+    margin:0 8px 0 20px ;
+}
+.tpd-cstyle-select>p{
+	display: block;
+	height: 20px;
+	margin-bottom: 10px;
+    line-height: 20px;
+    font-size: 14px;
+}
+.tpd-select-wrap{
+    position:relative;
+    float: left;
+    height: 26px;
+    line-height:26px;
+    border: 1px solid #d6d6d6;
+    cursor: pointer;
+}
+.tpd-select-wrap:before{
+    content: '';
+    position: absolute;
+    z-index:6;
+    top: -1px;
+    right: -1px;
+    width: 28px;
+    height: 28px;
+    background: #4fc0e8 url("../images/tpd-form-icos.png") no-repeat -472px -76px;
+}
+.tpd-select-wrap>span{
+    display: block;
+    padding: 0 27px 0 10px;
+    overflow: hidden;
+}
+.tpd-select-list{
+    display: none;
+    position: absolute;
+    top: 26px;
+    left: -1px;
+    border-top:1px solid #d6d6d6;
+    border-bottom:1px solid #d6d6d6;
+    background-color: #fff;
+}
+.tpd-select-ac .tpd-select-list{
+    display: block;
+    z-index: 5;
+}
+.tpd-select-list>li{
+    height:26px;
+    padding: 0 27px 0 10px;
+    border-right: 1px solid #d6d6d6;
+    border-left: 1px solid #d6d6d6;
+    overflow: hidden;
+}
+.tpd-select-list>li:hover{
+    background-color: #4fc0e8;
+    color: #fff;
+    border-left-color:#4fc0e8;
+    border-right-color:#4fc0e8;
+}
+
+.tpd-cstyle-dl{
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    color: #333;
+}
+.tpd-cstyle-dl>dt{
+    float: left;
+    margin-right: 19px;
+}
+.tpd-cstyle-dl>dd{
+    float: left;
+    width: 130px;
+}
+.tpd-cstyle-dl input{
+    vertical-align: middle;
+    width: 12px;
+    margin-right: 15px;
+}
+.tpd-cstyle-dl label>i{
+    display: inline-block;
+    vertical-align: top;
+    width: 18px;
+    height: 16px;
+    margin-right: 10px;
+    background-image: url("../images/tpd-form-icos.png");
+    background-repeat: no-repeat;
+}
+.tpd-cstyle-ico1{
+    background-position: -500px -40px;
+}
+.tpd-cstyle-ico2{
+    background-position: -518px -40px;
+}
+.tpd-cstyle-ico3{
+    background-position: -536px -40px;
+}
+.tpd-cadd-project{
+    height: 28px;
+    line-height: 29px;
+    width: 212px;
+    box-shadow: 0 0 12px rgba(1,76,102,.3);
+    color: #1aa6ff;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    margin: 15px 0 15px 18px;
+}
+.tpd-cadd-project>i{
+    display: inline-block;
+    position: relative;
+    width: 13px;
+    height: 13px;
+    margin-right: 18px;
+    margin-bottom: -1px;
+}
+.tpd-cadd-project>i:before,.tpd-cadd-project>i:after{
+    content: '';
+    position: absolute;
+    background-color: #1aa6ff;
+}
+.tpd-cadd-project>i:before{
+    top: 6px;
+    left: 0;
+    width: 13px;
+    height: 1px;
+}
+.tpd-cadd-project>i:after{
+    top: 0;
+    left:6px;
+    width: 1px;
+    height: 13px;
+}
+
+.tpd-cmodule-radio{
+    position: absolute;
+    top: 9px;
+    right: -60px;
+    width: 32px;
+    height: 32px;
+    background: url("../images/ico-footer-radio.png") no-repeat 0 -32px;
+}
+.radio-selected{
+    background-position-y: 0;
+}
+
+/*编辑diy设置页面-共用-e*/
+@media only screen and (max-width: 1420px) {
+	.tpd-scetion-cont .tpd-mobile-show{
+		margin-left: 25%;
+	}
+	.tpd-scetion-title{
+		margin-left: -14.7%;
+	}
+	.drag-module2{
+		left: 25.75%;
+	}
+}
+.scrollbar::-webkit-scrollbar{
+	width: 0px;
+}
+.tap-foot-p{
+	position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 14px;
+    line-height: 50px;
+    color: #fff;
+}
+/*组件样式s*/
+/*单文本*/
+.tpd-singleTex-title p{
+	height: 20px;
+	margin-top: 10px;
+	line-height: 20px;
+	font-size: 14px;
+}
+.tpd-singleTex-input{
+	overflow: hidden;
+}
+.tpd-singleTex-input input{
+	width: 200px;
+	height: 25px;
+	margin-top: 10px;
+	line-height: 25px;
+	border: 1px solid #d6d6d6;
+	float: left;
+	padding-left: 10px;
+	font-size: 12px;
+/*	border-radius: 5px;*/
+}
+.tpd-singleTex-input span{
+	float:left ;
+	margin-left: 10px;
+    font-size: 12px;
+    line-height: 25px;
+    margin-top: 10px;
+}
+.tpd-singleTex-textarea{
+	overflow: hidden;
+    line-height: 20px;
+    margin-top: 10px;
+}
+.tpd-singleTex-textarea textarea{
+	width: 200px;
+	height: 60px;
+	float: left;
+	line-height: 20px;
+	color: #666;
+	border: 1px solid #d6d6d6;
+	border-radius: 5px;
+	resize: vertical !important;
+}
+.tpd-singleTex-textarea textarea:hover{
+	border-color: #2CBCA3
+}
+.tpd-singleTex-textarea span{
+	float: left;
+	margin-left: 10px;
+    font-size: 12px;
+}
+.tpd-txtnav-style{
+    padding: 10px 0;
+}
+.tpd-txtnav-style .tpd-cstyle-select{
+    margin-bottom: 24px;
+}
+.tpd-txtnav-style .tpd-select-wrap{
+    width: 155px;
+}
+.tpd-txtnav-style .tpd-select-list{
+    width:157px;
+}
+.tpd-txtnav-style .tpd-diy-bb>input{
+    margin-left: 31px;
+}
+.tpd-txtnav-set{
+    float: left;
+    padding: 30px 0 0 50px;
+}
+.tpd-txtnav .tpd-cdiy-list>li{
+    overflow: inherit;
+    position: relative;
+}
+.tpd-txtnav-name>input{
+    width: 198px;
+    padding: 0 10px;
+    margin: 0 10px 0 11px;
+}
+.tpd-txtnav-addlink{
+    margin-top: 18px;
+}
+.tpd-txtnav-addlink>label{
+    float: left;
+    margin-right: 15px;
+}
+.tpd-singleTex-checkbox{
+	overflow: hidden;
+	margin-top: 5px;
+}
+.tpd-singleTex-checkbox input{
+	width: 12px;
+	height: 12px;
+	margin: 4px 10px 0 5px;
+	float: left;
+	cursor: pointer;
+}
+.tpd-singleTex-checkbox span{
+	float: left;
+	font-size: 14px;
+	color: #4fc0e8;
+	line-height: 20px;
+	display: block;
+}
+.tpd-singleTex-checkbox i{
+    display: block;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 13px;
+    background-color: #4fc0e8;
+    color: #ffffff;
+    float: left;
+    border-radius: 15px;
+    margin-left: 5px;
+    margin-top: 1px;
+    text-align: center;
+}
+/*单选框组件*/
+.tpd-radio-wrap{
+	margin: 10px 0;
+}
+.tpd-radioButton-title{
+	height: 20px;
+    margin: 10px 0;
+    line-height: 20px;
+    font-size: 14px;
+}
+.tpd-radio-wrap .tpd-radioButton-li{
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.tpd-radioButton-radio{
+	float: left;
+	height: 20px;
+}
+.tpd-radioButton-radio input{
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+.tpd-radioButton-input{
+	float: left;
+	margin-left: 5px;
+}
+.tpd-radioButton-input input{
+	width: 200px;
+	height: 20px;
+	line-height: 20px;
+	padding-left: 10px;
+	border:1px solid #d6d6d6 ;
+}
+.tpd-btn-del{
+    width: 22px;
+    height: 22px;
+    margin: 1px 0 0 9px;
+    float: left;
+    background: url(../images/tpd-form-icos.png) no-repeat -404px -80px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+/*复选框*/
+.tpd-checkBox-wrap{
+	margin: 10px 0;
+}
+.tpd-checkButton-li {
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+.tpd-checkBox-btn{
+	float: left;
+}
+.tpd-checkBox-btn input{
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+}
+/*下拉框*/
+.tpd-dropDown-list .tpd-singleTex-input{
+	overflow: hidden;
+}
+.tpd-dropDown-list .tpd-singleTex-input input{
+	float: left;
+}
+.tpd-dropDown-list .tpd-singleTex-input .tpd-btn-del{
+	margin-top: 10px;
+}
+/*组件样式e*/
+/*组件样式内容s*/
+.tpd-singleText-cont,.tpd-multiText-cont,.tpd-radioButton-cont,.tpd-checkBox-cont,.tpd-picture-cont {
+	padding: 10px;
+}
+
+.tpd-singleText-cont .singleText-cont-p{
+	/*display: none;*/
+	margin-top: 5px;
+	font-size: 13px;
+	color: #999;
+	line-height: 18px;
+}
+.singleText-cont-input input{
+	width: 200px;
+	height: 25px;
+	margin-top: 5px;
+	line-height: 25px;
+	font-size: 12px;
+	padding-left: 10px;
+	border: 1px solid #d6d6d6;
+}
+/*多文本*/
+.TextName{
+	font-size: 15px;
+    color: #333333;
+}
+.multiText-cont-textarea textarea{
+	width: 210px;
+    height: 75px;
+    margin-top: 5px;
+    line-height: 25px;
+    font-size: 12px;
+    border: 1px solid #d6d6d6;
+    resize: vertical !important;
+} 
+/*单选按钮组*/   
+.radioButton-cont-list .radioButton-cont-radio{
+	height: 25px;
+	margin-top: 5px;
+}
+.radioButton-cont-radio input{
+	display: inline-block;
+	vertical-align: middle;
+}
+.radioButton-cont-radio label{
+	line-height: 25px;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 14px;
+    max-width: 300px;
+}
+/*复选按钮组*/
+
+.checkBox-cont-list .checkBox-cont-check{
+	height: 25px;
+	margin-top: 5px;
+}
+.checkBox-cont-check input{
+	display: inline-block;
+	vertical-align: middle;
+}
+.checkBox-cont-check label{
+	line-height: 25px;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 14px;
+    max-width: 300px;
+}
+/*下拉框*/
+.tpd-dropDown-cont{
+	padding: 0 10px;
+}
+.dropDown-cont-title{
+	margin-bottom: 5px;
+}
+.tpd-dropDown-style{
+    padding: 10px 0;
+}
+.tpd-dropDown-style .tpd-cstyle-select{
+    margin-bottom: 5px;
+}
+.tpd-dropDown-style .tpd-select-wrap{
+    width: 210px;
+}
+.tpd-dropDown-style .tpd-select-list{
+    width:212px;
+}
+.tpd-dropDown-style .tpd-cdiy-font28{
+	height: auto;
+	overflow: hidden;
+}
+.tpd-dropDown-style .tpd-diy-bb>input{
+    margin-left: 31px;
+}
+/*图片*/
+.picture-cont-img{
+    margin-top: 10px;
+    width: 90px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #d6d6d6;
+}
+.picture-cont-img a{
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+/*预约人信息*/
+.tpd-appointment-wrap,.tpd-timeAppointment-wrap,.tpd-AppointmentDays-wrap,.tpd-AppointmentNumber-wrap,.tpd-facilities-wrap{
+	padding: 10px;
+	border: 1px solid #dddddd;
+	margin-bottom: 10px;
+}
+.tpd-commonBd-name{
+	overflow: hidden;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+.tpd-commonBd-name span{
+	float: left;
+	color: #FF0000;
+}
+.tpd-commonBd-name p{
+	color: #000000;
+	margin-left: 5px;
+	float: left;
+}
+.commonBd-list{
+	overflow: hidden;
+	margin-bottom: 10px;
+	height: 29px;
+	line-height: 29px;
+}
+.commonBd-list .commonBd-name{
+	float: left;
+	font-size: 14px;
+	margin-left: 11px;
+}
+.commonBd-list .commonBd-input{
+	line-height: 25px;
+	float: left;
+}
+.commonBd-list .commonBd-input input{
+	margin-left: 10px;
+	padding-left: 5px;
+	height: 25px;
+	font-size: 12px;
+	line-height: 25px;
+	border: 1px solid #d6d6d6;
+}
+.tpd-appointment-wrap .tpd-singleTex-title{
+	margin-left: 10px;
+}
+
+/*可预约时间*/
+.timeAppointment-list-wrap{
+	overflow:hidden;
+}
+.timeAppointment-list-ul{
+	overflow: hidden;
+	float: left;
+}
+.timeAppointment-list{
+    width: 45px;
+    height: 25px;
+    font-size: 12px;
+    line-height: 25px;
+    text-align: center;
+    border: 1px solid #d6d6d6;
+    float: left;
+    margin-right: 8px;
+    cursor: pointer;
+}
+.timeAppointment-list.timechenk{
+    border: 1px solid #006ef5;
+    background: url(../images/timeChenk1.png) no-repeat -1px 0px;
+    color: #006ef5;
+    background-size: 17px;
+}
+.timeAppointment-list-checkbox{
+	float: left;
+	height: 27px;
+	line-height: 27px;
+	margin-left: 9px;
+}
+.timeAppointment-list-checkbox input{
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: middle;
+}
+.timeAppointment-list-checkbox label{
+	font-size: 13px;
+}
+.timeAppointment-select-wrap{
+	overflow: hidden;
+	margin: 15px 0;
+}
+.timeAppointment-select{
+	float: left;
+}
+.timeAppointment-select input{
+	width: 95px;
+	padding:0 30px 0 5px;
+	border: 1px solid #d6d6d6;
+	color: #999999;
+	font-size: 12px;
+	cursor: pointer;
+	height: 25px;
+	line-height: 25px;
+    background: url(../images/timeIcon.png) no-repeat 107px 3px;
+    background-size: 20px;
+}
+.timeAppointment-select-icon{
+	float: left;
+	margin: 0 7px;
+}
+.timeAppointment-sj{
+	float: left;
+    height: 27px;
+    line-height: 27px;
+    margin-right: 5px;
+    font-size: 13px;
+}
+/*可预约天数*/
+.AppointmentDays-list{
+	overflow: hidden;
+}
+.AppointmentDays-list .AppointmentDays-mins,.AppointmentDays-list .AppointmentDays-add{
+	display: block;
+	width: 25px;
+	float: left;
+	height: 25px;
+	text-align: center;
+	border: 1px solid #d6d6d6;
+	cursor: pointer;
+}
+.AppointmentDays-list input{
+	float: left;
+	border-bottom: 1px solid #d6d6d6;
+	border-top: 1px solid #d6d6d6;
+	height: 25px;
+	width: 60px;
+	line-height: 25px;
+	text-align: center;
+}
+.AppointmentTips-wrap p{
+	color:#4fc0e8;
+	font-size: 13px;
+	margin: 10px 0 0 0;
+}
+/*可预约人数*/
+.AppointmentNumber-list span{
+	font-size: 13px;
+}
+.AppointmentNumber-list input{
+	text-align: center;
+	width: 60px;
+	height: 25px;
+	border: 1px solid #d6d6d6;
+	margin:0 10px;
+}
+.AppointmentNumber-list i{
+	margin-left: 10px;
+}
+/*配套设施*/
+.tpd-facilities-wrap .tpd-commonBd-name p{
+	margin-left: 10px;
+}
+.facilities-list-wrap{
+	overflow: hidden;
+}
+.facilities-list{
+	width: 130px;
+	float: left;
+	overflow: hidden;
+	margin:0 15px 10px 0;
+}
+ .facilities-checkbox{
+	float:left;
+	vertical-align: middle;
+	margin-top: 4px;
+	cursor: pointer;
+}
+ .facilities-text{
+	width: 80px;
+	height: 20px;
+	border: 1px solid #d6d6d6;
+	margin:0 5px;
+	font-size: 12px;
+	padding-left: 5px;
+	border-radius:3px ;
+	float: left;
+}
+.facilities-close{
+	float: left;
+	width: 15px;
+	height: 15px;
+	border: 1px solid #d6d6d6;
+	border-radius:15px;
+	font-size: 12px;
+	color:#999999;
+	text-align: center;
+	line-height: 12px;
+	margin-top: 3px;
+	cursor: pointer;
+}
+.tpd-facilities-wrap .tpd-cadd-project{
+	height: 25px;
+	line-height: 25px;
+	width: 86px;
+    margin: 3px 0 5px 28px;
+}
+/*组件样式内容e*/
+/*时间插件*/
+.tpd-selectTime-wrap{
+	width: 375px;
+	position: absolute;
+	bottom: -231px;
+	left: 2px;
+	z-index: 9999;
+	background-color: #ffffff;
+}
+.tpd-selectTime-wrap h3{
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	text-align: center;
+	background-color: #4fc0e8;
+	color: #ffffff;
+	border-bottom:1px solid #d6d6d6 ;
+	position: relative;
+}
+.tpd-selectTime-wrap h3 i{
+	position: absolute;
+	right: 5px;
+	top: 4px;
+	cursor: pointer;
+	width: 20px;
+	font-size: 14px;
+	height: 20px;
+	display: block;
+	color: #d6d6d6;
+	text-align: center;
+	line-height: 20px;
+	border-radius: 15px;
+
+	border: 1px solid #d6d6d6;
+}
+.tpd-selectTime-wrap .tpd-selectTime-ul{
+	height: 200px;
+	overflow: hidden;
+}
+.tpd-selectTime-wrap .tpd-selectTime-ul ul{
+	height: 200px;
+	overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 20px solid #4fc0e8;
+    border-left: 20px solid #4fc0e8;
+}
+    
+.tpd-selectTime-wrap .tpd-selectTime-ul li{
+	height: 25px;
+	line-height: 25px;
+	cursor: pointer;
+	font-size: 13px;
+	text-align: center;
+}
+.tpd-selectTime-wrap .tpd-selectTime-ul li:hover{
+	background-color: #f2f2f2;
+	color: #333333;
+}
+.scrollbar::-webkit-scrollbar{
+	width: 0px;
+}

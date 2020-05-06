@@ -1,0 +1,45 @@
+<include file="public/header" title="设置新密码" body=""/>
+<link rel="stylesheet" href="__STATIC__/css/sign_in.css"/>
+<div class="classreturn loginsignup">
+    <div class="content">
+        <div class="ds-in-bl return">
+            <a href="javascript:history.back(-1);"><img src="__STATIC__/images/return.png" alt="返回"></a>
+        </div>
+        <div class="ds-in-bl search center">
+            <span>设置新密码</span>
+        </div>
+    </div>
+</div>
+
+<div class="loginsingup-input ma-to-20">
+    <form action="" method="post" onsubmit="return submitverify(this)">
+        <div class="content30">
+            <!-- 流程四 -->
+            <div class="da_yes_all">
+                <img src="__STATIC__/images/sign_in/wanc_1.png" alt="">
+                <p>恭喜您，新密码设置成功！</p>
+            </div>
+            <div class="lsu submit">
+                <input style="margin-top: 0;" type="button" onclick="submitverify(this)" id="btn_submit"  value="立即登录" />
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    /**
+     * 提示弹窗
+     */
+    //添加输入框提示
+    function alter_ab(ele){
+        $('.alter-shoucan-1').show();
+        $('.alter-an').children('.p-1').children('p').text(ele);
+        if(!$('.alter-shoucan-1').is(':hidden')){
+            setTimeout(function(){
+            $('.alter-shoucan-1').fadeOut();
+            },1000);
+        }
+    }
+</script>
+</body>
+</html>

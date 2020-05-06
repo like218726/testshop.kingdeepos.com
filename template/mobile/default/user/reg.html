@@ -1,0 +1,418 @@
+<include file="public/header" title="注册"/>
+<link rel="stylesheet" href="__STATIC__/css/sign_in.css"/>
+<include file="public/header_nav" title="注册" href="javascript:history.back(-1)"/>
+<!-- 头部模块 -->
+<div class="flool loginsignup2">
+    <!--LOGO-->
+    <img class="bg_1" src="__STATIC__/images/sign_in/pic-logo-bg.png" alt="LOGO"/>
+    <!-- logo1 -->
+    <div class="l_1">
+        <img class="logo_1" src="__STATIC__/images/sign_in/logo_1.png" alt="">
+    </div>
+    <!-- 用户登录头像 -->
+    <div class="l_1" style="display: none;">
+        <img class="logo_2" src="__STATIC__/images/dynamic/dog_header.png" alt="">
+        <span class="uers_name">用户ID</span>
+    </div>
+</div>
+<!--注册表单-s-->
+<!-- <div class="loginsingup-input singupphone">
+    <form action="" method="post" id="regFrom" >
+        <input type="hidden" name="auth_code" value="{$Think.config.AUTH_CODE}"/>
+    	<input type="hidden" name="is_bind" value="{$Request.param.is_bind}">
+        <div class="content30">
+        	<div class="lsu boo wicheck">
+                <input type="text" name="nickname" id="nickname"  placeholder="请输入昵称"  value="{$Request.param.nickname}"  class="c-form-txt-normal" onBlur="">
+                <span id="mobile_nickname"></span>
+            </div>
+            <div class="lsu boo wicheck">
+                <input type="text" name="username" id="username" value="" placeholder="请输入手机号" maxlength="11"  class="c-form-txt-normal" onBlur="checkMobilePhone(this.value);">
+                <span id="mobile_phone_notice"></span>
+            </div>
+            <div class="lsu boo wicheck">
+                <input type="password" id="password" value="" maxlength="16" placeholder="请设置6-16位登录密码" class="c-form-txt-normal" onBlur="check_password(this.value);">
+                <input type="hidden" name="password" value="" />
+                <span id="password_notice"></span>
+            </div>
+            <div class="lsu boo wicheck">
+                <input type="password" id="password2" value=""  maxlength="16" placeholder="确认密码" onBlur="check_confirm_password(this.value);">
+                <input type="hidden" name="password2" value="" />
+                <span id="confirm_password_notice"></span>
+            </div>
+            <div class="lsu boo zc_se">
+                <input type="text"  value="" name="verify_code" placeholder="请输入图像验证码" >
+                <img src="" id="verify_code_img" onclick="verify()">
+            </div>
+            <if condition="$regis_sms_enable eq 1">
+              <div class="lsu boo zc_se">
+                <input type="text" id="mobile_code" value="" name="mobile_code" placeholder="请输入短信验证码" >
+                <a rel="mobile" onClick="sendcode(this)">获取短信验证码</a>
+            </div>
+            </if>
+            <div class="lsu submit">
+                <input type="button" name="" id="" onclick="checkSubmit()" value="注册"/>
+            </div>
+            <div class="signup-find">
+
+                <p class="recept">注册即视为同意<a href="{:U('Mobile/Article/agreement',['doc_code'=>'agreement'])}">《开源用户注册协议》</a></p>
+            </div>
+        </div>
+    </form>
+</div> -->
+
+<!-- 注册流程一 -->
+<div style="margin-top:0.490667rem;margin-bottom: 3rem;" class="loginsingup-input">
+    <!--登录表单-s-->
+    <form onsubmit="return false;" id="regFrom" method="post">
+        <input type="hidden" name="auth_code" value="{$Think.config.AUTH_CODE}"/>
+        <div class="content30">
+            <div class="lsu lsus">
+                <p style="background-position: 0 -2.538667rem;"></p>
+                <input type="text" name="username" id="username" value=""  placeholder="请输入手机号"/>
+            </div>
+            <notempty name="first_login">
+            <div class="lsu test lsus">
+                <p style="background-position: 0 -1.70667rem;"></p>
+                <input type="text" id="mobile_code" value="" name="mobile_code" placeholder="请输入短信验证码" >
+                <input  rel="mobile" onClick="sendcode(this)" class="cold_1" type="button" value="获取验证码">
+            </div>
+            <div class="lsu lsus">
+                <p style="background-position: 0 -0.8533rem;"></p>
+                <input style="padding-right: 0.8rem;" type="password" id="password" value="" placeholder="请输入由6-16位字符组成的密码"/>
+                <input type="hidden" name="password" value="" />
+                <i class="eye" style="right:0.2rem;"></i>
+            </div>
+            <div class="lsu lsus">
+                <p style="background-position: 0 -0.8533rem;"></p>
+                <input style="padding-right: 0.8rem;" type="password" id="password2" value="" placeholder="请再次输入由6-16位字符组成的密码"/>
+                <input type="hidden" name="password2" value="" />
+                <i class="eye" style="right:0.2rem;"></i>
+            </div>
+            </notempty>
+            <div class="agreement clearfix">
+                <div class="cooke"></div>我已阅读并同意<a class="read-1" href="{:U('Mobile/Article/agreement',['doc_code'=>'agreement'])}">《注册服务协议》</a>
+            </div>
+            <div class="lsu submit">
+                <input type="button" value="注册" onclick="checkSubmit()" class="btn_big1"/>
+                <input type="hidden" name="referurl" id="referurl" value="{$referurl}">
+            </div>
+        </div>
+    </form>
+    <!--登录表单-e-->
+</div>
+<!-- 注册流程二 -->
+<div style="margin-top:0.490667rem;margin-bottom: 3rem;display:none;" class="loginsingup-input">
+    <!--登录表单-s-->
+    <form onsubmit="return false;"  method="post">
+        <div class="content30">
+            <div class="tips_1">该手机号已经注册</br>请确认是否是您的账号</div>
+            <div class="lsu submit">
+                <input style="margin-top: 0;" type="button" value="是我的，立即登录" onclick="submitverify()" class="btn_big1"  />
+                <input type="hidden" name="referurl" id="referurl" value="{$referurl}">
+            </div>
+            <div class="lsu submit">
+                <input type="button"  value="不是我的，重新注册"  onclick="submitverify()" class="btn_big2"  />
+                <input type="hidden" name="referurl" id="referurl" value="{$referurl}">
+            </div>
+            <div class="us_my">有疑问？<a href="">联系客服</a></div>
+        </div>
+    </form>
+    <!--登录表单-e-->
+</div>
+
+<!-- 提示弹窗 -->
+<div class="alter-shoucan-1">
+    <div class="alter-an">
+        <div class="p-1">
+            <p></p>
+        </div>
+    </div>
+</div>
+<!--注册表单-s-->
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/js/md5.min.js"></script>
+<script type="text/javascript">
+    //切换密码框的状态
+    $(function(){
+        $('.loginsingup-input .lsu i').click(function(){
+            $(this).toggleClass('eye');
+            if ($(this).hasClass('eye')) {
+                $(this).siblings('input').eq(0).attr('type','password')
+            } else{
+                $(this).siblings('input').eq(0).attr('type','text')
+            }
+        });
+    })
+    // 点击勾选协议
+    $('.agreement').on('click', function(){
+        $('.cooke').toggleClass('cooke_1')
+    })
+    $(document).on('keyup', '#password', function() {
+        var password = md5($("input[name='auth_code']").val() + this.value);
+        $('input[name="password"]').val(password);
+    })
+    $(document).on('keyup', '#password2', function() {
+        var password2 = md5($("input[name='auth_code']").val() + this.value);
+        $('input[name="password2"]').val(password2);
+    })
+    //手机验证
+    // function checkMobilePhone(mobile){
+    //     if(mobile == ''){
+    //         $('#username').after(after_msg('手机号不能空!'))
+    //         $('#username').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+    //         $('#username').addClass('asd_color')
+    //         // showErrorMsg('手机不能空');
+    //         flag = false;
+    //     }else if(checkMobile(mobile)){ //判断手机格式
+    //         $.ajax({
+    //             type : "GET",
+    //             url:"/index.php?m=Home&c=Api&a=issetMobile",
+    //             data :{mobile:mobile},// 你的formid 搜索表单 序列化提交
+    //             success: function(data)
+    //             {
+    //                 if(data == '0')
+    //                 {
+    //                    flag = true;
+    //                 }else{
+    //                     $('#username').after(after_msg('* 手机号已存在'))
+    //                     $('#username').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+    //                     $('#username').addClass('asd_color')
+    //                     // showErrorMsg('* 手机号已存在');
+    //                    flag = false;
+    //                 }
+    //             }
+    //         });
+    //     }else{
+    //         $('#username').after(after_msg('* 手机号码格式不正确'))
+    //         $('#username').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+    //         $('#username').addClass('asd_color')
+    //         // showErrorMsg('* 手机号码格式不正确');
+    //        flag = false;
+    //     }
+    // }
+
+    //密码
+    // function check_password(password) {
+    //     var password = $.trim(password);
+    //     if(password == ''){
+    //         $('#password').after(after_msg('* 登录密码不能包含空格'))
+    //         $('#password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+    //         $('#password').addClass('asd_color')
+    //         // showErrorMsg("*登录密码不能包含空格");
+    //        flag = false;
+    //     }else if (password.length < 6) {
+    //         $('#password').after(after_msg('* 登录密码不能少于 6 个字符。'))
+    //         $('#password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+    //         $('#password').addClass('asd_color')
+    //         // showErrorMsg('*登录密码不能少于 6 个字符。');
+    //        flag = false;
+    //     }
+    // }
+    // $(document).on('keyup', '#password', function() {
+    //     var password = md5($("input[name='auth_code']").val() + this.value);
+    //     $('input[name="password"]').val(password);
+    // })
+    // $(document).on('keyup', '#password2', function() {
+    //     var password2 = md5($("input[name='auth_code']").val() + this.value);
+    //     $('input[name="password2"]').val(password2);
+    // })
+    //验证确认密码
+    // function check_confirm_password(confirm_password) {
+    //     var password1 = $.trim($('#password').val());
+    //     var password2 = $.trim(confirm_password);
+    //     if (password2.length < 6) {
+    //         $('#password').after(after_msg('* 登录密码不能少于 6 个字符。'))
+    //         $('#password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+    //         $('#password').addClass('asd_color')
+    //         // showErrorMsg('*登录密码不能少于 6 个字符。');
+    //        flag = false;
+    //     }
+    //     if (password2 != password1) {
+    //         $('#password').after(after_msg('* 两次密码不一致'))
+    //         $('#password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+    //         $('#password').addClass('asd_color')
+    //         // showErrorMsg('*两次密码不一致');
+    //        flag = false;
+    //     }else{
+    //         flag = true;
+    //     }
+    // }
+
+    function countdown(obj) {
+        var s = {$tpshop_config['sms_sms_time_out']|default=60};
+        //改变按钮状态
+        $(obj).attr('id','sendcode')
+        callback();
+        //循环定时器
+        var T = window.setInterval(callback,1000);
+        function callback()
+        {
+            if(s <= 0){
+                //移除定时器
+                window.clearInterval(T);
+                $(obj).removeAttr('id')
+                obj.innerHTML='获取短信验证码';
+            }else{
+                if(s<=10){
+                    obj.innerHTML = '0'+ --s + '秒后再获取';
+                }else{
+                    obj.innerHTML = --s+ '秒后再获取';
+                }
+            }
+        }
+    }
+
+    //发送短信验证码
+    function sendcode(obj){
+        var username = $('#username').val();
+        var flag = true;
+        if(username == ''){
+            $('#username').after(after_msg('手机号不能空!'))
+            $('#username').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#username').addClass('asd_color')
+            flag = false;
+        }
+        if(!(username == '') && !checkMobile(username) && !checkEmail(username)){
+            $('#username').after(after_msg('账号格式不匹配!'))
+            $('#username').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#username').addClass('asd_color')
+            flag = false;
+        }
+        if(flag){
+            $.ajax({
+                url:'/index.php?m=Home&c=Api&a=send_validate_code&t='+Math.random() ,
+                type:'post',
+                dataType:'json',
+                data:{type:$(obj).attr('rel'),send:$.trim($('#username').val()), scene:1},
+                success:function(res){
+                    if(res.status==1){
+                        //成功
+                        alter_ab(res.msg)
+                        countdown(obj)
+                        $('.loginsingup-input').eq(1).show().siblings('.loginsingup-input').hide();
+                        $('.loginsignup2 .l_1').eq(1).show().siblings('.l_1').hide();
+                    }else{
+                        //失败
+                        alter_ab(res.msg)
+                    }
+                },
+                error:function(){
+                    alter_ab('网络错误，请稍后再试')
+                }
+            })
+        }else{
+            alter_ab('请先填写完所有信息！')
+        }
+    }
+
+    //提交表单
+    function checkSubmit(){
+        var username = $('#username').val();  //手机号码
+        var mobile_code = $('#mobile_code').val();  //短信验证码
+        var password = $('#password').val();  //第一次输入密码
+        var password2 = $('#password2').val();  //第二次输入密码
+        var flag = true;
+        // 手机
+        if(username == ''){
+            $('#username').after(after_msg('手机号不能空!'))
+            $('#username').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#username').addClass('asd_color')
+            flag = false;
+        }
+        if(!(username == '') && !checkMobile(username) && !checkEmail(username)){
+            $('#username').after(after_msg('账号格式不匹配!'))
+            $('#username').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#username').addClass('asd_color')
+            flag = false;
+        }
+        // 验证码
+        if(mobile_code == ''){
+            $('#mobile_code').after(after_msg('验证码不能为空!'))
+            $('#mobile_code').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#mobile_code').addClass('asd_color')
+            flag = false;
+        }
+        // 密码
+        if(password == ''){
+            $('#password').after(after_msg('密码不能为空!'))
+            $('#password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#password').addClass('asd_color')
+            flag = false;
+        }
+        if (password.length < 6) {
+            $('#password').after(after_msg('登录密码不能少于 6 个字符。'))
+            $('#password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#password').addClass('asd_color')
+            flag = false;
+        }
+        if(password2 == ''){
+            $('#password2').after(after_msg('确认密码不能为空!'))
+            $('#password2').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#password2').addClass('asd_color')
+            flag = false;
+        }
+        if(!(password == '') && password != password2){
+            $('#password2').after(after_msg('两次密码不一致'))
+            $('#password2').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#password2').addClass('asd_color')
+            flag = false;
+        }
+        //判定是否勾选协议
+        if(!$('.cooke').hasClass('cooke_1')){
+            alter_ab('请勾选注册服务协议')
+            flag = false;
+        }
+        // 提交表单
+        if(flag){
+            $.ajax({
+                type:'POST',
+                url:"/index.php?m=Mobile&c=User&a=reg",
+                dataType:'JSON',
+                data:$('#regFrom').serialize(),
+                success:function(data){
+                    if(data.status == 1){
+                        alter_ab(data.msg)
+                        location.href='/index.php/Mobile/User/index';
+                    }else {
+                        alter_ab(data.msg)
+                        // verify();
+                    }
+                }
+            })
+        }
+       
+    }
+    //添加输入框提示
+    function after_msg(msg=''){
+      var p = '<div class="z_tipi_1"><b></b><h1>' + msg + '</h1></div>';
+      return p;
+    }
+    /**
+     * 提示弹窗
+     * @param msg
+     */
+    // function showErrorMsg(msg){
+    //     layer.open({content:msg,time:2});
+    // }
+    function alter_ab(ele){
+        $('.alter-shoucan-1').show();
+        $('.alter-an').children('.p-1').children('p').text(ele);
+        if(!$('.alter-shoucan-1').is(':hidden')){
+            setTimeout(function(){
+            $('.alter-shoucan-1').fadeOut();
+            },1000);
+        }
+    }
+
+    //去除输入表格提示
+    $('input').keydown(function(){
+　　　　 $(this).siblings('.z_tipi_1').remove();
+		$(this).removeClass('asd_color');
+　　});
+    $('input').click(function(){
+　　　　 $(this).siblings('.z_tipi_1').remove();
+		$(this).removeClass('asd_color');
+　　});
+</script>
+	</body>
+</html>

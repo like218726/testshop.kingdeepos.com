@@ -1,0 +1,103 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+<include file="public/left"/>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i class="icon-angle-right"></i>店铺信息</div>
+    <div class="main-content" id="mainContent">
+      <div class="tabmenu">
+		  <ul class="tab pngFix">
+			  <li class="normal"><a  href="{:U('Store/bind_class_list')}">经营类目</a></li>
+			  <li class="normal"><a  href="{:U('Store/store_info')}">店铺信息</a></li>
+			  <li class="normal"><a  href="{:U('Store/store_reopen')}">申请续签</a></li>
+			  <li class="active"><a  href="{:U('Store/common_store_role')}">店铺角色申请</a></li>
+		  </ul>
+	  </div>
+		<div class="ncsc-form-default">
+			<form id="form_setting" method="post" action="" onsubmit="return false;">
+				<dl>
+				  <dt>当前店铺角色：</dt>
+				  <dd>
+					{$store.is_dealer ?= '销售商&nbsp;&nbsp;'}{$store.is_supplier ?= '供应商'}
+				  </dd>
+				</dl>
+				<dl>
+				  <dt>申请中店铺角色：</dt>
+				  <dd>
+					<empty name="$apply_store_role">
+						无
+					<else />
+						<php>
+							$role_name = [
+								'0' => '审核中',
+								'1' => '已通过',
+								'2' => '已拒绝'
+							];
+						</php>
+						<foreach name="apply_store_role" item="vo" key="k">
+							<if condition="$vo.store_role == 1">
+								销售商（{$role_name[$vo.status]}）
+							<elseif condition="$vo.store_role == 2" />
+								供应商（{$role_name[$vo.status]}）
+							</if>
+							<br />
+						</foreach>
+					</empty>
+				  </dd>
+				</dl>
+				<dl>
+				  <dt>申请店铺角色：</dt>
+				  <dd>
+					<if condition="$store_type eq 2">
+						无更多店铺角色可申请。
+					<else />
+						<select name="store_role" id="store_role">
+							<option value="0">选择角色</option>
+							<if condition="$store.is_dealer eq 0">
+								<option value="1">销售商</option>
+							</if>
+							<if condition="$store.is_supplier eq 0">
+								<option value="2">供应商</option>
+							</if>
+						</select>
+					</if>
+				  </dd>
+				</dl>
+				
+				<div class="bottom">
+				  <label class="submit-border">
+					<input id="btn_submit" type="submit" class="submit" value="提交" />
+				  </label>
+				</div>
+			</form>
+		</div>
+    </div>
+  </div>
+</div>
+<include file="public/foot"/>
+<script type="text/javascript">
+	$(document).on("click", '#btn_submit', function (e) {
+		var store_role = $('#store_role').val();
+		if (store_role == 0) {
+			layer.msg("请选择一个店铺角色", {icon: 2,time: 2000});
+			return;
+		}
+		$.ajax({
+			url: '{:U("seller/Store/common_apply_store_role")}',
+			type:'post',
+			dataType:'json',
+			data:$('#form_setting').serialize(),
+			success:function(res){
+				if(res.status != '1'){
+					layer.msg(res.msg, {icon: 2, time: 2000});
+					return;
+				}else{
+					layer.msg(res.msg, {icon: 1, time: 2000, end: function(){
+						location.reload();
+					}});
+				}
+			}
+		});
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>关于我们</title>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/distribut/css/main.css"/>
+	<script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<volist name="list" id="vo">
+	<div class="greenhand_question">
+		<a href="{:U('Mobile/Article/detail',array('article_id'=>$vo['article_id']))}">
+			<p>{$vo.title}</p>
+		</a>
+	</div>
+</volist>
+</body>
+</html>

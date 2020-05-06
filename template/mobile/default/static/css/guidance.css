@@ -1,0 +1,66 @@
+/*商家入驻须知*/
+body{
+    padding-top: 1.87733rem;
+}
+.classreturn{
+    position: fixed;
+    top:0;
+}
+.mainbox{
+    min-height: 100vh;
+    background: #fff;
+}
+.itembox{
+    border-bottom: .426rem solid #f3f3f3;
+    background: #fff;
+    padding: .853rem .64rem;
+}
+.itembox h3{
+    line-height: 1.28rem;
+    font-size: .64rem;
+    color: #ff3b3b;
+}
+.itembox p{
+    line-height: .768rem;
+    font-size: .49rem;
+    color: #666;
+}
+.bottombox{
+    background: #fff;
+    padding: .853rem .64rem;
+}
+.bottombox p{
+    color: #333;
+    line-height: .768rem;
+    font-size: .49rem;
+}
+.btns-fixed-bottom>.btns-a{
+    width: 14.72rem;
+}
+/*商家入驻->基本信息*/
+.cover-layer{
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 11;
+    background: rgba(0,0,0,0.4);
+    width: 100%;
+    height: 100%;
+    display: none;
+    z-index: 2000;
+}
+.btns-fixed-bottom .agree-ment>a{
+    width: 12.6rem;
+}
+.btns-fixed-bottom .agree-ment input{
+    width: .5rem;
+    height: .5rem;
+    margin-right: .213rem;
+}
+.btns-fixed-bottom .agree-ment{
+    display: flex;
+    align-items: center;
+    padding: 0 .64rem;
+}

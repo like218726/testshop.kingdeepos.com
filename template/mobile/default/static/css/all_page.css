@@ -1,0 +1,103 @@
+/* 
+    所有页面共用布局
+    采用统一标准
+    有需求可以添加进去，写下的代码请勿随意修改
+    2019/11/20
+*/
+
+/* 限制文字行数默认一行 */
+.mian_hidde{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+/* 统一颜色 */
+.mian_color{
+    color: #ff3b3b !important;
+}
+/* 背景颜色 */
+.mian_bg{
+    background: #f5f5f5 !important;
+}
+/* 商品图片 */
+.mian_img{
+    width: 7.36rem;
+    height: 7.36rem;
+    object-fit: cover;
+}
+/* 商品设宽度、高度、圆角度 */
+.mian_width_1{
+    width: 7.36rem;
+    height: 10.88rem;
+    border-radius: 0.2133rem !important;
+    background: #fff;
+    overflow: hidden;
+}
+/* 商品设宽度、圆角度 */
+.mian_width_2{
+    width: 7.36rem;
+    border-radius: 0.2133rem !important;
+    background: #fff;
+    overflow: hidden;
+}
+/* 商品设圆角度 */
+.mian_width_3{
+    border-radius: 0.2133rem !important;
+    background: #fff;
+    overflow: hidden;
+}
+/* 商品标题文字 */
+.mian_h2{
+    height: auto;
+    padding: 0.34133rem 0.512rem 0 0.512rem;
+    font-size: 0.554667rem;
+    line-height: 0.682667rem;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-line-clamp: 2;
+}
+
+
+/* 
+    采用flex布局
+    有需求可以添加进去，写下的代码请勿修改
+*/
+
+/* 两端对齐 */
+.mian_flex_1{
+    display: flex;
+    justify-content: space-between;
+}
+/* 两端上下居中 */
+.mian_flex_2{
+    display: flex;
+    align-items: center;
+}
+/* 两端左右居中 */
+.mian_flex_3{
+    display: flex;
+    justify-content: center;
+}
+/* 两端对齐上下居中 */
+.mian_flex_4{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+/* 两端上下左右居中 */
+.mian_flex_5{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* 用于固定头部-s */
+.new_fixed1{
+	padding-top: 1.87733rem;
+}
+.new_fixed1 .classreturn {
+	position: fixed;
+	top: 0;
+}
+/* 用于固定头部-e */

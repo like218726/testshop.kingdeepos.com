@@ -1,0 +1,321 @@
+/* 头部模块 */
+.loginsignup2{
+    padding-bottom: 0;
+    padding-top: 0;  
+    position: relative;
+}
+.loginsignup2 .bg_1{
+	width: 100%;
+	height: auto;
+}
+.loginsignup2 .l_1{
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+/* logo1 */
+.loginsignup2 .logo_1{
+    width: 5.696rem;
+    height: 2.218667rem;
+    margin: 0 auto;
+    display: block;
+    margin-top: 2.56rem;
+}
+/* 用户登录头像 */
+.loginsignup2 .logo_2{
+    width: 2.709rem;
+    height: 2.709rem;
+    border-radius: 50%; 
+    margin: 0 auto;
+    display: block;
+    margin-top: 2.1333rem;
+    border: 0.128rem solid #fff;
+}
+.loginsignup2 .uers_name{
+    font-size: 0.64rem;
+    color: #fff;
+    text-align: center;
+    display: block;
+    width: 11.94667rem;
+    margin: 0 auto;
+    margin-top: 0.490667rem;
+    overflow: hidden;
+}
+/* 登录表单 */
+
+/* 弹框校验 */
+.alter-shoucan-1 .alter-an .p-1 {
+    line-height: 0.876rem;
+}
+/* 错误校验校验 */
+.z_tipi_1{
+    position: absolute;
+    bottom: -0.65rem;
+    left: 1.25333rem;
+    height: 0.64rem;
+    line-height: 0;
+    display: flex;
+    align-items: center;
+}
+.z_tipi_1 b{
+    width: 0.512rem;
+    height: 0.512rem;
+    margin-right: 0.170667rem;
+    background: url(../images/sign_in/tishi_1.png) no-repeat;
+    display: inline-block;
+    background-size: 100%;
+} 
+.z_tipi_1 h1{
+    color: #ff3939;
+    font-size: 0.42667rem;
+    display: inline-block;
+}
+.asd_color{
+    border-bottom: 1px solid #ff3939 !important; 
+}
+
+/* 登录注册的所有输入input框 */
+.loginsingup-input .content30 {
+    margin: 0 2.090667rem;
+}
+.loginsingup-input .content30 .lsus{
+    display: flex;
+    align-items: center;
+    height: 2.4533rem;
+    line-height: 2.45333rem;
+    padding-top: 0.8rem;
+    border: none;
+    position: relative;
+    justify-content: space-between;
+}
+.loginsingup-input .content30 .lsus input[type=text] {
+    height: 1.621333rem;
+    width: 10.5rem;
+    border: none;
+    border-bottom: 1px solid #dbdbdb; 
+    border-right: 1px solid #fff; 
+    padding-left: 0;
+    padding-right: 0.213333rem;
+    font-size: 0.554667rem;
+    background-color: #fff;
+    box-sizing: border-box;
+    justify-content: space-between;
+}
+.loginsingup-input .content30 .lsus input[type=password] {
+    height: 1.621333rem;
+    width: 10.5rem;
+    border: none;
+    border-bottom: 1px solid #dbdbdb; 
+    border-right: 1px solid #fff; 
+    padding-left: 0;
+    padding-right: 0.213333rem;
+    font-size: 0.554667rem;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+/* 登录的所有p框 */
+.loginsingup-input .content30 .lsus p{
+    float: left;
+    width: 0.85333rem;
+    height: .853333rem;
+    background-image: url(../images/sign_in/ico-login-m.png);
+    background-repeat: no-repeat;
+    background-size: .853333rem 5.973331rem;
+    margin-right: 0.4rem;
+}
+/* 小眼睛 */
+.loginsingup-input .content30 .lsu i{
+    top: 1.38rem;
+    right: 2.8rem;
+}
+/* 忘记密码小块编写 */
+.loginsingup-input .content30 .lsus .ya_mima{
+    position: absolute;
+    bottom: 0.46rem;
+    right: 0.1rem;
+    width: 2.410667rem;
+    font-size: 0.46933rem;
+    color: #333333;
+    height: 0.64rem;
+    align-items: center;
+    text-align: right;
+    line-height: 0.64rem;
+    display: inline-block;
+}
+.loginsingup-input .content30 .lsus .ya_mima b{
+    width: 1px;
+    height: 0.42667rem;
+    background: #cfcfcf;
+    float: left;
+    margin-top: 0.128rem;
+}
+/* 登录注册按钮 */
+.loginsingup-input .content30 .submit input {
+    width: 100%;
+    height: 1.70667rem;
+    color: #fff;
+    background-color: #ff3939;
+    margin-top: 0.938667rem;
+    -moz-border-radius: .128rem;
+    -webkit-border-radius: .128rem;
+    border-radius: 50rem 50rem 50rem 50rem;
+    box-sizing: border-box;
+    font-size: 0.64rem;
+}
+.signup-find, .radio {
+    width: auto;
+}
+/* 第三方登录 */
+.thirdlogin {
+    margin-top: 2.667rem;
+}
+.thirdlogin ul {
+    margin-top: 0.576rem;
+}
+.loginsingup-input .content30 .test img{
+    width: 3.242667rem;
+    height: 0.768rem;
+    position: absolute;
+    bottom: 0.53333rem;
+    right: 0.32rem;
+}
+.thirdlogin ul li {
+    margin: 0 0.72533rem;
+}
+.thirdlogin ul li img {
+    width: 1.74933rem;
+    height: 1.74933rem;
+}
+/* 登录流程一 */
+.loginsingup-input .content30 .lsus .cold_1{
+    position: absolute;
+    bottom: 0.276rem;
+    right: 0;
+    width: 3.072rem;
+    height: 1.0667rem;
+    font-size: 0.469333rem;
+    background: none;
+    color: #ff3939;
+    border: 1px solid #ff3939;
+    border-radius: 50rem;
+    display: block;
+    padding: 0;
+    text-align: center;
+}
+/* 注册流程一 */
+/* 勾选协议 */
+.agreement{
+    width: 100%;
+    height: 0.490667rem;
+    font-size: 0.46933rem;
+    margin-top: 0.810667rem;
+    box-sizing: border-box;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.agreement .cooke{
+    width: 0.490667rem;
+    height: 0.490667rem;
+    margin-right: 0.2133rem;
+    border: 1px solid #666;
+    border-radius: 4px; 
+}
+.agreement .cooke_1{
+    width: 0.490667rem;
+    height: 0.490667rem;
+    margin-right: 0.2133rem;
+    border: 1px solid #d0b740;
+    border-radius: 4px;
+    background: url(../images/sign_in/tigou-2.png) no-repeat;
+    background-position: 0;
+    background-size: 0.398667rem;
+}
+.agreement .read-1{
+    color: #d0b740;
+    display: inline-block;
+    margin-left: 0.2rem;
+}
+/* 注册流程二 */
+.loginsingup-input .content30 .tips_1{
+    font-size: 0.55467rem;
+    color: #333;
+    width: 9.898667rem;
+    text-align: center;
+    margin: 0 auto;
+    line-height: 0.876rem;
+    height: 4.608rem;
+    padding-top: 1.28rem;
+}
+.loginsingup-input .content30 .submit .btn_big2{
+    width: 100%;
+    height: 1.70667rem;
+    color: #333;
+    background-color: #fff;
+    margin-top: 0.64rem;
+    -moz-border-radius: .128rem;
+    -webkit-border-radius: .128rem;
+    border-radius: 50rem 50rem 50rem 50rem;
+    box-sizing: border-box;
+    font-size: 0.64rem;
+    border: 1px solid #c4c4c4;
+    box-sizing: border-box;
+}
+.loginsingup-input .content30 .us_my{
+    font-size: 0.512rem;
+    margin-top: 0.64rem;
+    color: #999;
+    text-align: center;
+}
+.loginsingup-input .content30 .us_my a{
+    display: inline-block;
+    color: #feaa34;
+}
+
+/* 找回密码 */
+.password_process_all{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 7.189333rem;
+}
+.password_process_all img{
+    width: 14.72rem;
+    height: 3.4133333rem;
+    display: block;
+}
+.retrieve input[type=button]{
+    margin-top: 1.8133rem !important;
+}
+/* 流程二 */
+.loginsingup-input .content30 .tips_2{
+    margin: 1.024rem 0;
+    font-size: 0.64rem;
+    text-align: center;
+}
+.loginsingup-input .content30 .tips_2 span{
+    color: #ff3939;
+}
+.loginsingup-input .content30 .tips_2 p{
+    font-size: 0.768rem;
+    color: #333;
+    margin-top: 0.85333rem;
+}
+/* 流程四 */
+.loginsingup-input .content30 .da_yes_all{
+    margin-bottom: 3.2rem;
+    font-size: 0.768rem;
+    color: #333;
+    text-align: center;
+}
+.loginsingup-input .content30 .da_yes_all img{
+    width: 3.242667rem;
+    height: 3.242667rem;
+    display: block;
+    margin: 0 auto;
+    margin-top: 6.35733rem;
+    margin-bottom: 2.048rem;
+    
+}

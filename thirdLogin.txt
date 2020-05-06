@@ -1,0 +1,134 @@
+2020-04-29 15:51:09-- 第三方登录缓存数据，以备注册用 -1--miniapptghKN3AJw9KlhQrkx--{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 15:51:09-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 15:52:30-- 第三方登录缓存数据，以备注册用 -1--miniappUG8Suo1tUGv9hzaBA--{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 15:52:30-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 16:32:53-- 第三方登录缓存数据，以备注册用 -1--miniappuClz6Qqz7wLzGvF4A--{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 16:32:53-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 16:40:03-- 第三方登录缓存数据，以备注册用 -1--miniappDVKbu0sXxarMQ4QRj--{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 16:40:03-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 16:44:13-- 获取缓存先注册再绑定账号信息--miniappDVKbu0sXxarMQ4QRj--{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 16:44:13-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 16:44:13-- 获取缓存绑定已有账号信息-checkOauthBind-miniappDVKbu0sXxarMQ4QRj--{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 17:46:57-- 第三方登录缓存数据，以备注册用 -1--miniappRUNk0Mzl4O8jRU9D8--{"openid":"oY4R55MKxljPKB_iW7MLAnPvv1lE","nickname":"\u6bcd\u7b11\u9633","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/PiajxSqBRaEJyB6c3kiafvQRJOhCicQrbbgbUnDD8jkIZt7HHiavcAAOqRfibhCXWzcsrmiakTgAFX16jw3nwX8iadotA\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 17:46:57-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55MKxljPKB_iW7MLAnPvv1lE","nickname":"\u6bcd\u7b11\u9633","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/PiajxSqBRaEJyB6c3kiafvQRJOhCicQrbbgbUnDD8jkIZt7HHiavcAAOqRfibhCXWzcsrmiakTgAFX16jw3nwX8iadotA\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 19:38:29-- 第三方登录缓存数据，以备注册用 -1--miniapp6YtP3xubaXqvhGq--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 19:38:29-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 10:05:29-- 第三方登录缓存数据，以备注册用 -1--miniappb0f6nCVVtydQILJ7C--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 10:05:29-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 10:05:55-- 第三方登录缓存数据，以备注册用 -1--miniappb0f6nCVVtydQILJ7C--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 10:05:55-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 10:24:19-- 第三方登录缓存数据，以备注册用 -1--miniappsBaYFeRYd1A77aSm4--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 10:24:19-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 11:30:12-- 第三方登录缓存数据，以备注册用 -1--miniappsRCV3lTBImjeiaGCW--{"openid":"oY4R55BTUaI17ebIgVj-yORf-Kuk","nickname":"\u4f55\u5c0f\u4e2b","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Rt9YgicE4ezzGSYefzrtJ6HCpMKojt0fXNeSb4j27P89DOVwdEBeUsDxGN1fbKfibCGJdE4nXC8ra5HVtVJVZZpQ\/132","unionid":null,"push_id":"","sex":"0","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 11:30:12-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55BTUaI17ebIgVj-yORf-Kuk","nickname":"\u4f55\u5c0f\u4e2b","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/Rt9YgicE4ezzGSYefzrtJ6HCpMKojt0fXNeSb4j27P89DOVwdEBeUsDxGN1fbKfibCGJdE4nXC8ra5HVtVJVZZpQ\/132","unionid":null,"push_id":"","sex":"0","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 12:12:00-- 第三方登录缓存数据，以备注册用 -1--miniappsBaYFeRYd1A77aSm4--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 12:12:00-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 12:43:52-- 第三方登录缓存数据，以备注册用 -1--miniappWK9OKwUhj4X2PFW2U--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 12:43:52-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 12:51:21-- 第三方登录缓存数据，以备注册用 -1--miniappWK9OKwUhj4X2PFW2U--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 12:51:21-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 13:49:28-- 第三方登录缓存数据，--记录上级没有unionid，不记录----null
+
+2020-04-30 13:49:59-- 第三方登录缓存数据，--记录上级没有unionid，不记录----null
+
+2020-04-30 17:35:49-- 第三方登录缓存数据，以备注册用 -1--miniappcZtpOHkBhYJHtLWZh--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-30 17:35:49-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-01 16:16:25-- 第三方登录缓存数据，以备注册用 -1--miniapphxdYqucN0wV9ByuwK--{"openid":"oY4R55AK_3a046PNxktQH-fiG7pg","nickname":"\u6e05\u65b0","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/PiajxSqBRaEK2MD6jMib2GZWpWlUlayq8rXicFKWjW1YibRCVpNpEiaBrM9AFFW2HlFLfbKQsq4W68eibVsAicpbux8nA\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-01 16:16:25-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55AK_3a046PNxktQH-fiG7pg","nickname":"\u6e05\u65b0","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/PiajxSqBRaEK2MD6jMib2GZWpWlUlayq8rXicFKWjW1YibRCVpNpEiaBrM9AFFW2HlFLfbKQsq4W68eibVsAicpbux8nA\/132","unionid":null,"push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 01:33:40-- 第三方登录缓存数据，以备注册用 -1--miniapp1syHTNJnj7yRBHP61--{"openid":"oY4R55KrWtbA9o7-hMe6tYZ9NK5c","nickname":"\u6797\u5b8f\u4e50","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/slsKCKgicxMQ9q9mksxYZQZ81euKmzXOwmKmbVhuXkERm6ZrmFDPbg4EjzuV6icZWQYW5Jek6GRfibweibxHl80yGg\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 01:33:40-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55KrWtbA9o7-hMe6tYZ9NK5c","nickname":"\u6797\u5b8f\u4e50","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/slsKCKgicxMQ9q9mksxYZQZ81euKmzXOwmKmbVhuXkERm6ZrmFDPbg4EjzuV6icZWQYW5Jek6GRfibweibxHl80yGg\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 01:33:57-- 获取缓存绑定已有账号信息-checkOauthBind-miniapp1syHTNJnj7yRBHP61--{"openid":"oY4R55KrWtbA9o7-hMe6tYZ9NK5c","nickname":"\u6797\u5b8f\u4e50","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/slsKCKgicxMQ9q9mksxYZQZ81euKmzXOwmKmbVhuXkERm6ZrmFDPbg4EjzuV6icZWQYW5Jek6GRfibweibxHl80yGg\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 01:34:12-- 获取缓存绑定已有账号信息--miniapp1syHTNJnj7yRBHP61--{"openid":"oY4R55KrWtbA9o7-hMe6tYZ9NK5c","nickname":"\u6797\u5b8f\u4e50","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/slsKCKgicxMQ9q9mksxYZQZ81euKmzXOwmKmbVhuXkERm6ZrmFDPbg4EjzuV6icZWQYW5Jek6GRfibweibxHl80yGg\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 01:34:12-- 获取缓存绑定已有账号信息-checkOauthBind-miniapp1syHTNJnj7yRBHP61--{"openid":"oY4R55KrWtbA9o7-hMe6tYZ9NK5c","nickname":"\u6797\u5b8f\u4e50","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/slsKCKgicxMQ9q9mksxYZQZ81euKmzXOwmKmbVhuXkERm6ZrmFDPbg4EjzuV6icZWQYW5Jek6GRfibweibxHl80yGg\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:24:28-- 第三方登录缓存数据，以备注册用 -1--miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:24:28-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:31:01-- 第三方登录缓存数据，以备注册用 -1--miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:31:01-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:31:24-- 获取缓存绑定已有账号信息-checkOauthBind-miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:31:36-- 获取缓存绑定已有账号信息-checkOauthBind-miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:31:57-- 第三方登录缓存数据，以备注册用 -1--miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:31:57-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:32:07-- 获取缓存绑定已有账号信息-checkOauthBind-miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:32:14-- 获取缓存绑定已有账号信息-checkOauthBind-miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:32:23-- 获取缓存绑定已有账号信息-checkOauthBind-miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:32:25-- 获取缓存绑定已有账号信息-checkOauthBind-miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:32:30-- 获取缓存绑定已有账号信息-checkOauthBind-miniappHETWBfAR9hYpqBps--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:32:56-- 第三方登录缓存数据，以备注册用 -1--miniapplMCQnYtq7DLF6RmW3--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:32:56-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:33:07-- 获取缓存绑定已有账号信息-checkOauthBind-miniapplMCQnYtq7DLF6RmW3--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:34:17-- 获取缓存先注册再绑定账号信息--miniapplMCQnYtq7DLF6RmW3--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:34:17-- 第三方登录缓存数据，--记录上级没有unionid，不记录----{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:34:17-- 获取缓存绑定已有账号信息-checkOauthBind-miniapplMCQnYtq7DLF6RmW3--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-05 18:31:19-- 第三方登录缓存数据，以备注册用 -1--miniappvCpgrrstzqG362zb--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":"oyGso1krAyhCpZ3NVJDWESYh7P-g","push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-05 19:24:44-- 第三方登录缓存数据，以备注册用 -1--miniappvCpgrrstzqG362zb--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":"oyGso1krAyhCpZ3NVJDWESYh7P-g","push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-05 21:23:40-- 第三方登录缓存数据，以备注册用 -1--miniappczHRiClzidcOQw4dT--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":"oyGso1krAyhCpZ3NVJDWESYh7P-g","push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-06 11:11:29-- 第三方登录缓存数据，以备注册用 -1--miniappfu9bBo3b11Bunerbu--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":"oyGso1krAyhCpZ3NVJDWESYh7P-g","push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-06 11:11:39-- 第三方登录缓存数据，以备注册用 -1--miniappfu9bBo3b11Bunerbu--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":"oyGso1krAyhCpZ3NVJDWESYh7P-g","push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-06 11:12:56-- 第三方登录缓存数据，以备注册用 -1--miniappfu9bBo3b11Bunerbu--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":"oyGso1krAyhCpZ3NVJDWESYh7P-g","push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-06 11:13:13-- 第三方登录缓存数据，以备注册用 -1--miniappfu9bBo3b11Bunerbu--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":"oyGso1krAyhCpZ3NVJDWESYh7P-g","push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-06 11:15:28-- 第三方登录缓存数据，以备注册用 -1--miniappfu9bBo3b11Bunerbu--{"openid":"oY4R55B5KdKfo5ZC6LKBo4SqE0MU","nickname":"\u3059\u9cb8\u843d\u3049","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/lnQUtZ8EhUC0zpS1CNfTzNuIJLXu9aGB53NuP5icBQsMpdbGF2icA9jZq3arxjicAa28gTvKmSNKicVZsFso8HVJ2g\/132","unionid":"oyGso1krAyhCpZ3NVJDWESYh7P-g","push_id":"","sex":"2","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+

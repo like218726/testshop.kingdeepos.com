@@ -1,0 +1,97 @@
+<include file="public/layout" />
+<style>
+.introdiv{position: relative;width:100%;display:none;}
+.introimg{text-align: center;background-color: #fff; padding:20px;margin-top: 10px;}
+@media only screen and (min-width: 700px) and (max-width: 1200px) {
+.introimg{padding: 0;width: 100%;}
+.page{min-width: 800px;}
+}
+@media only screen and (min-width: 1200px) and (max-width: 1512px) {
+.introimg{padding: 0;width: 90%;}
+.page{min-width: 1000px;}
+}
+</style>
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page" style="min-width:clear;">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <div class="subject">
+        <h3>流程介绍</h3>
+        <h5>平台主要流程说明</h5>
+      </div>
+      <ul class="tab-base nc-row">
+      <li><a class="current" href="javascript:;" data-id="role" ><span>角色介绍</span></a></li>
+      <li><a href="javascript:;" data-id="user"><span>会员来源</span></a></li>
+      <li><a href="javascript:;" data-id="login"><span>快捷登陆</span></a></li>
+      <li><a href="javascript:;" data-id="storejoin"><span>商家入驻</span></a></li>
+      <li><a href="javascript:;" data-id="shopping"><span>购物流程</span></a></li>
+      <li><a href="javascript:;" data-id="pintuan"><span>拼团流程</span></a></li>
+      <li><a href="javascript:;" data-id="service"><span>订单售后</span></a></li>
+      <li><a href="javascript:;" data-id="withdrawals"><span>用户提现</span></a></li>
+      <li><a href="javascript:;" data-id="settlement"><span>商家结算</span></a></li>
+      <li><a href="javascript:;" data-id="distribution"><span>分销设置</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- 操作说明 -->
+  <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
+    <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
+      <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+      <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+    </div>
+    <ul>
+      <li>消费者可以通过平台的PC端、APP端、微商城等前台入口申请账号；平台可自行添加会员信息、调整资金等。</li>
+      <li>商家在进行入驻申请时需要先成为平台的会员，然后填写入驻信息、等待平台审核；平台可自行添加自营店铺（联营）。</li>
+      <li>平台可设置商家的结算日期和结算佣金比例，商家可通过自己的后台查看自己能分到的佣金比例，方便对账。</li>
+    </ul>
+  </div>
+  <div class="flexigrid">
+  	<div style="width: 100%;float: left;">
+		<div class="introdiv" style="display:block;" id="role">
+			<img class="introimg" src="__PUBLIC__/images/role.png">
+		</div>
+		<div class="introdiv" id="user">
+			<img class="introimg" src="__PUBLIC__/images/user.png">
+		</div>
+		<div class="introdiv" id="login">
+			<img class="introimg" src="__PUBLIC__/images/login.png">
+		</div>
+		<div class="introdiv" id="shopping">
+			<img class="introimg" src="__PUBLIC__/images/shopping.png">
+		</div>
+		<div class="introdiv" id="storejoin">
+			<img class="introimg" src="__PUBLIC__/images/storejoin.png">
+		</div>
+		<div class="introdiv" id="settlement">
+			<img class="introimg" src="__PUBLIC__/images/settlement.png">
+		</div>
+		<div class="introdiv" id="pintuan">
+			<img class="introimg" src="__PUBLIC__/images/pintuan.png">
+		</div>
+		<div class="introdiv" id="service">
+			<img class="introimg" src="__PUBLIC__/images/service.png">
+		</div>
+		<div class="introdiv" id="withdrawals">
+			<img class="introimg" src="__PUBLIC__/images/withdrawals.png">
+		</div>
+		<div class="introdiv" id="distribution">
+			<img class="introimg" src="__PUBLIC__/images/distribution.png">
+		</div>
+	</div>	
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.tab-base a').click(function(){
+		var divid = $(this).attr('data-id');
+		$('.introdiv').hide();
+		$('#'+divid).show();
+		$('.tab-base a').removeClass('current');
+		$(this).addClass('current');
+	});
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<include file="public/head"/>
+
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.config.js"/>
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.all.min.js"/>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
+
+<div class="ncsc-layout wrapper">
+<include file="public/left"/>
+<div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>关联版式</div>
+    <div class="main-content" id="mainContent">
+<style type="text/css">
+.ncsc-form-default dl dt { width: 16%;}
+.ncsc-form-default dl dd { width: 82%;}
+</style>
+
+<div class="tabmenu">
+  <ul class="tab pngFix">
+  <li class="normal"><a href="{:U('Store/plate_list')}">版式列表</a></li><li class="active"><a href="{:U('Store/plate_edit')}">添加版式</a></li></ul>
+</div>
+<div class="ncsc-form-default">
+  <form method="post" action="{:U('Store/plate_handle')}" id="plate_form">
+    <input type="hidden" name="plate_id" value="{$info.plate_id}">
+    
+        <dl>
+          <dt><i class="required">*</i>版式名称：</dt>
+          <dd>
+            <input type="text" class="text w200" name="plate_name" value="{$info.plate_name}" id="p_name">
+            <p class="hint">请输入10个字符内的名称，方便商品发布 / 编辑时选择使用。</p>
+          </dd>
+        </dl>
+        <dl>
+          <dt><i class="required">*</i>版式位置：</dt>
+          <dd id="gcategory">
+            <ul class="ncsc-form-radio-list">
+              <li><label><input type="radio" name="plate_position" id="p_position" value="1" class="radio" <if condition="$info[plate_position] eq 1"> checked="checked"</if>>顶部</label></li>
+              <li><label><input type="radio" name="plate_position" id="p_position" value="0" class="radio" <if condition="$info[plate_position] eq 0"> checked="checked"</if>>底部</label></li>
+            </ul>
+            <p class="hint">选择关联版式插入到页面中的位置，选择“顶部”为商品详情上方内容，“底部”为商品详情下方内容。</p>
+          </dd>
+        </dl>
+        <dl>
+          <dt><i class="required">*</i>版式内容：</dt>
+          <dd>
+            <textarea id="post_content" name="plate_content" style="height:300px;">{$info.plate_content}</textarea>
+          </dd>
+        </dl>
+    <div class="bottom">
+      <label class="submit-border"><input type="submit" class="submit" value="提交"></label>
+    </div>
+  </form>
+</div>
+<script>
+function adsubmit(){
+    if($('input[name=plate_name]').val() ==''){
+        layer.msg('请填写版式名称',{icon:2});
+        return false;
+    }
+  $('#plate_form').submit();
+}
+
+var url="{:url('Uploadify/index',array('savepath'=>'palte'))}";
+var ue = UE.getEditor('post_content',{
+    serverUrl :url,
+    zIndex: 999,
+    initialFrameWidth: "100%", //初化宽度
+    initialFrameHeight: 300, //初化高度            
+    focus: false, //初始化时，是否让编辑器获得焦点true或false
+    maximumWords: 99999, removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+    pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+    autoHeightEnabled: true
+});
+
+</script>
+    </div>
+  </div>
+</div>   
+
+<include file="public/foot"/>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<include file="public/header" title="个人宣言" body=""/>
+<include file="public/header_nav" title="个人宣言"  href="{:U('Mobile/User/userinfo')}"/>
+<style>
+    .fetchcode{
+        background-color: #ec5151;
+        border-radius: 0.128rem;
+        color: white;
+        padding: 0.55467rem 0.21333rem;
+        vertical-align: middle;
+        font-size: 0.59733rem;
+    }
+    #fetchcode{
+        background:#898995;
+        border-radius: 0.128rem;
+        color: white;
+        padding: 0.55467rem 0.21333rem;
+        vertical-align: middle;
+        font-size: 0.59733rem;
+    }
+</style>
+<div class="loginsingup-input singupphone findpassword">
+    <form action="{:U('Mobile/User/userinfo')}" method="post" onsubmit="return submitverify(this)">
+        <div class="content30">
+            <div class="lsu bk">
+                <span>个人宣言</span>
+                <input type="text" name="manifesto" id="manifesto" value="{$user.manifesto}" placeholder="请输入您的宣言" onBlur="useremail(this.value);"/>
+            </div>
+            <!--<div class="lsu boo zc_se">-->
+            <!--  <input type="text" id="email_code" name="email_code" value="" placeholder="邮箱验证码">
+              <a href="javascript:void(0);" rel="email"  id="fcode" onclick="sendcode(this)">获取邮箱验证码</a>
+          </div>-->
+            <div class="lsu submit">
+                <input type="submit" name="" id="" value="确认修改" />
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+    //提交前验证表单
+    function submitverify(obj){
+        var manifesto2 = $.trim($('#manifesto').val());
+        if(manifesto2 == ''){
+            layer.open({content:'请输入您的宣言！',time:3});
+            return false;
+        }
+//                var emailcode = $('#mobile_code').val();
+//                if(emailcode == ''){
+//                    layer.open({content:'验证码不能空！',time:3});
+//                    return false;
+//                }
+        $(obj).onsubmit();
+    }
+</script>
+</body>
+</html>

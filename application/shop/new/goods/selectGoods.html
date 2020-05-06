@@ -1,0 +1,39 @@
+<include file="public/head"/>
+<include file="public/layout" />
+<div class="flexigrid">
+    <div id="flexigrid"> </div>
+</div>
+<script>
+    $(document).ready(function(){
+        // ajax 加载商品列表
+        ajax_get_table('search-form2', 1);
+
+        // 表格行点击选中切换
+        $('#flexigrid > table>tbody >tr').click(function(){
+            $(this).toggleClass('trSelected');
+        });
+
+    });
+
+    // ajax 抓取页面 form 为表单id  page 为当前第几页
+    function ajax_get_table(form, page) {
+        cur_page = page; //当前页面 保存为全局变量
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=Shop&c=goods&a=ajaxGoodsList&p=" + page,//+tab,
+            data: $('#' + form).serialize(),// 你的formid
+            success: function (data) {
+                $("#flexigrid").html('').append(data);
+            }
+        });
+    }
+    // 点击排序
+    function sort(field) {
+        $("input[name='orderby1']").val(field);
+        var v = $("input[name='orderby2']").val() == 'desc' ? 'asc' : 'desc';
+        $("input[name='orderby2']").val(v);
+        ajax_get_table('search-form2', cur_page);
+    }
+</script>
+</body>
+</html>

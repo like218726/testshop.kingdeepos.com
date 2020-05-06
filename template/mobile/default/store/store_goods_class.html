@@ -1,0 +1,133 @@
+<include file="public/header" title="{$store.store_name}"/>
+<include file="public/header_nav" title="热销分类" href="javascript:history.back(-1)"/>
+<style>
+    .goods_class_list {
+    	padding:0.2em 3% 0 3%;
+		font-size: .555rem;
+    }
+    .class_list_left {
+    	width: 80%;
+	    display: block;
+	    float: left;
+	    padding: 1.5em 0;
+	    border-top: .03rem solid #f3f3f3;
+	    color: #333;
+    }
+    .class_list_right {
+    	    width: 20%;
+		    display: block;
+		    float: right;
+		    padding: 1.5em 0;
+		    text-align: right;
+		    border-top: 1px solid #e5e5e5;
+		    color: #999999;
+    }
+
+
+	.yesu-an{
+		width: 1.1em;
+		float: left;
+		align-items: center;
+		height: 1.1em;
+		margin-right: 0.5rem;
+	}
+	.yesu-an2{
+		width: 1.1em;
+		float: left;
+		align-items: center;
+		height: 1.1em;
+		margin-right: 0.5rem;
+		display: none;
+	}
+	/* 二級菜單 */
+	.goods_class_list .tow-1{
+		display: none;
+	}
+	.goods_class_list .tow-1 .class_list_left{
+		padding-left: 1.5em;
+	}
+
+</style>
+<div class="goods_class_list">
+	<span class="class_list_left" >全部分类</span>
+	<a href="{:U('store/goods_list',array('cat_id'=>0, 'store_id'=>$store_id))}">
+		<span class="class_list_right">查看全部</span>
+	</a>
+	<volist name="main_cat" id="vo">
+		<div class="fisrt-1">
+            <span class="class_list_left clickan">
+                <div class="yesu-he">
+                    <img class="yesu-an" src="__STATIC__/images/tv-expandable.png" alt="">
+                    <img class="yesu-an2" src="__STATIC__/images/tv-collapsable-last.png" alt="">
+                </div>{$vo.cat_name}
+            </span>
+			<a href="{:U('store/goods_list',array('cat_id'=>$vo[cat_id], 'store_id'=>$store_id))}">
+				<span class="class_list_right">查看全部</span>
+			</a>
+			<volist name="sub_cat[$vo['cat_id']]" id="sub">
+				<div class="tow-1">
+					<span class="class_list_left" >{$sub.cat_name}</span>
+					<a href="{:U('store/goods_list',array('cat_id'=>$sub[cat_id], 'store_id'=>$store_id))}">
+						<span class="class_list_right">查看全部</span>
+					</a>
+				</div>
+			</volist>
+		</div>
+	</volist>
+
+</div>
+
+<script>
+	$('.clickan').on('click',function(){
+		$(this).siblings('.tow-1').toggle().parents('.fisrt-1').siblings().find('.tow-1').hide();
+		$(this).find('.yesu-an').toggle().parents('.fisrt-1').siblings().find('.yesu-an').show();
+		$(this).find('.yesu-an2').toggle().parents('.fisrt-1').siblings().find('.yesu-an2').hide();
+	})
+</script>
+
+
+<style>
+body{
+    background-color: #fff;
+}
+.list_over{
+    width: 100%;
+    height: 0.64rem;
+    line-height: 0.64rem;
+    font-size: 0.469rem;
+    color: #999;
+    text-align: center;
+    background-image: url(__STATIC__/images/list-over.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-background-size: 16rem 0.64rem;
+    background-size: 16rem 0.64rem;
+    margin: 2rem 0 3.6rem;
+}
+    .store_nav{
+        width: 100%;
+        height: 1.92rem;
+        background-color: #fafafa;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 99;
+        border-top: 0.021rem solid #e6e6e6;
+    }
+    .store_nav li{
+        float: left;
+        width: calc((100% / 3) - 0.021rem);
+        height: 1.92rem;
+        border-left: 0.021rem solid #e6e6e6;
+    }
+    .store_nav li:first-child{
+        border-left: 0.021rem solid #f5f5f5;
+    }
+</style>
+
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
+<script>
+ 
+</script>

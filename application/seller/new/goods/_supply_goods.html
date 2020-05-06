@@ -1,0 +1,1148 @@
+<include file="public/head"/>
+<style>
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb{width: 180px;height:180px; display: inline-block;}
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb img{ height: 160px; width: 160px;}
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb{line-height: 20px;margin-right: 6px;}
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb:nth-child(5n){margin-right: 0;}
+    .ncsc-goods-default-pic{display: inherit;}
+    /*.ncsc-form-goods dl dd{width: 98%;}*/
+    .text-warning {color: #8a6d3b;}a{ color:#3BAEDA}
+    /*.ncsc-form-goods{padding: 10px;}*/
+    .table-bordered {border: 1px solid #f4f4f4;}
+    .table { width: 100%;max-width: 100%;margin-bottom: 20px;}
+    ul.group-list {width: 96%;min-width: 1000px; margin: auto 5px;list-style: disc outside none;}
+    ul.group-list li { white-space: nowrap;float: left; width: 150px; height: 25px;padding: 3px 5px;list-style-type: none;list-style-position: outside;border: 0px;margin: 0px;}
+    .row .table-bordered td .btn,.row .table-bordered td img{vertical-align: middle;}
+    .row .table-bordered td{padding: 8px;line-height: 1.42857143;}
+    .table-bordered{width: 100%}
+    .table-bordered tr td{border: 1px solid #f4f4f4;}
+    .btn-success {color: #fff;background-color: #48CFAE;border-color: #398439 solid 1px;}
+    .btn {display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;
+        font-weight: 400;line-height: 1.42857143;text-align: center;white-space: nowrap; vertical-align: middle;
+        -ms-touch-action: manipulation;touch-action: manipulation;cursor: pointer;-webkit-user-select: none;-moz-user-select: none;
+        -ms-user-select: none;user-select: none;background-image: none;border: 1px solid transparent; border-radius: 4px;
+    }
+    .col-xs-8 {width: 66.66666667%;}
+    .col-xs-4 {width: 33.33333333%;}
+    .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {float: left;}
+    .row .tab-pane h4{padding: 10px 0;}
+    .row .tab-pane h4 input{vertical-align: middle;}
+    .table-striped>tbody>tr:nth-of-type(odd) {background-color: #f9f9f9;}
+    .ncap-form-default .title{border-bottom: 0}
+    .ncap-form-default dl.row, .ncap-form-all dd.opt{/*border-color: #F0F0F0;*/border: none;}
+    .ncap-form-default dl.row:hover, .ncap-form-all dd.opt:hover{border: none;box-shadow: inherit;}
+    a:hover {color: #3BAEDA;text-decoration: none;}
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 8px;line-height: 1.42857143;vertical-align: top; border-top: 1px solid #ddd;}
+    ul.group-list{min-width: 100%;}
+    input{vertical-align:middle;}
+    .ncsc-form-goods h4{margin: 10px 0 10px 10px;}
+    .clabackkj{background-color: #F5F5F5;border-bottom: solid 1px #E7E7E7;overflow: hidden;}
+    .clabackkj h3{border-bottom: 0;display: inline-block;}
+    .clabackkj .ncbtn{float: right;margin-right: 15px;height: 12px;line-height: 12px;}
+    #tab_goods_images dl dd{width: 99%;}
+    .alert-block{margin-top: 0;}
+    select{min-width:120px;}
+    .ui-tabs-nav{height:30px;padding-top:5px;background:#f5f5f5;}
+    .ui-tabs-nav>li{float:left;height:30px;padding:0 10px;}
+    .ui-tabs-nav>.ui-tabs-selected{background:#ddd;}
+    .btn{margin-bottom: 10px!important;}
+</style>
+<!--以下是在线编辑器 代码 -->
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+var url="{:url('Uploadify/index',array('savepath'=>'goods'))}";
+var ue = UE.getEditor('goods_content',{
+    toolbars: [[
+        'fullscreen', 'source', '|', 'undo', 'redo', '|',
+        'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+        'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+        'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+        'directionalityltr', 'directionalityrtl', 'indent', '|',
+        'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+         'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+        'simpleupload', 'insertimage', 'emotion', 'scrawl', 'music', 'attachment', 'map', 'gmap', 'insertframe', 'insertcode', 'webapp', 'pagebreak', 'template', 'background', '|',
+        'horizontal', 'date', 'time', 'spechars', 'snapscreen', 'wordimage', '|',
+        'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', 'charts', '|',
+        'print', 'preview', 'searchreplace', 'drafts', 'help'
+    ]],
+    serverUrl :url,
+    zIndex: 999,
+    initialFrameWidth: "100%", //初化宽度
+    initialFrameHeight: 300, //初化高度            
+    focus: false, //初始化时，是否让编辑器获得焦点true或false
+    maximumWords: 99999, removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+    pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+    autoHeightEnabled: true
+});
+</script>
+<!--以上是在线编辑器 代码  end-->
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>商品发布</div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu-fixed-wrap">
+                <div class="tabmenu">
+                    <ul class="tab pngFix">
+                        <li class="active"><a onclick="select_nav(this);" data-id="tab_tongyong">通用信息</a></li>
+                        <li class="normal"><a onclick="select_nav(this);" data-id="tab_goods_images">商品相册</a></li>
+                        <li class="normal"><a onclick="select_nav(this);" data-id="tab_goods_spec">商品规格</a></li>
+                        <li class="normal"><a onclick="select_nav(this);" data-id="tab_goods_attr">商品属性</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="item-publish">
+                <form method="post" id="addEditGoodsForm">
+                    <input type="hidden" name="goods_id" value="{$goodsInfo.goods_id}">
+                    <input type="hidden" name="purpose" value="{$Request.param.purpose}">
+                    <input type="hidden" name="cat_id1" value="{$goods_cat[2][id]}">
+                    <input type="hidden" name="cat_id2" value="{$goods_cat[1][id]}">
+                    <input type="hidden" name="cat_id3" value="{$goods_cat[0][id]}">
+                    <div class="ncsc-form-goods active" id="tab_tongyong">
+						<notempty name="$goodsInfo.goods_id">
+						<if condition="$goodsInfo.purpose eq 2">
+						<table class="table table-bordered" id="goods_spec_table">
+                            <tr>
+                                <td colspan="2">
+                                    <div class="alert mt15 mb5"><strong>操作提示：</strong>
+									  <ul>
+									    <li style="color:red">1、如果你要重新编辑供应商品的成本价、运费模块、商品规格信息，我们将自动下架销售商店铺对应的商品，等到商品通过审核后，销售商同意您的更改，才会重新上架你的商品</li>
+									  </ul>
+									</div>
+                                </td>
+                            </tr>
+                        </table>
+						</if>
+						</notempty>
+                        <h3 id="demo1">商品基本信息</h3>
+                        <dl>
+                            <dt>商品分类：</dt>
+                            <dd id="gcategory"> {$goods_cat[2][name]} &gt;{$goods_cat[1][name]} &gt;{$goods_cat[0][name]}
+                                <empty name="$goodsInfo.goods_id">
+                                    <a class="ncbtn" href="{:U('Seller/Goods/addStepOne')}">编辑</a>
+                                <else />
+                                    <if condition="$store.bind_all_gc eq 1">
+                                    <elseif condition="$goodsInfo.bind_class_state eq -1">
+                                        <input class="submit" onclick="applyClass()" value="一键申请" type="submit">
+                                    <elseif condition="$goodsInfo.bind_class_state eq 0">
+                                        （类目申请中）
+                                    </if>
+                                </empty>
+                                <input id="cate_id" name="cate_id" value="156" class="text" type="hidden">
+                                <input name="cate_name" value="{$goods_cat[2][name]} >{$goods_cat[1][name]} >{$goods_cat[0][name]}" class="text" type="hidden">
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>商品名称：</dt>
+                            <dd>
+                                <input type="text" value="{$goodsInfo.goods_name}" name="goods_name"  class="text w400">
+                                <span id="err_goods_name"></span>
+                                <p class="hint">商品标题名称长度至少3个字符，最长50个汉字</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>商品简介：</dt>
+                            <dd>
+                                <textarea name="goods_remark" class="textarea h60 w400">{$goodsInfo.goods_remark}</textarea>
+                                <span id="err_goods_remark"></span>
+                                <p class="hint">商品简介最长不能超过140个汉字</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>商品货号：</dt>
+                            <dd>
+                                <p>
+                                    <input type="text" value="{$goodsInfo.goods_sn}" name="goods_sn" class="text" maxlength="20">
+                                </p>
+                                <span id="err_goods_sn"></span>
+                                <p class="hint">商家货号是指商家管理商品的编号<br>最多可输入20个字符，支持输入中文、字母、数字、_、/、-和小数点</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>SPU：</dt>
+                            <dd>
+                                <p>
+                                    <input type="text" value="{$goodsInfo.spu}" name="spu" class="text">
+                                </p>
+                                <p class="hint">可不填</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>SKU：</dt>
+                            <dd>
+                                <p>
+                                    <input type="text" value="{$goodsInfo.sku}" name="sku" class="text">
+                                </p>
+                                <p class="hint">可不填</p>
+                            </dd>
+                        </dl>
+						<dl>
+                            <dt>本店分类：</dt>
+                            <dd>
+                                <select name="store_cat_id1" id="store_cat_id1" onchange="get_store_category(this.value,'store_cat_id2','0');">
+                                    <option value="0">请选择分类</option>
+                                    <foreach name="store_goods_class_list" item="v" key="k" >
+                                        <option value="{$v['cat_id']}" <if condition="$v['cat_id'] eq $goodsInfo['store_cat_id1']">selected="selected"</if> >
+                                        {$v['cat_name']}
+                                        </option>
+                                    </foreach>
+                                </select>
+                                <select name="store_cat_id2" id="store_cat_id2">
+                                    <option value="0">请选择分类</option>
+                                </select>
+                                <span id="err_cat_id" style="color:#F00; display:none;"></span>
+                                <p class="hint">可不选,为了用户更好检索到该商品，最好选择</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>商品品牌：</dt>
+                            <dd>
+                                <select name="brand_id" id="brand_id">
+                                    <option value="0">选择品牌</option>
+                                    <foreach name="brandList" item="v" key="k" >
+                                        <if condition="$v['status'] eq 0">
+                                            <option value="{$v['id']}"  data-cat_id1="{$v['cat_id1']}" <if condition="$v['id'] eq $goodsInfo['brand_id'] ">selected="selected"</if>>
+                                            {$v['name']}
+                                            </option>
+                                        </if>
+                                    </foreach>
+                                </select>
+                                <p class="hint">可不选,为了用户更好检索到该商品，最好选择</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>市场价：</dt>
+                            <dd>
+                                <input name="market_price" value="{$goodsInfo.market_price}" class="text w60" type="text" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"><em class="add-on"><i class="icon-renminbi"></i></em> <span></span>
+
+                                <p class="hint">价格必须是0.01~9999999之间的数字，此价格仅为市场参考售价，请根据该实际情况认真填写。</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>成本价：</dt>
+                            <dd>
+                                <input value="{$goodsInfo.cost_price}" name="cost_price" class="text w60" type="text" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"><em class="add-on"><i class="icon-renminbi"></i></em> <span></span>
+
+                                <p class="hint">价格必须是0.00~9999999之间的数字，此价格为供应商对所供应的商品实际成本价格进行记录。</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>商品图片：</dt>
+                            <dd>
+                                <div class="ncsc-goods-default-pic">
+                                    <div class="goodspic-uplaod">
+                                        <div class="upload-thumb">
+                                            <img id="original_img2" src="{$goodsInfo.original_img|default='/public/images/default_goods_image_240.gif'}">
+                                        </div>
+                                        <input name="original_img" id="original_img" value="{$goodsInfo.original_img}" type="hidden">
+                                        <p class="hint">上传商品默认主图，如多规格值时将默认使用该图或分规格上传各规格主图；支持jpg、gif、png格式上传或从图片空间中选择，建议使用<font color="red">尺寸800x800像素以上、大小不超过1M的正方形图片</font>，上传后的图片将会自动保存在图片空间的默认分类中。</p>
+                                        <div class="handle">
+                                            <div class="ncsc-upload-btn">
+                                                <a onclick="GetUploadify3(1,'','goods','call_back');">
+                                                    <p><i class="icon-upload-alt"></i>图片上传</p>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="demo"></div>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>商品视频：</dt>
+                            <dd>
+                                <div class="ncsc-goods-default-pic">
+                                    <div class="goodspic-uplaod" >
+                                        <div class="upload-thumb" id="video1">
+                                            <video width="174" height="174" controls="controls">
+                                                <source src="{$goodsInfo.video}" TYPE="video/mp4"/>
+                                            </video>
+                                        </div>
+                                        <input name="video" id="video2" value="{$goodsInfo.video}" type="hidden">
+                                        <p class="hint">上传商品视频，支持mp4,3gp,flv,avi,wmv格式</p>
+                                        <div class="handle">
+                                            <div class="ncsc-upload-btn" id="video_button">
+                                                <if condition="$goodsInfo.video">
+                                                    <a onclick="delupload()"><p><i class="icon-upload-alt"></i>删除视频</p></a>
+                                                <else/>
+                                                    <a onclick="GetUploadify3(1,'','video','video_call_back','Flash');"><p><i class="icon-upload-alt"></i>选择文件</p></a>
+                                                </if>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="video_demo"></div>
+                            </dd>
+                        </dl>
+						<dl class="goods_shipping">
+							<dt>商品重量：</dt>
+							<dd>
+								<p>
+									<input type="text"  value="{$goodsInfo.weight}" name="weight" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text">
+								</p>
+								<p class="hint">克 (以克为单位)</p>
+							</dd>
+						</dl>
+						<dl class="goods_shipping">
+							<dt>商品体积：</dt>
+							<dd>
+								<p>
+									<input type="text"  value="{$goodsInfo.volume}" name="volume" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" class="text">
+								</p>
+								<p class="hint">立方米 (以m³为单位)</p>
+							</dd>
+						</dl>
+						<dl class="goods_shipping">
+							<dt>是否包邮：</dt>
+							<dd>
+								<ul class="ncsc-form-radio-list">
+									<li>
+										<label>
+											<input class="is_free_shipping" type="radio" <if condition="$goodsInfo[is_free_shipping] eq 1 || $goodsInfo[is_free_shipping] eq ''">checked="checked"</if> value="1" name="is_free_shipping">
+											是</label>
+									</li>
+									<li>
+										<label>
+											<input class="is_free_shipping" type="radio" <if condition="$goodsInfo[is_free_shipping] eq 0">checked="checked"</if> value="0" name="is_free_shipping">
+											否</label>
+									</li>
+									<li class="freight_template" style="display: none;">
+										运费模板
+										<select name="template_id">
+											<option value="0">请选择运费模板</option>
+											<volist name="freight_template" id="template">
+												<option value="{$template.template_id}" <if condition="$template['template_id'] eq $goodsInfo['template_id'] ">selected="selected"</if>>{$template.template_name}</option>
+											</volist>
+										</select>
+										<empty name="freight_template"><span style="color: red;">没有可选的运费模板，请前去<a href="{:U('Freight/index')}" target="_blank">添加</a></span></empty>
+									</li>
+								</ul>
+								<p class="hint"></p>
+							</dd>
+						</dl>
+                        <dl>
+                            <dt>商品关键词：</dt>
+                            <dd>
+                                <p>
+                                    <input type="text" value="{$goodsInfo.keywords}" name="keywords" class="text">
+                                </p>
+                                <p class="hint">多个关键词，用空格隔开</p>
+                            </dd>
+                        </dl>
+                        <h3 id="demo2">商品详情描述</h3>
+                        <dl>
+                            <dt>商品详情描述：</dt>
+                           <dd id="ncProductDetails">
+				           <div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+				            <ul class="ui-tabs-nav">
+				              <li class="ui-tabs-selected"><a href="#panel-1" onclick="setTab(this);"><i class="icon-desktop"></i> 电脑端</a></li>
+				              <li class="selected"><a href="#panel-2" onclick="setTab(this);"><i class="icon-mobile-phone"></i>手机端</a></li>
+				            </ul>
+				            </div>
+                               <div id="panel-1" class="ui-tabs-panel">
+                                    <textarea id="goods_content" name="goods_content" class="txt">{$goodsInfo.goods_content}</textarea>
+                                </div>
+                                <div id="panel-2" class="ui-tabs-panel" style="display: none;">
+						              <div class="ncsc-mobile-editor">
+						                <div class="pannel">
+						                  <div class="size-tip"><span nctype="img_count_tip">图片总数不得超过<em>20</em>张</span><i>|</i><span nctype="txt_count_tip">文字不得超过<em>5000</em>字</span></div>
+						                  <div class="control-panel" nctype="mobile_pannel">
+						                  <notempty name="goodsInfo.mobile_content">
+						                  	<foreach name="goodsInfo.mobile_content" item="mb">
+						                  		<if condition="$mb['type'] eq 'text'">
+						                        <div class="module m-text">
+							                      <div class="tools"><a nctype="mp_up" href="javascript:void(0);">上移</a><a nctype="mp_down" href="javascript:void(0);">下移</a><a nctype="mp_edit" href="javascript:void(0);">编辑</a><a nctype="mp_del" href="javascript:void(0);">删除</a></div>
+							                      <div class="content">
+							                        <div class="text-div">{$mb.value}</div>
+							                      </div>
+							                      <div class="cover"></div>
+							                    </div>
+							                    <else/>
+						                        <div class="module m-image">
+							                      <div class="tools"><a nctype="mp_up" href="javascript:void(0);">上移</a><a nctype="mp_down" href="javascript:void(0);">下移</a><a nctype="mp_rpl" href="javascript:void(0);">替换</a><a nctype="mp_del" href="javascript:void(0);">删除</a></div>
+							                      <div class="content">
+							                        <div class="image-div"><img src="{$mb.value}"></div>
+							                      </div>
+							                      <div class="cover"></div>
+							                    </div>
+							                    </if>
+							                </foreach>  
+							              </notempty>      
+						                  </div>
+						                  <div class="add-btn">
+						                    <ul class="btn-wrap">
+						                      <li><a href="javascript:void(0);" nctype="mb_add_img"><i class="icon-picture"></i>
+						                        <p>图片</p>
+						                        </a></li>
+						                      <li><a href="javascript:void(0);" nctype="mb_add_txt"><i class="icon-font"></i>
+						                        <p>文字</p>
+						                        </a></li>
+						                    </ul>
+						                  </div>
+						                </div>
+						                <div class="explain">
+						                  <dl>
+						                    <dt>1、基本要求：</dt>
+						                    <dd>（1）手机详情总体大小：图片+文字，图片不超过20张，文字不超过5000字；</dd>
+						                    <dd>建议：所有图片都是本宝贝相关的图片。</dd>
+						                  </dl><dl>
+						                    <dt>2、图片大小要求：</dt>
+						                    <dd>（1）建议使用宽度480 ~ 620像素、高度小于等于960像素的图片；</dd>
+						                    <dd>（2）格式为：JPG\JEPG\GIF\PNG；</dd>
+						                    <dd>举例：可以上传一张宽度为480，高度为960像素，格式为JPG的图片。</dd>
+						                  </dl><dl>
+						                    <dt>3、文字要求：</dt>
+						                    <dd>（1）每次插入文字不能超过500个字，标点、特殊字符按照一个字计算；</dd>
+						                    <dd>（2）请手动输入文字，不要复制粘贴网页上的文字，防止出现乱码；</dd>
+						                    <dd>（3）以下特殊字符“&lt;”、“&gt;”、“"”、“'”、“\”会被替换为空。</dd>
+						                    <dd>建议：不要添加太多的文字，这样看起来更清晰。</dd>
+						                  </dl>
+						                </div>
+						              </div>
+						              <div class="ncsc-mobile-edit-area" nctype="mobile_editor_area">
+						                <div nctype="mea_img" class="ncsc-mea-img" style="display: none;"></div>
+						                <div class="ncsc-mea-text" nctype="mea_txt" style="display: none;">
+						                  <p id="meat_content_count" class="text-tip"></p>
+						                  <textarea class="textarea valid" nctype="meat_content"></textarea>
+						                  <div class="button"><a class="ncbtn ncbtn-bluejeansjeansjeans" nctype="meat_submit" href="javascript:void(0);">确认</a><a class="ncbtn ml10" nctype="meat_cancel" href="javascript:void(0);">取消</a></div>
+						                  <a class="text-close" nctype="meat_cancel" href="javascript:void(0);">X</a>
+						                </div>
+						              </div>
+						              <input name="m_body" autocomplete="off" type="hidden" value='{$goodsInfo.mobile_body}'>
+            					</div>
+                                <p class="hint">商品详情描述</p>
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="ncsc-form-goods" id="tab_goods_images" style="display: none;">
+                        <dl>
+                            <dd>
+                                <div class="ncsc-form-goods-pic">
+									<div class="container">
+							            <div class="ncsc-goodspic-list" style="opacity: 1;">
+								        <div class="clabackkj">
+								          <h3>管理缩略图</h3>
+								          <a ata-original-title="添加商品" onclick="add_image();" class="ncbtn ncbtn-grapefruit mt5"><i class="fa fa-plus"></i>添加缩略图</a>
+								         </div>
+								        	<ul nctype="ul0" class="goods-pic-list">
+								        	<foreach name="goodsImages" item="vo" key="k" >
+							                    <li class="ncsc-goodspic-upload">
+									            <div class="upload-thumb"><a onclick="" href="{$vo['image_url']}" target="_blank"><img nctype="file_{$k}" src="{$vo['image_url']}"></a>
+									              <input type="hidden" value="{$vo['image_url']}" name="goods_images[]" data-id="file_{$k}">
+									            </div>
+									            <div nctype="file_00" class="show-default">
+									              <p><i class="icon-ok-circle"></i>
+									              </p><a title="移除" onclick="ClearPicArr2(this,'{$vo['image_url']}')" class="del" <if condition="$k egt 5">ncaction="del"</if> nctype="del" href="javascript:void(0)">X</a>
+									            </div>
+									            <div class="show-sort">排序：<input type="text" maxlength="1" size="1"class="text" name="img_sorts[]" value="{$vo['img_sort']}">
+									            </div>
+									            <div class="ncsc-upload-btn"><a href="javascript:void(0);"   onclick="img_upload(10, 'file_{$k}', 'goods_album', 'call_back2');"><p><i class="icon-upload-alt"></i>上传</p></a>
+									             </div>
+									          </li>
+									      </foreach>
+                                                <if condition="count($goodsImages) lt 5">
+                                                    <for start="count($goodsImages)" end="5">
+                                                        <li class="ncsc-goodspic-upload">
+                                                            <div class="upload-thumb"><a onclick="" href="#" target="_blank"><img nctype="file_{$i}"
+                                                                                                                                  src="/public/static/images/default_goods_image_240.gif"></a>
+                                                                <input type="hidden" value="" name="goods_images[]" data-id="file_{$i}">
+                                                            </div>
+                                                            <div class="show-default">
+                                                                <p><i class="icon-ok-circle"></i>
+                                                                </p><a title="移除" onclick="ClearPicArr2(this,'')" class="del" nctype="del" href="javascript:void(0)">X</a>
+                                                            </div>
+                                                            <div class="show-sort">排序 ：<input type="text" maxlength="1" size="1" class="text" name="img_sorts[]">
+                                                            </div>
+                                                            <div class="ncsc-upload-btn"><a href="javascript:void(0);"
+                                                                                            onclick="img_upload(10, 'file_{$i}', 'goods_album', 'call_back2');"><span></span>
+
+                                                                <p><i class="icon-upload-alt"></i>上传</p>
+                                                            </a>
+                                                            </div>
+                                                        </li>
+                                                    </for>
+                                                </if>
+									      </ul>
+									      <input type="hidden" value="" name="goods_images[]" >
+									      </div>
+								      </div>
+								      <div class="sidebar"><div class="alert alert-info alert-block" id="uploadHelp">
+									    <div class="faq-img"></div>
+									    <h4>上传要求：</h4><ul>
+									    <li>1. 请使用jpg\jpeg\png等格式、单张大小不超过1M的正方形图片。</li>
+									    <li>3. 最多可上传10张图片，默认前面5张上传框不可删除, 新增加的上传框可删除, 但对上传的图片无影响, 已实际上传图片数量为准</li>
+									    <li>4. 更改排序数字修改商品图片的排列显示顺序, 数字越小的越靠前显示</li>
+									    <li>5. 图片质量要清晰，不能虚化，要保证亮度充足。</li>
+									    <li>6. 操作完成后请点击"保存"按钮 , 否则上传的图片不会被保存</li>
+									    </ul><h4>建议:</h4><ul><li>1. 主图为白色背景正面图。</li><li>2. 排序依次为正面图-&gt;背面图-&gt;侧面图-&gt;细节图。</li></ul></div>
+									   </div>
+								</div>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="ncsc-form-goods" id="tab_goods_spec" style="display: none;">
+                        <table class="table table-bordered" id="goods_spec_table">
+                            <tr>
+                                <td colspan="2">
+                                    <div class="alert mt15 mb5"><strong>操作提示：</strong>
+									  <ul>
+										<li style="color:red">发布商品时, 如果规格没有显示出来请检查以下步骤</li>
+									    <li>1、"通用信息"选项卡中是否选择商品分类</li>
+									    <li>2、如果已选择商品分类，还没有显示出规格，请联系平台确认该商品分类是否绑定商品模型</li>
+									    <li>3、如果没有合适的规格名称，请联系平台</li>
+									    <li>4、供应商品规格主要是表明商品有那些规格，每个规格所要填写的数据并不多</li>
+									  </ul>
+									</div>
+                                </td>
+                            </tr>
+                        </table>
+                        <div id="ajax_spec_data"><!-- ajax 返回规格--></div>
+                    </div>
+                    <div class="ncsc-form-goods" id="tab_goods_attr" style="display: none;">
+                        <table class="table table-bordered" id="goods_attr_table">
+                            <tr>
+                                <td colspan="2">
+                                    <div class="alert mt15 mb5"><strong>操作提示：</strong>
+									  <ul>
+										<li style="color:red">发布商品时, 如果属性没有显示出来请检查以下步骤</li>
+									    <li>1、"通用信息"选项卡中是否选择商品分类</li>
+									    <li>2、如果已选择商品分类，还没有显示出属性，请联系平台确认该商品分类是否绑定商品模型</li>
+									    <li>3、如果没有合适的属性名称，请联系平台</li>
+									  </ul>
+									</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="bottom tc hr32">
+                        <label class="submit-border">
+                            <input nctype="formSubmit" class="submit" id="submit" value="保存" type="submit">
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="public/foot"/>
+<script>
+    /**
+     * 一键申请经营类目
+     */
+    function applyClass(){
+        var cat_id = {$goods_cat[2][id]};
+        var cat_id2 = {$goods_cat[1][id]};
+        var cat_id3 = {$goods_cat[0][id]};
+        $.ajax({
+            type:'post',
+            url:"/index.php/seller/Store/get_bind_class",
+            data:{class_1:cat_id,class_2:cat_id2,class_3:cat_id3},
+            dataType : 'json',
+            success : function(data){
+                if(data.status==1){
+                    layer.msg('操作成功', {icon: 1});
+                    window.location.reload();
+                }else{
+                    layer.alert(data.msg, {icon: 2});
+                }
+            }
+        });
+    }
+
+    /*
+     * 上传之后删除组图input
+     * @access   public
+     * @val      string  删除的图片input
+     */
+    function ClearPicArr2(obj,path){
+        var action = $(obj).attr('ncaction');
+        if(action != undefined && action =='del'){
+            $(obj).parent().parent().remove();
+        }
+        //删除图片文件
+        if(path == '' || path == undefined){
+            return;
+        }
+        // 删除数据库记录
+         $.ajax({
+            type:'GET',
+            url:"{:U('Seller/Goods/del_goods_images')}",
+            data:{filename:path},
+            success:function(){
+                 $(obj).parent().siblings('.upload-thumb').find('img').attr("src", '/public/static/images/default_goods_image_240.gif'); // 删除完服务器的, 再删除 html上的图片
+                //删除input goods_image
+                $(obj).parent().siblings('.upload-thumb').find('input[type=hidden]').val("");
+                $(obj).parent().siblings('.show-sort').find('input[type=text]').val("0");
+                
+                //如果删除的是商品主图, 则把商品主图隐藏域删掉
+                if($("#original_img").val() == path){
+                	$("#original_img").val("");
+                    $("#original_img2").attr("src" , '/Public/static/images/default_goods_image_240.gif');
+                }
+            }
+        });
+    }
+
+    function select_nav(obj){
+        var data_id = $(obj).attr('data-id');
+        $('.ncsc-form-goods').hide();
+        $('#'+data_id).show();
+        $(obj).parent().parent().find('li').removeClass('active');
+        $(obj).parent().addClass('active');
+    }
+    // 上传商品图片成功回调函数
+    function call_back(fileurl_tmp){
+        $("#original_img").val(fileurl_tmp);
+        $("#original_img2").attr('src', fileurl_tmp);
+    }
+
+    var cur_img_id = "";
+    function img_upload(num,elementid,path,callback){
+    	cur_img_id = elementid;
+    	GetUploadify3(num,elementid,path,callback);
+    }
+
+    // 上传商品相册回调函数
+    function call_back2(paths){
+    	if(paths == undefined || paths[0] == undefined) return ;
+    	$("img[nctype="+cur_img_id+"]").attr("src" , paths[0]);
+    	$("input[data-id="+cur_img_id+"]").val(paths[0]);
+
+    	//重新绑定删除事件
+    	$("input[data-id="+cur_img_id+"]").parent().siblings(".show-default").find("a:eq(0)").removeAttr('onclick').click(function(){  ClearPicArr2(this, paths[0]) }); ;
+
+    }
+
+    //上传视频回调
+    function video_call_back(fileurl_tmp)
+    {
+        $("#video2").val(fileurl_tmp);
+        var html = '<video width="174" height="174" controls="controls"><source src="'+fileurl_tmp+'" TYPE="video/mp4" /></video>'
+        $("#video1").html(html)
+        if(typeof(fileurl_tmp) !='undefined') {
+            $('#video_button').html('<a onclick="delupload()"><p><i class="icon-upload-alt"></i>删除视频</p></a>')
+        }
+    }
+
+    //删除视频
+    function delupload(){
+        $.ajax({
+            url:"{:U('Uploadify/delupload')}",
+            data:{url:$('#video2').val()},
+            success:function(data){
+                if (data ==1 ){
+                    layer.msg('删除成功！',{icon:1});
+                    $('#video2').val('');
+                    var html = '<video width="174" height="174" controls="controls"><source src="" TYPE="video/mp4" /></video>'
+                    $("#video1").html(html)
+                    var video_button_html = '    <a onclick="GetUploadify3(1,\'\',\'video\',\'video_call_back\',\'Flash\');"><p><i class="icon-upload-alt"></i>选择文件</p></a>';
+                    $('#video_button').html(video_button_html);
+                }else{
+                    layer.msg('删除失败',{icon:2});
+                }
+            },
+            error:function () {
+                layer.msg('网络繁忙，请稍后再试!',{icon:2});
+            }
+        })
+    }
+
+    /**
+     *	添加图片
+     */
+    function add_image(){
+    	var length = $('.goods-pic-list>.ncsc-goodspic-upload').length;
+    	if(length >= 10){
+    		layer.alert("缩略图数量不能超过10个!", {icon:2});
+    		return;
+    	}
+    	var new_id = "file_"+(length);
+    	var  last_div = $(".goods-pic-list:last").children("li:first-child").prop("outerHTML");
+    	$(".goods-pic-list:last").children("li:last-child").after(last_div);
+
+    	var last_li = $(".goods-pic-list").children("li:last-child");
+    	//第一个: a标签
+    	last_li.find("a:eq(0)").attr("href" ,  '/public/static/images/default_goods_image_240.gif');
+    	//img标签
+    	last_li.find("img:eq(0)").attr("nctype" , new_id).attr("src" ,  '/public/static/images/default_goods_image_240.gif'); //src
+    	//隐藏域: goods_images
+    	last_li.find("input[type=hidden]:eq(0)").attr("data-id" , new_id);
+    	//排序字段:
+    	last_li.find("input.text").val(0);
+
+    	//第二个: a标签 移除, 图片上传后, 修改ClearPicArr2参数, 添加ncaction属性, 如果该属性是del, 说明是超过5个的上传框, 可以删除.
+    	last_li.find("a:eq(1)").attr("ncaction" , "del").removeAttr('onclick').click(function(){  ClearPicArr2(this,'') });
+    	//第三个: a标签, 上传图片按钮
+    	last_li.find("a:eq(2)").unbind('click').removeAttr('onclick').click(function(){  img_upload(10,  new_id, 'goods_album', 'call_back2') });
+
+    }
+
+    /**
+     * ajax 加载规格 和属性
+     */
+    function ajaxGetSpecAttr()
+    {
+        // ajax调用 返回规格
+        var goods_id = $('input[name=goods_id]').val();
+        var cat_id3 = $('input[name=cat_id3]').val();
+        $.ajax({
+            type:'GET',
+//			data:{goods_id:goods_id,cat_id3:cat_id3},
+            url:"/index.php?m=Seller&c=Goods&a=ajaxGetSpecSelect&purpose=2&goods_id="+goods_id+"&cat_id3="+cat_id3,
+            success:function(data){
+                $("#ajax_spec_data").empty().html(data);
+                if($.trim(data) != ''){
+                    ajaxGetSpecInput();	// 触发完  马上触发 规格输入框
+                }
+            }
+        });
+
+        // 商品类型切换时 ajax 调用  返回不同的属性输入框
+        $.ajax({
+            type:'GET',
+            url:"/index.php?m=Seller&c=Goods&a=ajaxGetAttrInput&goods_id="+goods_id+"&cat_id3="+cat_id3,
+            success:function(data){
+                $("#goods_attr_table tr:gt(0)").remove();
+                $("#goods_attr_table").append(data);
+            }
+        });
+    }
+    
+   
+    /** 以下是编辑时默认选中某个商品分类*/
+    $(document).ready(function(){
+        ajaxGetSpecAttr();
+        // 商品品牌根据分类显示相关的品牌
+        $('#brand_id option').each(function(){
+            var cat_id1 = $('input[name=cat_id1]').val();
+        });
+		
+		$("#addEditGoodsForm").validate({
+    		debug: false, //调试模式取消submit的默认提交功能
+    		focusInvalid: false, //当为false时，验证无效时，没有焦点响应  
+            onkeyup: false,
+            submitHandler: function(form){   //表单提交句柄,为一回调函数，带一个参数：form
+                var item_array = new Array();
+                $("img[id^=item_img_]").parent("span[data-img_id]").prevAll("button[class='btn btn-success']").each(function (i,v) {
+                    item_array[i] = parseInt($(v).attr('data-item_id'));
+                })//所有选中的item
+    		    var item_img_array = new Array();
+    		    $("button[class='btn btn-success']").next().next("span[data-img_id]").find("img[id^=item_img_][src!='/public/images/add-button.jpg']").each(function (index,value) {
+                    item_img_array[index] = parseInt($(value).attr('id').slice(9));
+                })//所有选中item下面上传了图片的
+                //判断：所有算中item上传的图片为空 或者所有选中item=所有选中的图片
+                if (item_array.sort().toString() != item_img_array.sort().toString() && item_img_array.length != 0) {
+                    layer.alert("已选规格必须全部都传图或都不传图" , {icon:2, time:2000});
+                    return;
+                }
+                $('#submit').attr('disabled',true);
+                $.ajax({
+                    type: "POST",
+                    url: "{:U('Goods/supplierSave')}",
+                    data: $('#addEditGoodsForm').serialize(),
+                    dataType: "json",
+                    error: function(request) {
+                        layer.alert("服务器繁忙, 请联系管理员!",{icon:2});
+                        return false;
+                    },
+                    success: function (data) {
+                        if (data.status == 1) {
+                            $("input[name=goods_id]").attr('value',data.result.goods_id);
+                            layer.msg(data.msg,{icon: 1,time: 2000},function(){
+                                    window.location.href="{:U('/seller/Goods/supplierGoodsList/redirect/1')}";
+                                });
+                        } else {
+                            layer.msg(data.msg,{icon: 2,time:2000},function () {
+                                $('#submit').attr('disabled',false);
+                            });
+                            // 验证失败提示错误
+                            for (var i in data.result) {
+                                $("#err_" + i).text(data.result[i]).show(); // 显示对于的 错误提示
+                            }
+                        }
+                    }
+                });
+            },
+            ignore:":button,:checkbox",	//不验证的元素
+            rules:{
+            	goods_name:{
+            		required:true
+            	},
+            	cost_price:{
+            		required:true,
+            		number:true,
+            		min:0
+            	},
+            	market_price:{
+            		required:true,
+            		number:true,
+            		min:0
+            	}
+            },
+            messages:{
+            	goods_name:{
+            		required:"请填写商品名称"
+            	},
+            	cost_price:{
+            		required:"请填写商品供货价",
+            		number:"请输入数字",
+            		min:"商品供货加价不能小于0"
+            	},
+            	market_price:{
+            		required:"请填写市场售价",
+            		number:"请输入数字",
+            		min:"商品价格不能小于0"
+            	}
+            }
+    	});
+        initFreight();
+    });
+
+    // 属性输入框的加减事件
+    function addAttr(a)
+    {
+        var attr = $(a).parent().parent().prop("outerHTML");
+        attr = attr.replace('addAttr','delAttr').replace('+','-');
+        $(a).parent().parent().after(attr);
+    }
+    // 属性输入框的加减事件
+    function delAttr(a)
+    {
+        $(a).parent().parent().remove();
+    }
+    function choosebox(o){
+        var vt = $(o).is(':checked');
+        if(vt){
+            $('input[type=checkbox]').prop('checked',vt);
+        }else{
+            $('input[type=checkbox]').removeAttr('checked');
+        }
+    }
+    $(document).ready(function(){
+        $(":checkbox[cka]").click(function(){
+            var $cks = $(":checkbox[ck='"+$(this).attr("cka")+"']");
+            if($(this).is(':checked')){
+                $cks.each(function(){$(this).prop("checked",true);});
+            }else{
+                $cks.each(function(){$(this).removeAttr('checked');});
+            }
+        });
+    });
+
+    $(function () {
+        $(document).on("click", '.is_free_shipping', function (e) {
+            initFreight();
+        })
+    })
+    function initFreight(){
+        var is_free_shipping = $("input[name='is_free_shipping']:checked").val();
+        if(is_free_shipping == 0){
+            $('.freight_template').show();
+        }else{
+            $('.freight_template').hide();
+        }
+    }
+
+    
+    /* 插入商品图片 */
+    function insert_img(name, src) {
+        $('input[nctype="goods_image"]').val(name);
+        $('img[nctype="goods_image"]').attr('src',src);
+    }
+    
+    function setTab(obj){
+    	$('.ui-tabs-panel').hide();
+    	$(obj).parents('li').addClass('ui-tabs-selected').siblings().removeClass('ui-tabs-selected')
+    	$($(obj).attr('href')).show();
+    }
+    
+    $(function(){
+        // 取消回车提交表单
+        $('input').keypress(function(e){
+            var key = window.event ? e.keyCode : e.which;
+            if (key.toString() == "13") {
+             	return false;
+            }
+        });
+		
+        /* 手机端 商品描述 */
+        // 显示隐藏控制面板
+        $('div[nctype="mobile_pannel"]').on('click', '.module', function(){
+            mbPannelInit();
+            $(this).siblings().removeClass('current').end().addClass('current');
+        });
+        // 上移
+        $('div[nctype="mobile_pannel"]').on('click', '[nctype="mp_up"]', function(){
+            var _parents = $(this).parents('.module:first');
+            _rs = mDataMove(_parents.index(), 0);
+            if (!_rs) {
+                return false;
+            }
+            _parents.clone().insertBefore(_parents.prev()).end().remove();
+            mbPannelInit();
+        });
+        // 下移
+        $('div[nctype="mobile_pannel"]').on('click', '[nctype="mp_down"]', function(){
+            var _parents = $(this).parents('.module:first');
+            _rs = mDataMove(_parents.index(), 1);
+            if (!_rs) {
+                return false;
+            }
+            _parents.clone().insertAfter(_parents.next()).end().remove();
+            mbPannelInit();
+        });
+        // 删除
+        $('div[nctype="mobile_pannel"]').on('click', '[nctype="mp_del"]', function(){
+            var _parents = $(this).parents('.module:first');
+            mDataRemove(_parents.index());
+            _parents.remove();
+            mbPannelInit();
+        });
+        // 编辑
+        $('div[nctype="mobile_pannel"]').on('click', '[nctype="mp_edit"]', function(){
+            $('a[nctype="meat_cancel"]').click();
+            var _parents = $(this).parents('.module:first');
+            var _val = _parents.find('.text-div').html();
+            $(this).parents('.module:first').html('')
+                .append('<div class="content"></div>').find('.content')
+                .append('<div class="ncsc-mea-text" nctype="mea_txt"></div>')
+                .find('div[nctype="mea_txt"]')
+                .append('<p id="meat_content_count" class="text-tip">')
+                .append('<textarea class="textarea valid" data-old="' + _val + '" nctype="meat_content">' + _val + '</textarea>')
+                .append('<div class="button"><a class="ncsc-btn ncsc-btn-blue" nctype="meat_edit_submit" href="javascript:void(0);">确认</a><a class="ncsc-btn ml10" nctype="meat_edit_cancel" href="javascript:void(0);">取消</a></div>')
+                .append('<a class="text-close" nctype="meat_edit_cancel" href="javascript:void(0);">X</a>')
+                .find('#meat_content_count').html('').end()
+                .find('textarea[nctype="meat_content"]').unbind().charCount({
+                    allowed: 500,
+                    warning: 50,
+                    counterContainerID: 'meat_content_count',
+                    firstCounterText:   '还可以输入',
+                    endCounterText:     '字',
+                    errorCounterText:   '已经超出'
+                });
+        });
+        // 编辑提交
+        $('div[nctype="mobile_pannel"]').on('click', '[nctype="meat_edit_submit"]', function(){
+            var _parents = $(this).parents('.module:first');
+            var _c = toTxt(_parents.find('textarea[nctype="meat_content"]').val().replace(/[\r\n]/g,''));
+            var _cl = _c.length;
+            if (_cl == 0 || _cl > 500) {
+                return false;
+            }
+            _data = new Object;
+            _data.type = 'text';
+            _data.value = _c;
+            _rs = mDataReplace(_parents.index(), _data);
+            if (!_rs) {
+                return false;
+            }
+            _parents.html('').append('<div class="tools"><a nctype="mp_up" href="javascript:void(0);">上移</a><a nctype="mp_down" href="javascript:void(0);">下移</a><a nctype="mp_edit" href="javascript:void(0);">编辑</a><a nctype="mp_del" href="javascript:void(0);">删除</a></div>')
+                .append('<div class="content"><div class="text-div">' + _c + '</div></div>')
+                .append('<div class="cover"></div>');
+
+        });
+        // 编辑关闭
+        $('div[nctype="mobile_pannel"]').on('click', '[nctype="meat_edit_cancel"]', function(){
+            var _parents = $(this).parents('.module:first');
+            var _c = _parents.find('textarea[nctype="meat_content"]').attr('data-old');
+            _parents.html('').append('<div class="tools"><a nctype="mp_up" href="javascript:void(0);">上移</a><a nctype="mp_down" href="javascript:void(0);">下移</a><a nctype="mp_edit" href="javascript:void(0);">编辑</a><a nctype="mp_del" href="javascript:void(0);">删除</a></div>')
+            .append('<div class="content"><div class="text-div">' + _c + '</div></div>')
+            .append('<div class="cover"></div>');
+        });
+        // 初始化控制面板
+        mbPannelInit = function(){
+            $('div[nctype="mobile_pannel"]')
+                .find('a[nctype^="mp_"]').show().end()
+                .find('.module')
+                .first().find('a[nctype="mp_up"]').hide().end().end()
+                .last().find('a[nctype="mp_down"]').hide();
+        }
+        // 添加文字按钮，显示文字输入框
+        $('a[nctype="mb_add_txt"]').click(function(){
+            $('div[nctype="mea_txt"]').show();
+            $('a[nctype="meai_cancel"]').click();
+        
+        $('div[nctype="mobile_editor_area"]').find('textarea[nctype="meat_content"]').unbind().charCount({
+            allowed: 500,
+            warning: 50,
+            counterContainerID: 'meat_content_count',
+            firstCounterText:   '还可以输入',
+            endCounterText:     '字',
+            errorCounterText:   '已经超出'
+        })});
+        // 关闭 文字输入框按钮
+        $('a[nctype="meat_cancel"]').click(function(){
+            $(this).parents('div[nctype="mea_txt"]').find('textarea[nctype="meat_content"]').val('').end().hide();
+        });
+        // 提交 文字输入框按钮
+        $('a[nctype="meat_submit"]').click(function(){
+            var _c = toTxt($('textarea[nctype="meat_content"]').val().replace(/[\r\n]/g,''));
+            var _cl = _c.length;
+            if (_cl == 0 || _cl > 500) {
+                return false;
+            }
+            _data = new Object;
+            _data.type = 'text';
+            _data.value = _c;
+            
+            _rs = mDataInsert(_data);
+            if (!_rs) {
+                return false;
+            }
+            $('<div class="module m-text"></div>')
+                .append('<div class="tools"><a nctype="mp_up" href="javascript:void(0);">上移</a><a nctype="mp_down" href="javascript:void(0);">下移</a><a nctype="mp_edit" href="javascript:void(0);">编辑</a><a nctype="mp_del" href="javascript:void(0);">删除</a></div>')
+                .append('<div class="content"><div class="text-div">' + _c + '</div></div>')
+                .append('<div class="cover"></div>').appendTo('div[nctype="mobile_pannel"]');
+            
+            $('a[nctype="meat_cancel"]').click();
+        });
+        // 添加图片按钮，显示图片空间文字
+        $('a[nctype="mb_add_img"]').click(function(){
+            $('a[nctype="meat_cancel"]').click();
+            $('div[nctype="mea_img"]').show().load('/index.php?m=Seller&c=Goods&a=pic_list');
+        });
+        // 关闭 图片选择
+        $('div[nctype="mobile_editor_area"]').on('click', 'a[nctype="meai_cancel"]', function(){
+            $('div[nctype="mea_img"]').html('');
+        });
+        // 插图图片
+        insert_mobile_img = function(data){
+            _data = new Object;
+            _data.type = 'image';
+            _data.value = data;
+            _rs = mDataInsert(_data);
+            if (!_rs) {
+                return false;
+            }
+            $('<div class="module m-image"></div>')
+                .append('<div class="tools"><a nctype="mp_up" href="javascript:void(0);">上移</a><a nctype="mp_down" href="javascript:void(0);">下移</a><a nctype="mp_rpl" href="javascript:void(0);">替换</a><a nctype="mp_del" href="javascript:void(0);">删除</a></div>')
+                .append('<div class="content"><div class="image-div"><img src="' + data + '"></div></div>')
+                .append('<div class="cover"></div>').appendTo('div[nctype="mobile_pannel"]');
+            
+        }
+        // 替换图片
+        $('div[nctype="mobile_pannel"]').on('click', 'a[nctype="mp_rpl"]', function(){
+            $('a[nctype="meat_cancel"]').click();
+            $('div[nctype="mea_img"]').show().load('/index.php?m=Seller&c=Goods&a=pic_list&type=replace');
+        });
+        // 插图图片
+        replace_mobile_img = function(data){
+            var _parents = $('div.m-image.current');
+            _parents.find('img').attr('src', data);
+            _data = new Object;
+            _data.type = 'image';
+            _data.value = data;
+            mDataReplace(_parents.index(), _data);
+        }
+        // 插入数据
+        mDataInsert = function(data){
+            _m_data = mDataGet();
+            _m_data.push(data);
+            return mDataSet(_m_data);
+        }
+        // 数据移动 
+        // type 0上移  1下移
+        mDataMove = function(index, type) {
+            _m_data = mDataGet();
+            _data = _m_data.splice(index, 1);
+            if (type) {
+                index += 1;
+            } else {
+                index -= 1;
+            }
+            _m_data.splice(index, 0, _data[0]);
+            return mDataSet(_m_data);
+        }
+        // 数据移除
+        mDataRemove = function(index){
+            _m_data = mDataGet();
+            _m_data.splice(index, 1);     // 删除数据
+            return mDataSet(_m_data);
+        }
+        // 替换数据
+        mDataReplace = function(index, data){
+            _m_data = mDataGet();
+            _m_data.splice(index, 1, data);
+            return mDataSet(_m_data);
+        }
+        // 获取数据
+        mDataGet = function(){
+            _m_body = $('input[name="m_body"]').val();
+            if (_m_body == '' || _m_body == 'false') {
+                var _m_data = new Array;
+            } else {
+                eval('var _m_data = ' + _m_body);
+            }
+            return _m_data;
+        }
+        // 设置数据
+        mDataSet = function(data){
+            var _i_c = 0;
+            var _i_c_m = 20;
+            var _t_c = 0;
+            var _t_c_m = 5000;
+            var _sign = true;
+            $.each(data, function(i, n){
+                if (n.type == 'image') {
+                    _i_c += 1;
+                    if (_i_c > _i_c_m) {
+                        alert('只能选择'+_i_c_m+'张图片');
+                        _sign = false;
+                        return false;
+                    }
+                } else if (n.type == 'text') {
+                    _t_c += n.value.length;
+                    if (_t_c > _t_c_m) {
+                        alert('只能输入'+_t_c_m+'个字符');
+                        _sign = false;
+                        return false;
+                    }
+                }
+            });
+            if (!_sign) {
+                return false;
+            }
+            $('span[nctype="img_count_tip"]').html('还可以选择图片<em>' + (_i_c_m - _i_c) + '</em>张');
+            $('span[nctype="txt_count_tip"]').html('还可以输入<em>' + (_t_c_m - _t_c) + '</em>字');
+            _data = JSON.stringify(data);
+            $('input[name="m_body"]').val(_data);
+            return true;
+        }
+        // 转码
+        toTxt = function(str) {
+            var RexStr = /\<|\>|\"|\'|\&|\\/g
+            str = str.replace(RexStr, function(MatchStr) {
+                switch (MatchStr) {
+                case "<":
+                    return "";
+                    break;
+                case ">":
+                    return "";
+                    break;
+                case "\"":
+                    return "";
+                    break;
+                case "'":
+                    return "";
+                    break;
+                case "&":
+                    return "";
+                    break;
+                case "\\":
+                    return "";
+                    break;
+                default:
+                    break;
+                }
+            })
+            return str;
+        }
+    });
+</script>
+</body>
+</html>

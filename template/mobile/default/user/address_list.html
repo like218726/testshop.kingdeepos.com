@@ -1,0 +1,242 @@
+<include file="public/header" title="收货地址" body="pore_add g4"/>
+<include file="public/header_nav" title="收货地址" href="javascript:history.back(-1)"/>
+<style> 
+    body{
+        padding-top: 1.87733rem;
+    }
+    .classreturn{
+        position: fixed;
+        top: 0;
+    }
+    .jd_listaddless {
+        padding-top:.427rem;
+        padding-bottom: 0;
+    }
+    .jd_listaddless .maleri30{
+        background-color: #fff;
+        border-radius: .213rem;
+        padding: .55rem;
+    }
+    .jd_listaddless .address_top{
+        display: flex;
+        font-size: .64rem;
+        color: #333;
+        margin-bottom: .427rem;
+    }
+    .jd_listaddless .address_top .address_name{
+        max-width: 9.5rem;
+        white-space: nowrap;
+        margin-right: 0.213rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .jd_listaddless .address_top .address_phone{
+        font-size: .597rem;
+    }
+    .jd_listaddless .address_mid{
+        height: 1.024rem;
+        overflow: hidden;
+        font-size: .512rem;
+        color: #999;
+        width: 100%;
+        line-height: 1.024rem;
+        margin-bottom: .213rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .jd_listaddless .footbox{
+        display: flex;
+        justify-content: space-between;
+        border-top:.03rem solid #f3f3f3;
+        color: #999;
+        font-size: .512rem;
+        padding-top: .427rem;
+    }
+    .jd_listaddless .footbox .f_default{
+        display: flex;
+        align-items: center;
+    }
+    .jd_listaddless .footbox .editdiv a{
+        display: flex;
+        align-items: center;
+        color: #999;
+    }
+    .jd_listaddless .footbox .f_default .s_default{
+        display: inline-block;
+        background: url(__STATIC__/images/nocheck.png) no-repeat;
+        background-size: .683rem .683rem;
+        width: 0.683rem;
+        height: 0.683rem;
+        margin-right: 0.213rem;
+    }
+    .jd_listaddless .footbox .f_default .s_default.check{
+        background: url(__STATIC__/images/ischeck.png) no-repeat;
+        background-size: .683rem .683rem;
+    }
+</style>
+    <!--地址-s-->
+    <div  style="margin-bottom: 100px; overflow: scroll;">
+    <volist name="lists" id="list">
+        <div class="jd_listaddless p">
+            <div class="maleri30">
+                <if condition="$Request.param.source eq 'cart2'">
+                    <!--从确认订单页进来-->
+                   <a href="{:U('/Mobile/Cart/cart2',array('address_id'=>$list['address_id'],'source'=>'cart2','goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id,'action'=>$Request.param.action))}">
+                    <div class="address_top">
+                        <div class="address_name">{$list[consignee]}</div>
+                        <div class="address_phone">{$list[mobile]}</div>
+                    </div>
+                    <div class="address_mid">
+                        {$region_list[$list['province']]},{$region_list[$list['city']]},{$region_list[$list['district']]},{$region_list[$list['twon']]}{$list['address']}
+                    </div>
+                    <div class="footbox">
+                        <div class="f_default">
+                            <i class="s_default <if condition="$list.is_default">check</if>" data-id="{$list.address_id}"></i>设为默认
+                        </div>
+                        <div class="editdiv">
+                            <if condition="$Request.param.source eq 'integral'">
+                                <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id))}">
+                                    <i class="eedit"></i>编辑
+                                </a>
+                            <elseif condition="$Request.param.source eq 'pre_sell'"/>
+                                <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'prom_id'=>$Request.param.prom_id,'goods_num'=>$Request.param.goods_num))}">
+                                    <i class="eedit"></i>编辑
+                                </a>
+                            <else/>
+                                <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'order_id'=>$Request.param.order_id,'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id,'action'=>$Request.param.action))}">
+                                    <i class="eedit"></i>编辑
+                                </a>
+                            </if>
+                        </div>
+                    </div>
+                    </a>
+                    <!--从确认订单页进来-->
+                <elseif condition="$Request.param.source eq 'team'"/>
+                    <!--从team页进来-->
+                    <a href="{:U('/Mobile/Team/order',array('address_id'=>$list['address_id'],'order_id'=>$Request.param.order_id))}">
+                        <div class="address_top">
+                            <div class="address_name">{$list[consignee]}</div>
+                            <div class="address_phone">{$list[mobile]}</div>
+                        </div>
+                        <div class="address_mid">
+                            {$region_list[$list['province']]},{$region_list[$list['city']]},{$region_list[$list['district']]},{$region_list[$list['twon']]}{$list['address']}
+                        </div>
+                        <div class="footbox">
+                            <div class="f_default">
+                                <i class="s_default <if condition="$list.is_default">check</if>" data-id="{$list.address_id}"></i>设为默认
+                            </div>
+                            <div class="editdiv">
+                                <if condition="$Request.param.source eq 'integral'">
+                                    <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id))}">
+                                        <i class="eedit"></i>编辑
+                                    </a>
+                                <elseif condition="$Request.param.source eq 'pre_sell'"/>
+                                    <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'prom_id'=>$Request.param.prom_id,'goods_num'=>$Request.param.goods_num))}">
+                                        <i class="eedit"></i>编辑
+                                    </a>
+                                <else/>
+                                    <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'order_id'=>$Request.param.order_id,'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id,'action'=>$Request.param.action))}">
+                                        <i class="eedit"></i>编辑
+                                    </a>
+                                </if>
+                            </div>
+                        </div>
+                    </a>
+                    <!--从team页进来-->
+                <elseif condition="$Request.param.source eq 'integral'"/>
+                    <!--从integral页进来-->
+                    <a href="{:U('/Mobile/Cart/integral',array('address_id'=>$list['address_id'],'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id))}">
+                        <div class="address_top">
+                            <div class="address_name">{$list[consignee]}</div>
+                            <div class="address_phone">{$list[mobile]}</div>
+                        </div>
+                        <div class="address_mid">
+                            {$region_list[$list['province']]},{$region_list[$list['city']]},{$region_list[$list['district']]},{$region_list[$list['twon']]}{$list['address']}
+                        </div>
+                        <div class="footbox">
+                            <div class="f_default">
+                                <i class="s_default <if condition="$list.is_default">check</if>" data-id="{$list.address_id}"></i>设为默认
+                            </div>
+                            <div class="editdiv">
+                                <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id))}">
+                                    <i class="eedit"></i>编辑
+                                </a>
+                            </div>
+                        </div>
+                    </a>
+                    <!--从integral页进来-->
+                <elseif condition="$Request.param.source eq 'pre_sell'"/>
+                    <a href="{:U('/Mobile/Cart/pre_sell',array('address_id'=>$list['address_id'],'prom_id'=>$Request.param.prom_id,'goods_num'=>$Request.param.goods_num))}">
+                        <div class="address_top">
+                            <div class="address_name">{$list[consignee]}</div>
+                            <div class="address_phone">{$list[mobile]}</div>
+                        </div>
+                        <div class="address_mid">
+                            {$region_list[$list['province']]},{$region_list[$list['city']]},{$region_list[$list['district']]},{$region_list[$list['twon']]}{$list['address']}
+                        </div>
+                        <div class="footbox">
+                            <div class="f_default">
+                                <i class="s_default <if condition="$list.is_default">check</if>" data-id="{$list.address_id}"></i>设为默认
+                            </div>
+                            <div class="editdiv">
+                                <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'prom_id'=>$Request.param.prom_id,'goods_num'=>$Request.param.goods_num))}">
+                                    <i class="eedit"></i>编辑
+                                </a>
+                            </div>
+                        </div>
+                    </a>
+                <else/>
+                    <div class="address_top">
+                        <div class="address_name">{$list[consignee]}</div>
+                        <div class="address_phone">{$list[mobile]}</div>
+                    </div>
+                    <div class="address_mid">
+                        {$region_list[$list['province']]},{$region_list[$list['city']]},{$region_list[$list['district']]},{$region_list[$list['twon']]}{$list['address']}
+                    </div>
+                    <div class="footbox">
+                        <div class="f_default">
+                            <i class="s_default <if condition="$list.is_default">check</if>" data-id="{$list.address_id}"></i>设为默认
+                        </div>
+                        <div class="editdiv">
+                            <if condition="$Request.param.source eq 'integral'">
+                                <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id))}">
+                                    <i class="eedit"></i>编辑
+                                </a>
+                            <elseif condition="$Request.param.source eq 'pre_sell'"/>
+                                <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'prom_id'=>$Request.param.prom_id,'goods_num'=>$Request.param.goods_num))}">
+                                    <i class="eedit"></i>编辑
+                                </a>
+                            <else/>
+                                <a href="{:U('/Mobile/User/edit_address',array('id'=>$list[address_id],'source'=>$Request.param.source,'order_id'=>$Request.param.order_id,'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id,'action'=>$Request.param.action))}">
+                                    <i class="eedit"></i>编辑
+                                </a>
+                            </if>
+                        </div>
+                    </div>
+                </if>
+               
+            </div>
+        </div>
+    </volist>
+    </div>
+<!--地址-e-->
+
+        <div class="createnew">
+            <if condition="$Request.param.source eq 'integral'">
+                <a href="{:U('/Mobile/User/add_address',array('source'=>$Request.param.source,'order_id'=>$Request.param.order_id,'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id))}">+新建地址</a>
+                <elseif condition="$Request.param.source eq 'pre_sell'"/>
+                <a href="{:U('/Mobile/User/add_address',array('source'=>$Request.param.source,'prom_id'=>$Request.param.prom_id,'goods_num'=>$Request.param.goods_num))}">+新建地址</a>
+                <else/>
+                <a href="{:U('/Mobile/User/add_address',array('source'=>$Request.param.source,'order_id'=>$Request.param.order_id,'goods_id'=>$Request.param.goods_id,'goods_num'=>$Request.param.goods_num,'item_id'=>$Request.param.item_id,'action'=>$Request.param.action))}">+新建地址</a>
+            </if>
+        </div>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(".f_default .s_default").click(function(){
+        if(!$(this).hasClass("check")){
+            window.location.href="{:U('Mobile/User/set_default')}?id="+$(this).attr('data-id')
+        }
+    })
+</script>
+</body>
+</html>

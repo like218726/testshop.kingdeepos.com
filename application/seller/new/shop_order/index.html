@@ -1,0 +1,313 @@
+<include file="public/head"/>
+<style>
+    .w150 {
+        margin-right: 35px;
+    }
+
+    .w378 {
+        display: inline-block !important;
+    }
+
+    .di-in {
+        display: inline-block !important;
+    }
+
+    .w160 {
+        width: 160px !important;
+    }
+
+    .nscs-table-handle {
+        border-right: 1px solid #dedede;
+    }
+
+    /*自提待审核 -s*/
+    .fl {
+        float:left;
+    }
+    .fr {
+        float:right;
+    }
+    .p:before,.p:after {
+        content:"";
+        clear:both;
+        display:block
+    }
+    .ncsc-keyboard-title h6 {
+        font-size:13px !important;
+        color:#666 !important;
+        line-height:27px !important;
+    }
+    .ncsc-vr-order-exchange dt h6 {
+        font-size:13px;
+        color:#666;
+        line-height:27px;
+        margin-left: 10px;
+    }
+    .ncsc-vr-order-exchange .ncsc-vr-order-one {
+    }.ncsc-vr-order-one .ncsc-keyboard {
+         padding:0;
+     }
+    .ncsc-vr-order-one .ncsc-keyboard label {
+        margin:0;
+        height:48px;
+    }
+    .ncsc-vr-order-one .ncsc-keyboard label input {
+        height:48px;
+    }
+    .ncsc-vr-order-one  .vr-code {
+        color:#999 !important;
+        font-size:14px !important;
+        line-height:48px !important;
+        width:275px !important;
+    }
+    .keyboard-icon-wrap {
+        width:485px;
+        margin:70px 0;
+    }
+    .ncsc-keyboard-icon {
+        display:block;
+        width:62px;
+        margin:0 auto;
+        height:62px;
+        background:url(__ROOT__/public/static/images/zitkeys.png) no-repeat;
+    }
+    .keyboard-icon-cont {
+        font-size:12px;
+        text-align:center;
+        line-height:25px;
+        margin-top:10px;
+    }
+    .keyboard-icon-btn {
+        margin:10px auto;
+        width:117px;
+        height:34px;
+    }
+    .keyboard-icon-btn a {
+        display:block;
+        width:115px;
+        height:32px;
+        text-align:center;
+        line-height:32px;
+        border:1px solid #00DD00;
+        color:#00DD00;
+        border-radius:4px;
+    }
+    .ncsc-vr-order-one .ncsc-keyboard{
+        width:20px;
+    }
+    /*自提待审核 -e*/
+</style>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>自提订单列表
+        </div>
+        <div class="main-content" id="mainContent">
+
+            <div class="tabmenu">
+                <ul id="tab" class="tab pngFix">
+                    <li class="tab normal" data-val="0"><a href="#">核销提货码</a></li>
+                    <li class="tab active" data-val="1"><a href="#">全部自提订单</a></li>
+                    <li class="tab normal" data-val="2"><a href="#">待自提订单</a></li>
+                    <li class="tab normal" data-val="3"><a href="#">数据统计</a></li>
+                </ul>
+            </div>
+
+            <div id="wrapBody">
+                <div class="which_tab order_list">
+                    <form method="get" id="search-form2">
+                        <input type="hidden" name="order_by" value="order_id"/>
+                        <input type="hidden" name="sort" value="desc"/>
+                        <input type="hidden" name="statistic" value="{$_GET['statistic']|default=0}"/>
+                        <input type="hidden" name="take_time_start" value="{$_GET['take_time_start']}"/>
+                        <input type="hidden" name="take_time_end" value="{$_GET['take_time_end']}"/>
+                        <input type="hidden" name="order_status" id="order_status"
+                               value="{$_GET['order_status']|default=1}"/>
+                        <table class="search-form">
+                            <tr>
+                                <th>订单编号{$pay_status_chose}</th>
+                                <td class="w150"><input type="text" class="text w150" name="order_sn" placeholder="订单编号"
+                                                        value=""/></td>
+                                <th>下单时间</th>
+                                <td class="w378">
+                                    <input type="text" class="text w100" autocomplete="off" name="start_time" id="start_time" placeholder="开始时间"
+                                           value="{$begin}"/>
+                                    <input type="text" class="text w100" autocomplete="off" name="end_time" id="end_time" placeholder="结束时间"
+                                           value="{$end}"/>
+                                </td>
+                                <th>自提点</th>
+                                <td><select name="shop_id" class="w150 w160 di-in">
+                                    <option value="">自提点</option>
+                                    <foreach name="shop_list" item="vo">
+                                        <option value="{$vo['shop_id']}">{$vo['shop_name']}</option>
+                                    </foreach>
+                                </select>
+                                    <label class="submit-border"><input class="submit" value="搜索"
+                                                                        onclick="search()"
+                                                                        type="button"></label>
+                                </td>
+                            </tr>
+                            <!--tr>
+                              <td style="width:160px"><a id="S1" href="javascript:void(0)" class="ncbtn-mini" title="批量打印配货单"><span><i class="icon-print"></i>批量打印配货单</a></span></td>
+                            </tr-->
+                        </table>
+                    </form>
+                    <div id="ajax_return">
+                    </div>
+                </div>
+                <div class="which_tab off" style="display: none;">
+                    <div class="flexigrid">
+                        <div class="mDiv" style="height: auto;">
+                            <div class="ncsc-vr-order-exchange">
+                                <dl class="p" style="margin-top: 80px;">
+                                    <dt class="ncsc-keyb0oard-title fl"><h6>提货核销码</h6></dt>
+                                    <dd class="ncsc-vr-order-one fl p">
+                                        <div class="fl" style="margin: 0 15px;">
+                                            <input class="vr-code" id="shop_order_id"  type="text" placeholder="请输入买家提供的提货核销码" maxlength="18" value="" />
+                                        </div>
+                                        <div class="ncsc-keyboard fl ">
+                                            <label class="enter-border">
+                                                <input type="button" id="submit" class="enter" value="提交验证">
+                                            </label>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <div class="keyboard-icon-wrap">
+                                    <div class="ncsc-keyboard-icon">
+                                        <i></i>
+                                    </div>
+                                    <div class="keyboard-icon-cont">{$shop_order_wait_off_num}个订单待自提</div>
+                                    <div class="keyboard-icon-btn"><a onclick='$("li[data-val=2]").click()'>查看</a></div>
+                                </div>
+                                <div class="bottom">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--分页位置-->
+                    </div>
+                </div>
+                <div class="which_tab statistic" style="display: none;">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#tab > li").each(function () {
+            $(this).click(function () {
+                tabSelect(this);
+            });
+        });
+        $("li[data-val="+$("#order_status").val()+"]").click()
+        $("#tab > li").each(function () {
+            $(this).click(function () {
+                $("input[name='statistic']").val(0)
+                $("input[name='take_time_start']").val('')
+                $("input[name='take_time_end']").val('')
+            });
+        });
+        // 起始位置日历控件
+        $('#start_time').layDate(); 
+     	$('#end_time').layDate();
+    });
+
+    function search()
+    {
+        $("input[name='statistic']").val(0)
+        $("input[name='take_time_start']").val('')
+        $("input[name='take_time_end']").val('')
+        ajax_get_table('search-form2',1)
+    }
+
+    function tabSelect(obj) {
+        $("#tab > li").each(function () {
+            $(this).removeClass('active');
+        });
+        $(obj).addClass('active');
+        $(".which_tab").hide();
+        $("div[class='which_tab statistic']").html('');
+        switch ($(obj).data('val')) {
+            case 1:
+                $("#order_status").val(1);
+                $("div[class='which_tab order_list']").show();
+                ajax_get_table('search-form2',1);
+                break;
+            case 2:
+                $("#order_status").val(2);
+                $("div[class='which_tab order_list']").show();
+                ajax_get_table('search-form2',1);
+                break;
+            case 0:
+                $("#order_status").val(0);
+                $("div[class='which_tab off']").show();
+                break;
+            case 3:
+                window.location.href = "{:U('shopOrder/statistic')}"
+                break;
+        }
+    }
+
+    //单页面显示
+    function panel(){
+        var hash = window.location.hash;
+        $('#wrapBody').children('div').hide();
+        if(hash == ''){
+            $("div[class='which_tab order_list']").show();
+        }else{
+            $(hash).show();
+        }
+    }
+
+    function ajax_get_table(tab, page) {
+        cur_page = page; //当前页面 保存为全局变量
+        var ajaxUrl = "{:U('shopOrder/ajaxindex')}"+"/p/" + page;
+        $.ajax({
+            type: "POST",
+            url: ajaxUrl,
+            data: $('#' + tab).serialize(),// 你的formid
+            success: function (data) {
+                $("#ajax_return").html('');
+                $("#ajax_return").append(data);
+            }
+        });
+    }
+
+
+    var url = '{:U("Order/order_print")}';
+    $("#S1").click(function () {
+        var ids = '';
+        $("input[type='checkbox']:checkbox:checked").each(function () {
+            ids += $(this).val() + ',';
+        })
+        url += '/ids/' + ids + '/template/picking';
+        window.open(url);
+    })
+
+
+    //更换自提点
+    $(document).on("click", '#submit', function (e) {
+        $.ajax({
+            type: "POST",
+            url: "{:U('ShopOrder/writeOff')}",
+            dataType: 'json',
+            data: {bar_code: $("input[id='shop_order_id']").val()},
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.open({icon: 1, content: data.msg, time: 1000,end:function(){
+                            location.reload();
+                        }});
+                } else {
+                    layer.open({icon: 2, content: data.msg, time: 1000});
+                }
+            }
+        });
+    })
+
+
+</script>
+<include file="public/foot"/>
+</body>
+</html>

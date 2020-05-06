@@ -1,0 +1,445 @@
+<include file="public/head" />
+<div class="ncsc-layout wrapper">
+  <div id="layoutLeft" class="ncsc-layout-left">
+    <div id="sidebar" class="sidebar">
+      <div class="column-title" id="main-nav"><span class="ico-index"></span>
+        <h2>首页</h2>
+      </div>
+      <div class="column-menu">
+        <ul id="seller_center_left_menu">
+        	<empty name="leftMenu">
+            <div class="add-quickmenu"><a href="javascript:void(0);"><i class="icon-plus"></i>添加常用功能菜单</a></div>
+            </empty>
+        	<foreach name="leftMenu" item="vm">
+        		<li><a id="quicklink_{$vm[op]}_{$vm[act]}" href="{:U("$vm[op]/$vm[act]")}">{$vm.name}</a></li>
+        	</foreach>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div id="layoutRight" class="ncsc-layout-right">
+	  <div class="new_btn">新手向导</div>
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>首页<i class="icon-angle-right"></i></div>
+    <div class="main-content" id="mainContent">     
+		<div class="ncsc-index">
+		  <div class="top-container">
+		    <div class="basic-info">
+		      <dl class="ncsc-seller-info">
+		        <dt class="seller-name">
+		          <h3>{$seller_group.group_name}</h3>
+		          <h5>(用户名：{$seller.seller_name})
+				  <!--<a href="index.php" style=" background:#48CFAE;padding:5px; color:#fff;">申请开通分销</a>-->
+		         </h5>
+		        </dt>
+		        <dd class="store-logo">
+		          <p><img src="{$store_info.store_logo|default='/public/static/images/logo/admin_home_logo_default.png'}"/></p>
+		          <a href="{:U('Store/store_setting')}"><i class="icon-edit"></i>编辑店铺设置</a> </dd>
+		        <dd class="seller-permission">管理权限：<strong>{$seller_group.group_name|default="管理员"}</strong></dd>
+		        <dd class="seller-last-login">最后登录：<strong>
+                    <notempty name="$seller.last_login_time">
+                        {$seller.last_login_time|date='Y-m-d H:i',###}
+                    <else/>
+                        首次登陆
+                    </notempty>
+                </strong> </dd>
+		        <dd class="store-name">店铺名称：<a href="{:U('Home/Store/index',array('store_id'=>STORE_ID))}" >{$store.store_name}</a></dd>
+		        <dd class="store-grade">店铺等级：<strong>{$store_level|default="无"}</strong></dd>
+		        <dd class="store-validity">有效期：<strong><empty name="$store.store_end_time">长期<else/>{$store.store_end_time|date='Y-m-d H',###}</empty></strong> </dd>
+		      </dl>
+		    </div>
+		  </div>
+		  <div class="seller-cont">
+		    <div class="container type-a">
+		      <div class="hd">
+		        <h3>店铺及商品提示</h3>
+		        <h5>您需要关注的店铺信息以及待处理事项</h5>
+		      </div>
+		      <div class="content">
+		        <dl class="focus">
+		          <dt>店铺商品发布情况：</dt>
+		          <dd title="已发布/可传商品"><em id="nc_goodscount">{$count.goods_sum}</em>&nbsp;/&nbsp;
+		            不限          </dd>
+		          <!--<dt>图片空间使用：</dt>-->
+		          <!--<dd><em id="nc_imagecount">0</em>&nbsp;/&nbsp;不限</dd>-->
+		        </dl>
+		        <ul>
+					<li><a href="{:U('Goods/goodsList',array('goods_state'=>1))}" class="num">出售中 <strong id="nc_online">{$count.pass_goods}</strong></a></li>
+					<li><a href="{:U('Goods/goods_offline',array('goods_state'=>0))}" class="num">待审核 <strong id="nc_offline">{$count.verify_goods}</strong></a></li>
+					<li><a href="{:U('Goods/goods_offline',array('is_on_sale'=>2))}" class="num">违规下架 <strong id="nc_lockup">{$count.off_sale_goods}</strong></a></li>
+					<li><a href="{:U('Service/ask_list')}" class="num">待回复咨询 <strong id="nc_consult">{$count.consult}</strong></a></li>
+		        </ul>
+		      </div>
+		    </div>
+		
+		    <div class="container type-b">
+		      <div class="hd">
+		        <h3>系统公告</h3>
+		        <h5></h5>
+		      </div>
+		      <div class="content">
+		        <ul>
+		        	<li><a href="{:U('Home/Article/detail',['article_id'=>30])}" target="_blank" >罚款制度公告</a></li>
+		        	<li><a href="{:U('Home/Article/detail',['article_id'=>29])}" target="_blank" >关于举报罚款制度公告</a></li>
+		        	<li><a href="{:U('Home/Article/detail',['article_id'=>28])}" target="_blank" >关于伪劣货品举报说明</a></li>
+		        </ul>
+		        <dl>
+		          <dt>平台联系方式</dt>
+                    <dd>QQ1：{$tpshop_config.shop_info_qq}</dd>
+                    <dd>QQ2：{$tpshop_config.shop_info_qq2}</dd>
+                    <dd>电话：{$tpshop_config.shop_info_phone}</dd>
+		        </dl>
+		      </div>
+		    </div>
+		    <div class="container type-a">
+		      <div class="hd">
+		        <h3>交易提示</h3>
+		        <h5>您需要立即处理的交易订单(这里只显示最近7天的订单数量)</h5>
+		      </div>
+		      <div class="content">
+		        <dl class="focus">
+		          <dt>近期售出：</dt>
+		          <dd><a href="{:U('order/index')}">交易中的订单 <strong id="nc_progressing">{$count.order_sum}</strong></a></dd>
+		          <!--<dt>维权提示：</dt>-->
+		          <!--<dd><a href="">收到维权投诉 <strong id="nc_complain"></strong></a></dd>-->
+		        </dl>
+		        <ul>
+		          <li><a href="{:U('Seller/Order/index',array('pay_status'=>0,'order_status'=>0))}" class="num">待付款 <strong id="nc_payment">{$count.wait_pay}</strong></a></li>
+		          <!--<li><a href="{:U('Seller/Order/index',array('order_status'=>1))}" class="num">待发货 <strong id="nc_delivery">{$count.wait_shipping}</strong></a></li>-->
+                    <li><a href="{:U('Seller/Order/delivery_list')}" class="num">待发货 <strong id="nc_delivery">{$count.wait_shipping}</strong></a></li>
+		          <li><a href="{:U('Seller/Service/refund_list')}" class="num"> 退货申请 <strong id="nc_refund_lock">{$count.refund_pay}</strong></a></li>
+		          <li><a href="{:U('Seller/Service/return_list')}" class="num"> 换货/维修申请 <strong id="nc_return_lock">{$count.refund_goods}</strong></a></li>
+		          <li><a href="{:U('Seller/Order/delivery_list',array('shipping_status'=>2))}" class="num"> 部分发货订单 <strong id="nc_return">{$count.part_shipping}</strong></a></li>
+		          <li><a href="{:U('Seller/Order/index',array('order_status'=>0))}" class="num"> 待确认订单 <strong id="nc_bill_confirm">{$count.wait_confirm}</strong></a></li>
+		        </ul>
+		      </div>
+		    </div>
+
+		    <div class="container type-c">
+		      <div class="hd">
+		        <h3>销售情况统计</h3>
+		        <h5>按周期统计商家店铺的订单量和订单金额</h5>
+		      </div>
+		      <div class="content">
+		        <table class="ncsc-default-table">
+		          <thead>
+		            <tr>
+		              <th class="w50">项目</th>
+		              <th>订单量</th>
+		              <th class="w100">订单金额</th>
+		            </tr>
+		          </thead>
+		          <tbody>
+		            <tr class="bd-line">
+		              <td>昨日销量</td>
+		              <td>{$count[yesterday_order][order_count]|default=0}</td>
+		              <td>{$count[yesterday_order][order_amount_sum]|default=0}</td>
+		            </tr>
+		            <tr class="bd-line">
+		              <td>月销量</td>
+		              <td>{$count[month_order][order_count]}</td>
+		              <td>{$count[month_order][order_amount_sum]}</td>
+		            </tr>
+		          </tbody>
+		        </table>
+		      </div>
+		    </div>
+
+		    <div class="container type-c h500">
+		      <div class="hd">
+		        <h3>单品销售排名</h3>
+		        <h5>掌握30日内最热销的商品及时补充货源</h5>
+		      </div>
+		      <div class="content">
+		        <table class="ncsc-default-table">
+		          <thead>
+		            <tr>
+		              <th>排名</th>
+		              <th class="tl" colspan="2">商品信息</th>
+		              <th>销量</th>
+		            </tr>
+		          </thead>
+		          <tbody>
+				  <volist name="count[hot_goods_list]" id="hot_goods">
+					  <tr class="bd-line">
+						  <td>{$i}</td>
+						  <td class="tl" colspan="2"><a href="{:U('Seller/Goods/addEditGoods',['goods_id'=>$hot_goods[goods_id]])}">{$hot_goods.goods_name}</a></td>
+						  <td>{$hot_goods.goods_stock|abs}</td>
+					  </tr>
+				  </volist>
+				  </tbody>
+		        </table>
+		      </div>
+		    </div>
+		    <div class="container type-d h500">
+		      <div class="hd">
+		        <h3>店铺运营推广</h3>
+		        <h5>合理参加促销活动可以有效提升商品销量</h5>
+		      </div>
+		      <div class="content">
+		                <dl class="tghd">
+		          <dt class="p-name"> <a href="{:U('Seller/Promotion/flash_sale')}">抢购活动</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint">
+		                        <i class="icon-ok-sign"></i>已开通
+		                      </dd>
+		          <dd class="p-info">参与平台发起的抢购活动提高商品成交量及店铺浏览量</dd>
+		                  </dl>
+		                        <dl class="xszk">
+		          <dt class="p-name"><a href="{:U('Seller/Promotion/prom_goods_list')}">商品促销</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint"><span>
+		                        <i class="icon-ok-sign"></i>已开通
+		                        </span></dd>
+		          <dd class="p-info">在规定时间段内对店铺中所选商品进行打折促销活动</dd>
+		                  </dl>
+		        <dl class="mjs">
+		          <dt class="p-name"><a href="{:U('Seller/Promotion/group_buy_list')}">团购活动</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint"><span>
+		                        <i class="icon-ok-sign"></i>已开通
+		                        </span></dd>
+		          <dd class="p-info">商家自定义满即送标准与规则，促进购买转化率</dd>
+		                  </dl>
+		        <dl class="zhxs">
+		          <dt class="p-name"><a href="{:U('Seller/Promotion/prom_order_list')}">订单优惠</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint"><span>
+		                        <i class="icon-ok-sign"></i>已开通
+		                        </span></dd>
+		          <dd class="p-info">商品优惠套装、多重搭配更多实惠、商家必备营销方式</dd>
+		                  </dl>
+		        <!--<dl class="tjzw">-->
+		          <!--<dt class="p-name"><a href="#">广告位</a></dt>-->
+		          <!--<dd class="p-ico"></dd>-->
+		          <!--<dd class="p-hint"><span>-->
+		                        <!--<i class="icon-ok-sign"></i>已开通-->
+		                        <!--</span></dd>-->
+		          <!--<dd class="p-info">选择商品参与平台发布的主题活动，审核后集中展示</dd>-->
+		                  <!--</dl>-->
+		                        <dl class="djq">
+		          <dt class="p-name"><a href="{:U('Seller/Coupon/index')}">代金券</a></dt>
+		          <dd class="p-ico"></dd>
+		          <dd class="p-hint"><span>
+		                        <i class="icon-ok-sign"></i>已开通
+		                        </span></dd>
+		          <dd class="p-info">自定义代金券使用规则并由平台统一展示供买家领取</dd>
+		                  </dl>
+		              </div>
+		    </div>
+		  </div>
+		</div>
+    </div>
+  </div>
+</div>
+
+<div class="novice-guide" <?php if(!C('teach')){echo('style="display:none"');}?>>
+	<div class="novice-guide-mask"></div>
+	<div class="novice-guide-box">
+		<div class="novice-guide-header">
+			<span>新手向导</span>
+			<a href="#" onclick="close_teach()" class="novice-guide-close"></a>
+		</div>
+		<div class="novice-guide-container novice-guide-container2">
+			<div class="novice-guide-container-flowpath">
+				<a href="#" class="active">系统设置<img src="__PUBLIC__/static/images/arrow-yellow.png" alt=""></a>
+				<a href="#">商品数据<img src="__PUBLIC__/static/images/arrow-white.png" alt=""></a>
+				<a href="#">营销推广<img src="__PUBLIC__/static/images/arrow-white.png" alt=""></a>
+				<a href="#">业务管理<img src="__PUBLIC__/static/images/arrow-white.png" alt=""></a>
+				<a href="#">完成</a>
+			</div>
+			<div class="novice-guide-container-flowpath-content novice-guide-container-flowpath-content1">
+				<div class="novice-guide-body">
+					<div class="novice-guide-body-left">
+						<h3>1. 填写店铺基础设置</h3>
+						<p>填写店铺名称、店铺logo、二级域名
+							等信息<a href="{:U('Seller/Store/store_setting')}" class="fillin">现在填写</a></p>
+						<h3>2. PC店铺首页轮播图</h3>
+						<p>店铺轮播图可以让商家更充分展示爆
+							款、新品或重要活动<a href="{:U('Seller/Store/store_slide')}" class="fillin">现在上传</a></p>
+						<h3>3. 店铺主题设置</h3>
+						<p>系统内置多套店铺主题，供商家选择
+							适配自身产品的风格<a href="{:U('Seller/Store/store_theme')}" class="fillin">现在设置</a></p>
+						<h3>4. 手机店铺轮播图设置</h3>
+						<p>手机店铺轮播图现在是商家营销活动
+							和商品的重要展示入口<a href="{:U('Seller/Store/mobile_slide')}" class="fillin">现在设置</a></p>
+					</div>
+					<div class="novice-guide-body-right">
+						<img src="__PUBLIC__/static/images/shop-detail.png" alt="">
+					</div>
+				</div>
+				<div class="novice-guide-select">
+					<label><input id="is_teach" type="checkbox">下次不再显示此向导</label>
+					<a href="#" class="ncap-btn-big ncap-btn-green">下一步<i></i></a>
+				</div>
+			</div>
+			<div class="novice-guide-container-flowpath-content novice-guide-container-flowpath-content2" style="display: none;">
+				<div class="novice-guide-body">
+					<div class="novice-guide-body-left">
+						<h3>1. 商品发布-商品分类/详情</h3>
+						<p>商品发布时商家根据实际情况选择商
+							品分类和填写商品详情<a href="{:U('Seller/Goods/addStepOne')}" class="fillin">现在发布</a></p>
+						<h3>2. 出售商品列表</h3>
+						<p>商家通过查看出售中的商品列表，快
+							速了解店铺商品情况<a href="{:U('Seller/Goods/goodsList')}" class="fillin">现在添加</a></p>
+						<h3>3. 商品规格设置</h3>
+						<p>对不同类型的商品进行规格设置，是
+							商城运营的重要一项<a href="{:U('Seller/Goods/specList')}" class="fillin">现在添加</a></p>
+					</div>
+					<div class="novice-guide-body-right">
+						<img src="__PUBLIC__/static/images/product-detail.png" alt="">
+					</div>
+				</div>
+				<div class="novice-guide-select">
+					<a href="#" class="ncap-btn-big ncap-btn-green" style="margin-top: 0">下一步<i></i></a>
+					<a href="#" class="ncap-btn-big"><i></i>上一步</a>
+				</div>
+			</div>
+			<div class="novice-guide-container-flowpath-content novice-guide-container-flowpath-content3" style="display: none">
+				<div class="novice-guide-body">
+					<div class="novice-guide-body-left">
+						<h3>1. 查看订单列表</h3>
+						<p>订单列表是当前商城交易活动情况操作的一个重要功能<a href="{:U('Seller/Order/index')}" class="fillin">现在查看</a></p>
+						<h3>2. 配置运费模板</h3>
+						<p>根据配送方式配置计价方式和运费模板等<a href="{:U('Seller/Freight/index')}" class="fillin">现在配置</a></p>
+					</div>
+					<div class="novice-guide-body-right">
+						<img src="__PUBLIC__/static/images/order-detail.png" alt="">
+					</div>
+				</div>
+				<div class="novice-guide-select">
+					<a href="#" class="ncap-btn-big ncap-btn-green">下一步<i></i></a>
+					<a href="#" class="ncap-btn-big"><i></i>上一步</a>
+				</div>
+			</div>
+			<div class="novice-guide-container-flowpath-content novice-guide-container-flowpath-content4" style="display: none">
+				<div class="novice-guide-body">
+					<div class="novice-guide-body-left">
+						<h3>1. 抢购（秒杀）活动</h3>
+						<p>抢购活动是商城促销最常见的一种营销方式之一<a href="{:U('Seller/Promotion/flash_sale')}" class="fillin">现在设置</a></p>
+						<h3>2. 商品/订单促销</h3>
+						<p>这两种是针对商品/订单指定优惠的一种促销方式<a href="{:U('Seller/Promotion/prom_goods_list')}" class="fillin">现在设置</a></p>
+						<h3>3. 拼团活动</h3>
+						<p>当前最火热的引流拉新和提升销量的促销方式<a href="{:U('Seller/Team/index')}" class="fillin">现在设置</a></p>
+					</div>
+					<div class="novice-guide-body-right">
+						<img src="__PUBLIC__/static/images/market-detail.png" alt="">
+					</div>
+				</div>
+				<div class="novice-guide-select">
+					<a href="#" class="ncap-btn-big ncap-btn-green" style="margin-top: 0">下一步<i></i></a>
+					<a href="#" class="ncap-btn-big"><i></i>上一步</a>
+				</div>
+			</div>
+			<div class="novice-guide-container-flowpath-content novice-guide-container-flowpath-content5" style="display: none">
+				<div class="novice-guide-body">
+					<img src="__PUBLIC__/static/images/success-detail.png" alt="">
+					<div class="right" style="float: right;">
+						<h2>完成开店</h2>
+						<p>点击右上角“店铺”,可前往查看设置效果</p>
+					</div>
+				</div>
+				<div class="novice-guide-select">
+					<a href="#" class="ncap-btn-big ncap-btn-green" onclick="close_teach()">完成</a>
+					<a href="#" class="ncap-btn-big"><i></i>上一步</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	$(function () {
+		if($('.novice-guide').css('display')!='none'){
+			$('body').css('overflow-y','hidden')
+		}
+		$('.novice-guide-close').on('click',function () {
+			$('body').css('overflow-y','scroll')
+			$('.novice-guide').hide()
+		})
+		$('.novice-guide-container2 .novice-guide-container-flowpath-content1 .novice-guide-select a').on('click',function () {
+			$('.novice-guide-container-flowpath-content1').hide()
+			$('.novice-guide-container-flowpath-content2').show()
+			$('.novice-guide-container-flowpath > a').eq(1).addClass('active').siblings().removeClass('active')
+			$('.novice-guide-container-flowpath > a').eq(0).find('img').attr('src','__PUBLIC__/static/images/arrow-white.png')
+			$('.novice-guide-container-flowpath > a').eq(1).find('img').attr('src','__PUBLIC__/static/images/arrow-yellow.png')
+		})
+		//点击上一步 下一步
+		for(var i = 2; i <= 4; i++) {
+			$('.novice-guide-container-flowpath-content'+i+' .novice-guide-select a:eq(0)').on('click',{index: i},function (e) {
+				$('.novice-guide-container-flowpath-content'+e.data.index).hide()
+				$('.novice-guide-container-flowpath-content'+(e.data.index+1)).show()
+				$('.novice-guide-container-flowpath > a').eq(e.data.index).addClass('active').siblings().removeClass('active')
+				$('.novice-guide-container-flowpath > a').eq(e.data.index-1).find('img').attr('src','__PUBLIC__/static/images/arrow-white.png')
+				$('.novice-guide-container-flowpath > a').eq(e.data.index).find('img').attr('src','__PUBLIC__/static/images/arrow-yellow.png')
+			})
+			$('.novice-guide-container-flowpath-content'+i+' .novice-guide-select a:eq(1)').on('click',{index: i},function (e) {
+				$('.novice-guide-container-flowpath-content'+e.data.index).hide()
+				$('.novice-guide-container-flowpath-content'+(e.data.index-1)).show()
+				$('.novice-guide-container-flowpath > a').eq(e.data.index-2).addClass('active').siblings().removeClass('active')
+				$('.novice-guide-container-flowpath > a').eq(e.data.index-1).find('img').attr('src','__PUBLIC__/static/images/arrow-white.png')
+				$('.novice-guide-container-flowpath > a').eq(e.data.index-2).find('img').attr('src','__PUBLIC__/static/images/arrow-yellow.png')
+			})
+		}
+		//点击完成
+		$('.novice-guide-container-flowpath-content5 .novice-guide-select a:eq(0)').on('click',{index: i},function (e) {
+			$('.novice-guide').hide()
+			$('body').css('overflow-y','scroll')
+		})
+		$('.novice-guide-container-flowpath-content5 .novice-guide-select a:eq(1)').on('click',{index: i},function (e) {
+			$('.novice-guide-container-flowpath-content5').hide()
+			$('.novice-guide-container-flowpath-content4').show()
+		})
+		//点击新手导航按钮 显示
+		$('.ncsc-layout-right .new_btn').on('click',function () {
+			$('.novice-guide').show()
+			$('.novice-guide-container-flowpath-content').hide()
+			$('.novice-guide-container-flowpath-content1').show()
+			$('body').css('overflow-y','hidden')
+		})
+	})
+</script>
+<include file="public/foot" />
+<script>
+	var timestamp = Date.parse(new Date());
+$(document).ready(function(){    
+	// 没有点击收货确定的按钮让他自己收货确定    
+
+	/*$.ajax({
+         type:'post',
+         url:"{:U('Seller/Admin/login_task')}",
+         data:{timestamp:timestamp},
+         timeout : 100000000, //超时时间设置，单位毫秒
+         success:function(){
+             // 执行定时任务
+         }
+    }); */
+	test_task();
+});
+function test_task(){
+	$.ajax({
+		type:'post',
+		url:"{:U('Seller/Admin/login_task')}",
+		data:{timestamp:timestamp},
+		timeout : 1000*60, //超时时间设置，单位毫秒100000000
+		success:function(){
+			// 执行定时任务
+		}
+	});
+	setTimeout(function() {
+		test_task()
+	}, 60000);
+}
+	function close_teach(){
+		var teach=$('#is_teach:checked').val();
+		if(teach=='on'){
+			$.ajax({
+				dataType: 'get',
+				url:"{:U('seller/index/close_teach')}",
+				success: function (data) {
+				}
+			});
+		}
+	}
+</script>
+</body>
+</html>

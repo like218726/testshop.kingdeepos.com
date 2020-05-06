@@ -1,0 +1,114 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>门店管理中心<i class="icon-angle-right"></i>门店职员<i class="icon-angle-right"></i>门店职员</div>
+		<div class="main-content" id="mainContent">
+			<div class="tabmenu">
+				<ul class="tab pngFix">
+					<li class="active"><a href="{:U('Shop/Admin/index')}">门店职员列表</a></li>
+				</ul>
+				<a href="{:U('Shop/Admin/info')}" class="ncbtn ncbtn-mint" title="添加门店职员">添加门店职员</a>
+			</div>
+			<form method="get" id="search-form2" action="{:U('Shop/Admin/index')}">
+				<table class="search-form">
+					<tr>
+						<td>&nbsp;</td>
+						<td class="w100">
+							<input type="text" style="width: 90px;" value="{$Request.param.shopper_name}" class="text w90"  name="shopper_name" placeholder="门店职员"/>
+						</td>
+						<td class="tc w70">
+							<label class="submit-border"><input type="submit" class="submit" value="搜索"/></label>
+						</td>
+					</tr>
+				</table>
+			</form>
+			<table class="ncsc-default-table">
+				<thead>
+				<tr nc_type="table_header">
+					<th class="w50">ID</th>
+					<th class="w150">登录名</th>
+					<th class="w150">联系电话</th>
+					<th class="w150">Email</th>
+					<th class="w150">添加时间</th>
+					<th class="w120">操作</th>
+				</tr>
+				</thead>
+				<tbody>
+				<empty name="shopper_list">
+					<tr>
+						<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>无数据。</span></div></td>
+					</tr>
+				<else/>
+					<volist name="shopper_list" id="shopper">
+						<tr class="bd-line">
+							<td>{$shopper.shopper_id}</td>
+							<td><span>{$shopper.shopper_name}</span></td>
+							<td><span>{$shopper[users][mobile]|default='无'}</span></td>
+							<td><span>{$shopper[users][email]|default='无'}</span></td>
+							<td><span>{$shopper.add_time|date="Y-m-d H:i:s",###}</span></td>
+							<td class="nscs-table-handle">
+								<span>
+									<a href="{:U('Admin/info',array('shopper_id'=>$shopper['shopper_id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a>
+								</span>
+								<if condition="$Think.session.shopper.is_admin eq 1">
+									<span>
+										<a data-shopper-id="{$shopper.shopper_id}" class="btn-grapefruit delete"><i class="icon-trash"></i><p>删除</p></a>
+									</span>
+								</if>
+							</td>
+						</tr>
+					</volist>
+				</empty>
+				</tbody>
+				<tfoot>
+				<tr>
+					<td colspan="20">
+						{$page->show()}
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+			<script>
+				//删除
+				$(function () {
+					$(document).on("click", '.delete', function (e) {
+						var shopper_id = $(this).data('shopper-id');
+						layer.open({
+							content: '删除该门店职员。该操作不可逆，确定要执行吗？'
+							,btn: ['确定', '取消']
+							,yes: function(index, layero){
+								layer.close(index);
+								$.ajax({
+									type: "POST",
+									url: "{:U('shop/Admin/delete')}",//+tab,
+									data: {shopper_id: shopper_id},
+									dataType: 'json',
+									success: function (data) {
+										if (data.status == 1) {
+											layer.msg(data.msg, {icon: 1, time: 2000}, function(){
+												window.location.reload();
+											});
+										} else {
+											layer.msg(data.msg, {icon: 2, time: 2000});
+										}
+									}
+								});
+							}
+							,btn2: function(index, layero){
+								layer.close(index);
+							}
+							,cancel: function(){
+								//右上角关闭回调
+								layer.close();
+							}
+						});
+					})
+				})
+			</script>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<include file="public/header" title="个人中心" body="g4"/>
+<link rel="stylesheet" href="__STATIC__/css/index.css">
+<link rel="stylesheet" href="__STATIC__/css/all_page.css">
+<div class="index_header">
+    <div class="head_pic">
+        <img src="__STATIC__/images/index/index_bac.png" alt="">
+        <div class="head_message">
+            <a href="/mobile/User/message_notice.html">
+                <div class="message">
+                    <img src="__STATIC__/images/index/s_2.png" alt="">
+                    <if condition="$user_message_count!=0"><span>{$user_message_count}</span></if>
+                </div>
+            </a>
+            <a class="setting" href="{:U('Mobile/User/userinfo')}">
+                <img src="__STATIC__/images/index/s_1.png" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="head_name mian_flex_4">
+        <div class="head_img">
+            <img onerror="this.style.opacity='0'" src="{$user[head_pic]|default="__STATIC__/images/user68.jpg"}"/>
+        </div>
+        <div class="user_name">
+            <p>{$user['nickname']}</p>
+            <if condition="$user['is_distribut'] eq 1">
+                <p class="member">黄金会员</p>
+            </if>
+        </div>
+        <a href="/Mobile/User/sign">
+            <div class="sign">
+                <img src="__STATIC__/images/index/sign.png" alt="">
+                <span>签到赚积分</span>
+            </div>
+        </a>
+    </div>
+    <div class="head_bot mian_width_3">
+        <a href="{:U('Mobile/User/account')}">
+            <div class="bot_item line">
+                <div class="num">{$user['user_money']}</div>
+                <div class="num_name">余额</div>
+            </div>
+        </a>
+        <a href="{:U('Mobile/User/points_list')}">
+            <div class="bot_item line">
+                <div class="num">{$user['pay_points']}</div>
+                <div class="num_name">积分</div>
+            </div>
+        </a>
+        <a href="{:U('Mobile/User/coupon')}">
+            <div class="bot_item">
+                <div class="num">{$user['coupon_count']}</div>
+                <div class="num_name">优惠券</div>
+            </div>
+        </a>
+    </div>
+    </a>
+</div>
+<!--我的订单-->
+<div class="my_order bottom_menu mian_width_3">
+    <div class="menu_title">
+        <span>我的订单</span>
+        <a href="/Mobile/Order/order_list.html">
+            <div class="all">
+                <span>全部订单</span>
+                <i class="index_r"></i>
+            </div>
+        </a>
+    </div>
+    <div class="order_item">
+        <ul>
+            <li>
+                <a href="{:U('Mobile/Order/order_list',array('type'=>'WAITPAY'))}">
+                    <span <if condition="$user.waitPay eq 0">style="display:none"</if>>{$user.waitPay}</span>
+                    <img src="__STATIC__/images/index/order1.png" alt="" />
+                    <p>待付款</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Mobile/Order/order_list',array('type'=>'WAITSEND'))}">
+                    <span <if condition="$user.waitSend eq 0">style="display:none"</if>>{$user.waitSend}</span>
+                    <img src="__STATIC__/images/index/order2.png" alt="" />
+                    <p>待发货</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Mobile/Order/order_list',array('type'=>'WAITRECEIVE'))}">
+                    <span <if condition="$user.waitReceive eq 0">style="display:none"</if>>{$user.waitReceive}</span>
+                    <img src="__STATIC__/images/index/order3.png" alt="" />
+                    <p>待收货</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Mobile/Order/comment',array('status'=>0))}">
+                    <span <if condition="$user.uncomment_count eq 0">style="display:none"</if>>{$user.uncomment_count}</span>
+                    <img src="__STATIC__/images/index/order4.png" alt="" />
+                    <p>待评价</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Mobile/Order/return_goods_list')}">
+                    <span <if condition="$user.return_count eq 0">style="display:none"</if>>{$user.return_count}</span>
+                    <img src="__STATIC__/images/index/order5.png" alt="" />
+                    <p>退款/退货</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--底部菜单-->
+<div class="bottom_menu mian_width_3">
+    <div class="menu_title">必备功能</div>
+    <ul class="menu_list">
+        <volist name="menu_list" id="menu">
+            <a href="{$menu.mobile_url}">
+                <li>
+                    <div class="item_img">
+                        <img src="{$menu.img_src}"/>
+                    </div>
+                    <p>{$menu.menu_name}</p>
+                </li>
+            </a>
+        </volist>
+    </ul>
+</div>
+    <!--底部导航-start-->
+    <include file="public/footer_nav"/>
+    <!--底部导航-end-->
+    <script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script>
+//    我的订单,0隐藏
+    $(document).ready(function(){
+        $('.order_item').find('span').each(function(i,o){
+            var n = parseInt($(o).html());
+            if (n <= 0){
+                $(o).hide()
+            }
+        })
+    })
+
+    //显示上传照片
+    window.URL = window.URL || window.webkitURL;
+    $(function(){
+        var ua = window.navigator.userAgent.toLowerCase();
+        if(ua.match(/MicroMessenger/i) == 'micromessenger'){
+            $('#logout').hide();
+        }
+    });
+</script>
+</body>
+</html>

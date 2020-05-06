@@ -1,0 +1,219 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper"> <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>发货数据Excel导入</div>
+<div class="main-content" id="mainContent">
+
+
+<script type="text/javascript">
+function pre_submit()
+{
+	var sels=$("#gcategory").find("select");
+	var i=0;
+	var txt="";
+	 sels.each(function(){
+		 i++;
+		 $(this).attr("name","cls_"+i);
+		 var tmp=$(this).find("option:selected").text();
+		 if(i!=3)tmp+="&gt;";
+		 txt+=tmp;
+
+	 });
+	 $("#cate_name").val(txt);
+	 return true;
+}
+</script>
+<!-- S setp -->
+<ul class="add-goods-step">
+  <li class="current"><i class="icon icon-list-alt"></i>
+    <h6>STIP.1</h6>
+    <h2>导入Excel文件</h2>
+  </li>
+</ul>
+<!--S 分类选择区域-->
+<!--S 分类选择区域-->
+<div class="alert mt15 mb5"><strong>操作提示：</strong>
+  <ul>
+<li>
+1.请将商品excel文件上传,商品excel文件请按照下方提供的excel模板来录入数据.<span style="color:red">(可点击下方按钮下载excel模板)</span><br>    
+2.修改excel文件时请勿修改其表格结构、行列名称，修改完成后务必不要修改文件编码格式及文件后缀名.<br>
+3.excel数据录入时如果某条订单不存在，将导入失败<br>
+
+</li>
+<li><a href="/public/excel/tpshop-delivery-excel.xls" style="text-decoration:none"><input type="button" class="submit" value="excel模板下载"></a></li>
+  </ul>
+</div>
+<!--<form method="post" action="{:U('Seller/Order/excel_import')}" enctype="multipart/form-data" id="goods_form">-->
+<form method="post" enctype="multipart/form-data" id="goods_form">
+  <div class="ncsc-form-goods">
+    <dl>
+      <dt><i class="required">*</i>Excel文件：</dt>
+      <dd>
+        <div class="handle">
+        <div class="ncsc-upload-btn"> 
+          <a href="javascript:void(0);"><span><input type="file" hidefocus="true" size="15" name="excel"></span></a>
+        </div>
+        </div>
+      </dd>
+    </dl>
+
+
+    <dl>
+      <dt>&nbsp;</dt>
+      <dd>
+        <input type="submit" class="submit" value="导入" onclick="load()">
+      </dd>
+    </dl>
+    
+  </div>
+
+
+</form>
+    <div style="width:800px;height:auto;overflow: hidden">
+        <form id="send_form">
+            <div class="tit">
+                <div style="line-height:50px;text-indent:20px;float:left">
+                    配送方式:
+                    <select name="shipping_code" id="shipping_code" onchange="ShippingName()">
+                        <option value="">请选择</option>
+                        <volist name="shipping_list" id="shipping">
+                            <option value="{$shipping.shipping_code}">{$shipping.shipping_name}</option>
+                        </volist>
+                    </select>
+                    <input type="hidden" id="shipping_name" name="shipping_name" value="">
+                </div>
+
+
+                <div style="line-height:55px;text-indent:20px;float:left">
+                    发货地址:
+                    <select name="store_address_id" id="store_address_id">
+                        <option value="">请选择</option>
+                        <volist name="deliver_address" id="address">
+                            <option value="{$address.store_address_id}">{$address.consignee}--{$address.mobile}--{$address.full_address}</option>
+                        </volist>
+                    </select>
+                </div>
+            </div>
+            <table class="ncsc-default-table" style="width:795px">
+                <thead>
+                <tr>
+                    <th class="w1" style="background-color:#dddddd">订单编号</th>
+                    <th class="w2" style="background-color:#dddddd">商品(数量)</th>
+                    <th class="w1" style="background-color:#dddddd">配送单号</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <volist name="order" id="vo" key="k">
+                    <tr class="bd-line">
+                        <td class="w1 bor">{$vo.order_sn}</td>
+                        <td class="w2 bor">
+                            <volist name="$vo['orderGoods']" id="vo2">
+                                <div class="product">{$vo2.goods_name}&nbsp;&nbsp;
+                                    <span style="background-color:#48CFAE;color:#fff">数量 : {$vo2.goods_num}</span>
+                                    <input type="hidden" name="order[{$k-1}][goods][{$i-1}]" value="{$vo2.rec_id}">
+                                </div>
+                            </volist>
+                        </td>
+                        <td class="w1">
+                            <input id="num_{$k}" maxlength="18" name="order[{$k-1}][invoice_no]" style="width:90%;height:100%" type="text" value="{$vo.invoice_no}">
+                        </td>
+                    </tr>
+
+                    <input type="hidden" name="order[{$k-1}][shipping]" value="{$vo.shipping_status}">
+                    <input type="hidden" name="order[{$k-1}][order_id]" value="{$vo.order_id}">
+                </volist>
+
+                </tbody>
+            </table>
+        </form>
+        <div class="tit" style="text-align:right;margin-bottom: 100px;">
+            <a href="javascript:void(0)" class="ncbtn ncbtn-grapefruit mt5" onclick="dosubmit()" >确认发货</a>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        var count='{$num}';
+        function express(){
+            var num_start=$('#express_num').val();
+            if(!num_start){
+                layer.msg('起始单号不能为空', {icon: 2, time: 1000});
+                return false;
+            }
+            if(!IsNum(num_start)){
+                layer.msg('请填入正确的起始单号', {icon: 2, time: 1000});
+                return false;
+            }
+
+            var tmp=0;
+            for (var i = 1; i <= count; i++) {
+                tmp=(parseInt(num_start) + i) - 1;
+                $('#num_'+i).val(tmp);
+            }
+        }
+
+        function IsNum(num){
+            var reNum=/^\d*$/;
+            return(reNum.test(num));
+        }
+
+        function ShippingName(){
+            var checkText=$("#shipping_code").find("option:selected").text();
+            $('#shipping_name').val(checkText);
+        }
+        function load() {
+            //加载层
+            var index = layer.load(0, {shade: 0.8}); //0代表加载的风格，支持0-2
+        }
+        function dosubmit() {
+            $(this).css('background-color','#aaa');
+            $(this).attr('onclick','');
+            //加载层
+            var index = layer.load(0, {shade: 0.8}); //0代表加载的风格，支持0-2
+            var shipping_code = $('#shipping_code').val();
+            var store_address_id = $('#store_address_id').val();
+            if (!shipping_code) {
+                layer.msg('请选择配送方式', {icon: 2, time: 1000});
+                return false;
+            }
+            if (!store_address_id) {
+                layer.msg('请选择发货地址', {icon: 2, time: 1000});
+                return false;
+            }
+
+            for (var i = 1; i <= count; i++) {
+                if (!$('#num_' + i).val()) {
+                    layer.msg('快递单号不能为空', {icon: 2, time: 1000});
+                    return false;
+                }
+            }
+            $.ajax({
+                type: "POST",
+                url: "{:U('Order/send_batch')}",
+                dataType: 'json',
+                data: $('#send_form').serialize(),
+                success: function(data) {
+                    if(data.status == 1){
+                        layer.msg(data.msg, {icon: 1,time: 2000},function () {
+                            //此处演示关闭
+                            setTimeout(function(){
+                                layer.closeAll('loading');
+                            }, 1000);
+                            window.location.href='';
+                        });
+                    }else{
+                        layer.msg(data.msg, {icon: 2,time: 2000});
+                    }
+                }
+            });
+
+        }
+    </script>
+</div>
+    </div>
+</div>
+
+<include file="public/foot"/> 
+</body></html>

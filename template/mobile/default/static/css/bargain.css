@@ -1,0 +1,78 @@
+/*砍价页start*/
+.ds-in-bl.return,.ds-in-bl.menu{
+  margin-top: .55rem;
+}
+.classreturn{
+  position: fixed;
+}
+.anzhuo{
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+  pointer-events: auto;
+}
+.anzhuo .content{
+  position: absolute;
+  top: 40vh;
+  font-size: .6rem;
+  width: 9rem;
+  left: 3.5rem;
+  height: 4.3rem;
+}
+.anzhuo .title{
+  height: 2.8rem;
+  line-height: 2.8rem;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+}
+.anzhuo .operation{
+  position: relative;
+}
+.anzhuo .operation a{
+  width: 48%;
+  text-align: center;
+  font-size: 0.675rem;
+  cursor: pointer;
+  background-color: #fff;
+  color: #333;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  display: inline-block;
+}
+.anzhuo .operation:before {
+  content: '\20';
+  position: absolute;
+  width: 1px;
+  height: 1.5rem;
+  left: 50%;
+  top: 0;
+  background-color: #999;
+}
+.bargain-ed .ed-sharee{
+  height: 4rem;
+  line-height: 1rem;
+  padding: 1rem 3rem 0 1rem;
+  color: #808080;
+  background: #333;
+  font-size: .5rem;
+  text-align: left;
+  position: relative;
+}
+.bargain-ed .ed-sharee img{
+  width: 1.8rem;
+  height: 1.64rem;
+  position: absolute;
+  right: .8rem;
+  top: .3rem;
+}
+.bargain-ed .ed-box{
+  margin-top: 2rem !important;
+}
+.bargain-ed{
+  background-color: rgba(0,0,0,.4) !important;
+}
+/*砍价页end*/

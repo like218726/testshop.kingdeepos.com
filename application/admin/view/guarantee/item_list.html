@@ -1,0 +1,149 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <div class="subject">
+        <h3>消费者保障服务</h3>
+        <h5>消费者保障服务查看与管理</h5>
+      </div>
+      <ul class="tab-base nc-row">
+      <li><a href="{:U('Guarantee/index',array('apply_type'=>1))}"><span>加入申请</span></a></li>
+      <li><a href="{:U('Guarantee/index',array('apply_type'=>0))}"><span>退出申请</span></a></li>
+      <li><a href="{:U('Guarantee/join_list')}"><span>店铺保障服务</span></a></li>
+      <li><a href="{:U('Guarantee/item_list')}" class="current"><span>保障服务管理</span></a></li>
+      </ul>    
+   	</div>
+  </div>
+  <!-- 操作说明 -->
+  <div class="explanation" id="explanation">
+    <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
+      <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+      <span id="explanationZoom" title="收起提示"></span> </div>
+    <ul>
+      <li>列表为平台消费者保障服务项目</li>
+      <li>当保障项目状态为“开启”时，店铺可以申请加入该服务；状态为“关闭”时，平台将会禁用该保障服务。</li>
+    </ul>
+  </div>
+   <div class="flexigrid">
+		<div class="mDiv">
+			<div class="ftitle">
+				<h3>加入申请列表</h3>
+				<h5>(共{$pager->totalRows}条记录)</h5>
+			</div>
+			<a href=""><div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div></a>
+			
+			<div class="tDiv2">
+				<div class="fbutton"> <a href="{:U('Guarantee/item_info')}">
+					<div class="add" title="新增消费者保障服务">
+						<span><i class="fa fa-plus"></i>新增消费者保障服务</span>
+					</div>
+				</a> </div>
+			</div>
+		</div>
+		<div class="hDiv">
+			<div class="hDivBox">
+				<table cellspacing="0" cellpadding="0">
+					<thead>
+					<tr>
+						<th class="sign" axis="col0">
+							<div style="width: 24px;"><i class="ico-check"></i></div>
+						</th>
+						<th align="center" abbr="article_title" axis="col3" class="">
+							<div style="text-align: center; width: 150px;" class="">项目名称</div>
+						</th>
+						<th align="center" abbr="ac_id" axis="col4" class="">
+							<div style="text-align: center; width: 100px;" class="">保证金(元)</div>
+						</th>
+						<th align="center" abbr="article_time" axis="col6" class="">
+							<div style="text-align: center; width: 50px;" class="">状态</div>
+						</th>
+						<th align="center" abbr="article_time" axis="col6" class="">
+							<div style="text-align: center; width: 50px;" class="">排序</div>
+						</th>
+						<th align="center" axis="col1" class="handle">
+							<div style="text-align: center; width: 170px;">操作</div>
+						</th>
+						<th style="width:100%" axis="col7">
+							<div></div>
+						</th>
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<!--<div class="tDiv"><div class="tDiv2"><div class="fbutton">
+			<a href="{:U('Guarantee/item_info')}"><div class="add"><span><i class="fa fa-plus"></i>新增保障</span></div></a>
+			</div></div><div style="clear:both"></div>
+		</div>-->
+		<div class="bDiv" style="height: auto;">
+			<div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+				<table>
+					<tbody>
+					<foreach name="lists" item="vo" key="k" >
+						<tr>
+							<td class="sign">
+								<div style="width: 24px;"><i class="ico-check"></i></div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 150px;">{$vo.grt_name}</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 100px;">{$vo.grt_cost}</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 50px;"><if condition="$vo.grt_state eq 0">关闭<else/>开启</if></div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 50px;">{$vo.grt_sort}</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 170px; max-width:170px;">
+									<a class="btn blue" href="{:U('Guarantee/item_info',array('grt_id'=>$vo['grt_id']))}"><i class="fa fa-pencil-square-o"></i>编辑</a>
+									<a class="btn blue" href="javascript:void(0)" data-url="{:U('Guarantee/item_delete')}" data-id="{$vo.grt_id}" onclick="delfun(this)" ><i class="fa fa-trash-o"></i>删除</a>
+								</div>
+							</td>
+							<td align="" class="" style="width: 100%;">
+								<div>&nbsp;</div>
+							</td>
+						</tr>
+					</foreach>
+					</tbody>
+				</table>
+			</div>
+			<div class="iDiv" style="display: none;"></div>
+		</div>
+		<!--分页位置-->{$page} 
+	</div>
+</div>
+<script type="text/javascript">
+function delfun(obj) {
+	// 删除按钮
+	layer.confirm('确认删除？', {
+		btn: ['确定', '取消'] //按钮
+	}, function () {
+		$.ajax({
+			type: 'post',
+			url: $(obj).attr('data-url'),
+			data : {del_id:$(obj).attr('data-id')},
+			dataType: 'json',
+			success: function (data) {
+				layer.closeAll();
+				if (data.status == 1) {
+					$(obj).parent().parent().parent().remove();
+					layer.msg(data.msg, {icon: 1});
+				} else {
+					layer.alert(data.msg, {icon: 2});
+				}
+			}
+		})
+	}, function () {
+		layer.closeAll();
+	});
+}
+</script> 
+</body>
+</html>

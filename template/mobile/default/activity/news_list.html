@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>新闻列表</title>
+		<link rel="stylesheet" href="__STATIC__/css/style.css">
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/iconfont.css"/>
+		<script src="__STATIC__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="classreturn loginsignup">
+			<div class="content">
+				<div class="ds-in-bl return">
+					<a href="{:U('User/index')}"><img src="__STATIC__/images/return.png" alt="返回"></a>
+				</div>
+				<div class="ds-in-bl search center">
+					<span>新闻列表</span>
+				</div>
+				<div class="ds-in-bl emptyedit">
+					<!-- <a href="javascript:void(0);" onclick="clearempty();">清空</a> -->
+					<a href="javascript:void(0);" onclick="editalone();">编辑</a>
+				</div>
+			</div>
+		</div>
+        <empty name="news_list">
+            <!--没有内容时-s--->
+            <div class="comment_con p">
+                <div class="none">
+                    <img src="__STATIC__/images/none2.png">
+                    <br><br>
+                    还没有新闻记录
+                </div>
+            </div>
+            <!--没有内容时-e--->
+        <else/>
+            <div id="visit_list">
+          
+            <foreach name='news_list' item="list">
+            <div class="orderlistshpop dejsshort p">
+                <div class="maleri30">
+                    <div class="sc_list se_sclist">
+                        <div class="radio fl">
+                            <span class="che " data-id="{$list.article_id}">
+                                <i></i>
+                            </span>
+                        </div>
+                        <div class="shopimg fl">
+                            <a href="{:U('News/news_detail',['article_id'=>$list.article_id])}">
+                                <img src="{$list.thumb}" style="object-fit: contain;">
+                                <!-- <img src="{$list.thumb|goods_thum_images=200,200}"> -->
+                            </a>
+                        </div>
+                        <div class="deleshow fr" style="border:0px ">
+                            <div class="deletes p">
+                                <a href="{:U('News/news_detail',['article_id'=>$list.article_id])}">
+                                    <span class="similar-product-text fl" style="white-space: pre-wrap;height:auto;overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 3; font-size:0.65rem">{$list.title}</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </foreach>
+            </div>
+        </empty>
+
+        <div id="getmore"  style="font-size:.32rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both;display: none">
+            <a >已显示完所有记录</a>
+        </div>
+
+
+		<div class="foohi foohiext a_emptyall">
+			<div class="payit ma-to-20 payallb">
+				<div class="fl alllef">
+					<div class="radio fl">
+						<span class="che alltoggle">
+							<i></i>
+						</span>
+						<span class="all">全选</span>
+					</div>
+				</div>
+				<div class="fr">
+                    <a href="javascript:void(0);" onclick="delSelect()">删除</a>
+				</div>
+			</div>
+		</div>
+		<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+		<script type="text/javascript">
+			//编辑
+			function editalone(){
+				$('.dejsshort').toggleClass('hiradio');
+				$('.a_emptyall').toggle();
+			}
+			//全选
+			$(function(){
+				$('.alltoggle,.radio .all').click(function(){
+					allchk();
+				});
+			})
+			function allchk(){ 
+			    var chknum = $('.che').length - 2;
+			    var chk = 0; 
+			    $('.che').each(function () {   
+			        if($(this).hasClass('check_t')){ 
+			            chk++; 
+			        } 
+			    }); 
+			    //alert(chknum + '-' + (chk - 1))
+			    if(chknum==(chk - 1)){
+			        $(".che").removeClass('check_t'); //全取消 
+			    }else{
+			        $(".che").addClass('check_t'); //全选 
+			    } 
+			} 
+            function delSelect() {
+                
+                var news_ids = [];
+                $(' .check_t').each(function(){
+                    news_ids.push($(this).attr('data-id'));
+                });
+                location.href = "{:U('Activity/del_news')}?news_ids="+String(news_ids);
+            }
+       
+		</script>
+	</body>
+</html>

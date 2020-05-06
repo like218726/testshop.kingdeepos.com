@@ -1,0 +1,107 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>插件管理 - {$plugin.name}配置</h3>
+                <h5>网站系统插件管理</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="addEditSpecForm" method="post">
+        <div class="ncap-form-default">
+            <volist name="plugin.config" id="config">
+            <dl class="row">
+                <dt class="tit">
+                    <label>{$config.label}</label>
+                </dt>
+                <dd class="opt">
+                    <if condition="$config['type'] eq 'select'">
+                        <select name="config[{$config['name']}]">
+                            <foreach name="config.option" item="option" key="o">
+                                <option <if condition="$config_value[$config['name']] eq $o">selected</if>  value="{$o}">{$option}</option>
+                            </foreach>
+                        </select>
+                        <elseif condition="$config['type'] eq 'textarea'"/>
+                        <textarea rows="6" cols="90" class="tarea" name="config[{$config['name']}]">{$config_value[$config['name']]}</textarea>
+                        <elseif condition="$config['type'] eq 'file'"/>
+                        <span class="type-file-box">
+                            <input type="text"  name="config[{$config['name']}]" value="{$config_value[$config['name']]}" class="type-file-text" >
+                            <input type="button"  id="button1" value="选择上传..." class="type-file-button">
+                            <input class="type-file-file" onchange="uploadCert(this)" type="file" title="上传文件" >
+                        </span>
+                        <else />
+                        <input type="{$config['type']}" value="{$config_value[$config['name']]}" name="config[{$config['name']}]" class="input-txt"/>
+                    </if>
+                    <p class="notic" <if condition="$config['name'] eq 'alipay_private_key'">style="color:red;font-weight:bold"</if> >{$config.description|default=$config.label}</p>
+                </dd>
+            </dl>
+            </volist>
+            <div class="bot"><a href="JavaScript:void(0);" onClick=" $('#addEditSpecForm').submit();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+        <input type="hidden" name="id" value="{$spec.id}">
+    </form>
+</div>
+<script>
+    function GetFileUploadify(num,elementid,path,callback,fileType)
+    {
+        var upurl ='/index.php?m=Admin&c=Uploadify&a=upload&num='+num+'&input='+elementid+'&path='+path+'&func='+callback+'&fileType='+fileType;
+        var title = '上传文件';
+        layer.open({
+        type: 2,
+        title: title,
+        shadeClose: true,
+        shade: false,
+        maxmin: true, //开启最大化最小化按钮
+        area: ['50%', '60%'],
+        content: upurl
+        });
+    }
+
+    function upload_call_back(path){
+        console.log(path);
+    }
+
+    function uploadCert(e) {
+        if($(e).attr('multiple')){
+            if(e.files.length  >1){
+                layer.open({content:"请依此上传",time:5000});
+                return false;
+            }
+        }
+
+
+        var formData = new FormData();//表单id
+        formData.append('cert_file',e.files[0]);
+        formData.append('code','{$plugin['code']}');
+        $.ajax({
+            type: "POST",
+            url: "{:U('Admin/Plugin/uploadCert')}",
+            data: formData,
+            dataType: "json",
+            async: false,
+            cache: false,  //上传文件不需要缓存
+            contentType: false,
+            processData: false, //因为data值是FormData对象，不需要对数据做处理
+            error: function (data) {
+                alert(JSON.stringify(data));
+                layer.open({content:"服务器繁忙, 请联系管理员!",time:5000});
+            },
+            success: function (data) {
+                if (data.status == 1) {
+                    $(e).parent().children().eq(0).val(data.data);
+                }else {
+                    layer.open({content: data.msg, time: 5000});
+                }
+            }
+        });
+
+    }
+
+</script>
+</body>
+</html>

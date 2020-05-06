@@ -1,0 +1,343 @@
+<include file="public/head"/>
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<style>
+    .ncsc-default-table td span{
+        vertical-align: -moz-middle-with-baseline;
+    }
+</style>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>运费模板</div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="normal"><a href="{:U('Freight/index')}">模板列表</a></li>
+                    <li class="active"><a>新增/编辑运费模板</a></li>
+                </ul>
+            </div>
+			<if condition="$store.is_supplier eq 1">
+			<div class="alert mt15 mb5">
+				操作提示：
+				<ul>
+					<li>1、如果有供应商品使用该运费模板，当运费模板修改时，将会下架对应销售商的商品，待销售商审理后才能再次上架售卖</li>
+				</ul>
+			</div>
+			</if>
+            <div class="ncsc-form-default">
+                <form id="handleposition" method="post" onsubmit="return false;">
+                    <input type="hidden" name="template_id" value="{$freightTemplate.template_id}">
+                    <dl>
+                        <dt><i class="required">*</i>模板名称：</dt>
+                        <dd>
+                            <input class="w400 text" type="text" name="template_name" value="{$freightTemplate.template_name}" maxlength="30"/>
+                            <span class="err" id="err_template_name"></span>
+                            <span class="err" id="err_template_id"></span>
+                            <p class="hint">请填写模板名称</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>计价方式：</dt>
+                        <dd>
+                            <ul class="ncsc-form-radio-list">
+                                <volist name="$Think.config.FREIGHT_TYPE" id="type">
+                                    <li><label><input name="type" class="type" type="radio" value="{$key}" <if condition="$freightTemplate['type'] heq $key">checked='checked'</if>>{$type}</label></li>
+                                </volist>
+                            </ul>
+                            <span class="err" id="err_type"></span>
+                            <p class="hint"></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>是否启用默认配送配置：</dt>
+                        <dd>
+                            <ul class="ncsc-form-radio-list">
+                                <li><label><input name="is_enable_default" class="is_enable_default" type="radio" value="0" <if condition="$freightTemplate['is_enable_default'] heq 0">checked='checked'</if>>否</label></li>
+                                <li><label><input name="is_enable_default" class="is_enable_default" type="radio" value="1" <if condition="$freightTemplate['is_enable_default'] heq 1">checked='checked'</if>>是</label></li>
+                            </ul>
+                            <span class="err" id="err_enable_default"></span>
+                            <p class="hint"></p>
+                        </dd>
+                    </dl>
+                        <table class="ncsc-default-table" id="config_table" style="display: none;">
+                            <thead>
+                            <tr>
+                                <th class="w50"></th>
+                                <th class="w200">配送区域</th>
+                                <th class="w100 first_unit">首件</th>
+                                <th class="w100">运费</th>
+                                <th class="w100 continue_unit">续件</th>
+                                <th class="w80">运费</th>
+                                <th class="w80">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="config_list">
+                                <volist name="freightTemplate[freightConfig]" id="config">
+                                    <if condition="$config[is_default] eq 1">
+                                        <tr class="bd-line default_config">
+                                            <td>默认配置<input name="is_default[]" value="{$config.is_default}" type="hidden"></td>
+                                            <td><input class="select_area" readonly name="" value="中国" type="text"><input name="area_ids[]" class="area_ids" value="0" type="hidden"><input name="config_id[]" value="{$config.config_id}" type="hidden"></td>
+                                            <td><input name="first_unit[]" value="{$config.first_unit}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="w80" type="text"><span class="first_unit_span">克</span></td>
+                                            <td><input name="first_money[]" value="{$config.first_money}" class="w80" type="text"><span>元</span></td>
+                                            <td><input name="continue_unit[]" value="{$config.continue_unit}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="w80" type="text"><span class="continue_unit_span">克</span></td>
+                                            <td><input name="continue_money[]" value="{$config.continue_money}" class="w80" type="text"><span>元</span></td>
+                                            <td class="nscs-table-handle"> <span><a onclick="$(this).parent().parent().parent().remove();" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span> </td>
+                                        </tr>
+                                    <else/>
+                                        <tr class="bd-line">
+                                            <td><input name="is_default[]" value="{$config.is_default}" type="hidden"></td>
+                                            <php>$region_name = '';$region_id = '';</php>
+                                            <volist name="config[freightRegion]" id="freight_region">
+                                                <php>$region_name = $region_name . $freight_region->region[name] . ',';$region_id = $region_id . $freight_region->region[id] . ',';</php>
+                                            </volist>
+                                            <php>$region_name = trim($region_name,',');$region_id = trim($region_id,',');</php>
+                                            <td><input class="select_area" readonly name="" value="{$region_name}" type="text"><input name="area_ids[]" class="area_ids" value="{$region_id}" type="hidden"><input name="config_id[]" value="{$config.config_id}" type="hidden"></td>
+                                            <td><input name="first_unit[]" value="{$config.first_unit}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="w80" type="text"><span class="first_unit_span">克</span></td>
+                                            <td><input name="first_money[]" value="{$config.first_money}" class="w80" type="text"><span>元</span></td>
+                                            <td><input name="continue_unit[]" value="{$config.continue_unit}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" class="w80" type="text"><span class="continue_unit_span">克</span></td>
+                                            <td><input name="continue_money[]" value="{$config.continue_money}" class="w80" type="text"><span>元</span></td>
+                                            <td class="nscs-table-handle"> <span><a onclick="$(this).parent().parent().parent().remove();" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span> </td>
+                                        </tr>
+                                    </if>
+                                </volist>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="20" style="padding-left: 60px;padding-top: 10px;">
+                                    <a class="ncbtn ncbtn-mint new_config" title="新增自定义区域"><i class="icon-plus-sign"></i>新增自定义区域</a>
+                                    <span class="err" id="err_config_list"></span>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                    <div class="bottom"><label class="submit-border">
+                        <input id="submit" type="submit" class="submit" value="提交"></label>
+                    </div>
+                </form>
+            </div>
+            <script type="text/javascript">
+                var type;//计价方式
+                var unit = '件';
+                $(function () {
+                    $(document).on("click", '#submit', function (e) {
+                        $('#submit').attr('disabled',true);
+                        verifyForm();
+                    })
+                })
+                //运费配置单个对象
+                function ConfigItem(config_id, area_ids, first_unit, first_money, continue_unit, continue_money, is_default) {
+                    this.config_id = config_id;
+                    this.area_ids = area_ids;
+                    this.first_unit = first_unit;
+                    this.first_money = first_money;
+                    this.continue_unit = continue_unit;
+                    this.continue_money = continue_money;
+                    this.is_default = is_default;
+                }
+                function verifyForm(){
+                    $('span.err').hide();
+                    var config_list = new Array();
+                    var template_id = $("input[name='template_id']").val();
+                    var template_name = $("input[name='template_name']").val();
+                    var type = $("input[name='type']:checked").val();
+                    var is_enable_default = $("input[name='is_enable_default']:checked").val();
+                    var config_item = $(".bd-line");
+                    config_item.each(function(i,o){
+                        var area_ids_input = $(this).find("input[name^='area_ids']");
+                        var first_unit_val = $(this).find("input[name^='first_unit']").val();
+                        var config_id_val = $(this).find("input[name^='config_id']").val();
+                        var first_money_val = $(this).find("input[name^='first_money']").val();
+                        var continue_unit_val = $(this).find("input[name^='continue_unit']").val();
+                        var continue_money_val = $(this).find("input[name^='continue_money']").val();
+                        var is_default_val = $(this).find("input[name^='is_default']").val();
+                        if (area_ids_input.val().length > 0 || $('.default_config').length > 0) {
+                            var configItem = new ConfigItem(config_id_val, area_ids_input.val(), first_unit_val, first_money_val, continue_unit_val, continue_money_val, is_default_val);
+                            config_list.push(configItem);
+                        }
+                    })
+                    $.ajax({
+                        type: "POST",
+                        url: "{:U('Freight/save')}",
+                        data: {template_id:template_id,template_name:template_name,type:type,config_list:config_list,is_enable_default:is_enable_default},
+                        async:false,
+                        dataType: "json",
+                        error: function () {
+                            layer.alert("服务器繁忙, 请联系管理员!");
+                            $('#submit').attr('disabled',false);
+                        },
+                        success: function (data) {
+                            if (data.status == 1) {
+                                layer.msg(data.msg,{icon: 1,time: 2000},function(){
+                                    location.href = "{:U('Seller/Freight/index')}";
+                                });
+                            } else {
+                                $('#submit').attr('disabled',false);
+                                $('span.err').text('');
+                                $.each(data.result, function (index, item) {
+                                    $('span.err').show();
+                                    $('#err_'+index).text(item);
+                                });
+                                layer.msg(data.msg, {icon: 2,time: 3000});
+                            }
+                            $('#submit').attr('disabled',false);
+                        }
+                    });
+                }
+                $(function () {
+                    $(document).on("click", '.select_area', function (e) {
+                        var area_focus = $(this);
+                        console.log(area_focus.val(),area_focus.parent().find('.area_ids').val());
+                        var name = area_focus.val();
+                        var ids = area_focus.parent().find('.area_ids').val()
+
+                        $('.select_area').removeClass('select_area_focus');
+                        $(this).addClass('select_area_focus');
+                        var url = "/index.php?m=Seller&c=Freight&a=area&name="+name+"&ids="+ids;
+                        layer.open({
+                            type: 2,
+                            title: '选择商品',
+                            shadeClose: true,
+                            shade: 0.2,
+                            area: ['420px', '400px'],
+                            content: url
+                        });
+                    })
+                })
+                $(function () {
+                    $(document).on("click", '.new_config', function (e) {
+                       var html = '<tr class="bd-line"> <td><input name="is_default[]" value="0" type="hidden"></td><td><input class="select_area" readonly type="text" name="" value=""/>' +
+                               '<input type="hidden" name="area_ids[]" class="area_ids" value=""/><input name="config_id[]" value="" type="hidden"></td> ' +
+                               '<td><input type="text" name="first_unit[]" value="" onpaste="this.value=this.value.replace(/[^\\d.]/g,\'\')" onkeyup="this.value=this.value.replace(/[^\\d.]/g,\'\')" class="w80"/>' +
+                               '<span class="first_unit_span">'+unit+'</span></td> ' +
+                               '<td><input type="text" name="first_money[]" value="" class="w80"/><span>元</span></td> ' +
+                               '<td><input type="text" name="continue_unit[]" value="" onpaste="this.value=this.value.replace(/[^\\d.]/g,\'\')" onkeyup="this.value=this.value.replace(/[^\\d.]/g,\'\')" class="w80"/>' +
+                               '<span class="continue_unit_span">'+unit+'</span></td> ' +
+                               '<td><input type="text" name="continue_money[]" value="" class="w80"/><span>元</span></td> <td class="nscs-table-handle"> ' +
+                               '<span><a onclick="$(this).parent().parent().parent().remove();" class="btn-grapefruit">' +
+                               '<i class="icon-trash"></i><p>删除</p></a></span> </td> </tr>';
+                        $('#config_list').append(html);
+                    })
+                })
+
+                $(function () {
+                    $(document).on("click", '.is_enable_default', function (e) {
+                        initDefault();
+                    })
+                })
+                function initDefault(){
+                    var default_config_length = $('.default_config').length;
+                    var is_enable_default = $("input[name='is_enable_default']:checked").val();
+                    if (is_enable_default == 1 && default_config_length == 0) {
+                        var html = '<tr class="bd-line default_config"><td>默认配置<input name="is_default[]" value="1" type="hidden"></td><td><input readonly type="text" name="" value="中国"/>' +
+                                '<input type="hidden" name="area_ids[]" class="area_ids" value=""/><input name="config_id[]" value="" type="hidden"></td> ' +
+                                '<td><input type="text" name="first_unit[]" value="" onpaste="this.value=this.value.replace(/[^\\d.]/g,\'\')" onkeyup="this.value=this.value.replace(/[^\\d.]/g,\'\')" class="w80"/>' +
+                                '<span class="first_unit_span">' + unit + '</span></td> ' +
+                                '<td><input type="text" name="first_money[]" value="" class="w80"/><span>元</span></td> ' +
+                                '<td><input type="text" name="continue_unit[]" value="" onpaste="this.value=this.value.replace(/[^\\d.]/g,\'\')" onkeyup="this.value=this.value.replace(/[^\\d.]/g,\'\')" class="w80"/>' +
+                                '<span class="continue_unit_span">' + unit + '</span></td> ' +
+                                '<td><input type="text" name="continue_money[]" value="" class="w80"/><span>元</span></td> <td class="nscs-table-handle"></td> </tr>';
+                        $('#config_list').prepend(html);
+                    }else if(is_enable_default == 0){
+                        $('.default_config').remove();
+                    }
+                }
+                $(document).ready(function(){
+                    type = $("input[name='type']:checked").val();
+                    console.log(type);
+                    initType();
+                    initDefault();
+                });
+                $(function () {
+                    $(document).on("click", ".type", function (e) {
+                        if(typeof(type) != 'undefined' && type != $(this).val()){
+                            type = $(this).val();
+                            clear_freight_config();
+                        }else{
+                            type = $("input[name='type']:checked").val();
+                            initType();
+                        }
+                    })
+                })
+                function initType(){
+                    var config_table = $('#config_table');
+                    if(parseInt(type) >= 0){
+                        config_table.show();
+                    }
+                    var first_unit = $('.first_unit');
+                    var continue_unit = $('.continue_unit');
+                    var first_unit_span = $('.first_unit_span');
+                    var continue_unit_span = $('.continue_unit_span');
+                    console.log(type);
+                    switch(parseInt(type))
+                    {
+                        case 0:
+                            unit = "件";
+                            first_unit.html('首件');
+                            continue_unit.html('续件');
+                            break;
+                        case 1:
+                            unit = "克";
+                            first_unit.html('首重');
+                            continue_unit.html('续重');
+                            break;
+                        case 2:
+                            unit = "立方米";
+                            first_unit.html('首体积');
+                            continue_unit.html('续体积');
+                            break;
+                    }
+                    first_unit_span.html(unit);
+                    continue_unit_span.html(unit);
+                }
+
+                /**
+                 * 清空运费模板信息
+                 */
+                function clear_freight_config() {
+                    var template_id = $("input[name='template_id']").val();
+                    layer.confirm('切换计价方式后，当前模板的运费信息将被清空，确定继续吗？', {
+                        btn: ['确定', '取消']
+                    }, function () {
+                        if (template_id > 0) {
+                            $('#config_list').empty();
+                            initType();
+                            layer.closeAll();
+                        }else{
+                            layer.closeAll();
+                            type = $("input[name='type']:checked").val();
+                            initType();
+                        }
+                    }, function (index) {
+                        $("input[name='type']").attr("checked",false);
+                        $("input[name='type'][value="+type+"]").attr("checked",true);
+                        type = $("input[name='type']:checked").val();
+                        initType();
+                        layer.close(index);
+                    });
+                }
+                function call_back(area_list) {
+
+                    var area_list_name = '';
+                    var area_list_id = '';
+                    $.each(area_list, function (index, item) {
+                        area_list_name += item.name + ',';
+                        area_list_id += item.id + ',';
+                    });
+                    var area_focus = $('.select_area_focus');
+                    console.log(area_focus.val(),area_focus.parent().find('.area_ids').val());
+                    if(area_list_id.length > 1){
+                        area_list_id = area_list_id.substr(0,area_list_id.length-1);
+                        area_list_name = area_list_name.substr(0,area_list_name.length-1);
+                    }
+                    area_focus.val(area_list_name);
+                    area_focus.parent().find('.area_ids').val(area_list_id);
+                    layer.closeAll('iframe');
+                }
+            </script>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

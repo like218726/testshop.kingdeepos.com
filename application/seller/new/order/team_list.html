@@ -1,0 +1,327 @@
+<include file="public/head"/>
+<style>
+    .ncsc-default-table tbody th span {
+        margin-right: 10px;
+    }
+</style>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>拼团列表</div>
+        <div class="main-content" id="mainContent">
+
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="<if condition="$Request.param.status eq ''">active<else/>normal</if>"><a href="{:U('Order/team_list',array('team_id'=>$_GET['team_id']))}">所有拼单</a></li>
+                    <li class="<if condition="$Request.param.status eq 0 and $Request.param.status neq ''">active<else/>normal</if>"><a href="{:U('Order/team_list',array('status'=>0,'team_id'=>$_GET['team_id']))}">待开团</a></li>
+                    <li class="<if condition='$Request.param.status eq 1'>active<else/>normal</if>"><a href="{:U('Order/team_list',array('status'=>1,'team_id'=>$_GET['team_id']))}">待成团</a></li>
+                    <li class="<if condition='$Request.param.status eq 2'>active<else/>normal</if>"><a href="{:U('Order/team_list',array('status'=>2,'team_id'=>$_GET['team_id']))}">已成团</a></li>
+                    <li class="<if condition='$Request.param.status eq 3'>active<else/>normal</if>"><a href="{:U('Order/team_list',array('status'=>3,'team_id'=>$_GET['team_id']))}">未成团</a></li>
+                </ul>
+            </div>
+            <form method="get" action="{:U('seller/Order/team_list')}" target="_self">
+                <input type="hidden" name="status" value="{$Request.param.status}" />
+                <table class="search-form">
+                    <tr>
+                        <td>&nbsp;</td>
+                        <th>开团时间</th>
+                        <td class="w378">
+                            <input type="text" class="text w100" name="start_time" id="start_time" value="{:substr($start_time,0,10)}"/>
+                            <label class="add-on"><i class="icon-calendar"></i></label>&nbsp;&#8211;&nbsp;
+                            <input id="end_time" class="text w100" type="text" name="end_time"id="end_time" value="{:substr($end_time,0,10)}"/>
+                            <label class="add-on"><i class="icon-calendar"></i></label>
+                        </td>
+                        <th class="w80">拼主订单编号</th>
+                        <td class="w100"><input type="text" class="text w150" name="order_sn" value="{$Request.param.order_sn}" /></td>
+                        <th>拼团ID</th>
+                        <td class="w100"><input type="text" class="text w80" name="team_id" value="{$Request.param.team_id}" /></td>
+                        <td class="w70 tc"><label class="submit-border">
+                            <input type="submit" class="submit" value="搜索"/>
+                        </label>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <table class="ncsc-default-table order">
+                <thead>
+                <tr>
+                    <th class="w10"></th>
+                    <th colspan="2">团员</th>
+                    <th class="w50">购买数量</th>
+                    <th class="w80">订单金额</th>
+                    <th class="w80">收货人</th>
+                    <th class="w100">订单编号</th>
+                    <th class="w100">交易状态</th>
+                    <th class="w120">交易操作</th>
+                </tr>
+                </thead>
+                <volist name="teamFound" id="found">
+                    <tbody>
+                    <tr>
+                        <td colspan="20" class="sep-row"></td>
+                    </tr>
+                    <tr>
+                        <th colspan="20">
+                            <span class="ml10">商品：<em>{$found[order_goods][goods_name]}</em></span>
+                            <notempty name="$found[order_goods][spec_key_name]"><span>规格：<em class="goods-time">{$found[order_goods][spec_key_name]}</em></span></notempty>
+                            <span>开团时间：<em class="goods-time">{$found[found_time]|date='Y-m-d H:i:s',###}</em></span>
+                            <span>拼单状态：<em class="goods-time">{$found[status_desc]}</em></span>
+                            <span><a href="{:U('Seller/Team/info',['team_id'=>$found[team_id]])}" target="_blank" class="ncbtn-mini ncbtn-aqua"><i class="icon-search"></i>拼团详情</a></span>
+                            <if condition="$found[team_activity][team_type] eq 0 OR $found[team_activity][team_type] eq 1">
+                                <if condition="$found[order][order_status] eq 0">
+                                    <if condition="$found[Surplus] elt 0">
+                                        <span>
+                                            <a href="javascript:void(0)" class="ncbtn-mini ncbtn-grapefruit confirm_found" data-found-id="{$found[found_id]}">
+                                                <i class="icon-ok"></i>确认拼团
+                                            </a>
+                                        </span>
+                                        <else/>
+                                        <span><a href="javascript:void(0)" class="ncbtn-mini ncbtn-lavander">还差{$found[Surplus]}人</a></span>
+                                    </if>
+                                <elseif condition="$found[order][order_status] eq 3"/>
+
+                                    <elseif condition="$found[order][order_status] eq 5"/>
+                                    <span><a href="javascript:void(0)" class="ncbtn-mini ncbtn-bittersweet">已取消</a></span>
+                                <else/>
+                                        <span><a href="javascript:void(0)" class="ncbtn-mini ncbtn-bittersweet">已确认</a></span>
+                                </if>
+                            </if>
+                            <if condition="$found[order][order_status] eq 3 AND $found[team_activity][is_lottery] neq 1">
+                                <span><a href="javascript:void(0)" class="ncbtn-mini ncbtn-bittersweet">已取消</a></span>
+                            </if>
+                            <if condition="$found[order][pay_status] eq 1 AND $found[status] eq 3 AND $found[order][order_status] eq 0">
+                                <span><a href="javascript:void(0)" class="ncbtn-mini ncbtn-bittersweet refund_found" data-found-id="{$found[found_id]}">退款</a></span>
+                            </if>
+                            <if condition="$found[team_activity][team_type] eq 2">
+                                <if condition="$found[team_activity][is_lottery] eq 1">
+                                    <span><a href="{:U('Mobile/Team/lottery',['team_id'=>$found[team_id]])}" target="_blank" class="ncbtn-mini ncbtn-grapefruit"><i class="icon-play"></i>已开奖</a></span>
+                                <else/>
+                                    <span><a href="{:U('Mobile/Team/lottery',['team_id'=>$found[team_id]])}" target="_blank" class="ncbtn-mini ncbtn-grapefruit"><i class="icon-pause"></i>等待抽奖</a></span>
+                                </if>
+                            </if>
+                        </th>
+                    </tr>
+                    <tr>
+                        <td class="bdl"></td>
+                        <td class="w70">
+                            <div class="ncsc-goods-thumb">
+                                <img src="{$found[head_pic]|default="/public/images/icon_goods_thumb_empty_300.png"}" style="width: 60px;height: 60px;"/>
+                            </div>
+                        </td>
+                        <td class="tl w150">
+                            <dl class="goods-name">
+                                <dt>{$found[nickname]}</dt>
+                                <dd>拼主</dd>
+                            </dl>
+                        </td>
+                        <td class="bdl"><p>{$found[order_goods][goods_num]}</p></td>
+                        <td class="bdl">{$found[order][total_amount]}</td>
+                        <td class="bdl">
+                            <div class="buyer">{$found[order][consignee]}
+                                <div class="buyer-info"><em></em>
+                                    <div class="con">
+                                        <h3><i></i><span>联系信息</span></h3>
+                                        <dl>
+                                            <dt>姓名：</dt>
+                                            <dd>{$found[order][consignee]}</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>电话：</dt>
+                                            <dd>{$found[order][mobile]}</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>地址：</dt>
+                                            <dd>{$found[order][address_region]}{$found[order][address]}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="bdl">
+                            <p class="ncsc-order-amount">{$found[order][order_sn]}</p>
+                        </td>
+                        <td class="bdl bdr">
+                            <p>
+                                {$found[order][pay_status_detail]}
+                                <if condition="$found[status] eq 3 AND $found[order][order_status] eq 3">
+                                    <if condition="$found[order][pay_status] eq 1">/退款中</if>
+                                    <if condition="$found[order][pay_status] eq 3">/已退款</if>
+                                    <if condition="$found[order][pay_status] eq 4">/退款被拒绝</if>
+                                </if>
+                            </p>
+                        </td>
+                        <td class="nscs-table-handle">
+                            <span><a href="{:U('Order/team_info',array('order_id'=>$found[order_id]))}" class="ncbtn-mint"><i class="icon-search"></i><p>订单详情</p></a></span>
+                        </td>
+                    </tr>
+                    <volist name="found[team_follow]" id="follow">
+                        <tr>
+                        <td class="bdl"></td>
+                        <td class="w70">
+                            <div class="ncsc-goods-thumb">
+                                <img src="{$follow[follow_user_head_pic]}" style="width: 60px;height: 60px;"/>
+                            </div>
+                        </td>
+                        <td class="tl w150">
+                            <dl class="goods-name">
+                                <dt>{$follow[follow_user_nickname]}</dt>
+                                <dd>团员</dd>
+                            </dl>
+                        </td>
+                        <td class="bdl"><p>{$follow[order_goods][goods_num]}</p></td>
+                        <td class="bdl">{$follow[order][total_amount]}</td>
+                        <td class="bdl">
+                            <div class="buyer">{$follow[order][consignee]}
+                                <div class="buyer-info"><em></em>
+                                    <div class="con">
+                                        <h3><i></i><span>联系信息</span></h3>
+                                        <dl>
+                                            <dt>姓名：</dt>
+                                            <dd>{$follow[order][consignee]}</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>电话：</dt>
+                                            <dd>{$follow[order][mobile]}</dd>
+                                        </dl>
+                                        <dl>
+                                            <dt>地址：</dt>
+                                            <dd>{$follow[order][address_region]}{$follow[order][address]}</dd>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="bdl">
+                            <p class="ncsc-order-amount">{$follow[order][order_sn]}</p>
+                        </td>
+                        <td class="bdl bdr">
+                            <p>{$follow[order][pay_status_detail]}
+                                <if condition="$follow[status] eq 3 AND $follow[order][order_status] eq 3">
+                                    <if condition="$follow[order][pay_status] eq 1">/退款中</if>
+                                    <if condition="$follow[order][pay_status] eq 3">/已退款</if>
+                                    <if condition="$follow[order][pay_status] eq 4">/退款被拒绝</if>
+                                </if>
+                            </p>
+                        </td>
+                        <td class="nscs-table-handle">
+                            <span><a href="{:U('Order/team_info',array('order_id'=>$follow[order_id]))}" class="ncbtn-mint"><i class="icon-search"></i><p>订单详情</p></a></span>
+                        </td>
+                    </tr>
+                    </volist>
+                    </tbody>
+                </volist>
+                <tfoot>
+                <tr>
+                    <td colspan="20">{$page->show()}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+<script>
+    $(document).ready(function () {
+        $('#start_time').layDate();
+        $('#end_time').layDate();
+    });
+
+    // 起始位置日历控件
+    laydate.render('molv');//选择肤色
+    laydate.render({
+        elem: '#start_time',
+        theme:'molv',
+        format: 'yyyy-MM-dd', // 分隔符可以任意定义，该例子表示只显示年月
+        festival: true, //显示节日
+        istime: false,
+        choose: function (datas) { //选择日期完毕的回调
+            compare_time($('#start_time').val(), $('#end_time').val());
+        }
+    });
+
+    // 结束位置日历控件
+    laydate.render({
+        elem: '#end_time',
+        theme:'molv',
+        format: 'yyyy-MM-dd', // 分隔符可以任意定义，该例子表示只显示年月
+        festival: true, //显示节日
+        istime: false,
+        choose: function(datas){ //选择日期完毕的回调
+           compare_time($('#start_time').val(),$('#end_time').val());
+      }
+    });
+    //确认拼团
+    $(function () {
+        $(document).on("click", '.confirm_found', function (e) {
+            var found_id = $(this).data('found-id');
+            layer.open({
+                content: '确认拼团将把该拼团下的订单都确认，该操作不可逆，确定要执行吗？'
+                ,btn: ['确定', '取消']
+                ,yes: function(index, layero){
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{:U('Seller/Team/confirmFound')}",//+tab,
+                        data: {found_id: found_id},
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.status == 1) {
+                                layer.msg(data.msg, {icon: 1, time: 2000}, function(){
+                                    window.location.reload();
+                                });
+                            } else {
+                                layer.msg(data.msg, {icon: 2, time: 2000});
+                            }
+                        }
+                    });
+                }
+                ,btn2: function(index, layero){
+
+                    layer.close(index);
+                }
+                ,cancel: function(){
+                    //右上角关闭回调
+                    layer.close();
+                }
+            });
+        })
+    })
+    //拼团退款
+    $(function () {
+        $(document).on("click", '.refund_found', function (e) {
+            var found_id = $(this).data('found-id');
+            layer.open({
+                content: '退款将把该拼团下的订单都提交退款至平台，该操作不可逆，确定要执行吗？'
+                ,btn: ['确定', '取消']
+                ,yes: function(index, layero){
+                    layer.close(index);
+                    $.ajax({
+                        type: "POST",
+                        url: "{:U('Seller/Team/refundFound')}",//+tab,
+                        data: {found_id: found_id},
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.status == 1) {
+                                layer.msg(data.msg, {icon: 1, time: 2000}, function(){
+                                    window.location.reload();
+                                });
+                            } else {
+                                layer.msg(data.msg, {icon: 2, time: 2000});
+                            }
+                        }
+                    });
+                }
+                ,btn2: function(index, layero){
+                    layer.close(index);
+                }
+                ,cancel: function(){
+                    //右上角关闭回调
+                    layer.close();
+                }
+            });
+        })
+    })
+
+</script>
+</body>
+</html>

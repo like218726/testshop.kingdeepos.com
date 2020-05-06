@@ -1,0 +1,77 @@
+
+<!--<div class="ncsc-upload-btn"> 
+	<a href="javascript:void(0);"><span>
+       <input type="file" hidefocus="true" size="1" class="input-file" name="add_album" id="add_album">
+       </span><p><i class="icon-upload-alt" data_type="0" nctype="add_album_i"></i>图片上传</p>
+    </a> 
+</div>-->
+<a href="javascript:void(0);" nctype="meai_cancel" class="ncbtn mt5"><i class=" icon-circle-arrow-up"></i>关闭相册</a>
+<div class="goods-gallery add-step2"><a class="sample_demo" id="select_submit" href="" style="display:none;">提交</a>
+  <div class="nav"><span class="l">用户相册 &gt;全部图片        </span>
+  	 <span class="r">
+    	<select name="jump_album_id" id="jump_album_id" style="width:100px;">
+			<option value="">请选择相册</option>
+      		<foreach name="albumList" item="v" key="k" >                                                                           
+	                    <option value="{$v['id']}" <if condition="$Request.param.album_id eq $v['id']">selected="selected"</if> >
+	                         {$v['album_name']}
+	                    </option>
+	       </foreach>
+      	</select>
+	 </span>
+	</div>
+    <ul class="list">
+   		<empty name="result">
+                <label class="txt_count_tip" style="font-size: 16px;width: 100%; display: inline-block;text-align: center; padding: 50px 0;">相册无图片</label>
+         <else/>
+	    	<foreach name="result" item="vo">
+	        <li onclick="insert_mobile_img('{$vo.url}');"><a href="JavaScript:void(0);"><img src="{$vo.url}" title="{$vo.name}"></a></li>
+	        </foreach>
+	   </empty>
+      </ul>
+    <div id="show_recommend_pic">{$show_page}</div>
+</div>
+<script >
+
+
+$('#jump_album_id').on('change',function(){
+		//判断是否选取prompt属性，无返回值；
+	    var album_id = $(this).val();
+	 	// 添加图片按钮，显示图片空间文字
+       $('a[nctype="meat_cancel"]', window.parent.document).click();
+       $('div[nctype="mea_img"]' , window.parent.document).show().load('/index.php?m=Seller&c=Goods&a=pic_list&album_id='+album_id);
+ 
+	    
+	});
+ 
+function album_change1(id,next,select_id){
+    var url = '/index.php?m=Home&c=api&a=get_store_category';
+    var store_id = "{$store_id}";
+    $.ajax({
+        type : "POST",
+        url : url,
+        data:{'store_id':store_id,'parent_id':id},
+        error: function(request) {
+            layer.alert("服务器繁忙, 请联系管理员!",{icon:2});
+            return;
+        },
+        success: function(v) {
+            v = "<option value='0'>请选择商品分类</option>" + v;
+            $('#'+next).empty().html(v);
+            (select_id > 0) && $('#'+next).val(select_id);//默认选中
+        }
+    });
+}
+
+$(function(){
+	 $('#show_recommend_pic').on('click','a', function() {
+			if($(this).attr('target') == '_blank'){
+				window.open($(this).attr('href'));
+			}else if($(this).attr('href') != '#'){
+				$('div[nctype="mea_img"]').load($(this).attr('href'));
+			}else{
+				return false;
+			}
+		    return false;
+	});
+})
+</script>

@@ -1,0 +1,255 @@
+<include file="public/layout" />
+<script type="text/javascript" src="__PUBLIC__/static/js/perfect-scrollbar.min.js"></script>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>店铺等级管理 - 编辑店铺等级</h3>
+                <h5>网站系统店铺等级管理</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="handleposition" action="{:U('Store/grade_info_save')}" method="post">
+        <input type="hidden" name="sg_id" value="{$info.sg_id}">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_name"><em>*</em>等级名称</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" id="sg_name" name="sg_name" value="{$info.sg_name}" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">设置店铺等级名称</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_goods_limit">可发布商品数</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="sg_goods_limit" value="{$info.sg_goods_limit}" id="sg_goods_limit" class="input-txt" onkeyup="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err"></span>
+                    <p class="notic">0表示没有限制</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_goods_limit">可上传图片数</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="sg_album_limit" value="{$info.sg_album_limit}" id="sg_album_limit" class="input-txt">
+                    <span class="err"></span>
+                    <p class="notic">0表示没有限制</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_template_limit">可选模板套数</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="sg_template_limit" value="{$info.sg_template_limit}" id="sg_template_limit" class="input-txt" onkeyup="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err"></span>
+                    <p class="notic">0表示没有限制</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_price">收费标准</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="sg_price" value="{$info.sg_price}" id="sg_price" class="input-txt" onkeyup="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err"></span>
+                    <p class="notic">收费标准，单：元/年，必须为数字，在会员开通或升级店铺时将显示在前台</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_sort">级别</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="sg_sort" value="{$info.sg_sort}" id="sg_sort" class="input-txt" onkeyup="this.value=this.value.replace(/[^\d]/g,'')">
+                    <span class="err"></span>
+                    <p class="notic">数值越大表明级别越高</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    申请说明
+                </dt>
+                <dd class="opt">
+                    <textarea  name="sg_description" class="tarea" rows="6">{$info.sg_description}</textarea>
+                    <span class="err"></span>
+                    <p class="notic">申请说明，在会员开通或升级店铺时将显示在前台</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="cls_full"><em>*</em>权限分配</label>
+                </dt>
+                <dd style="margin-left:200px;" id="dealer-power">
+                    <div class="ncap-account-container" style="border-top:none;">
+                        <h4>
+							<label>销售商权限</label>
+                            <input id="cls_full" onclick="choosebox(this)" type="checkbox" name="sg_allow_full" value="1" <if condition="$info['sg_act_limits'] eq 'all'">checked</if>>
+                            <label>全选</label>
+                        </h4>
+                    </div>
+                    <foreach name="modules" item="menu" key="kk">
+                        <div class="ncap-account-container container-list" data-id="{$kk}"  style="border-top:none;">
+                            <h4>
+                                <label>{$group[$kk]}</label>
+                                <input value="1" cka="mod-{$kk}" id="container_{$kk}" type="checkbox" <if condition="$info['sg_act_limits'] eq 'all'">checked</if>>
+                                <label>全部</label>
+                            </h4>
+                            <ul class="ncap-account-container-list" id="container-list-mod-{$kk}">
+                                <foreach name="menu" item="vv">
+                                    <li>
+                                        <label><input class="checkbox right clefl right_{$kk}" name="right[]" value="{$vv.id}" ck="mod-{$kk}" type="checkbox" <if condition="$vv.enable eq 1 or $info['sg_act_limits'] eq 'all'">checked</if> >{$vv.name}</label>
+                                    </li>
+                                </foreach>
+                            </ul>
+                        </div>
+                    </foreach>
+                    <h4><span class="err" id="err_act_list"></span></h4>
+                </dd>
+            </dl>
+			<dl class="row">
+                <dt class="tit">
+                </dt>
+                <dd style="margin-left:200px;" id="supplier-power">
+                    <div class="ncap-account-container" style="border-top:none;">
+                        <h4>
+							<label>供应商权限</label>
+                            <input id="supplier_cls_full" onclick="supplierChoosebox(this)" type="checkbox" name="sg_supplier_allow_full" value="1" <if condition="$info['sg_supplier_act_limits'] eq 'all'">checked</if>>
+                            <label>全选</label>
+                        </h4>
+                    </div>
+                    <foreach name="supplier_modules" item="menu" key="kk">
+                        <div class="ncap-account-container supplier-container-list" data-id="{$kk}"  style="border-top:none;">
+                            <h4>
+                                <label>{$supplier_group[$kk]}</label>
+                                <input value="1" cka="mod-{$kk}" id="container_{$kk}" type="checkbox" <if condition="$info['sg_supplier_act_limits'] eq 'all'">checked</if>>
+                                <label>全部</label>
+                            </h4>
+                            <ul class="ncap-account-container-list" id="container-list-mod-{$kk}">
+                                <foreach name="menu" item="vv">
+                                    <li>
+                                        <label><input class="checkbox right clefl right_{$kk}" name="supplier_right[]" value="{$vv.id}" ck="mod-{$kk}" type="checkbox" <if condition="$vv.enable eq 1 or $info['sg_supplier_act_limits'] eq 'all'">checked</if> >{$vv.name}</label>
+                                    </li>
+                                </foreach>
+                            </ul>
+                        </div>
+                    </foreach>
+                    <h4><span class="err" id="err_act_list"></span></h4>
+                </dd>
+            </dl>
+            <div class="bot"><a href="JavaScript:void(0);" onclick="adsubmit();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        //小分类全部按钮
+        $(":checkbox[cka]").click(function(){
+            var $cks = $(":checkbox[ck='"+$(this).attr("cka")+"']");
+            if($(this).is(':checked')){
+                $cks.each(function(){$(this).prop("checked",true);});
+            }else{
+                $cks.each(function(){$(this).removeAttr('checked');});
+            }
+            checkedFull();
+        });
+        readyParentCk();
+    });
+
+    //第一次加载要看看每个权限分类下权限码是不是全选
+    function readyParentCk(){
+        $('.container-list').each(function(){
+            var setDisabled = true;
+            var _thisId = $(this).attr('data-id');
+            $('.right_'+_thisId).each(function(){
+                if($(this).prop('checked') == false){ //发现其他有没选的和自身没选的
+                    setDisabled = false ;
+                }
+            });
+            $('#container_'+_thisId).prop({
+                'checked':setDisabled ? setDisabled :  false
+            });
+        })
+    }
+    //具体权限
+    $('.right').on('change',function(){
+        var _this = $(this);
+        var setDisabled = true;
+        var parent_container =  $('#container-list-'+_this.attr('ck'));  //父级标签id
+        parent_container.children('li').each(function(){
+            var _another = $(this).find('.right');
+            if(_another.prop('checked') == false){ //发现其他有没选的和自身没选的
+                setDisabled = false ;
+            }
+        });
+        //他的上级要全选
+        parent_container.siblings('h4').find('input').prop({
+            'checked':setDisabled ? setDisabled :  false
+        });
+        checkedFull();
+    });
+    //判断全选
+    function checkedFull(){
+		//销售商
+        var setContainerChecked = true;
+        $('.container-list').each(function(){
+            var _container = $(this).children('h4').find('input');
+            if(_container.prop('checked') == false){ //发现其他有没选的和自身没选的
+                setContainerChecked = false;
+            }
+        });
+        $('#cls_full').prop({
+            'checked':setContainerChecked ? setContainerChecked :  false
+        });
+		//供应商
+		setContainerChecked = true;
+		$('.supplier-container-list').each(function(){
+            var _container = $(this).children('h4').find('input');
+            if(_container.prop('checked') == false){ //发现其他有没选的和自身没选的
+                setContainerChecked = false;
+            }
+        });
+        $('#supplier_cls_full').prop({
+            'checked':setContainerChecked ? setContainerChecked :  false
+        });
+    }
+    //全选按钮
+    function choosebox(o){
+        var vt = $(o).is(':checked');
+        if(vt){
+            $('#dealer-power input[type=checkbox]').prop('checked',vt);
+        }else{
+            $('#dealer-power input[type=checkbox]').removeAttr('checked');
+        }
+    }
+	
+	//全选按钮
+    function supplierChoosebox(o){
+        var vt = $(o).is(':checked');
+        if(vt){
+            $('#supplier-power input[type=checkbox]').prop('checked',vt);
+        }else{
+            $('#supplier-power input[type=checkbox]').removeAttr('checked');
+        }
+    }
+
+    function adsubmit(){
+        if($('#sg_name').val()==''){
+            layer.alert('等级名称不能为空', {icon: 2});
+            return false;
+        }
+        $('#handleposition').submit();
+    }
+</script>
+</body>
+</html>

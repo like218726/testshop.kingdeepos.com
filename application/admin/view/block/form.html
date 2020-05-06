@@ -1,0 +1,992 @@
+<div class="tpd-diy-js tpd-forms">
+    <!--<div class="tpd-diy-title">智能表单设置</div>-->
+    <div class="z-forms-tab">
+        <div class="forms-tab-list form-active">
+            <label>组件样式</label>
+        </div>
+        <div class="forms-tab-list">
+            <label>组件数据</label>
+        </div>
+    </div>
+    <div class="forms-tab-wrap">
+        <div class="forms-tab-cont">
+            <div class="forms-cont-list">
+                <div class="tpd-txtnav-text form-box-border">
+                    <label>背景颜色</label>
+                    <input type="color" name="bg_color" id="form_bg_color" value=""
+                           onchange="change_form_color(this)"/>
+                </div>
+                <div class="form-box-border">
+                    <div class="form-sub-label ">
+                        表单名称
+                    </div>
+                    <div class="form-inputBox">
+                        <input type="text" value="智能表单" name="form_name" id="form_form_name"
+                               onchange="change_form_color(this)"/>
+                    </div>
+                </div>
+                <div class="form-box-border">
+                    <div class="form-sub-label ">
+                        按钮名称
+                    </div>
+                    <div class="form-inputBox">
+                        <input type="text" value="提交" name="submit_name" id="form_submit_name"
+                               onchange="change_form_color(this)"/>
+                    </div>
+                </div>
+                <div class="tpd-txtnav-text form-box-border">
+                    <label>按钮背景颜色</label>
+                    <input type="color" name="submit_bg_color" id="form_submit_bg_color" value=""
+                           onchange="change_form_color(this)"/>
+                </div>
+                <div class="tpd-txtnav-text form-box-border">
+                    <label>按钮文字颜色</label>
+                    <input type="color" name="submit_color" id="form_submit_color" value=""
+                           onchange="change_form_color(this)"/>
+                </div>
+                <div class="tpd-txtnav-text form-box-border">
+                    <label>标题颜色</label>
+                    <input type="color" name="title_color" id="form_title_color" value=""
+                           onchange="change_form_color(this)"/>
+                </div>
+                <div class="tpd-txtnav-text form-box-border">
+                    <label>文字颜色</label>
+                    <input type="color" name="text_color" id="form_text_color" value="" onchange="change_form_color(this)"/>
+                </div>
+                <div class="form-box-border">
+                    <div class="form-sub-label ">
+                        提交反馈
+                    </div>
+                    <div class="form-inputBox">
+                        <input type="text" value="提交成功" name="result" id="form_result" onchange="change_form_color(this)"/>
+                    </div>
+                </div>
+                <label class="tpd-diy-bb tpd-cdiy-font28" style="margin-left: 20px; margin-top: 10px;">下间距 :<input
+                        type="text" value="10" id="form_spacing">px</label>
+            </div>
+            <div class="forms-cont-list" style="display: none;">
+                <div id="draggable-item">
+                    <div class="forms-draggable-item">
+                        第1项
+                        <i class="draggable-level"></i>
+                        <i class="draggable-del"></i>
+                    </div>
+                    <div class="draggable-finds">
+                        <div class="forms-draggable-cont">
+                            <div class="form-sub-label">控件类型</div>
+                            <ul class="form-sub-ul">
+                                <li class="atab1 sub-active"></li>
+                                <li class="atab2"></li>
+                                <li class="atab3"></li>
+                                <li class="atab4"></li>
+                                <li class="atab5"></li>
+                                <li class="atab6"></li>
+                            </ul>
+                            <div class="form-items-w">
+                                <!--单文本的-->
+                                <div class="form-items">
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            标题
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="标题"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            提示文字
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="请输入提示文字"/>
+                                        </div>
+                                    </div>
+                                    <div class="tpd-txtnav-text form-box-border">
+                                        <label>边框颜色 </label>
+                                        <input type="color" name="text_bg_color" id="textnav_bg_color" value=""
+                                               onchange="change_bg(this)"/>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            验证类型
+                                        </div>
+                                        <ul class="form-box-item">
+                                            <li class="sub-active">
+                                                <img src="__PUBLIC__/static/images/no1.jpg"/>
+                                            </li>
+                                            <li>
+                                                <img src="__PUBLIC__/static/images/phone1.jpg"/>
+                                            </li>
+                                            <li>
+                                                <img src="__PUBLIC__/static/images/email1.jpg"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            是否必填
+                                        </div>
+                                        <div class="form-sub-chenkend ">
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--多文本-->
+                                <div class="form-items">
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            标题
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="标题"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            提示文字
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="请输入提示文字"/>
+                                        </div>
+                                    </div>
+                                    <div class="tpd-txtnav-text form-box-border">
+                                        <label>边框颜色 </label>
+                                        <input type="color" name="text_bg_color" id="textnav_bg_color" value=""
+                                               onchange="change_bg(this)"/>
+                                    </div>
+                                    <div class="tpd-txtnav-text" style="margin: 0 20px;">
+                                        <label>最小高度 </label>
+
+                                        <div class="slider-font-wrap">
+                                            <div id="slider-range-max" class="slider-font"></div>
+                                        </div>
+                                        <em class="amount-font"><input type="text" id="amount" name="text_font"/>px</em>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            是否必填
+                                        </div>
+                                        <div class="form-sub-chenkend ">
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--选择时间-->
+                                <div class="form-items">
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            标题
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="时间"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            请选择时间
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="请输入提示文字"/>
+                                        </div>
+                                    </div>
+                                    <div class="tpd-txtnav-text form-box-border">
+                                        <label>边框颜色 </label>
+                                        <input type="color" name="text_bg_color" id="textnav_bg_color" value=""
+                                               onchange="change_bg(this)"/>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            是否必填
+                                        </div>
+                                        <div class="form-sub-chenkend ">
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--选择地区-->
+                                <div class="form-items">
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            标题
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="地区"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            提示文字
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="请选择地区"/>
+                                        </div>
+                                    </div>
+                                    <div class="tpd-txtnav-text form-box-border">
+                                        <label>边框颜色 </label>
+                                        <input type="color" name="text_bg_color" id="textnav_bg_color" value=""
+                                               onchange="change_bg(this)"/>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            是否必填
+                                        </div>
+                                        <div class="form-sub-chenkend ">
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--单选按钮-->
+                                <div class="form-items">
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            标题
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="标题"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            提示文字
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="请输入提示文字"/>
+                                        </div>
+                                    </div>
+                                    <div class="tpd-txtnav-text form-box-border">
+                                        <label>边框颜色 </label>
+                                        <input type="color" name="text_bg_color" id="textnav_bg_color" value=""
+                                               onchange="change_bg(this)"/>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            单选按钮
+                                        </div>
+                                        <div class="form-sub-radio">
+                                            <div class="sub-radio-item">
+                                                <input type="text" placeholder="选项一" />
+                                                <i>×</i>
+                                            </div>
+                                        </div>
+                                        <div class="form-sub-radio">
+                                            <div class="sub-radio-item">
+                                                <input type="text" placeholder="选项二" />
+                                                <i>×</i>
+                                            </div>
+                                        </div>
+                                        <div class="form-add">添加</div>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            是否必填
+                                        </div>
+                                        <div class="form-sub-chenkend ">
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--多选按钮-->
+                                <div class="form-items">
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            标题
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="标题"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            提示文字
+                                        </div>
+                                        <div class="form-inputBox">
+                                            <input type="text" value="请输入提示文字"/>
+                                        </div>
+                                    </div>
+                                    <div class="tpd-txtnav-text form-box-border">
+                                        <label>边框颜色 </label>
+                                        <input type="color" name="text_bg_color" id="textnav_bg_color" value=""
+                                               onchange="change_bg(this)"/>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            多选按钮
+                                        </div>
+                                        <div class="form-sub-radio">
+                                            <div class="sub-radio-item">
+                                                <input type="text" placeholder="选项一"/>
+                                                <i>×</i>
+                                            </div>
+                                        </div>
+                                        <div class="form-sub-radio">
+                                            <div class="sub-radio-item">
+                                                <input type="text" placeholder="选项二"/>
+                                                <i>×</i>
+                                            </div>
+                                        </div>
+                                        <div class="form-add">添加</div>
+                                    </div>
+                                    <div class="form-box-border">
+                                        <div class="form-sub-label ">
+                                            是否必填
+                                        </div>
+                                        <div class="form-sub-chenkend ">
+                                            <i></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="raggable-finds-add">添加</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    //	组件样式、组件数据 切换
+    $(document).on("click", ".z-forms-tab .forms-tab-list", function () {
+        var index = $(this).index();
+        $(this).addClass("form-active").siblings(".forms-tab-list").removeClass("form-active");
+        $(".forms-tab-cont").find(".forms-cont-list").eq(index).show().siblings(".forms-cont-list").hide();
+    })
+    //$(".form-items-w").find(".form-items").eq(0).show();
+
+    // 改变表单全局通用值，同时需要改变预览
+    function change_form_color(obj) {
+        var name = $(obj).attr('name');
+        var v = $(obj).val();
+        block[divid][name] = v;
+        console.log(v,block[divid])
+        show_form_see(block[divid]);
+    }
+
+    //在某选项中 选择控件类型,控件类型切换 功能
+    $(document).on("click", ".form-sub-ul li", function () {
+
+        var type = $(this).index(); // 组件类型
+        var placeholder = "请输入提示文字";
+        var title = '标题'
+        if(type==2) {
+            placeholder='请选择时间';
+            title = '时间'
+        }
+        else if(type==3) {
+            placeholder='请选择地区';
+            title = '地区'
+        }
+        var index = $(this).attr('data-index'); //当前第几个组件
+        console.log(index, type, divid, block[divid]);
+        block[divid].nav[index].type = type; // 更新类型
+        block[divid].nav[index].title=title
+        block[divid].nav[index].placeholder=placeholder
+        // 选中类型
+        $(this).addClass("sub-active").siblings("li").removeClass("sub-active");
+        show_a_form(index);
+        show_form_see();
+    })
+    // 在某选项中 选中 某控件类型时 显示对应控件类型的编缉页面,需要重新显示左面的预览请再次调用show_form_see();
+    function show_a_form(index,timeid){
+
+        if(timeid){
+            var data = block[timeid].nav[index];
+            data.timeid = timeid;
+        }else{
+            timeid = divid;
+            var data = block[divid].nav[index];
+            data.timeid = block[divid].timeid;
+        }
+
+        data.index = index;
+        var from = '#form_type_' + data.type;
+        var to = '#edit_html_form_'+timeid+'_' + index;
+        html_tpl(from, to, data);
+        if (data.type == 1) {
+            silder_form(data.timeid, data.index, data.min_height);
+        }
+    }
+
+    //	选择验证方式
+    $(document).on("click", ".form-box-item li", function () {
+        var index=$(this).attr('data-index')
+        $(this).addClass("sub-active").siblings("li").removeClass("sub-active");
+        block[divid].nav[index]['verify_type'] = $(this).attr('data-val');
+        console.log(index,block[divid].nav)
+    })
+    //	是否必填
+    $(document).on("click", ".form-sub-chenkend", function () {
+        $(this).toggleClass("form-chenk");
+        var index = $(this).attr('data-index')
+        if ($(this).hasClass('form-chenk')) {
+            block[divid].nav[index]['required'] = 1;
+        } else {
+            block[divid].nav[index]['required'] = 0;
+        }
+        console.log(index,block[divid].nav)
+    })
+    //	展示当前选项,其它项隐藏 切换选项
+    $(document).on("click", ".forms-draggable-item", function () {
+        $(this).next(".draggable-finds").slideToggle().siblings('.draggable-finds').hide();
+    })
+
+    // 初始化一个组件值，一个选项的值
+    function init_a_form_option(type) {
+        if (!type || type < 0 || type > 5) type = 0;
+        var placeholder = "请输入提示文字";
+        var title = '标题'
+        if(type==2) {
+            placeholder='请选择时间';
+            title = '时间'
+        } else if(type==3) {
+            placeholder='请选择地区';
+            title = '地区'
+        }
+
+        var data = {
+            title: title,
+            placeholder: placeholder,
+            border_color: "#666666", //边框颜色
+            verify_type: 0, // 0不验证 1验证手机号 2验证邮箱
+            required: 0, // 是否必填 1是0否
+            type: type, // 组件类型 0单行文本框 1多行文本框 2日期选择栏 3地区选择栏 4单项-下拉选择 5多项选择
+            name: '', //提交的名称
+            min_height: 2, // 最小高度 多行文本用
+            option_name: ['选项一', '选项二'], // 单项，多项用
+            option_type: 1, //多选时样式，1平铺2下拉
+        }
+        return data;
+    }
+    //添加一个组件，添加一个选项
+    $(document).on("click", ".raggable-finds-add", function () {
+        var data = init_a_form_option(0);
+        block[divid].nav.push(data);
+        console.log(block[divid])
+        show_form_edit(block[divid])
+        show_form_see();
+    })
+    //	删除组件
+    $(document).on("click", "#draggable-item .draggable-del", function () {
+        if (block[divid].nav.length < 2) {
+            layer.msg('至少有1项!', {icon: 2, time: 2000});
+            return;
+        }
+        var index = $(this).attr('data-index');
+        layer.confirm('确认删除？', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    block[divid].nav.splice(index, 1); // splice
+                    console.log(block[divid])
+                    show_form_edit(block[divid]);
+                    show_form_see();
+                    layer.msg('删除成功，已重新排版!', {icon: 1, time: 2000});
+                }, function (index) {
+                    layer.close(index);
+                    return false;// 取消
+                }
+        );
+    })
+    // 单选，显示样式，平铺或下拉
+    $(document).on("click", "#draggable-item .option_type", function () {
+        var index = $(this).attr('data-index');
+        var v = $(this).val();
+        block[divid].nav[index]['option_type'] = v;
+        console.log(block[divid])
+        show_a_form(index)
+        show_form_see()
+    })
+    // 添加多选
+    $(document).on("click", "#draggable-item .form-add", function () {
+        var type = $(this).attr('data-type');
+        var index = $(this).attr('data-index');
+       if(block[divid].nav[index]['option_name'].length >= 10){
+            layer.msg('至多10个选项!', {icon: 2, time: 2000});
+            return;
+        }
+        block[divid].nav[index]['option_name'].push('选项')
+        console.log(block[divid])
+        show_a_form(index)
+        show_form_see()
+    })
+    // 删除一个多选
+    $(document).on("click", "#draggable-item .form-del", function () {
+        var type = $(this).attr('data-type');
+        var index = $(this).attr('data-index');
+        var i = $(this).attr('data-i');
+        if(block[divid].nav[index]['option_name'].length <= 2){
+            layer.msg('至少2个选项!', {icon: 2, time: 2000});
+            return;
+        }
+        layer.confirm('确认删除？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                block[divid].nav[index]['option_name'].splice(i, 1); // splice
+                console.log(block[divid])
+                show_a_form(index)
+                show_form_see()
+                layer.msg('删除成功，已重新排版!', {icon: 1, time: 2000});
+            }, function (index) {
+                layer.close(index);
+                return false;// 取消
+            }
+        );
+
+    })
+    // 依表单数据 显示所有编缉的页面
+    function show_form_edit(data) {
+        if (!data) data = block[divid];
+        html_tpl('#edit_html_form', '#draggable-item', data,function(){
+            var arr = block[divid].nav;
+            for (var i = 0; i < arr.length; i++) {
+                show_a_form(i,divid)
+            }
+        })
+        var p = '#form_';
+        $(p+'bg_color').val(data.bg_color);
+        $(p+'form_name').val(data.form_name);
+        $(p+'submit_name').val(data.submit_name);
+        $(p+'submit_bg_color').val(data.submit_bg_color);
+        $(p+'submit_color').val(data.submit_color);
+        $(p+'title_color').val(data.title_color);
+        $(p+'text_color').val(data.text_color);
+        $(p+'result').val(data.result);
+        $(p+'spacing').val(data.spacing);
+    }
+    // 依表单数据 显示所有预览
+    function show_form_see(data) {
+        if (!data) data = block[divid];
+        var to = $('.tpd-edits-hidden.tpd-editing').find('.tpd-forms-wraps');
+        html_tpl('#show_html_form', to, data,function(){
+            // 设置颜色值
+            $('.tpd-editing').find('.formName').css("color",data.title_color); //标题颜色
+            $('.tpd-editing').find('.tpd-forms-wraps').css('background-color',data.bg_color); // 按钮背景颜色
+            $('.tpd-editing').find('.submit').css('background-color',data.submit_bg_color).css('color',data.submit_color); // 按钮颜色
+            $('.tpd-editing').find('.text_color').css('color',data.text_color); //多选文字颜色
+            var arr = data.nav
+            for (var i = 0; i < arr.length; i++) {
+                var o = '.name-'+data.timeid+'-'+i;
+                $(o).css('border-color', arr[i].border_color)
+            }
+        });
+
+    }
+
+    // 某个选项中的某个值的改变 预览会相应改变
+    function set_form_type(obj) {
+        var name = $(obj).attr('name');
+        var index = $(obj).attr('data-index');
+        var v = $(obj).val();
+        block[divid].nav[index][name] = v;
+        show_form_see(block[divid])
+    }
+    // 单选或多选的改变 预览会相应改变
+    function set_form_option_name(obj) {
+        var name = $(obj).attr('name');
+        var index = $(obj).attr('data-index');
+        var option = $(obj).attr('data-option');
+        var v = $(obj).val();
+        block[divid].nav[index]['option_name'][option] = v;
+        show_form_see(block[divid])
+    }
+    // 多行文本的高度改变 预览会相应改变
+    function silder_form(timeid, index, val) {
+        var slider_id = '#slider-' + timeid + '-' + index;
+        var slider_val = '#min_height-' + timeid + '-' + index;
+        $(slider_id).slider({
+            range: "max",
+            min: 1,
+            max: 20,
+            value: val,
+            slide: function (event, ui) {
+                $(slider_val).val(ui.value)
+                block[timeid].nav[index].min_height = ui.value
+                show_form_see(block[timeid])
+            }
+        });
+        $(slider_val).val(val);
+    }
+    function get_required(v){
+        if(v==1) return 'required="1"';
+        return "";
+    }
+</script>
+
+<script id="edit_html_form" type="text/html" txt="编缉用的">
+    {{#  layui.each(d.nav, function(index, item){ }}
+    <div class="forms-draggable-item" data-index="{{index}}" timeid="{{d.timeid}}">
+        第{{index+1}}项
+        <i class="draggable-level"></i>
+        <i class="draggable-del" data-index="{{index}}"></i>
+    </div>
+    <div class="draggable-finds" style="display: none;">
+        <div class="forms-draggable-cont">
+            <div class="form-sub-label">控件类型</div>
+            <ul class="form-sub-ul">
+                <li data-type="0" data-index="{{index}}" class="atab1 {{item.type==0?'sub-active':''}} "></li>
+                <li data-type="1" data-index="{{index}}" class="atab2 {{item.type==1?'sub-active':''}}"></li>
+                <li data-type="2" data-index="{{index}}" class="atab3 {{item.type==2?'sub-active':''}}"></li>
+                <li data-type="3" data-index="{{index}}" class="atab4 {{item.type==3?'sub-active':''}}"></li>
+                <li data-type="4" data-index="{{index}}" class="atab5 {{item.type==4?'sub-active':''}}"></li>
+                <li data-type="5" data-index="{{index}}" class="atab6 {{item.type==5?'sub-active':''}}"></li>
+            </ul>
+            <div class="form-items-w" id="edit_html_form_{{d.timeid}}_{{index}}">
+                <!--单文本的-->
+
+            </div>
+        </div>
+    </div>
+    {{#  }); }}
+</script>
+
+<script id="form_type_0" type="text/html" txt="单文本">
+    <div class="form-items">
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                标题
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.title}}" name="title" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                提示文字
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.placeholder}}" name="placeholder" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="tpd-txtnav-text form-box-border">
+            <label>边框颜色 </label>
+            <input type="color" name="border_color" value="{{d.border_color}}" onchange="set_form_type(this)"
+                   data-index="{{d.index}}"/>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                验证类型
+            </div>
+            <ul class="form-box-item">
+                <li class="{{d.verify_type==0?'sub-active':''}}" data-index="{{d.index}}" data-val="0">
+                    <img src="__PUBLIC__/static/images/no1.jpg"/>
+                </li>
+                <li class="{{d.verify_type==1?'sub-active':''}}" data-index="{{d.index}}" data-val="1">
+                    <img src="__PUBLIC__/static/images/phone1.jpg"/>
+                </li>
+                <li class="{{d.verify_type==2?'sub-active':''}}" data-index="{{d.index}}" data-val="2">
+                    <img src="__PUBLIC__/static/images/email1.jpg"/>
+                </li>
+            </ul>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                是否必填
+            </div>
+            <div class="form-sub-chenkend {{d.required==0?'':'form-chenk'}}" data-index="{{d.index}}">
+                <i></i>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="form_type_1" type="text/html" txt="多行文本">
+    <div class="form-items">
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                标题
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.title}}" name="title" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                提示文字
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.placeholder}}" name="placeholder" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="tpd-txtnav-text form-box-border">
+            <label>边框颜色 </label>
+            <input type="color" name="border_color" value="{{d.border_color}}" onchange="set_form_type(this)"
+                   data-index="{{d.index}}"/>
+        </div>
+        <div class="tpd-txtnav-text" style="margin: 0 20px;">
+            <label>最小高度 </label>
+
+            <div class="slider-font-wrap">
+                <div id="slider-{{d.timeid}}-{{d.index}}" class="slider-font" data-index="{{d.index}}"></div>
+            </div>
+            <em class="amount-font"><input type="text" id="min_height-{{d.timeid}}-{{d.index}}" name="min_height"
+                                           value="{{d.min_height}}" data-index="{{d.index}}"/>px</em>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                是否必填
+            </div>
+            <div class="form-sub-chenkend {{d.required==0?'':'form-chenk'}}" data-index="{{d.index}}">
+                <i></i>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="form_type_2" type="text/html" txt="日期">
+    <div class="form-items">
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                标题
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.title}}" name="title" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                请选择时间
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.placeholder}}" name="placeholder" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="tpd-txtnav-text form-box-border">
+            <label>边框颜色 </label>
+            <input type="color" name="border_color" value="{{d.border_color}}" onchange="set_form_type(this)"
+                   data-index="{{d.index}}"/>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                是否必填
+            </div>
+            <div class="form-sub-chenkend {{d.required==0?'':'form-chenk'}}" data-index="{{d.index}}">
+                <i></i>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="form_type_3" type="text/html" txt="地区">
+    <div class="form-items">
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                标题
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.title}}" name="title" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                提示文字
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.placeholder}}" name="placeholder" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="tpd-txtnav-text form-box-border">
+            <label>边框颜色 </label>
+            <input type="color" name="border_color" value="{{d.border_color}}" onchange="set_form_type(this)"
+                   data-index="{{d.index}}"/>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                是否必填
+            </div>
+            <div class="form-sub-chenkend {{d.required==0?'':'form-chenk'}}" data-index="{{d.index}}">
+                <i></i>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="form_type_4" type="text/html" txt="单项-下拉选择">
+    <div class="form-items">
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                标题
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.title}}" name="title" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="tpd-txtnav-text form-box-border">
+            <label>边框颜色 </label>
+            <input type="color" name="border_color" value="{{d.border_color}}" onchange="set_form_type(this)"
+                   data-index="{{d.index}}"/>
+        </div>
+        <div class="tpd-txtnav-text form-box-border" style="display: none">
+            <label>控件样式 </label>
+            <input type="radio" name="option_type" value="1" class="option_type"
+                   data-index="{{d.index}}" {{d.option_type==2?'':'checked'}}/>平铺
+            <input type="radio" name="option_type" value="2" class="option_type"
+                   data-index="{{d.index}}" {{d.option_type==2?'checked':''}}/>下拉
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label option_name">
+                单选按钮
+            </div>
+            {{# layui.each(d.option_name, function(index, item){ }}
+            <div class="form-sub-radio">
+                <div class="sub-radio-item">
+                    <input type="text" name="option_name" value="{{item}}" placeholder="选项"
+                           onchange="set_form_option_name(this)" data-option="{{index}}" data-index="{{d.index}}"/>
+                    <i class="form-del" data-i="{{index}}" data-type="d.type" data-index="{{d.index}}">×</i>
+                </div>
+            </div>
+            {{# }); }}
+            <div class="form-add" data-type="d.type" data-index="{{d.index}}">添加</div>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                是否必填
+            </div>
+            <div class="form-sub-chenkend {{d.required==0?'':'form-chenk'}}" data-index="{{d.index}}">
+                <i></i>
+            </div>
+        </div>
+    </div>
+</script>
+<script id="form_type_5" type="text/html" txt="多项-选择">
+    <div class="form-items">
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                标题
+            </div>
+            <div class="form-inputBox">
+                <input type="text" value="{{d.title}}" name="title" onchange="set_form_type(this)"
+                       data-index="{{d.index}}"/>
+            </div>
+        </div>
+        <div class="tpd-txtnav-text form-box-border">
+            <label>边框颜色 </label>
+            <input type="color" name="border_color" value="{{d.border_color}}" onchange="set_form_type(this)"
+                   data-index="{{d.index}}"/>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label option_name">
+                多选按钮
+            </div>
+            {{# layui.each(d.option_name, function(index, item){ }}
+            <div class="form-sub-radio">
+                <div class="sub-radio-item">
+                    <input type="text" name="option_name" value="{{item}}" placeholder="选项"
+                           onchange="set_form_option_name(this)" data-option="{{index}}" data-index="{{d.index}}"/>
+                    <i class="form-del" data-i="{{index}}" data-type="d.type" data-index="{{d.index}}">×</i>
+                </div>
+            </div>
+            {{# }); }}
+            <div class="form-add" data-type="d.type" data-index="{{d.index}}">添加</div>
+        </div>
+        <div class="form-box-border">
+            <div class="form-sub-label ">
+                是否必填
+            </div>
+            <div class="form-sub-chenkend {{d.required==0?'':'form-chenk'}}" data-index="{{d.index}}">
+                <i></i>
+            </div>
+        </div>
+    </div>
+</script>
+
+
+<script id="show_html_form" type="text/html" txt="h5样式预览">
+
+    <form id="form_{{d.timeid}}">
+        <div class="tpd-forms-cont">
+            {{# layui.each(d.nav, function(index, item){ }}
+
+            {{# if(item.type ==0){ }}
+            <div class="tpd-formItem">
+                <div class="formSelect1">
+                    <div class="formName">{{item.title}}</div>
+                    <div class="form-input-name "><input class="name-{{d.timeid}}-{{index}}" type="text" placeholder="{{item.placeholder}}" name="name{{index}}" get_required({{item.required}})/></div>
+                </div>
+            </div>
+            {{# }else if(item.type ==1){ }}
+            <div class="tpd-formItem">
+                <div class="formSelect1">
+                    <div class="formName">{{item.title}}</div>
+                    <div class="form-textarea-name"><textarea class="name-{{d.timeid}}-{{index}}" placeholder="{{item.placeholder}}" name="name{{index}}" get_required({{item.required}}) rows="{{item.min_height}}"></textarea></div>
+                </div>
+            </div>
+            {{# }else if(item.type ==2){ }}
+            <div class="tpd-formItem" txt="请选择时间">
+                <div class="formSelect1">
+                    <div class="formName">{{item.title}}</div>
+                    <div class="form-select-sj text_color" >
+                        <select class="name-{{d.timeid}}-{{index}}">
+                            <option>{{item.placeholder}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {{# }else if(item.type ==3){ }}
+            <div class="tpd-formItem" txt="请选择地区">
+                <div class="formSelect1">
+                    <div class="formName">{{item.title}}</div>
+                    <div class="form-select-dq text_color">
+                        <select class="name-{{d.timeid}}-{{index}}">
+                            <option>{{item.placeholder}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            {{# }else if(item.type ==4){ }}
+
+                {{# if(item.option_type != 2){ }}
+                <div class="tpd-formItem">
+                    <div class="formSelect1">
+                        <div class="formName">{{item.title}}</div>
+                        <div class="form-singleElection text_color">
+
+                            {{# layui.each(item.option_name, function(i, o_name){ }}
+                            <div class="singleElection-list"><label class="text_color"><span class="name-{{d.timeid}}-{{index}}"></span>{{o_name}}</label></div>
+                            {{# }); }}
+                        </div>
+                    </div>
+                </div>
+                {{# }else{ }}
+            <div class="tpd-formItem">
+                <div class="formSelect1">
+                    <div class="formName">{{item.title}}</div>
+                    <div class="form-select-dq">
+                    <select  class="text_color">
+                        {{# layui.each(item.option_name, function(i, o_name){ }}
+                        <option>{{o_name}}</option>
+                        {{# }); }}
+                    </select>
+                </div>
+            </div>
+            {{# } }}
+
+            {{# }else if(item.type ==5){ }}
+            <div class="tpd-formItem">
+                <div class="formSelect1">
+                    <div class="formName">{{item.title}}</div>
+                    <div class="form-checkbox-input">
+                        {{# layui.each(item.option_name, function(i, o_name){ }}
+                        <div class="checkbox-input-list"><label class="text_color "><span class="name-{{d.timeid}}-{{index}}"></span>{{o_name}}</label></div>
+                        {{# }); }}
+                    </div>
+                </div>
+            </div>
+            {{# } }}
+
+            {{# }); }}
+        </div>
+        <div class="tpd-form-btn">
+            <input type="button" value="{{d.submit_name}}" class="submit">
+        </div>
+    </form>
+</script>
+
+

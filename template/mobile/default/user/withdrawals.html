@@ -1,0 +1,243 @@
+<include file="public/header" title="申请提现" body=""/>
+<include file="public/header_nav" title="申请提现" href="javascript:history.back(-1)"/>
+<style>
+.lsu .fee {
+	height: 1.83467rem;
+	line-height: 1.83467rem;
+}
+.withdraw-foot-wrap {
+    padding: 1.6rem 0.64rem 1.7066rem 0.64rem;
+}
+.withdraw-foot-wrap .withdraw-foot-p {
+    font-size: 0.512rem;
+    color: #666;
+}
+.withdraw-foot-wrap .withdraw-foot-dl dd {
+    padding-top: 0.256rem;
+    font-size: 0.512rem;
+    color: #666;
+    width: auto;
+    height: auto;
+    background: none;
+}
+.withdraw-foot-wrap .withdraw-foot-dl dd {
+    padding-top: 0.256rem;
+    font-size: 0.512rem;
+    color: #666;
+    width: auto;
+    height: auto;
+    background: none;
+}
+</style>
+<input type="hidden" id="openid" value="{$user.openid}">
+<input type="hidden" id="nickname" value="{$user.nickname}">
+		<div class="loginsingup-input ma-to-20">
+			<form method="post" id="returnform">
+                <input type="hidden" name="auth_code" value="{$Think.config.AUTH_CODE}"/>
+				<div class="content30">
+					<div class="lsu" style="height:1.83467rem"><span>账号类型：</span>
+                          <input type="radio" name="atype" style="width:.8rem;height:1rem;" checked value="支付宝">支付宝
+                          <input type="radio" name="atype" style="width:.8rem;height:1rem;" value="微信">微信
+                          <input type="radio" name="atype" style="width:.8rem;height:1rem;" value="银行卡">银行卡
+					</div>
+					<div class="lsu">
+						<span>收款账号：</span>
+						<input type="text" name="bank_card" id="bank_card" maxlength="18" placeholder="收款账号" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')">
+					</div>
+					<div class="lsu">
+						<span>开户名：</span>
+						<input type="text" name="realname" id="realname" value=""  placeholder="持卡人姓名">
+					</div>
+					<div class="lsu">
+						<span>银行名称：</span>
+						<input type="text" name="bank_name" id="bank_name" value="" placeholder="如：工商银行，支付宝，微信">
+					</div>
+                    <div class="lsu">
+                        <span>提现金额：</span>
+                        <input type="text" name="money" id="money" value="" usermoney="{$user.user_money}" placeholder="可提现金额：{$user.user_money}元" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" onblur="get_service();">
+                    </div>
+					<div class="lsu">
+                        <p class="fee">手续费：<span id="taxfee">0</span>&nbsp;元</p>
+                    </div>
+                    <div class="lsu">
+                        <span>支付密码：</span>
+                        <input type="password" id="paypwd" placeholder="支付密码">
+                        <input type="hidden" name="paypwd" id="pas" placeholder="支付密码">
+                    </div>
+                    <div class="lsu test">
+                        <span>验证码：</span>
+                        <input type="text" name="verify_code" id="verify_code" value="" placeholder="请输入验证码">
+                        <img  id="verify_code_img" src="{:U('User/verify',array('type'=>'withdrawals'))}" onClick="verify()" style="width: 3.02667rem;"/>
+                    </div>
+					<div class="lsu submit">
+                        <input type="hidden" name="__token__" value="{$Request.token}" />
+						<input type="button" onclick="checkSubmit()" value="提交申请">
+					</div>
+				</div>
+				<div class="lsu withdraw-foot-wrap">
+					<div <if condition="$cash_config['cash_open'] neq '1'">style="display: none;"</if>>
+					<p class="withdraw-foot-p">温馨提示：</p>
+					<dl class="withdraw-foot-dl">
+						<dd>1.提现金额须大于 {$cash_config.min_cash}{$cash_config.max_cash ?= ' 元，小于 ' . $cash_config.max_cash} 元</dd>
+						<dd>2.手续费在到账金额中扣除。</dd>
+						<dd>3.提现收取 {$cash_config.service_ratio|default='0'}% 的手续费。</dd>
+						<if condition="$cash_config['max_service_money'] eq '0' AND $config['min_service_money'] eq '0'">
+							<dd>4.提现审核一般3 - 5个工作日到账。</dd>
+						<else/>
+							<dd>4.每笔{$cash_config.min_service_money > 0 ?='最低 '.$cash_config.min_service_money.' 元'}{$cash_config.max_service_money > 0 ?='最高 '.$cash_config.max_service_money.' 元'}手续费。</dd>
+							<dd>5.提现审核一般 3 - 5 个工作日到账。</dd>
+						</if>
+					</dl>
+					</div>
+				</div>
+			</form>
+		</div>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script src="__PUBLIC__/js/md5.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+ 	var service_ratio='{$cash_config.service_ratio}';
+ 	var min_cash='{$cash_config.min_cash}';
+ 	var max_cash='{$cash_config.max_cash}';
+ 	var min_service_money='{$cash_config.min_service_money}';
+ 	var max_service_money='{$cash_config.max_service_money}';
+	//手续费计算及显示
+	function get_service(){
+		var m=$('#money').val();
+		if (m) {
+			if(max_cash > 0 && parseFloat(m)>parseFloat(max_cash)){
+				layer.open({content:'单次提现额不得大于'+max_cash,icon:2,time:2000});
+				$('#money').val('');
+				return false;
+			}
+			if(parseFloat(m)<parseFloat(min_cash)){
+				layer.open({content:'单次提现额不得小于'+min_cash,icon:2,time:2000});
+				$('#money').val('');
+				return false;
+			}
+			var r = get_taxfee(m);	
+		} else {
+			var r = 0;	
+		}
+		$('#taxfee').html(r);
+	}
+
+	// 获取手续费
+	function get_taxfee(m) {
+		if (service_ratio > 0) {
+			var r=(m*service_ratio)/100;
+			r=parseFloat(r.toFixed(2));
+			if (max_service_money == 0) {
+				return r;
+			}
+			if(r<parseFloat(min_service_money)){
+				r=min_service_money;
+			}
+			if(r>parseFloat(max_service_money)){
+				r=max_service_money;
+			}
+		} else {
+			var r = 0;
+		}
+		return r;
+	}
+
+    // 验证码切换
+    function verify(){
+        $('#verify_code_img').attr('src','/index.php?m=Mobile&c=User&a=verify&type=withdrawals&r='+Math.random());
+    }
+
+    /**
+     * 提交表单
+     * */
+    function checkSubmit(){
+        var bank_name = $.trim($('#bank_name').val());
+        var bank_card = $.trim($('#bank_card').val());
+        var realname = $.trim($('#realname').val());
+        var money = parseFloat($.trim($('#money').val()));
+        var usermoney = parseFloat({$user_money});  //用户余额
+        var verify_code = $.trim($('#verify_code').val());
+        //验证码
+        if(verify_code == '' ){
+            showErrorMsg('验证码不能空')
+            return false;
+        }
+        if(bank_name == '' || bank_card == '' || realname=='' || money === ''){
+            showErrorMsg("所有信息为必填")
+            return false;
+        }
+        if(money > usermoney){
+            showErrorMsg("提现金额大于您的账户余额")
+            return false;
+        }
+        if($('#paypwd').val()){
+            //var paypwd = md5($.trim($('#paypwd').val()));
+            //$('input[name="paypwd"]').val(paypwd);
+			 var auth_code = '{$Think.config.AUTH_CODE}';
+            var paypwd = md5(auth_code + $.trim($('#paypwd').val()));
+            $('input[name="paypwd"]').val(paypwd);
+		}
+
+        $.ajax({
+            type: "post",
+            url :"{:U('Mobile/User/withdrawals')}",
+            dataType:'json',
+            data:$('#returnform').serialize(),
+            success: function(data)
+            {
+                if(data.status == 1){
+                    layer.open({content: data.msg,time:2,end:function () {
+                        window.location.href=data.url;
+                    }});
+                } else {
+                    showErrorMsg(data.msg);
+                    verify();
+                }
+            }
+        });
+    }
+    /**
+     * 提示弹窗
+     * @param msg
+     */
+    function showErrorMsg(msg){
+        layer.open({content:msg,time:3});
+    }
+    
+    $(function(){
+    	$('input[name="atype"]').click(function(){
+    		var bankstr = $(this).val();
+    		if(bankstr =='微信'){
+    			if($('#openid').val() == ''){
+    				alert('请在用户中心账号绑定里先扫码绑定微信账号');
+    				return false;
+    			}
+    		}
+    		if(bankstr != '银行卡'){
+    			$('#bank_name').val(bankstr);
+    			$('#bank_name').attr('readonly','readonly');
+    			if(bankstr == '微信'){
+    				$('#bank_card').val($('#nickname').val());
+    				$('#bank_card').attr('readonly','readonly');
+    			}else{
+    				$('#bank_card').val('');
+    				$('#bank_card').removeAttr('readonly');
+    			}
+    		}else{
+    			$('#bank_name').val('');
+    			$('#bank_card').val('');
+    			$('#bank_name').removeAttr('readonly');
+                $('#bank_card').removeAttr('readonly');
+    		}
+    	})
+
+        $(document).on('blur', '#paypwd', function () {
+            // if(!$('#paypwd').val()){return false}
+            // var auth_code = '{$Think.config.AUTH_CODE}';
+            // // var paypwd = md5(auth_code + $.trim($('#paypwd').val()));
+            // var paypwd = md5($.trim($('#paypwd').val()));
+            // $('input[name="paypwd"]').val(paypwd);
+        })
+    });
+</script>
+	</body>
+</html>

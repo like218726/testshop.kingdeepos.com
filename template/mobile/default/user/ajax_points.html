@@ -1,0 +1,9 @@
+<foreach name="account_log" item="v">
+    <div class="fll_acc new">
+        <ul>
+            <li class="orderid-h">{$v[desc]}</li>
+            <li class="time-h">{:date('Y-m-d H:i:s',$v[change_time])}</li>
+            <li class="price-h">{$v[pay_points]}</li>
+        </ul>
+    </div>
+</foreach>

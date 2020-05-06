@@ -1,0 +1,230 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>新闻列表</title>
+    <link type="text/css" rel="stylesheet" href="__STATIC__/css/reset.css">
+    <link type="text/css" rel="stylesheet" href="__STATIC__/css/teababy.css?v=0.2">
+    <script type="text/javascript" src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/mobile-util.js"></script>
+    <script src="__STATIC__/js/template.js"></script>
+    <script src="__STATIC__/js/jquery.cookie.js"></script>
+    <style>
+        .newlist-item img {
+            width: 3.84rem;
+            height: 3.84rem;
+            object-fit: contain;
+        }
+    </style>
+</head>
+
+<body>
+<div class="header newslist-header" style="position: fixed;top: 0;">
+    <a href="javascript:history.go(-1)" class="return fl"><img src="__STATIC__/img/top-icon01.png"></a>
+    <span id="title" style="font-weight: bold;font-size:0.64rem">新闻列表</span>
+</div>
+<div class="news-cat">
+    <ul>
+        <volist name="news_cat" id="vo" key="k">
+        <a class="{$vo.cat_id==$cat_id ? 'news-cat-active' : ''}" href="javascript:void(0);" data-id="{$vo.cat_id}" onclick="news_cat(this)">
+            <li>
+            {$vo.cat_name}
+            </li>
+        </a>
+        </volist>
+    </ul>
+</div>
+<div style="border-bottom:0.2rem solid #f5f5f5;margin-top: 3.5rem;">
+    <div class="hot-tea" style="padding-bottom: 0;margin-top:3%">
+        <div class="hottea-list newlist-item">
+            <ul id="ul">
+                
+            </ul>
+        </div>
+        <div style="width: 100%;text-align: center;color:#999;padding: 0.4rem 0" id ='load'>
+            <!--正在加载中....-->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script id="list" type="text/html">
+    <%result.forEach(function(v){%>
+    <li class="newList_li" data-id="<%=v.article_id%>" onclick="newList_li(this)">
+        <a href="javascript:void(0);">
+            <%if (v.type==0){%>
+                <div class="carlist-txt fl w100 style1">
+                    <b><%=v.title%></b>
+                    <span>
+                        <em class="click">浏览量:<%=v.click%></em><em class="comment">评论数:<%=v.comment%></em><em><%=v.time%></em>
+                    </span>
+                </div>
+            <%}else if(v.type==1){%>
+                <div class="carlist-txt fl   style2">
+                    <b class="w70"><%=v.title%></b>
+                    <div class="fr w25">
+                        <img src="<% if(v.thumb){%><%=v.thumb%><%}else{%>__STATIC__/images/user68.jpg<%}%>"/>
+                    </div>
+                    <span>
+                         <em class="click">浏览量:<%=v.click%></em><em class="comment">评论数:<%=v.comment%></em><em><%=v.time%></em>
+                    </span>
+                </div>
+            <%}else if(v.type==2){%>
+                <div class="carlist-txt fr   style2">
+                    <b class="w70 fr"><%=v.title%></b>
+                    <div class="fl w25">
+                        <img src="<% if(v.thumb){%><%=v.thumb%><%}else{%>__STATIC__/images/user68.jpg<%}%>"/>
+                    </div>
+                    <span class="fr">
+                         <em class="click">浏览量:<%=v.click%></em><em class="comment">评论数:<%=v.comment%></em><em><%=v.time%></em>
+                    </span>
+                </div>
+            <%}else if(v.type==3){%>
+            <div class="carlist-txt fr w100   style2">
+                <div class="fl w30" style="margin-right: 3%">
+                    <img src="<% if(v.thumb){%><%=v.thumb%><%}else{%>__STATIC__/images/user68.jpg<%}%>"/>
+                </div>
+                <div class="fl w30"  style="margin-right: 3%">
+                    <img src="<% if(v.thumb2){%><%=v.thumb2%><%}else{%>__STATIC__/images/user68.jpg<%}%>"/>
+                </div>
+                <div class="fl w30"  style="margin-right: 3%">
+                    <img src="<% if(v.thumb3){%><%=v.thumb3%><%}else{%>__STATIC__/images/user68.jpg<%}%>"/>
+                </div>
+                <b class="w100 fr"><%=v.title%></b>
+
+                <span class="fl">
+                                 <em class="click">浏览量:<%=v.click%></em><em class="comment">评论数:<%=v.comment%></em><em><%=v.time%></em>
+                            </span>
+            </div>
+            <%}else if(v.type==4){%>
+                <div class="carlist-txt fr w100   style2">
+                    <b class="w100 fr"><%=v.title%></b>
+                    <div class="fl w30" style="margin-right: 3%">
+                        <img src="<% if(v.thumb){%><%=v.thumb%><%}else{%>__STATIC__/images/user68.jpg<%}%>"/>
+                    </div>
+                    <div class="fl w30"  style="margin-right: 3%">
+                        <img src="<% if(v.thumb2){%><%=v.thumb2%><%}else{%>__STATIC__/images/user68.jpg<%}%>"/>
+                    </div>
+                    <div class="fl w30"  style="margin-right: 3%">
+                        <img src="<% if(v.thumb3){%><%=v.thumb3%><%}else{%>__STATIC__/images/user68.jpg<%}%>"/>
+                    </div>
+                    <span class="fl">
+                                 <em class="click">浏览量:<%=v.click%></em><em class="comment">评论数:<%=v.comment%></em><em><%=v.time%></em>
+                            </span>
+                </div>
+            <%}else{%>
+                <div class="carlist-txt fl w100 style1">
+                    <b><%=v.title%></b>
+                    <span>
+                        <em class="click">浏览量:<%=v.click%></em><em class="comment">评论数:<%=v.comment%></em><em><%=v.time%></em>
+                    </span>
+                </div>
+            <%}%>
+        </a>
+    </li>
+    <%})%>
+</script>
+<script>
+    function GetQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    function news_cat(obj) {
+        $('.news-cat').find('a').removeClass('news-cat-active');
+        $(obj).addClass('news-cat-active');
+        page =1;
+        ajax_status = 1;
+        news_list();
+    }
+
+    var page =1;
+    var ajax_status = 1;
+    news_list();
+
+    function news_list() {
+        if(!ajax_status){
+            return false;
+        }
+        ajax_status = 0;
+        var cat_id = $('.news-cat-active').data('id');
+        $.ajax({
+            type: "POST",
+            url: "{:U('Api/News/newsList')}",
+            data: {page:page,cat_id:cat_id},
+            dataType: "json",
+            success: function (data) {
+                if (data.status == 1) {
+                    var list = document.getElementById('list').innerHTML;
+                    if(data.result.length == 0){
+                        if(page ==1){
+                            $('#ul').html('');
+                            $('#load').text('暂无更多新闻');
+                        }else{
+                            $('#load').text('已全部加载完成');
+                        }
+                    }else{
+                        ajax_status = 1;
+                        var html = template(list, data);
+                        if(page ==1){
+                            $('#ul').html(html);
+                        }else{
+                            $('#ul').append(html);
+                        }
+
+                    }
+                } else {
+                    alert('获取失败，请稍等再试!');
+                }
+
+            }
+        });
+    }
+
+    function ajax_sourch_submit() {
+        console.log(page);
+        page += 1;
+        console.log(page);
+        news_list()
+    }
+
+    function newList_li(e) {
+        var id = $(e).attr('data-id');
+        // var link = $(e).attr('data-link');
+        // if(link){
+        //     window.location.href=link;
+        // }else{
+            window.location.href="{:U('News/news_detail')}?article_id="+id;
+        //}
+
+    }
+</script>
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script>
+    // var page = 1;
+    // /**
+    //  *加载更多
+    //  */
+    // function ajax_sourch_submit()
+    // {
+    //     page += 1;
+    //     $.ajax({
+    //         type : "GET",
+    //         url:"/index.php?m=Mobile&c=Order&a=team_list&type={$Request.param.type}&p="+page,//+tab,
+    //         success: function(data)
+    //         {
+    //             if(data == '') {
+    //                 $('#getmore').show();
+    //                 return false;
+    //             }else{
+    //                 $(".ajax_return").append(data);
+    //                 $(".m_loading").hide();
+    //             }
+    //         }
+    //     });
+    // }
+
+
+</script>

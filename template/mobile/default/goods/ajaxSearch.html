@@ -1,0 +1,60 @@
+<include file="public/header" title="搜索"  body=""/>
+<include file="public/header_nav" title="搜索" href="javascript:history.back(-1);"/>
+<style>
+    .search_pl .search2 .le_inp input{
+        width: 12.9rem;
+        height: 1.28rem;
+        background-color: #f2f3f4!important;
+        border-radius: 0.62rem;
+        border: none;
+        padding-left: 1.9rem;
+        font-size: 0.47rem;
+        background: url(__STATIC__/images/search.png) no-repeat;
+        background-size: 0.77rem 0.77rem;
+        background-position: 0.62rem 0.26rem;
+        margin-top: 0.3rem;
+    }
+</style>
+		<div class="p search_pl">
+			<div class="maleri30">
+				<div class="search2">
+                    <form method="post" action="{:U('Goods/search')}" id="sourch_form">
+                        <div class="le_inp">
+                            <input type="text" name="q" id="q" value="" placeholder="输入你想搜索的内容..."/>
+                        </div>
+                        <a href="javascript:;" onclick="ajaxsecrch()" ><div class="ri_ss">搜索
+						</div></a>
+                    </form>
+				</div>
+			</div>
+		</div>
+		<div class="near-le-ri p">
+			<div class="maleri30">
+				<span>热门搜索</span>
+			</div>
+		</div>
+		<div class="lb_showhide se_shien p" style="display: block;">
+			<div class="maleri30">
+				<ul>
+                    <foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+                        <li><a href="{:U('Goods/search',array('q'=>$wd))}" <if condition="$k eq 0">class="ht"</if>>{$wd}</a></li>
+                    </foreach>
+				</ul>
+			</div>
+		</div>
+
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
+<script>
+    function ajaxsecrch(){
+        if($.trim($('#q').val()) != ''){
+            $("#sourch_form").submit();
+        }else{
+            layer.open({content:'请输入搜索关键字',time:2});
+        }
+    }
+    $(function(){
+        $('#q').focus();
+    })
+</script>

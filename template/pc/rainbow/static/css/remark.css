@@ -1,0 +1,154 @@
+.radiobox {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    width: 600px;
+    margin: 0 auto;
+}
+
+input[type=radio] {
+    display: inline-block;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 0;
+    outline: 0 !important;
+    line-height: 16px;
+    color: #d8d8d8;
+    margin-right: 10px;
+}
+
+input[type=radio]:after {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 14px;
+    font-size: 16px;
+    color: #fff;
+    border: 2px solid #ddd;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+input[type=radio]:checked:after {
+    content: "L";
+    transform:matrix(-0.766044,-0.642788,-0.642788,0.766044,0,0);
+    -webkit-transform:matrix(-0.766044,-0.642788,-0.642788,0.766044,0,0);
+    border-color: #cc0000;
+    background-color: #cc0000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formbox {
+    width: 100%;
+}
+
+.formbox h5 {
+    width: 250px;
+    font-size: 18px;
+    font-weight: normal;
+    color: #333;
+    text-align: right;
+}
+
+.formbox .line {
+    width: 100%;
+    height: 215px;
+    margin-bottom: 15px;
+}
+
+.formbox .line .left{
+    width: 250px;
+    height: 100%;
+    line-height: 215px;
+    text-align: right;
+    float: left;
+    font-size: 16px;
+    color: #333;
+} 
+
+.formbox .line .right{
+    box-sizing: border-box;
+    width: 730px;
+    height: 100%;
+    line-height: 215px;
+    float: left;
+    padding-left: 40px;
+}
+
+.formbox .line .right .topbox{
+    display: flex;
+    width: 500px;
+    height: 115px;
+    justify-content: space-between;
+    margin: 15px 0 10px 0px;
+}
+
+.formbox .line .right .upbox{
+    background: rgb(250, 250, 250);
+    width: 230px;
+    height: 115px;
+    border-radius: 5px;
+    border:1px solid rgb(213, 213, 213);
+    margin: 15px 0 10px 0px;
+    position: relative;
+    overflow: hidden;
+}
+
+.formbox .line .right .topbox .upbox{
+    margin: 0;
+}
+
+.formbox .line .right .upbox .icon{    
+    width: 45px;
+    height: 3px;
+    background: #999;
+    position: absolute;
+    left: 92px;
+    top: 50px;
+}
+.formbox .line .right .upbox .icon::after{
+    content: '';
+    width: 3px;
+    height: 45px;
+    background: #999;
+    position: absolute;
+    left: 21px;
+    top: -21px;
+}
+.formbox .line .right .upbox .word{
+    height: 14px;
+    line-height: 14px;
+    font-size: 14px;
+    color: #999;
+    text-align: center;
+    margin-top: 92px;
+}
+.formbox .line .right .note{
+    font-size: 14px;
+    line-height: 25px;
+    color: #999;
+}
+.formbox .line .right .note span{
+    color: #cc0000;
+    cursor: pointer;
+}
+input[type=file]{
+    display: none;
+}
+
+.upbox .icon img {
+    position: relative;
+    width: 230px;
+    height: 115px;
+    left: -92px;
+    top: -50px;
+    z-index: 1;
+}

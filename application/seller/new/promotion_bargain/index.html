@@ -1,0 +1,118 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>促销<i class="icon-angle-right"></i>砍价管理
+		<a href="http://help.tp-shop.cn/Index/Help/info/cat_id/24/id/215.html" class="seller_help" target="_blank">帮助</a>
+		</div>
+		<div class="main-content" id="mainContent">
+			<div class="tabmenu">
+				<ul class="tab pngFix">
+					<li class="active"><a href="{:U('PromotionBargain/index')}">砍价列表</a></li>
+				</ul>
+				<!--<a href="" style="right:100px" class="ncbtn ncbtn-mint" title="新增虚拟商品抢购"><i class="icon-plus-sign"></i>新增虚拟抢购</a>-->
+				<a href="{:U('PromotionBargain/bargain_info')}" class="ncbtn ncbtn-mint" title="新增团购"><i class="icon-plus-sign"></i>新增砍价</a>
+
+			</div>
+			<div class="alert alert-block mt10">
+				<ul class="mt5">
+					<li>1、点击新增砍价按钮可以添加砍价活动</li>
+				</ul>
+			</div>
+			<form action="" id="search-form2" method="post" >
+				<table class="search-form">
+					<input type="hidden" name="orderby1" value="goods_id" />
+					<input type="hidden" name="orderby2" value="desc" />
+					<tr>
+						<td>&nbsp;</td>
+						<td class="w160"><input type="text" class="text w150" name="key_word" value="{$key_word}" placeholder="搜索词" /></td>
+						<td class="tc w70"><label class="submit-border">
+							<input type="submit" class="submit" value="搜索"/>
+						</label></td>
+					</tr>
+				</table>
+			</form>
+			<table class="ncsc-default-table">
+				<thead>
+				<tr>
+					<th class="w20"></th>
+					<th class="w100 tl">砍价标题</th>
+					<th class="w100 tl">活动商品</th>
+					<th class="w50">剩余总量</th>
+					<th class="w120">开始时间</th>
+					<th class="w120">结束时间</th>
+					<th class="w50">状态</th>
+					<th class="w150">操作</th>
+				</tr>
+				</thead>
+				<empty name="prom_list">
+			  		<tbody>
+			  		<tr>
+			      		<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+			    	</tr>
+			      </tbody>
+			  <else/>
+				<tbody>
+				<foreach name="prom_list" item="vo" key="k" >
+					<tr class="bd-line">
+						<td></td>
+						<td class="tl">{$vo.title|getSubstr=0,30}</td>
+						<td class="tl">{$vo.goods_name|getSubstr=0,30}</td>
+						<td>{$vo.store_count}</td>
+						<td>{$vo.start_time|date='Y-m-d H:m:s',###}</td>
+						<td>{$vo.end_time|date='Y-m-d H:m:s',###}</td>
+						<td>
+							<if condition="$vo.status == 1">
+								{$vo.status_desc}
+								<else />
+								{$status[$vo[status]]}
+							</if>
+						</td>
+						<td class="nscs-table-handle">
+							<span><a href="{:U('PromotionBargain/bargain_info',array('act'=>'edit','id'=>$vo['id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
+							<span><a target="_blank" href="{:U('PromotionBargain/bargain_first',['id' => $vo['id']])}" class="btn-bluejeans"><i class="icon-search"></i><p>发起者列表</p></a></span>
+							<span><a data-url="{:U('PromotionBargain/bargain_del')}" data-id="{$vo.id}" onclick="delfun(this)" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+						</td>
+					</tr>
+				</foreach>
+				</tbody>
+				</empty>
+				<tfoot>
+				<tr>
+					<td colspan="20">
+						{$page}
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+<script>
+	function delfun(obj) {
+		// 删除按钮
+		layer.confirm('确认删除？', {
+			btn: ['确定', '取消'] //按钮
+		}, function () {
+			$.ajax({
+				type: 'post',
+				url: $(obj).attr('data-url'),
+				data : {act:'del',del_id:$(obj).attr('data-id')},
+				dataType: 'json',
+				success: function (data) {
+					layer.closeAll();
+					if (data.status == 1) {
+						$(obj).parent().parent().parent().remove();
+					} else {
+						layer.alert(data.msg, {icon: 2});  //alert('删除失败');
+					}
+				}
+			})
+		}, function () {
+			layer.closeAll();
+		});
+	}
+</script>
+</body>
+</html>

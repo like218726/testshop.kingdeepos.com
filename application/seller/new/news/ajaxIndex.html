@@ -1,0 +1,69 @@
+<table class="ncsc-default-table" data-news-list="{$store.goods_examine}">
+    <thead>
+    <tr nc_type="table_header">
+        <th class="w30"><a href="javascript:sort('article_id');">ID</a></th>
+        <th class="w350">标题</th>
+        <th class="w150"><a href="javascript:sort('category');">文章分类</a></th>
+        <th class="w30"><a >显示</a></th>
+        <th class="w150"><a href="javascript:sort('on_time');">发布时间</a></th>
+        <th class="w80"><a href="javascript:sort('sort');">新闻标记</a></th>
+        <th class="w80"><a href="javascript:sort('sort');">审核状态</a></th>
+        <td>&nbsp;</td>
+        <th class="w120">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <empty name="newList">
+        <tr>
+            <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+        </tr>
+    <else/>
+    <volist name="newList" id="list">
+        <tr class="bd-line" data-news-id="{$list.article_id}">
+            <td>{$list.article_id}</td>
+            <td class="w250"><span>{$list.title}</span></td>
+            <td class="w150"><span>{$list.category}</span></td>
+            <td>
+                <if condition='$list[is_open] eq 1'>
+                    <img width="20" height="20" src="__PUBLIC__/images/yes.png" onclick="changeTableVal('news','article_id',{$list[article_id]},'is_open',this)"/>
+                <else/>
+                    <img src="/public/images/cancel.png" onclick="changeTableVal('news','article_id',{$list[article_id]},'is_open',this)" width="20" height="20">
+                </if>
+            </td>
+            <td class="w150"><span>{$list.publish_time|date="Y-m-d",###}</span></td>
+            <td class="w150"><span style="text-align: center; width: 160px; color:red;">{$list.tags}</span></td>
+            <td class="w150">
+                <if condition="$list.check_type eq 0">
+                   <span >待审核</span>
+                <elseif condition='$list.check_type eq 1' />
+                   <span style="color:green;">已通过</span>
+                <else/>
+                   <span style="color:red;">已拒绝</span>
+                </if>
+            </td>
+            <td>&nbsp;</td>
+            <td class="nscs-table-handle">
+                <span><a href="{:U('News/article',array('act'=>'edit', 'article_id' => $list['article_id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
+                <span><a href="javascript:void(0);" onclick="del('{$list[article_id]}')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+            </td>
+        </tr>
+    </volist>
+    </empty>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="20">
+            {$page}
+        </td>
+    </tr>
+    </tfoot>
+</table>
+<script>
+    // 点击分页触发的事件
+    $(".pagination  a").click(function(){
+        cur_page = $(this).data('p');
+        ajax_get_table('search-form2',cur_page);
+    });
+
+
+</script>

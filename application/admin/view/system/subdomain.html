@@ -1,0 +1,100 @@
+<include file="public/layout" />
+<script type="text/javascript" src="__PUBLIC__/static/js/perfect-scrollbar.min.js"></script>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>二级域名</h3>
+                <h5>商城店铺使用二级域名管理设置</h5>
+            </div>
+			<ul class="tab-base nc-row">
+	        	<li><a href="{:U('System/index',array('inc_type'=>'subdomain'))}" class="current">设置</a></li>
+	       	 	<li><a href="{:U('Store/domain_list')}">域名列表</a></li>
+	      	</ul>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <form method="post" id="handlepost" action="{:U('System/handle')}" enctype="multipart/form-data" name="form1">
+        <input type="hidden" name="form_submit" value="ok" />
+    	<div class="ncap-form-default">
+	      <dl class="row">
+	        <dt class="tit">
+	          <label>是否启用二级域名</label>
+	        </dt>
+	        <dd class="opt">
+	          <div class="onoff">
+	          <label for="enabled_subdomain1" class="cb-enable <if condition='$config[enabled_subdomain] eq 1'>selected</if>" title="是">是</label>
+	          <label for="enabled_subdomain0" class="cb-disable <if condition='$config[enabled_subdomain] eq 0'>selected</if>" title="否">否</label>
+	          <input type="radio" id="enabled_subdomain1" value="1" <if condition='$config[enabled_subdomain] eq 1'> checked </if> name="enabled_subdomain">
+	          <input type="radio" id="enabled_subdomain0" <if condition='$config[enabled_subdomain] eq 0'> checked </if> value="0" name="enabled_subdomain">
+	          <span class="err"></span>
+	          <p class="notic">启用二级域名需要您的服务器支持泛域名解析</p>
+	        </div></dd>
+	      </dl>
+	      <dl class="row">
+	        <dt class="tit">
+	          <label>是否可修改</label>
+	        </dt>
+	        <dd class="opt">
+	          <div class="onoff">
+	            <label for="subdomain_edit1" class="cb-enable <if condition='$config[subdomain_edit] eq 1'>selected</if>" title="是">是</label>
+	            <label for="subdomain_edit0" class="cb-disable <if condition='$config[subdomain_edit] eq 0'>selected</if>" title="否">否</label>
+	            <input type="radio" id="subdomain_edit1" value="1" <if condition='$config[subdomain_edit] eq 1'> checked </if> name="subdomain_edit">
+	            <input type="radio" id="subdomain_edit0" <if condition='$config[subdomain_edit] eq 0'> checked </if> value="0" name="subdomain_edit">
+	          </div>
+	          <p class="notic">不可修改时店主填写提交后将不可改动</p>
+	        </dd>
+	      </dl>
+	      <dl class="row">
+	        <dt class="tit">
+	          <label for="subdomain_times"><em>*</em>修改次数</label>
+	        </dt>
+	        <dd class="opt">
+	          <input type="text" value="{$config.subdomain_times|default=3}" name="subdomain_times" id="subdomain_times" class="input-txt valid" style=" width:50px;">
+	          <span class="err"></span>
+	          <p class="notic">可修改时达到设定的次数后将不能再改动</p>
+	        </dd>
+	      </dl>
+	      <dl class="row">
+	        <dt class="tit">
+	          <label for="subdomain_reserved">保留域名</label>
+	        </dt>
+	        <dd class="opt">
+	          <input type="text" value="{$config.site_domain}" name="site_domain" id="site_domain" class="input-txt valid">
+	          <span class="err"></span>
+	          <p class="notic">保留的二级域名，多个保留域名之间请用","隔开</p>
+	        </dd>
+	      </dl>
+	      <dl class="row">
+	        <dt class="tit">
+	          <label for="subdomain_length"><em>*</em>长度限制</label>
+	        </dt>
+	        <dd class="opt">
+	          <input type="text" value="{$config.subdomain_length|default='3-12'}" name="subdomain_length" id="subdomain_length" class="input-txt">
+	          <span class="err"></span>
+	          <p class="notic">如"3-12"，代表注册的域名长度限制在3到12个字符之间</p>
+	        </dd>
+	      </dl>
+            <div class="bot" style="padding-left: 10.8%">
+                <input type="hidden" name="inc_type" value="{$inc_type}">
+                <a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="check_form();">确认提交</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="goTop"> <a href="JavaScript:void(0);" id="btntop"><i class="fa fa-angle-up"></i></a><a href="JavaScript:void(0);" id="btnbottom"><i class="fa fa-angle-down"></i></a></div>
+</body>
+<script type="text/javascript">
+    function check_form()
+    {
+        if(!$('#site_domain').val()){
+            layer.alert('保留域名 非空！',{icon:2});
+            return false;
+        }
+        document.form1.submit()
+    }
+</script>
+</html>

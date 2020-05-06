@@ -1,0 +1,187 @@
+<table class="ncsc-default-table" data-goods-examine="{$store.goods_examine}">
+    <thead>
+    <tr nc_type="table_header">
+        <th class="w30"><a href="javascript:sort('goods_id');">ID</a></th>
+        <th class="w50">&nbsp;</th>
+        <th class="w250">商品名称</th>
+        <!--<th class="w150"><a href="javascript:sort('cat_id1');">分类</a></th>-->
+        <th class="w80"><a href="javascript:sort('shop_price');">价格</a></th>
+        <!--<th class="w30"><a >新品</a></th>-->
+        <!--<th class="w30"><a >热卖</a></th>-->
+        <!--<th class="w30"><a >推荐</a></th>-->
+        <th class="w30"><a href="javascript:sort('store_count');">库存</a></th>
+        <th class="w80"><a href="javascript:sort('on_time');">上架时间</a></th>
+        <if condition='$store_status == 0'>
+        <th class="w120">商品分类</th>
+        <th class="w50">操作</th>
+        </if>
+    </tr>
+    </thead>
+    <tbody>
+    <empty name="goodsList">
+        <tr>
+            <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+        </tr>
+    <else/>
+    <volist name="goodsList" id="list">
+        <tr class="bd-line" data-goods-id="{$list.goods_id}">
+            <td>{$list.goods_id}</td>
+            <td>
+                <div class="pic-thumb">
+                    <a href="{:U('Home/Goods/goodsInfo',array('id'=>$list['goods_id']))}" target="_blank">
+                        <img style="width:32px;height:32px" src="{$list.goods_id|goods_thum_images=50,50}" />
+                    </a>
+                </div>
+            </td>
+            <td class="tl">
+                <dl class="goods-name">
+                    <dt style="max-width: 450px !important;">
+                    <if condition="$list[is_virtual] eq 1"><span class="type-virtual" title="虚拟兑换商品">虚拟</span></if>
+                        <a href="{:U('Home/Goods/goodsInfo',array('id'=>$list['goods_id']))}" target="_blank">{$list.goods_name|getSubstr=0,33}</a></dt>
+                    <dd>商品货号：{$list.goods_sn}</dd>
+                    <dd class="serve">
+                        <if condition="$list.is_recommend eq 1">
+                            <span class="open" title="平台推荐商品"><i class="commend">荐</i></span>
+                        </if>
+                        <!--<a href="{:U('Mobile/Goods/goodsInfo',array('id'=> $list['goods_id']))}"><span title="手机端商品详情"><i class="icon-tablet"></i></span></a>-->
+                        <!--<a onclick="ClearGoodsHtml('{$list[goods_id]}')" title="清除静态缓存页面"><span title="清除静态缓存页面"><i class="icon-wrench"></i></span></a>-->
+                        <!--<a onclick="ClearGoodsThumb('{$list[goods_id]}')" title="清除缩略图缓存"><span title="清除缩略图缓存"><i class="icon-picture"></i></span></a>-->
+                    </dd>
+                </dl>
+            </td>
+            <!--<td><span>{$catList[$list[cat_id1]][name]}</span></td>-->
+            <td><span>&yen;{$list.shop_price}</span></td>
+            <!--<td>-->
+                <!--<if condition="$list.is_new eq 1">-->
+                    <!--<img width="20" height="20" src="__PUBLIC__/images/yes.png"/>-->
+                <!--<else/>-->
+                    <!--<img src="/public/images/cancel.png"  width="20" height="20">-->
+                <!--</if>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<if condition="$list.is_hot eq 1">-->
+                    <!--<img width="20" height="20" src="__PUBLIC__/images/yes.png" />-->
+                <!--<else/>-->
+                    <!--<img src="/public/images/cancel.png" width="20" height="20">-->
+                <!--</if>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<if condition="$list.is_recommend eq 1">-->
+                    <!--<img width="20" height="20" src="__PUBLIC__/images/yes.png"/>-->
+                <!--<else/>-->
+                    <!--<img src="/public/images/cancel.png" width="20" height="20">-->
+                <!--</if>-->
+            <!--</td>-->
+            <td><span  style="<if condition='$list.store_count lt $store_warning_storage'>color: red</if>">{$list.store_count}</span></td>
+            <td>{$list.on_time|date='Y-m-d',###}</td>
+            <if condition='$store_status == 0'>
+                <td>
+                    <select name="store_cat_id"  class="select store_cat_id">
+                        <option value="">无</option>
+                        <foreach name="store_goods_class_list" item="v" key="k" >
+                            <option value="{$v['cat_id']}" {$v["cat_id"]==$list["BindPlatformGoods"]['store_cat_id']?"selected":""}> {$v['cat_name']}</option>
+                        </foreach>
+                    </select>
+                    <!--<input class="txt-cen" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onchange="updateSort2('goods','goods_id','{$list.goods_id}','sort',this)" size="4" value="{$list.sort}" />-->
+                </td>
+                <td >
+                    <if condition='$list["BindPlatformGoods"]'>
+                        <span><a class="seller_help" style="background-color:#fc1515;cursor:pointer;" data-goods-id="{$list[goods_id]}" target="_blank" onclick="bindPlatformGoods(this,1)">取消</a></span>
+
+                        <else/>
+                        <span><a  class="seller_help" target="_blank" style="cursor:pointer;" data-goods-id="{$list[goods_id]}" onclick="bindPlatformGoods(this,0)" >代卖</a></span>
+
+                    </if>
+                </td>
+            </if>
+        </tr>
+    </volist>
+    </empty>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="20">
+            {$page}
+        </td>
+    </tr>
+    </tfoot>
+</table>
+<script>
+    function bindPlatformGoods(obj,type){
+       var  cat_id = $(obj).parent().parent().parent().find('select').val();
+       var goods_id = $(obj).data('goods-id');
+        if(!cat_id){
+            layer.msg('请选择商品分类', {icon: 2});
+            return false;
+        }
+        $.ajax({
+            type:'Post',
+            url:"{:U('Seller/Goods/addPlatformGoods')}",
+            data:{goods_id:goods_id,type:type,cat_id:cat_id},
+            dataType:'json',
+            success:function(data){
+                if(data.status == 1){
+                    layer.msg(data.msg, {icon: 1});
+                    $(obj).css('cursor','pointer');
+                    if(type){
+                        $(obj).text('代卖');
+                        $(obj).css('background-color','#36BC9B');
+                        $(obj).attr('onclick','bindPlatformGoods(this,0)');
+                        $(obj).parent().parent().parent().find('select').val('')
+                    }else{
+                        $(obj).text('取消');
+                        $(obj).css('background-color','#fc1515');
+                        $(obj).attr('onclick','bindPlatformGoods(this,1)');
+                    }
+
+                }else{
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+    }
+    // 点击分页触发的事件
+    $(".pagination  a").click(function(){
+        cur_page = $(this).data('p');
+        ajax_get_table('search-form2',cur_page);
+    });
+
+    /*
+     * 清除静态页面缓存
+     */
+    function ClearGoodsHtml(goods_id)
+    {
+        $.ajax({
+            type:'GET',
+            url:"{:U('Seller/Admin/ClearGoodsHtml')}",
+            data:{goods_id:goods_id},
+            dataType:'json',
+            success:function(data){
+                if(data.status == 1){
+                    layer.msg(data.msg, {icon: 1});
+                }else{
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+    }
+    /*
+     * 清除商品缩列图缓存
+     */
+    function ClearGoodsThumb(goods_id)
+    {
+        $.ajax({
+            type:'GET',
+            url:"{:U('Seller/Admin/ClearGoodsThumb')}",
+            data:{goods_id:goods_id},
+            dataType:'json',
+            success:function(data){
+                if(data.status == 1){
+                    layer.msg(data.msg, {icon: 1});
+                }else{
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+    }
+</script>

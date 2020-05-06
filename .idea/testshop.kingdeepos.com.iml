@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/vendor/Dysmsapi/Request" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/PHPExcel/PHPExcel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aliyun-oss-php-sdk/samples" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aliyun-oss-php-sdk/src" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aliyun-oss-php-sdk/tests" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aliyun-php-sdk-core/Auth" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aliyun-php-sdk-core/Autoloader" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aliyun-php-sdk-core/Exception" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aliyun-php-sdk-core/Http" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aliyun-php-sdk-core/Profile" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aliyun-php-sdk-core/Regions" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barcode/class" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barcode/font" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/barcode/html" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/jpush/jpush" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpmailer/examples" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpmailer/extras" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpmailer/language" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpqrcode/bindings" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpqrcode/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpqrcode/tools" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpspec/prophecy" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-code-coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-file-iterator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-text-template" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-token-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit-mock-objects" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/comparator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/diff" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/environment" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/dom-crawler" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-captcha" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-helper" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-image" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-installer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/topthink/think-testing" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

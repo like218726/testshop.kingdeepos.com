@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>商家入驻</title>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+	<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+	<script src="__PUBLIC__/js/pc_common.js"></script>
+	<link href="__STATIC__/css/join.css" rel="stylesheet" type="text/css">
+	<link href="__STATIC__/css/qt_style.css" rel="stylesheet" type="text/css" />
+    <script src="__PUBLIC__/js/layer/layer-min.js"></script>
+    <link rel="shortcut  icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+</head>
+<body>
+<include file="public/sign-header"/>
+<!--main-start-->
+<div class="main-header show-center-1224 clearfix">
+    <div class="header-l clearfix">
+        <a class="logo" href="/"><img src="{$tpshop_config['shop_info_store_logo']|default='__PUBLIC__/static/images/logo/pc_home_logo_default.png'}" alt=""/></a>
+        <p class="des">商家入驻</p>
+    </div>
+    <ul class="header-r children-a-100 clearfix">
+        <li class="active"><a href="{:U('Newjoin/index')}">入驻首页</a></li>
+        <tpshop sql="select * from `__PREFIX__help` where type_id = 2 and is_show=1" key="k2" item='v2'>
+        	<li><a href="{:U('Article/helpInfo',array('help_id'=>$v2['help_id']))}">{$v2.help_title}</a></li>
+        </tpshop>
+    </ul>
+</div>
+	<form action="" id="queryForm" name="query" method="post">
+    <div class="gome-layout-area pb50 clearfix">
+    	<ul class="steps clearfix">
+        	<li class="first cur ok"><b>1</b><span class="going"></span><em class="f">入驻须知</em></li>
+        	<li><b>2</b><span></span><em class="f">填写基本信息</em></li>
+        	<li><b>3</b><span></span><em class="f">填写店铺信息</em></li>
+        	<li><b>4</b><span></span><em class="f">资质上传</em></li>
+        	<li class="last"><b>5</b><em class="f">等待审核</em></li>
+        </ul>
+        <div class="settled-agreement">
+        	<div class="agreement-title"><span>协议确认</span></div>
+            <div class="agreement-con">
+            	<div class="agreement-article">
+					{$agreement.doc_content|htmlspecialchars_decode}
+                </div>
+            </div>
+        </div>
+        <label class="agree clearfix" >
+            <input type="checkbox" hidefocus="ture" name="check2" id="check2" class="inputcheck" />我已阅读并同意接受以上所有协议</label >
+        <div class="gome-btn">
+        	<a href="javascript:nextStep();" class="gome-btn-red">同意并继续</a>
+        </div>
+    </div>
+</form>
+<include file="public/footer"/>
+<!--footerEnd-->
+	<script language="javascript">
+		function nextStep() {
+			// 对协议确认做判断
+			var check2 = document.getElementById("check2");
+			if (check2.checked == true) {
+				document.getElementById('queryForm').submit();
+			} else {
+                layer.msg("请同意以上协议", {icon: 2});
+			}
+		}
+	</script>
+</body>
+</html>

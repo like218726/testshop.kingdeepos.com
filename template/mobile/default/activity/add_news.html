@@ -1,0 +1,199 @@
+<include file="public/header" title="发布动态" />
+<include file="public/header_nav" title="发布动态" href="javascript:history.back(-1)"/>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<style>
+    .activity{
+        width: 96%;
+        margin-left: 2%;
+        height: 2rem;
+        line-height: 2rem;
+        border: 1px solid #ccc;
+        border-radius:10px;
+        text-align: center;
+        margin-top: 1rem;
+        box-sizing:border-box;
+        -moz-box-sizing:border-box; /* Firefox */
+        -webkit-box-sizing:border-box; /* Safari */
+    }
+    .activity span{
+        display: inline-block;
+        width: 20%;
+        height: 100%;
+        letter-spacing: .3rem;
+        font-size: 0.7rem;
+        float: left;
+        background: #ccc;
+        color: #fff;
+        border-radius:9px 0 0 9px;
+        box-sizing:border-box;
+        -moz-box-sizing:border-box; /* Firefox */
+        -webkit-box-sizing:border-box; /* Safari */
+    }
+    .activity select{font-size: 0.7rem;}
+    .activity option{font-size: 0.7rem;}
+    .activity select,input,textarea{
+        background: #fff;
+        display: inline-block;
+        width: 73%;
+        padding-left: 1%;
+        height: 100%;
+        line-height: 100%;
+        float: right;
+        border: none;
+        outline: none;
+        border-radius:0 10px 10px 0;
+        font-size: 1rem;
+        box-sizing:border-box;
+        -moz-box-sizing:border-box; /* Firefox */
+        -webkit-box-sizing:border-box; /* Safari */
+    }
+    .activity select,option{
+        /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+        /*很关键：将默认的select选择框样式清除*/
+        appearance:none;
+        -moz-appearance:none;
+        -webkit-appearance:none;
+        /*将背景改为红色*/
+        /*加padding防止文字覆盖*/
+        padding-right: .14rem;
+    }
+    .instructions{
+        height: 5rem;
+        line-height: 5rem;
+    }
+
+    /*a  upload */
+    .a-upload {
+        padding: 4px 10px;
+        width: 80%;
+        height: 2rem;
+        text-align: center;
+        line-height: 2rem;
+        position: relative;
+        cursor: pointer;
+        color: #888;
+        background: #fafafa;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        overflow: hidden;
+        display: inline-block;
+        *zoom: 1;
+        font-size: 0.8rem;
+        margin-left: 10%;
+        margin-top: 1rem;
+        /*background:url("/template/mobile/default/static/images/02.png") no-repeat;*/
+    }
+    .a-upload  input {
+        position: absolute;
+        font-size: 100px;
+        width: 100%;
+        right: 0;
+        top: 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer
+    }
+    .a-upload:hover {
+        color: #444;
+        background: #eee;
+        border-color: #ccc;
+        text-decoration: none
+    }
+    /*.img{*/
+        /*width: 20%;*/
+        /*height: 2rem;*/
+    /*}*/
+    /*.img input{*/
+        /*height: 2rem;*/
+    /*}*/
+    .ds {
+        width: 80%;
+        /*min-height: 200px;*/
+        margin-left: 10%;
+        margin-top: 1rem;
+        /*border: 1px solid #000;*/
+        overflow: hidden;
+    }
+    .ds img{
+        width: 100%;
+        margin-bottom: .15rem;
+    }
+    .dv {
+        width: 500px;
+        height: 300px;
+        /*background: url("38658PICMI2_1024.jpg") no-repeat;*/
+        background-size: 300px 200px;
+    }
+    .div input {
+        width: 500px;
+        height: 200px;
+        /*opacity: 0;*/
+    }
+
+
+    .submit{
+        width: 80%;
+        height: 2rem;
+        line-height: 2rem;
+        background: #02A3C3;
+        float: left;
+        margin-left: 10%;
+        margin-top: 1rem;
+        margin-bottom: .5rem;
+        border-radius: 0;
+        color: #fff;
+        text-align: center;
+        font-size: 0.8rem;
+        letter-spacing: .1rem;
+    }
+</style>
+
+<form id="handleposition" method="post" enctype="multipart/form-data" action="{:U('Activity/add_news_handle')}">
+    <div class="activity">
+        <span>类型</span>
+        <select id="cat_id" name="cat_id" class="select">
+            <option value ="0">选择类型</option>
+            {$cat_select}
+        </select>
+    </div>
+    <div class="activity">
+        <span>标题</span>
+        <input class="w400 text" type="text" name="title" id="title"/>
+    </div>
+    <div class="activity instructions">
+        <span>内容</span>
+        <textarea rows="3" cols="20" id="post_content" name="content">
+            
+        </textarea>
+    </div>
+
+    <div class="ds" style="display: block">
+    </div>
+    <!--<div class="dv">-->
+        <!--<input type="file" multiple="multiple" name="" id="file">-->
+    <!--</div>-->
+    <a href="javascript:;" class="a-upload" >
+        <input type="file" multiple="multiple" name="thumb[]" id="thumb" >点击这里上传图片
+    </a>
+
+    <input id="submit" class="submit" value="确定提交" type="submit">
+</form>
+<script>
+    $(function(){
+        document.getElementById('thumb').onchange=function () {
+            var html ='';
+            $.each(this.files,function(k,v){
+                if (window.FileReader) {
+                    var fr = new FileReader();
+                    fr.readAsDataURL(v)
+                    fr.onloadend = function (e) {
+                        html = '<img src="'+ this.result+'" alt="">';
+                        console.log(html)
+                        $('.ds').append(html);  
+                    }
+                }
+            });
+        }
+    })
+
+</script>

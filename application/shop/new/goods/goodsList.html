@@ -1,0 +1,135 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>出售中的商品</div>
+        <div class="main-content" id="mainContent">
+
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="active"><a href="{:U('Goods/goodsList',array('goods_state'=>1))}">出售中的商品</a></li>
+                </ul>
+                <!-- a class="ncbtn ncbtn-mint" id="select_goods" title="关联商品"><i class="icon-plus-sign"></i>关联商品</a -->
+            </div>
+            <div class="alert alert-block mt10">
+                <ul class="mt5">
+                    <li>1、门店商品默认为网店所有的商品，通过增加库存添加门店商品，门店商品库存根据门店实际库存添加，与系统库存无关。</li>
+                    <li>2、请详细填写有属性的商品库存，以免影响下单。</li>
+                </ul>
+            </div>
+            <form action="" id="search-form2" method="post" onsubmit="return false">
+                <table class="search-form">
+                    <input type="hidden" name="orderby1" value="goods_id" />
+                    <input type="hidden" name="orderby2" value="desc" />
+                    <tr>
+                        <td>&nbsp;</td>
+                        <th>本店分类</th>
+                        <td class="w80">
+                            <select name="store_cat_id1" id="store_cat_id1" class="select">
+                                <option value="">本店分类</option>
+                                <foreach name="store_goods_class_list" item="v" key="k" >
+                                    <option value="{$v['cat_id']}"> {$v['cat_name']}</option>
+                                </foreach>
+                            </select>
+                        </td>
+                        <th>品牌</th>
+                        <td class="w80">
+					       <select name="brand_id" class="w150">
+					        <option value="">请选择...</option>
+					        <volist name="brand_list" id="brand">
+					            <option value="{$brand.id}">{$brand.name}</option>
+					        </volist>
+					       </select>
+                        </td>
+                        <td class="w160"><input type="text" class="text w150" name="key_word" value="" placeholder="搜索词" /></td>
+                        <td class="tc w70"><label class="submit-border">
+                            <input type="submit" class="submit" value="搜索" onclick="ajax_get_table('search-form2',1)"/>
+                        </label></td>
+                    </tr>
+                </table>
+            </form>
+            <div  id="ajax_returns"> </div>
+            <script>
+                $(document).ready(function(){
+                    // ajax 加载商品列表
+                    ajax_get_table('search-form2', 1);
+
+                });
+
+                // ajax 抓取页面 form 为表单id  page 为当前第几页
+                function ajax_get_table(form, page) {
+                    cur_page = page; //当前页面 保存为全局变量
+                    $.ajax({
+                        type: "POST",
+                        url: "/index.php?m=Shop&c=goods&a=ajaxGoodsList&p=" + page,//+tab,
+                        data: $('#' + form).serialize(),// 你的formid
+                        success: function (data) {
+                            $("#ajax_return").html('').append(data);
+                        }
+                    });
+                }
+                // 点击排序
+                function sort(field) {
+                    $("input[name='orderby1']").val(field);
+                    var v = $("input[name='orderby2']").val() == 'desc' ? 'asc' : 'desc';
+                    $("input[name='orderby2']").val(v);
+                    ajax_get_table('search-form2', cur_page);
+                }
+
+                // 删除操作
+                function del(id) {
+                    layer.confirm('确定要删除吗？', {
+                                btn: ['确定','取消'] //按钮
+                            }, function(){
+                                // 确定
+                                $.ajax({
+                                    url: "/index.php?m=Shop&c=goods&a=delGoods&id=" + id,
+                                    success: function (v) {
+                                        layer.closeAll();
+                                        var v = eval('(' + v + ')');
+                                        if (v.hasOwnProperty('status') && (v.status == 1))
+                                            ajax_get_table('search-form2', cur_page);
+                                        else
+                                            layer.msg(v.msg, {icon: 2, time: 1000}); //alert(v.msg);
+                                    }
+                                });
+                            }, function(index){
+                                layer.close(index);
+                            }
+                    );
+                }
+                //上下架
+                $(function () {
+                    $(document).on('click', '.is_on_sale', function () {
+                        var goods_examine = $('.ncsc-default-table').data('goods-examine');//商品是否需要审核
+                        var goods_id = $(this).parents('tr').data('goods-id');
+                        if (goods_examine == 1) {
+                            //需要审核就更改商品状态
+                            changeTableVal2('goods', 'goods_id', goods_id, 'goods_state', this);
+                        }
+                        changeTableVal2('goods', 'goods_id', goods_id, 'is_on_sale', this);
+                        $(this).parent().parent().remove();
+                    });
+                })
+
+                $(document).on('click','#select_goods',function(){
+                    var url = '/index.php?m=shop&c=Goods&a=selectGoods';
+                    layer.open({
+                        type: 2,
+                        title: '关联商品',
+                        shadeClose: true,
+                        shade: 0.2,
+                        area: ['65%', '75%'],
+                        content: url,
+                        cancel: function () {
+                            $('#ajax_return').trigger('change');
+                        }
+                    });
+                })
+            </script>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

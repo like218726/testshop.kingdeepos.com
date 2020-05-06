@@ -1,0 +1,86 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>账号<i class="icon-angle-right"></i>编辑</div>
+        <div class="main-content" id="mainContent">
+            <div class="item-publish">
+                <form method="post" id="form" onsubmit="return false;">
+                    <input type="hidden" name="shopper_id" value="{$shopper.shopper_id}">
+
+                    <div class="ncsc-form-goods">
+                        <h3 id="demo1">编辑门店职员</h3>
+                        <dl>
+                            <dt><i class="required">*</i> 门店职员：</dt>
+                            <dd>
+                                <input type="text" name="shopper_name" id="shopper_name" value="{$shopper[shopper_name]}" class="text w400">
+                                <span class="err" id="err_shopper_name"></span>
+                                <p class="hint">此账号为门店管理后台登录账号</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i> 前台用户名：</dt>
+                            <dd>
+                                <empty name="shopper[users][mobile]">
+                                    <input type="text" name="user_name" value="{$shopper[users][email]}" class="text w400">
+                                    <else/>
+                                    <input type="text" name="user_name" value="{$shopper[users][mobile]}" class="text w400">
+                                </empty>
+                                <p class="hint">请先在前台注册会员账号，这里为前台会员名称.登录密码和前台用户密码一致</p>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="bottom tc hr32">
+                        <label class="submit-border">
+                            <input id="submit" class="submit" value="保存" type="submit">
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+<script>
+    $(function () {
+        $(document).on("click", '#submit', function (e) {
+            $('#submit').attr('disabled',true);
+            verifyForm();
+        })
+    })
+    function verifyForm() {
+        $('span.err').hide();
+        var shopper_id = $("input[name='shopper_id']").val();
+        var url;
+        if(shopper_id > 0){
+            url = "{:U('Shop/Admin/save')}";
+        }else{
+            url = "{:U('Shop/Admin/add')}";
+        }
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'JSON',
+            data: $('#form').serialize(),
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg,{icon: 1,time: 2000},function(){
+                        location.href = "{:U('Shop/Admin/index')}";
+                    });
+                } else {
+                    $('#submit').attr('disabled',false);
+                    $.each(data.result, function (index, item) {
+                        $('span.err').show();
+                        $('#err_'+index).text(item);
+                    });
+                    layer.msg(data.msg, {icon: 2,time: 3000});
+                }
+            },
+            error: function () {
+                layer.alert('网络失败，请刷新页面后重试', {icon: 2});
+            }
+        })
+    }
+</script>
+</body>
+</html>

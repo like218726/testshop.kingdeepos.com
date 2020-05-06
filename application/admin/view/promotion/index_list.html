@@ -1,0 +1,227 @@
+<include file="public/layout" />
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<style>
+	.menu{
+		overflow: hidden;
+		margin-bottom: 52px;
+	}
+	.menu .content .title{
+		font-size: 16px;
+		color: #1e1e1e;
+		border-left: 3px solid #148eff;
+		padding-left: 12px;
+	}
+	.menu .content p span{
+		font-size:12px;
+		color: #999999;
+		margin-left: 16px;
+	}
+	.menu .content ul li{
+		width: 244px;
+		height: 48px;
+		background-color: #f7f6f6;
+		border-radius: 3px;
+		float: left;
+		margin-right: 27px;
+		margin-top: 23px;
+		padding: 18px;
+		position: relative;
+	}
+	.menu .content ul img{
+		width: 50px;
+		height: 50px;
+	}
+	.menu .content ul p{
+		position: absolute;
+		color: #1e1e1e;
+		font-size: 16px;
+		top: 20px;
+		left: 84px;
+	}
+	.menu .content ul span{
+		position: absolute;
+		color: #999;
+		font-size: 12px;
+		top: 50px;
+		left: 84px;
+	}
+</style>
+<div class="marketing_menu page">
+	<div class="menu">
+		<div class="content">
+			<p class="title">常用促销<span>吸粉、老客带新客，提高下单转化率</span></p>
+			<ul>
+				<a href="{:U('Promotion/flash_sale')}">
+					<li>
+						<img src="/public/static/images/purchase.png" alt="">
+						<p>抢购/秒杀</p>
+						<span>快速抢购引导顾客更多消费</span>
+					</li>
+				</a>
+				<a href="{:U('Promotion/group_buy_list')}">
+					<li>
+						<img src="/public/static/images/group.png" alt="">
+						<p>团购</p>
+						<span>批量促销清理库存"</span>
+					</li>
+				</a>
+				<a href="{:U('Promotion/prom_goods_list')}">
+					<li>
+						<img src="/public/static/images/preferential.png" alt="">
+						<p>优惠促销</p>
+						<span>对商品本身进行的促销方式</span>
+					</li>
+				</a>
+				<a href="{:U('Promotion/prom_order_list')}">
+					<li>
+						<img src="/public/static/images/promotion.png" alt="">
+						<p>订单促销</p>
+						<span>对用户订单进行优惠的促销方式</span>
+					</li>
+				</a>
+				<a href="{:U('PreSell/index')}">
+					<li>
+						<img src="/public/static/images/presell.png" alt="">
+						<p>预售</p>
+						<span>新品销售预估和预热</span>
+					</li>
+				</a>
+				<!--单商家有，多商家没有，先隐藏-->
+				<!--<a href="{:U('Combination/index')}">-->
+					<!--<li>-->
+						<!--<img src="/public/static/images/match_purchase.png" alt="">-->
+						<!--<p>搭配购</p>-->
+						<!--<span>捆绑销售，以货带货</span>-->
+					<!--</li>-->
+				<!--</a>-->
+				<a href="{:U('Promotion/bargain_list')}">
+					<li>
+						<img src="/public/static/images/bargaining.png" alt="">
+						<p>砍价</p>
+						<span>拉新引流邀请好友低价购买</span>
+					</li>
+				</a>
+			</ul>
+		</div>
+	</div>
+
+	<div class="menu">
+		<div class="content">
+			<p class="title">拼团购<span>最火爆的引流、拉新和促销的方式</span></p>
+			<ul>
+				<a href="{:U('Team/index')}">
+					<li>
+						<img src="/public/static/images/share.png" alt="">
+						<p>分享团</p>
+						<span>拼团基础版，引流传播利器</span>
+					</li>
+				</a>
+				<a href="{:U('Team/index')}">
+					<li>
+						<img src="/public/static/images/commission_delegation.png" alt="">
+						<p>佣金团</p>
+						<span>团长赚拼团佣金，积极性更高</span>
+					</li>
+				</a>
+				<a href="{:U('Team/index')}">
+					<li>
+						<img src="/public/static/images/lucky_draw.png" alt="">
+						<p>抽奖团</p>
+						<span>设置不同奖品达到趣味营销效果</span>
+					</li>
+				</a>
+			</ul>
+		</div>
+	</div>
+	<div class="menu">
+		<div class="content">
+			<p class="title">优惠劵<span>最经典和通俗易懂的营销手段</span></p>
+			<ul>
+				<a href="{:U('Coupon/index')}">
+					<li>
+						<img src="/public/static/images/coupons.png" alt="">
+						<p>优惠劵</p>
+						<span>不同类型优惠劵针对性营销</span>
+					</li>
+				</a>
+				<a href="{:U('Coupon/noob')}">
+					<li>
+						<img src="/public/static/images/coupons.png" alt="">
+						<p>新人优惠券</p>
+						<span>新人专属优惠劵针对性营销</span>
+					</li>
+				</a>
+				<!--单商家有，多商家没有，先隐藏-->
+				<!--<a href="#">-->
+					<!--<li>-->
+						<!--<img src="/public/static/images/gifts.png" alt="">-->
+						<!--<p>新人好礼</p>-->
+						<!--<span>促进新用户下单和留存</span>-->
+					<!--</li>-->
+				<!--</a>-->
+				<!--<a href="{:U('Coupon/send_list')}">-->
+					<!--<li>-->
+						<!--<img src="/public/static/images/record.png" alt="">-->
+						<!--<p>发放记录</p>-->
+						<!--<span>查看优惠劵发放使用记录</span>-->
+					<!--</li>-->
+				<!--</a>-->
+			</ul>
+		</div>
+	</div>
+	<div style="display: none" class="menu">
+		<div class="content">
+			<p class="title">互动营销<span>各种特色互动功能助力营销</span></p>
+			<ul>
+				<a href="#">
+					<li>
+						<img src="/public/static/images/golden_eggs.png" alt="">
+						<p>砸金蛋</p>
+						<span>砸开金蛋中惊喜大奖</span>
+					</li>
+				</a>
+				<a href="#">
+					<li>
+						<img src="/public/static/images/cards.png" alt="">
+						<p>猜单双</p>
+						<span>用户通过选择单双数开启奖励</span>
+					</li>
+				</a>
+				<a href="#">
+					<li>
+						<img src="/public/static/images/love.png" alt="">
+						<p>爱心助力</p>
+						<span>邀请好友、陌生人助力获得奖励</span>
+					</li>
+				</a>
+				<a href="#">
+					<li>
+						<img src="/public/static/images/red_envelope.png" alt="">
+						<p>拆红包</p>
+						<span>邀请好友拆分红包，引流拉新</span>
+					</li>
+				</a>
+				<a href="#">
+					<li>
+						<img src="/public/static/images/scraping.png" alt="">
+						<p>刮刮卡（待开发）</p>
+						<span>通俗易懂的互动营销方式</span>
+					</li>
+				</a>
+				<a href="#">
+					<li>
+						<img src="/public/static/images/rotary.png" alt="">
+						<p>大转盘抽奖（待开发）</p>
+						<span>有趣好玩的大转盘抽奖</span>
+					</li>
+				</a>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+
+</script>
+</body>
+</html>

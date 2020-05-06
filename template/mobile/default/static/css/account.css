@@ -1,0 +1,192 @@
+body {
+  background-color: #fff;
+}
+header {
+  height: 1.17333333rem;
+  width: 100%;
+}
+header h1 {
+  padding-left: 1.22666667rem;
+  padding-right: 1.22666667rem;
+  font-size: 0.48rem;
+  color: #333;
+  text-align: center;
+  height: 1.17333333rem;
+  line-height: 1.17333333rem;
+}
+.account_info {
+  height: 4.53333333rem;
+  background: url('../images/distrbut/header_bg@2x.png') no-repeat center center;
+  overflow: hidden;
+  color: #fff;
+}
+.account_info .header_image {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  margin: 0.53333333rem auto 0;
+  overflow: hidden;
+}
+.account_info .header_image img {
+  width: 1.6rem;
+  height: auto;
+}
+.account_info h3 {
+  font-size: 0.4rem;
+  margin-top: 0.24rem;
+  margin-bottom: 0.08rem;
+  text-align: center;
+}
+.account_info .info_data ul li {
+  float: left;
+  text-align: center;
+  margin-top: 0.6rem;
+  width: 33.333%;
+  height: 0.4rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.7);
+}
+.account_info .info_data ul li:last-child {
+  border-right: 0;
+}
+.account_info .info_data ul li em {
+  display: block;
+  margin-top: -0.22666667rem;
+  height: 0.4rem;
+  line-height: 0.4rem;
+  font-size: 0.45333333rem;
+  margin-bottom: 0.06666667rem;
+}
+.product_info {
+  margin-top: 0.25rem;
+  padding: 0 .25rem;
+  margin-bottom: 1.33333333rem;
+}
+.product_info .product_list li {
+  float: left;
+  margin-right: .25rem;
+  margin-bottom: 0.25rem;
+  width: 4.625rem;
+}
+.product_info .product_list li:nth-child(2n){
+  margin-right: 0;
+}
+.product_info .product_list li .product_image {
+  width: 4.625rem;
+  height: 4.625rem;
+  background-color: #eaeaea;
+  position: relative;
+  overflow: hidden;
+}
+.product_info .product_list li .product_image h2 {
+  color: #fff;
+  font-size: 0.8rem;
+  margin-top: 1.54666667rem;
+  text-align: center;
+}
+.product_info .product_list li .product_image div {
+  text-align: center;
+  margin-top: 0.06666667rem;
+  font-size: 0.48rem;
+  color: #fff;
+  letter-spacing: 0.06666667rem;
+}
+.product_info .product_list li .product_image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4.625rem;
+  height: auto;
+}
+.product_info .product_list li h3 {
+  font-size: 0.34666667rem;
+  color: #333;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 0.66666667rem;
+  line-height: 0.66666667rem;
+  width: 4.53333333rem;
+  padding-left: 0.13333333rem;
+}
+.product_info .product_list li .goods_name {
+  color: #333;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.product_info .product_list li .activities {
+  padding-left: 0.13333333rem;
+}
+.product_info .product_list li .activities span {
+  float: left;
+  padding: 0 0.04rem;
+  height: 0.48rem;
+  line-height: 0.4rem;
+  border: 1px solid #ff3535;
+  font-size: 0.26666667rem;
+  color: #ff3535;
+  margin-right: 0.13333333rem;
+  border-radius: 0.04rem;
+}
+.product_info .product_list li .product_data {
+  margin-top: 0.06666667rem;
+  padding-left: 0.13333333rem;
+  width: 4.53333333rem;
+}
+.goods_price.pa-0-30{
+  font-size: 0.29333333rem;
+  color: #ff3535;
+  font-weight: bold;
+  float: left;
+}
+.goods_price.pa-0-30 span{
+  font-size: 0.4rem;
+}
+.product_info .product_list li .amount{
+  float: right;
+  color: #999;
+  font-size: 0.29333333rem;
+}
+.product_info .product_list li .product_data .price {
+  font-size: 0.29333333rem;
+  color: #ff3535;
+  font-weight: bold;
+  float: left;
+}
+.product_info .product_list li .product_data .price span {
+  font-size: 0.4rem;
+}
+.product_info .product_list li .product_data .amount {
+  float: right;
+  color: #999;
+  font-size: 0.29333333rem;
+}
+footer {
+  position: fixed;
+  width: 100%;
+  height: 1.33333333rem;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+footer a {
+  margin-top: 0.2rem;
+  float: left;
+  width: 20%;
+  padding: 0 3%;
+  text-align: center;
+}
+footer a img {
+  display: block;
+  width: auto;
+  height: 0.56rem;
+  margin: 0 auto;
+}
+footer a span {
+  font-size: 0.29333333rem;
+}
+footer a span.active {
+  color: #fe4646;
+}
+/*# sourceMappingURL=account.css.map */

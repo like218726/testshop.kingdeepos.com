@@ -1,0 +1,239 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>拼团订单</div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="<if condition="$Request.param.order_status eq ''">active<else/>normal</if>"><a href="{:U('Order/team_order')}">所有拼单</a></li>
+                    <li class="<if condition="$Request.param.order_status heq '0'">active<else/>normal</if>"><a href="{:U('Order/team_order',['order_status'=>0])}">待确认</a></li>
+                    <li class="<if condition='$Request.param.order_status eq 1'>active<else/>normal</if>"><a href="{:U('Order/team_order',['order_status'=>1])}">已确认</a></li>
+                    <li class="<if condition='$Request.param.order_status eq 2'>active<else/>normal</if>"><a href="{:U('Order/team_order',['order_status'=>2])}">已收货</a></li>
+                    <li class="<if condition='$Request.param.order_status eq 3'>active<else/>normal</if>"><a href="{:U('Order/team_order',['order_status'=>3])}">已取消</a></li>
+                    <li class="<if condition='$Request.param.order_status eq 4'>active<else/>normal</if>"><a href="{:U('Order/team_order',['order_status'=>4])}">已完成</a></li>
+                    <li class="<if condition='$Request.param.order_status eq 5'>active<else/>normal</if>"><a href="{:U('Order/team_order',['order_status'=>5])}">已关闭</a></li>
+                </ul>
+            </div>
+            <form method="get" action="{:U('seller/Order/team_order')}" id="search-form">
+                <input type="hidden" name="order_status" value="{$Request.param.order_status}" />
+                <table class="search-form">
+                    <tr>
+                        <th>收货人</th>
+                        <td class="w150"><input type="text" class="text w150" name="consignee" placeholder="收货人" value="{$Request.param.consignee}"/></td>
+                        <th>订单编号</th>
+                        <td class="w150"><input type="text" class="text w150" name="order_sn" placeholder="订单编号" value="{$Request.param.order_sn}"/></td>
+                        <th>下单时间</th>
+                        <td class="w378">
+                            <input type="text" class="text w150" name="start_time" id="start_time" placeholder="开始时间" value="{:substr($start_time,0,10)}"/>
+                            <input type="text" class="text w150" name="end_time" id="end_time" placeholder="结束时间" value="{:substr($end_time,0,10)}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>支付状态</th>
+                        <td class="w160">
+                            <select name="pay_status" class="w150 w160">
+                                <option value="">支付状态</option>
+                                <option value="0" <if condition="$Request.param.pay_status heq '0'">selected='selected'</if>>未支付</option>
+                                <option value="1" <if condition="$Request.param.pay_status eq 1">selected='selected'</if>>已支付</option>
+                            </select>
+                        </td>
+                        <th>发货状态</th>
+                        <td class="w160">
+                            <select name="shipping_status" class="w150 w160">
+                                <option value="">发货状态</option>
+                                <option value="0" <if condition="$Request.param.shipping_status heq '0'">selected='selected'</if>>未发货</option>
+                                <option value="1" <if condition="$Request.param.shipping_status eq 1">selected='selected'</if>>已发货</option>
+                                <option value="2" <if condition="$Request.param.shipping_status eq 2">selected='selected'</if>>部分发货</option>
+                            </select>
+                        </td>
+                        <th>支付方式</th>
+                        <td>
+                            <select name="pay_code" class="w150 w160 di-in">
+                                <option value="">支付方式</option>
+                                <option value="unionpay">银联在线支付</option>
+                                <option value="tenpay">PC端财付通</option>
+                                <option value="alipay">支付宝支付</option>
+                                <option value="weixin">微信支付</option>
+                                <option value="miniAppPay">微信小程序支付</option>
+                                <option value="cod">到货付款</option>
+                                <option value="余额支付">余额支付</option>
+                                <option value="其他方式">其他方式</option>
+                                <option value="积分兑换">积分兑换</option>
+                            </select>
+
+
+                            <label class="submit-border"><input class="submit" value="搜索" type="submit"></label>
+                            <input type="hidden" name="order_ids" value="">
+                            <a id="S2" href="javascript:exportReport()" class="ncbtn-mini"  title="批量导出" style="background-color:#48CFAE;height: 22px;line-height: 22px;margin-left: 20px;">批量导出</a>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <table class="ncsc-default-table order">
+                <thead>
+                <tr>
+                    <th style="width:38px;">
+                        <input id="all" type="checkbox" value="" title="全选"/>全选
+                    </th>
+                    <th colspan="2">商品</th>
+                    <th colspan="1"></th>
+                    <th class="w100">拼团价（元）</th>
+                    <th class="w40">数量</th>
+                    <th class="w110">收货人</th>
+                    <th class="w120">订单金额</th>
+                    <th class="w100">交易状态</th>
+                    <th class="w150">交易操作</th>
+                </tr>
+                </thead>
+                <volist name="orderList" id="order">
+                    <tbody>
+                    <tr>
+                        <td colspan="20" class="sep-row"></td>
+                    </tr>
+                    <tr>
+                        <th style="width:30px;text-align:center" rowspan="4">
+                            <input type="checkbox" class="checkbox" value="{$order.order_id}">
+                        </th>
+                        <th colspan="20">
+                            <span class="ml10">订单编号：<em>{$order.order_sn}</em></span>
+                            <span>下单时间：<em class="goods-time">{$order.add_time|date='Y-m-d H:i:s',###}</em></span>
+                            <span>订单状态：<em class="goods-time">{$Think.config.ORDER_STATUS[$order[order_status]]}</em></span>
+                            <span><a href="{:U('Seller/Team/info',['team_id'=>$order[teamActivity][team_id]])}" target="_blank" class="ncbtn-mini ncbtn-aqua">
+                                <i class="icon-search"></i>拼团详情</a>
+                            </span>
+                            <notempty name="order[team_found]">
+                                <span><a href="javascript:void(0)" class="ncbtn-mini ncbtn-mint">拼主</a></span>
+                            </notempty>
+                        </th>
+                    </tr>
+                    <volist name="order[orderGoods]" id="goods">
+                        <tr>
+                            <td class="bdl"></td>
+                            <td class="w70">
+                                <div class="ncsc-goods-thumb">
+                                    <a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}" target="_blank">
+                                        <img src="{$goods['goods_id']|goods_thum_images=240,240,$goods.item_id}"/>
+                                    </a>
+                                </div>
+                            </td>
+                            <td class="tl">
+                                <dl class="goods-name">
+                                    <dt><a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">{$goods['goods_name']}</a></dt>
+                                    <dd>{$goods['spec_key_name']}</dd>
+                                </dl>
+                            </td>
+                            <td><p>{$goods['goods_price']}</p></td>
+                            <td>{$goods.goods_num}</td>
+                            <td class="bdl">
+                                <div class="buyer">{$order[consignee]}<p member_id="3"></p>
+
+                                    <div class="buyer-info"><em></em>
+
+                                        <div class="con">
+                                            <h3><i></i><span>联系信息</span></h3>
+                                            <dl>
+                                                <dt>姓名：</dt>
+                                                <dd>{$order[consignee]}</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>电话：</dt>
+                                                <dd>{$order.mobile}</dd>
+                                            </dl>
+                                            <dl>
+                                                <dt>地址：</dt>
+                                                <dd>{$order[address_region]} {$order[address]}</dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="bdl">
+                                <p class="ncsc-order-amount">{$order.total_amount}</p>
+                                <p class="goods-freight"><if condition="($order.shipping_price lt 0.01)">（免运费）<else />邮费:{$order.shipping_price}</if></p>
+                                <p class="goods-pay" title="支付方式：{$order.pay_name}">{$order.pay_name}</p>
+                            </td>
+                            <td class="bdl bdr">
+                                <p>
+                                    <if condition="$order[pay_status] eq 0">
+                                        未支付
+                                        <else/>
+                                        已支付
+                                    </if>
+                                </p>
+                            </td>
+                            <td class="nscs-table-handle" data-order-id="{$order[order_id]}">
+                                <span><a href="{:U('Order/team_info',array('order_id'=>$order[order_id]))}" class="ncbtn-mint"><i class="icon-search"></i><p>订单详情</p></a></span>
+                            </td>
+                        </tr>
+                    </volist>
+                    </tbody>
+                </volist>
+                <tfoot>
+                <tr>
+                    <td colspan="20">{$page->show()}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+<script>
+    $(document).ready(function () {
+        $('#start_time').layDate();
+        $('#end_time').layDate();
+    });
+
+    // 起始位置日历控件
+    laydate.render('molv');//选择肤色
+    laydate.render({
+        elem: '#start_time',
+        theme:'molv',
+        format: 'yyyy-MM-dd', // 分隔符可以任意定义，该例子表示只显示年月
+        festival: true, //显示节日
+        istime: false,
+        choose: function (datas) { //选择日期完毕的回调
+            compare_time($('#start_time').val(), $('#end_time').val());
+        }
+    });
+
+    // 结束位置日历控件
+    laydate.render({
+        elem: '#end_time',
+        theme:'molv',
+        format: 'yyyy-MM-dd', // 分隔符可以任意定义，该例子表示只显示年月
+        festival: true, //显示节日
+        istime: false,
+        choose: function (datas) { //选择日期完毕的回调
+            compare_time($('#start_time').val(), $('#end_time').val());
+        }
+    });
+    var tmp=0;
+    $("#all").click(function(){
+        if(tmp==0){
+            $("input[type='checkbox']").attr("checked","true");
+            tmp=1;
+        }else{
+            $("input[type='checkbox']").removeAttr("checked");
+            tmp=0;
+        }
+    })
+    function exportReport(){
+        var selected_ids = [];
+        $('.checkbox').each(function(i){
+            if($(this).context.checked){
+                selected_ids.push($(this).val());
+            }
+        });
+        if(selected_ids.length >0){
+            $('input[name="order_ids"]').val(selected_ids.join(','));
+        }else{
+            $('input[name="order_ids"]').val('');
+        }
+        // console.log($('#search-form').serialize())
+        window.location.href='/index.php/seller/Order/export_order?'+$('#search-form').serialize();
+    }
+</script>
+</body>
+</html>

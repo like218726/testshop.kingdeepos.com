@@ -1,0 +1,59 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>统计结算<i class="icon-angle-right"></i>店铺概况
+		</div>
+		<div class="main-content" id="mainContent">
+			<div class="tabmenu">
+				<ul class="tab pngFix">
+					<li class="active"><a href="{:U('Report/saleList')}">店铺概况</a></li>
+				</ul>
+			</div>
+			<table class="ncsc-default-table">
+				<thead>
+				<tr>
+					<th class="w50">订单ID</th>
+					<th class="w150">订单号</th>
+					<th class="w100">商品总价</th>
+					<th class="w100">物流价格</th>
+					<th class="w100">订单总价</th>
+					<th class="w100">优惠券抵扣</th>
+					<th class="w100">订单优惠</th>
+					<th class="w150">下单日期</th>
+				</tr>
+				</thead>
+				<tbody>
+				<empty name="order_list">
+					<tr>
+						<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+					</tr>
+					<else/>
+					<foreach name="order_list" item="vo" key="k" >
+						<tr class="bd-line">
+							<td>{$vo.order_id}</td>
+							<td>{$vo.order_sn}</td>
+							<td>{$vo.goods_price}</td>
+							<td>{$vo.shipping_price}</td>
+							<td>{$vo.total_amount}</td>
+							<td>{$vo.coupon_price}</td>
+							<td>{$vo.order_prom_amount}</td>
+							<td>{$vo.add_time|date="Y-m-d",###}</td>
+						</tr>
+					</foreach>
+				</empty>
+				</tbody>
+				<tfoot>
+				<tr>
+					<td colspan="20">
+						{$page}
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

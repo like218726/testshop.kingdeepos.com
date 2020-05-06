@@ -1,0 +1,94 @@
+<style>
+    .ft-color{
+        color:#000000!important;
+    }
+    .btr::before{
+        content: '';
+        width: 0.853rem;
+        height: 0.107rem;
+        background-color: #ff3b34;
+        margin-left: 2.283rem;
+        position: absolute;
+        bottom: 0;
+        right: 50%;
+        margin-right: -0.4265rem;
+    }
+</style>
+<div class="allaccounted">
+    <div class="maleri30">
+        <div class="head_acc ma-to-20">
+            <ul>
+                <li>
+                    <a data-type="all" data-list="1">全部</a>
+                </li>
+                <li>
+                    <a data-type="plus" data-list="2">赚取</a>
+                </li>
+                <li>
+                    <a data-type="minus" data-list="3">消费</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="allpion">
+            <foreach name="account_log" item="v">
+                <div class="fll_acc" onclick="ajax_account_detail(this)" data-url="{:U('Mobile/User/account_detail',['log_id'=>$v['log_id']])}">
+                    <ul>
+                        <li class="orderid-h">{$v[order_sn]|default='无'}</li>
+                        <li class="price-h">{$v[user_money]}</li>
+                        <li class="time-h">{:date('Y-m-d H:i:s',$v[change_time])}</li>
+                    </ul>
+                    <div class="des-h">描述:{$v[desc]}</div>
+                </div>
+            </foreach>
+        </div>
+
+        <div id="getmore"  style="font-size:.32rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both;display: none">
+            <a >已显示完所有记录</a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script type="text/javascript">
+    //    var record=$('.record').val();   //获取记录类型
+    //加载更多记录
+    var page = 1;
+    var before_request = 1
+    function ajax_sourch_submit()
+    {
+        if(before_request == 0) return false;
+        before_request = 0
+        page ++;
+        $.ajax({
+            type : "GET",
+            url:"/index.php?m=Mobile&c=User&a=account_list&is_ajax=1&type={$type}&p="+page,//+tab,
+            success: function(data)
+            {
+                before_request = 1
+                if($.trim(data) == '') {
+                    $('#getmore').show();
+                    return false;
+                }else{
+                    $(".allpion").append(data);}
+            }
+        });
+    }
+    function ajax_account_detail(obj){
+        window.location.href=$(obj).data('url');
+    }
+    $('.head_acc').on('click','a',function () {
+        $(this).addClass('btr')
+    })
+</script>
+</body>
+</html>
+$.ajax({
+type:'post',
+data:'json',
+url:'http://192.168.0.123:1003/Mobile/User/account_list.html',
+success:function (res) {
+var res = JSON.parse(res)
+console.log(res)
+}
+})

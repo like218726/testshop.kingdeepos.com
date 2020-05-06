@@ -1,0 +1,54 @@
+
+<footer>
+    <a <if condition="ACTION_NAME eq 'index'">class="yello" </if> href="{:U('Distribut/index')}">
+   		 <div class="icon">        	
+        	<div class="icon_tp1 icon_tps"> <img src="__STATIC__/images/distrbut/seller_black@2x.png" alt=""></div>
+        	<div class="icon_tp2 icon_tps"><img src="__STATIC__/images/distrbut/seller_red@2x.png" alt=""></div>
+        	<span <if condition="ACTION_NAME eq 'index'">class="active" </if> >分销中心</span>        	
+        </div>
+    </a>
+    <a <if condition="ACTION_NAME eq 'lower_list'">class="yello" </if> href="{:U('Distribut/lower_list')}">
+     <div class="icon">        	
+        	<div class="icon_tp1 icon_tps"><img src="__STATIC__/images/distrbut/team_black@2x.png" alt=""></div>
+        	<div class="icon_tp2 icon_tps"><img src="__STATIC__/images/distrbut/team_red@2x.png" alt=""></div>
+        	<span <if condition="ACTION_NAME eq 'lower_list'">class="active" </if> >我的团队</span>        	
+        </div>               
+    
+    </a>
+    <a <if condition="ACTION_NAME eq 'account'">class="yello" </if> href="{:U('User/account',array('info'=>1))}">
+     <div class="icon">        	
+        	<div class="icon_tp1 icon_tps"><img src="__STATIC__/images/distrbut/money_black@2x.png" alt=""></div>
+        	<div class="icon_tp2 icon_tps"><img src="__STATIC__/images/distrbut/money_red@2x.png" alt=""></div>
+        	<span <if condition="ACTION_NAME eq 'account'">class="active" </if>>我的账户</span>       	
+        </div>        
+        
+    </a>
+    <a <if condition="ACTION_NAME eq 'order_list'">class="yello" </if> href="{:U('Distribut/order_list')}">
+     <div class="icon">        	
+        	<div class="icon_tp1 icon_tps"> <img src="__STATIC__/images/distrbut/order_black@2x.png" alt=""></div>
+        	<div class="icon_tp2 icon_tps"><img src="__STATIC__/images/distrbut/order_red@2x.png" alt=""></div>
+        	 <span <if condition="ACTION_NAME eq 'order_list'">class="active" </if>>分销订单</span>       	
+       </div>
+    </a>
+    <a <if condition="ACTION_NAME eq 'my_store'">class="yello" </if> href="{:U('Distribut/my_store')}" >
+     <div class="icon">        	
+        	<div class="icon_tp1 icon_tps"><img src="__STATIC__/images/distrbut/shop_black@2x.png" alt=""></div>
+        	<div class="icon_tp2 icon_tps"><img src="__STATIC__/images/distrbut/shop_red@2x.png" alt=""></div>
+        	<span <if condition="ACTION_NAME eq 'my_store'">class="active" </if>>我的网店</span>        	
+        </div>        
+    </a>
+</footer>
+
+<script src="__PUBLIC__/js/jqueryUrlGet.js"></script><!--获取get参数插件-->
+<script type="text/javascript">
+
+set_first_leader();//设置推荐人
+if($("footer a").hasClass("yello")){
+	$("footer .yello .icon").find(".icon_tp2").show();
+	$("footer .yello .icon").find(".icon_tp1").hide();
+}
+
+</script>
+<!-- 微信浏览器 调用微信 分享js-->
+<include file="public/wx_share"/>
+<!-- 微信浏览器 调用微信 分享js  end-->

@@ -1,0 +1,265 @@
+<include file="public/layout" />
+<script type="text/javascript" src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>智能表单管理</h3>
+                <h5>用户提交表单的管理</h5>
+            </div>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div id="explanation" class="explanation">
+        <div class="bckopa-tips">
+            <div class="title">
+                <img src="__PUBLIC__/static/images/handd.png" alt="">
+                <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            </div>
+            <ul>
+                <li>智能表单管理, 可以根据手机号，提交时间查询.</li>
+            </ul>
+        </div>
+        <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+    </div>
+    <div class="flexigrid">
+        <div class="mDiv">
+            <div class="ftitle">
+                <h3>表单列表</h3>
+                <h5>(共<span id="user_count">0</span>条记录)</h5>
+            </div>
+            <a href="" class="refresh-date"><div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div></a>
+            <form class="navbar-form form-inline" method="post"  id="search-form2">
+                <input type="hidden" name="order_by" value="form_id">
+                <input type="hidden" name="sort" value="desc">
+                <input type="hidden" name="tpl_timeid" value="{$tpl_timeid}" id="tpl_timeid">
+                <div class="sDiv">
+
+                    <div class="sDiv2">
+                        <select class="select sDiv3" style="border:none;"  onchange="select_form_config(this)">
+                            <option value="0">请选择表单名称</option>
+                            <volist name="form_config" id="v">
+                                <option value="{$v.tpl_timeid}" <if condition="$tpl_timeid eq $v.tpl_timeid">selected</if>>{$v.form_name}</option>
+                            </volist>
+                        </select>
+                    </div>
+                    <div class="sDiv2">
+                        <input type="text" size="30" id="start_time" name="start_time" value="{$start_time}" class="qsbox"  placeholder="开始时间">
+                    </div>
+                    <div class="sDiv2">
+                        <input type="text" size="30" id="end_time" name="end_time" value="{$end_time}" class="qsbox"  placeholder="结束时间">
+                    </div>
+
+
+                    <div class="sDiv2">
+                        <input type="text" name="mobile" id="mobile" size="30" class="qsbox" placeholder="请输入手机号码"
+                               value="">
+                        <input type="button" class="btn" onclick="ajax_get_table('search-form2',1)" value="搜索">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="hDiv">
+            <div class="hDivBox">
+                <table cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <th class="sign" axis="col0">
+                            <div style="width: 24px;"><i class="ico-check"></i></div>
+                        </th>
+                        <th align="left" abbr="form_id" axis="col3" class="">
+                            <div style="text-align: center; width: 40px;" class="">ID</div>
+                        </th>
+                        <!--<th align="left" abbr="mobile" axis="col4" class="">
+                            <div style="text-align: center; width: 120px;" class="">手机号</div>
+                        </th>-->
+                        <volist name="name_list" id="v">
+
+                            <th align="center" axis="col5" class="">
+                                <div style="text-align: center; width: 100px;" class="">{$v['title']}</div>
+                            </th>
+
+                        </volist>
+
+                        <th align="center" abbr="submit_time" axis="col6" class="">
+                            <div style="text-align: center; width: 120px;" class="">提交日期</div>
+                        </th>
+                        <th align="center" axis="col1" class="handle">
+                            <div style="text-align: center; width: 150px;">操作</div>
+                        </th>
+                        <th style="width:100%" axis="col7">
+                            <div></div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="bDiv" style="height: auto;" id="ajax_return">
+        </div>
+    </div>
+</div>
+<script>
+    function select_form_config(obj){
+        var v = $(obj).val();
+        if(v!=0){
+            location.href = '/index.php/Admin/Block/form_list?tpl_timeid='+v;
+        }
+    }
+    $(document).ready(function(){
+        $('#start_time').layDate();
+        $('#end_time').layDate();
+
+        // 点击刷新数据
+        var ssort = 'sdesc';
+        var on_sclick = 0;
+        $('.hDivBox > table>thead>tr>th').hover(
+                function () {
+                    if(typeof($(this).attr('abbr')) == "undefined"){
+                        return false;
+                    }
+                    $(this).addClass('thOver');
+                    if($(this).hasClass('sorted')){
+                        if(ssort == 'sdesc'){
+                            $(this).find('div').removeClass('sdesc');
+                            $(this).find('div').addClass('sasc');
+                        }else{
+                            $(this).find('div').removeClass('sasc');
+                            $(this).find('div').addClass('sdesc');
+                        }
+                    }else{
+                        $(this).find('div').addClass(ssort);
+                    }
+                }, function () {
+                    if(typeof($(this).attr('abbr')) == "undefined"){
+                        return false;
+                    }
+                    if(on_sclick == 0){
+                        if($(this).hasClass('sorted')){
+                            if(ssort == 'sdesc'){
+                                $(this).find('div').removeClass('sasc');
+                                $(this).find('div').addClass('sdesc');
+                            }else{
+                                $(this).find('div').removeClass('sdesc');
+                                $(this).find('div').addClass('sasc');
+                            }
+                        }else{
+                            $(this).find('div').removeClass(ssort);
+                        }
+                    }
+                    $(this).removeClass("thOver");
+                    on_sclick = 0;
+                }
+        );
+        $('.hDivBox > table>thead>tr>th').click(function(){
+            if(typeof($(this).attr('abbr')) == "undefined"){
+                return false;
+            }
+            if($(this).hasClass('sorted')){
+                $(this).find('div').removeClass(ssort);
+                if(ssort == 'sdesc'){
+                    ssort = 'sasc';
+                }else{
+                    ssort = 'sdesc';
+                }
+                $(this).find('div').addClass(ssort);
+                on_sclick = 1;
+            }else{
+                $('.hDivBox > table>thead>tr>th').removeClass('sorted');
+                $('.hDivBox > table>thead>tr>th').find('div').removeClass(ssort);
+                $(this).addClass('sorted');
+                $(this).find('div').addClass(ssort);
+                var hDivBox_th_index = $(this).index();
+                var flexigrid_tr =   $('#flexigrid > table>tbody>tr')
+                flexigrid_tr.each(function(){
+                    $(this).find('td').removeClass('sorted');
+                    $(this).children('td').eq(hDivBox_th_index).addClass('sorted');
+                });
+            }
+            sort($(this).attr('abbr'));
+        });
+
+        $('.fa-refresh').click(function(){
+            location.href = location.href;
+        });
+        ajax_get_table('search-form2',1);
+
+    });
+    //选中全部
+    $('.hDivBox .sign').click(function(){
+        var sign = $('#flexigrid > table>tbody>tr');
+        if($(this).parent().hasClass('trSelected')){
+            sign.each(function(){
+                $(this).removeClass('trSelected');
+            });
+            $(this).parent().removeClass('trSelected');
+        }else{
+            sign.each(function(){
+                $(this).addClass('trSelected');
+            });
+            $(this).parent().addClass('trSelected');
+        }
+    })
+
+    // ajax 抓取页面
+    function ajax_get_table(tab,page){
+
+        cur_page = page; //当前页面 保存为全局变量
+        $.ajax({
+            type : "POST",
+            url:"/index.php/Admin/Block/ajax_form_list/p/"+page,//+tab,
+            data : $('#'+tab).serialize(),// 你的formid
+            success: function(data){
+                $("#ajax_return").html('');
+                $("#ajax_return").append(data);
+            }
+        });
+    }
+
+
+
+    // 点击排序
+    function sort(field)
+    {
+        $("input[name='order_by']").val(field);
+        var v = $("input[name='sort']").val() == 'desc' ? 'asc' : 'desc';
+        $("input[name='sort']").val(v);
+        ajax_get_table('search-form2',cur_page);
+    }
+    /**
+     * 回调函数
+     */
+    function call_back(v) {
+        layer.closeAll();
+        if (v == 1) {
+            layer.msg('发送成功',{icon:1});
+        } else {
+            layer.msg('发送失败',{icon:2});
+        }
+    }
+
+    function exportUser() {
+        $('input[name="user_ids"]').val('');
+        $('#search-form2').attr('action',"{:U('User/export_user')}")
+        var selected_ids = '';
+        $('.trSelected' , '#flexigrid').each(function(i){
+            selected_ids += $(this).data('id')+',';
+        });
+        if(selected_ids != ''){
+            $('input[name="user_ids"]').val(selected_ids.substring(0,selected_ids.length-1));
+        }
+        $('#search-form2').submit();
+    }
+</script>
+<style>
+    .atxt,.flexigrid .bDiv a{
+        color: #555;
+        text-decoration:none;
+    }
+</style>
+</body>
+</html>

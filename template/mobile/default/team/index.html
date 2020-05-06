@@ -1,0 +1,79 @@
+<include file="public/header" title="拼团首页" body="g4"/>
+<link rel="stylesheet" href="__STATIC__/css/action.css">
+<link rel="stylesheet" href="__STATIC__/css/team.css">
+<include file="public/header_nav" title="拼团列表" href="javascript:history.back(-1);"/>
+<!--顶部滚动广告栏-e-->
+<div class="g4 grandmogr p">
+    <div id="team_list"></div>
+</div>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    function indexTitle(){
+        $('.addset-h').css('width', parseInt($('.addset-h li').width()) * ($('.addset-h li').length + 1));
+        window.onresize = function(){
+            indexTitle();
+        }
+    }
+    //加载更多商品
+    var page = 0;
+    var pageEnd = 0;
+    $(document).ready(function(){
+        indexTitle();
+        ajax_sourch_submit();
+    });
+    //滚动加载更多
+    $(window).scroll(
+        function() {
+            var scrollTop =parseInt($(this).scrollTop());
+            var scrollHeight = parseInt($(document).height());
+            var windowHeight = parseInt($(this).height());
+            if (scrollTop + windowHeight >= scrollHeight-50) {
+                if(pageEnd == 0){
+                    ajax_sourch_submit();
+                }
+                pageEnd = 1;
+            }
+        }
+    );
+    function ajax_sourch_submit() {
+        ++page;
+        $.ajax({
+            type: 'POST',
+            url: "{:U('Mobile/Team/AjaxTeamList')}",
+            dataType: 'json',
+            data: {p: page},
+            success: function (data) {
+                if (data.status == 1) {
+                    var html = '';
+                    var goods_price,url;
+                    if (data.result.length > 0) {
+                        for (var i = 0; i < data.result.length; i++) {
+                            // 加上判断，是因为有的查不到goods,查不到goods则不是开团的商品
+                            if(typeof data.result[i].goods != 'undefined' && data.result[i].goods) {
+                                if (data.result[i].spec_goods_price) {
+                                    goods_price = data.result[i].spec_goods_price.price;
+                                } else {
+                                    goods_price = data.result[i].shop_price;
+                                }
+                                url = "/index.php?m=Mobile&c=Team&a=info&team_id=" + data.result[i].team_id + "&goods_id=" + data.result[i].goods_id;
+                                html += '<div class="ggroup-bx"> <div class="maleri30"> <a class="cpt" href="' + url + '"><img src="' + data.result[i].share_img + '"/> ' +
+                                        '<p class="similar-product-text">' + data.result[i].act_name + '</p></a> <div class="fgtemple p"> <div class="zeqzuo">' +
+                                        ' <span class="fg_peop"><i class="action-af"></i><em>' + data.result[i].needer + '</em>人团</span><span class="g_price">' +
+                                        '<em>￥</em>' + data.result[i].team_price + '</span> <span class="alone_price">单买￥<em>' + data.result[i].goods.shop_price + '</em></span> ' +
+                                        '</div> <div class="leok"> ' + '<a class="" href="' + url + '">去开团</a> </div> </div> </div> </div>';
+                            }
+                        }
+                        $("#team_list").append(html);
+                        pageEnd = 0;
+                    } else {
+						$("#team_list").append('<div id="notmore"  style="font-size:.32rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both;"> <a style="font-size:.50rem;">没有更多喽</a> </div>');
+                    }
+                } else {
+
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

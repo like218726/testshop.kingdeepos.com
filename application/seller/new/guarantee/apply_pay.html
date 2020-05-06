@@ -1,0 +1,97 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+<div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i class="icon-angle-right"></i>消费者保障服务</div>
+    
+<div class="main-content" id="mainContent">
+      
+<div class="tabmenu">
+    <ul class="tab pngFix">
+  <li class="normal"><a href="">消费者保障服务</a></li><li class="active"><a href="">支付保证金</a></li></ul>
+</div>
+
+<div class="ncsc-form-default">
+<form id="pay_form" method="post" enctype="multipart/form-data" action="">
+	<input type="hidden" id="grt_id" name="grt_id" value="{$apply.grt_id}">
+	<input type="hidden" id="form_submit" name="form_submit" value="ok">
+	<dl>
+		<dt><em class="pngFix"></em>项目名称：</dt>
+		<dd>{$info.grt_name}</dd>
+	</dl>
+	<dl>
+		<dt><em class="pngFix"></em>所需保证金：</dt>
+		<dd>{$info.grt_cost}&nbsp;&nbsp;元</dd>
+	</dl>
+	<dl>
+		<dt><em class="pngFix"></em>申请时间：</dt>
+		<dd>{$apply.add_time|date='Y-m-d H:i:s',###}</dd>
+	</dl>
+	<notempty name="apply.costimg">
+	<dl>
+		<dt><em class="pngFix"></em>已上传付款凭证：</dt>
+		<dd>
+			<div class="ncsc-upload-thumb voucher-pic">
+				<p>
+					<img src="{$apply.costimg}" style="cursor: pointer;" onclick="window.open('{$apply.costimg}');">
+				</p>
+			</div>
+			<p class="hint">以上图片为上次提交申请时上传的付款凭证</p>
+		</dd>
+	</dl>
+	</notempty>
+	<dl>
+		<dt><em class="pngFix"></em>上传付款凭证：</dt>
+		<dd>
+			<div id="costimg_preview" class="ncsc-upload-thumb voucher-pic">
+				<p><img height="60" id="uploadimg" src="__PUBLIC__/images/not_adv.jpg"></p>
+			</div>
+			<div class="ncsc-upload-btn">
+				<a href="javascript:void(0);">
+				<input type="hidden" name="costimg" id="costimg" value="{$apply.costimg}">
+					<span><input type="button" hidefocus="true" onClick="GetUploadify3(1,'costimg','seller','callback1')" size="1" class="input-file"  nc_type="costimg"></span>
+					<p><i class="icon-upload-alt"></i>图片上传</p>
+				</a>
+			</div>
+			<p class="hint">建议上传文字信息清晰的图片，便于审核时查看信息</p>
+		</dd>
+	</dl>
+	<div class="bottom">
+		<label class="submit-border">
+			<a id="submitbtn" class="submit" href="javascript:void(0);">提交</a>
+		</label>
+	</div>
+</form>
+</div>
+<script>
+//判断是否显示预览模块
+
+$(document).ready(function(){
+	$('#costimg').change(function(){
+		var filepath=$(this).val();
+		var extStart=filepath.lastIndexOf(".");
+		var ext=filepath.substring(extStart,filepath.length).toUpperCase();
+		if(ext!=".PNG"&&ext!=".GIF"&&ext!=".JPG"&&ext!=".JPEG"){
+			$(this).attr('value','');
+			layer.alert("图片限于png,gif,jpeg,jpg格式", {icon: 2});
+			return false;
+		}
+	});
+
+	$("#submitbtn").click(function(){
+		if (!$("#costimg").val()) {
+			layer.alert("请上传付款凭证", {icon: 2});
+			return false;
+		}
+		$('#pay_form').submit();
+	});
+});
+
+function callback1(img_str){
+	$('input[name="costimg"]').val(img_str);
+	$('#uploadimg').attr('src',img_str);
+}
+</script>    </div>
+</div>
+</div>
+<include file="public/foot"/>

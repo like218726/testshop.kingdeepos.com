@@ -1,0 +1,115 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+<include file="public/left"/>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>供应商<i class="icon-angle-right"></i>申请列表</div>
+    <div class="main-content" id="mainContent">
+<div class="tabmenu">
+    <ul class="tab pngFix">
+  <li class="normal"><a  href="{:U('Seller/Store/dealer_list')}">我的销售商</a></li>
+  <li class="active"><a href="">申请列表</a></li>
+  <li class="normal"><a href="{:U('Seller/Store/dealer_handle_list')}">审理列表</a></li>
+  </ul>
+    <a href="javascript:void(0)" class="ncbtn ncbtn-mint" dialog_title="新增供货商" dialog_width="480" onclick="addDealer()">新增销售商</a>
+</div>
+<div class="alert mt15 mb5">
+	操作提示：
+	<ul>
+		<li>
+		1.再这里，你的身份是供应商，请勿和销售商混淆<br>
+		</li>
+	</ul>
+</div>
+<table class="ncsc-default-table">
+  <thead>
+    <tr>
+    <th class="w20">&nbsp;</th>
+      <th class="tl">销售商名称</th>
+      <th class="tl">对方商家审理状态</th>
+      <th class="tl">平台审理状态</th>
+      <th class="w100">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+  <empty name="list">
+    <tr>
+      <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+    </tr>
+  <else/>
+  <php>
+	$status = [
+		'seller' => ['0' => '申请中...', '1' => '成功','2' => '拒绝'],
+		'admin' => ['0' => '审核中...', '1' => '审核通过','2' => '审核失败']
+	];
+  </php>
+  <foreach name="list" item="vo">
+   <tr class="bd-line">
+      <td></td>
+      <td class="tl"><a target="_blank" href="{:U('Home/Store/index',['store_id' => $vo.store_id])}">{$vo.store_name} <i class="icon-external-link"></i></a></td>
+      <td class="tl">{$status['seller'][$vo.seller_status]}</td>
+      <td class="tl">{$vo.seller_status == 1 ? $status['admin'][$vo.admin_status] : '-'}</td>
+      <td class="nscs-table-handle">
+		<if condition="$vo.admin_status == 2 or $vo.seller_status eq 2">
+			<span><a href="javascript:void(0)" class="btn-bluejeans" data-id="{$vo.id}" onclick="delApply(this)"><i class="icon-trash"></i><p>删除</p></a></span>
+		<else />
+			<span><p style="font-size:12px">-</p></span>
+		</if>
+    </tr>
+  </foreach>
+  </empty>  
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="20"><div class="pagination">{$page}</div></td>
+    </tr>
+  </tfoot>
+</table>
+    </div>
+  </div>
+</div>
+<include file="public/foot"/>
+<script type="text/javascript">
+/**
+ * 删除申请
+ */
+function delApply(obj, act){
+	layer.confirm('确认删除？', {
+		  btn: ['确定','取消'] //按钮
+		}, function(){
+		    // 确定
+				$.ajax({
+					type : 'post',
+					url : '{:U("Store/seller_apply_handle")}',
+					data : {act: 'del', id:$(obj).attr('data-id')},
+					dataType : 'json',
+					success : function(data){
+                        layer.closeAll();
+						if(data.status == 1){
+							layer.msg(data.msg, {icon: 1, end: function(){
+								$(obj).parent().parent().parent().remove();
+							}});
+						}else{
+							layer.msg(data.msg, {icon: 2,time: 2000});
+						}
+					}
+				})
+		}, function(index){
+			layer.close(index);
+			return false;// 取消
+		}
+	);
+}
+function addDealer(){
+	layer.open({
+		  type: 2,
+		  title: '新增销售商',
+	      shadeClose: true,
+	      shade: 0.2,
+	      skin: 'layui-layer-rim',
+	      area: ['450px', '350px'],
+		  content: ['{:U("Store/seller_apply")}' + '?target=dealer','no']
+	}); 
+}
+</script>
+</body>
+</html>

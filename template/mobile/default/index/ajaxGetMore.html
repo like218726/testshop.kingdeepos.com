@@ -1,0 +1,17 @@
+<foreach name="favourite_goods" item="v">  
+    <li>
+        <div class="mian_width_1">
+            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+                <img class="mian_img" src="{$v[goods_id]|goods_thum_images=400,400}"/>
+                <div class="mian_h2 mian_hidde">{$v[goods_name]}</div>
+                <div class="goods_name_cen mian_flex_4">
+                    <span class="big-price"><b>¥</b>{$v[shop_price]}</span>
+                    <!--<a href="{:U('Goods/goodsList',['id'=>$v['cat_id3']])}" title="{$v.goods_name}">-->
+                        <!--<span class="guess-button J_ping">看相似</span>-->
+                    <!--</a>-->
+                    <span class="has-sold">已售出{$v.sales_sum}件</span>
+                </div>
+            </a>
+        </div>
+    </li>
+</foreach>

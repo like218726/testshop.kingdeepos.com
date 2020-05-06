@@ -1,0 +1,136 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>运费模板
+        </div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="active"><a href="{:U('Freight/index')}">模板列表</a></li>
+                </ul>
+                <a href="{:U('Freight/info')}" class="ncbtn ncbtn-mint" title="新增运费模板"><i class="icon-plus-sign"></i>新增运费模板</a>
+
+            </div>
+            <div class="alert alert-block mt10">
+                <ul class="mt5">
+                    <li>1、点击新增运费模板按钮可以添加运费模板</li>
+                </ul>
+            </div>
+            <volist name="template_list" id="template">
+                <div class="tp-around-wraps">
+                    <div class="tp-left-tips">{$template.template_name}</div>
+                    <div class="tp-left-tips">{$template.type_desc}</div>
+					<if condition="$template.ownership eq 0">
+						<div class="fr">
+							<a href="{:U('Freight/info',['template_id'=>$template.template_id])}" target="_blank" class="ncbtn ncbtn-mint" title="编辑"><i class="icon-plus-sign"></i>编辑</a>
+							<a class="ncbtn ncbtn-mint delete_template" data-template-id="{$template.template_id}" title="删除"><i class="icon-plus-sign"></i>删除</a>
+						</div>
+					<else />
+						<div class="fr">供应商运费模板，不接受编辑</div>
+					</if>
+                </div>
+                <table class="ncsc-default-table">
+                    <thead>
+                    <tr>
+                        <th class="w80">配送区域</th>
+                        <th class="w100">首{$template.type_desc}({$template.unit_desc})</th>
+                        <th class="w100">运费(元)</th>
+                        <th class="w100">续{$template.type_desc}({$template.unit_desc})</th>
+                        <th class="w80">运费(元)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="template[freightConfig]" id="config" offset="0" length="5">
+                        <tr class="bd-line">
+                            <td>
+                                <if condition="$config[is_default] eq 1">
+                                    中国
+                                    <else/>
+                                    <volist name="config[freightRegion]" id="freight_region">
+                                        {$freight_region.region.name},
+                                    </volist>
+                                </if>
+                            </td>
+                            <td>{$config.first_unit}</td>
+                            <td>{$config.first_money}</td>
+                            <td>{$config.continue_unit}</td>
+                            <td>{$config.continue_money}</td>
+                        </tr>
+                    </volist>
+                    </tbody>
+                    <if condition="count($template[freightConfig]) gt 5">
+                        <tfoot>
+                        <tr>
+                            <td colspan="20">
+                                <a href="{:U('Freight/info',['template_id'=>$template.template_id])}">查看更多</a>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </if>
+                </table>
+            </volist>
+        </div>
+        {$page}
+    </div>
+</div>
+<include file="public/foot"/>
+<script>
+    //删除购物车商品确定事件
+    $(function () {
+        $(document).on("click", '.delete_template', function (e) {
+            var template_id = $(this).data('template-id');
+            layer.confirm('确认删除？', {
+                        btn: ['确定', '取消'] //按钮
+                    }, function () {
+                        $.ajax({
+                            type: 'post',
+                            url: "{:U('Freight/delete')}",
+                            data: {template_id: template_id},
+                            dataType: 'json',
+                            success: function (data) {
+                                layer.closeAll();
+                                if (data.status == 1) {
+                                    layer.msg(data.msg, {icon: 1, time: 2000}, function () {
+                                        window.location.reload();
+                                    });
+                                } else if (data.status == -1) {
+                                    layer.confirm(data.msg, {
+                                                btn: ['确定', '取消'] //按钮
+                                            }, function () {
+                                                $.ajax({
+                                                    type: 'post',
+                                                    url: "{:U('Freight/delete')}",
+                                                    data: {template_id: template_id, action: 'confirm'},
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        layer.closeAll();
+                                                        if (data.status == 1) {
+                                                            layer.msg(data.msg, {icon: 1, time: 2000}, function () {
+                                                                window.location.reload();
+                                                            });
+                                                        } else if (data.status == -1) {
+                                                            layer.msg(data.msg, {icon: 2, time: 2000});
+                                                        } else {
+                                                            layer.msg(data.msg, {icon: 2, time: 2000});
+                                                        }
+                                                    }
+                                                })
+                                            }, function (index) {
+                                                layer.close(index);
+                                            }
+                                    );
+                                } else {
+                                    layer.msg(data.msg, {icon: 2, time: 2000});
+                                }
+                            }
+                        })
+                    }, function (index) {
+                        layer.close(index);
+                    }
+            );
+        })
+    })
+</script>
+</body>
+</html>

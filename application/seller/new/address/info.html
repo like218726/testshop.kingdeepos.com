@@ -1,0 +1,135 @@
+<include file="public/head"/>
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i class="icon-angle-right"></i>地址管理</div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="normal"><a href="{:U('Address/index')}">地址列表</a></li>
+                    <li class="active"><a>新增/编辑地址</a></li>
+                </ul>
+            </div>
+            <div class="ncsc-form-default">
+                <form id="handleposition" method="post" onsubmit="return false;">
+                    <input type="hidden" name="store_address_id" value="{$storeAddress.store_address_id}">
+                    <dl>
+                        <dt><i class="required">*</i>地址：</dt>
+                        <dd>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <select onchange="get_city(this,0)" id="province" name="province_id" class="form-control" style="margin-left:-15px;">
+                                <option  value="0">选择省份</option>
+                                <volist name="province" id="vo">
+                                    <option value="{$vo.id}" <if condition="$storeAddress['province_id'] eq $vo['id']">selected</if>>{$vo.name}</option>
+                                </volist>
+                            </select>
+                            <select onchange="get_area(this)" id="city" name="city_id" class="form-control">
+                                <option value="0">选择城市</option>
+                                <volist name="city" id="vo">
+                                    <option value="{$vo.id}" <if condition="$storeAddress[city_id] eq $vo['id']">selected</if>>{$vo.name}</option>
+                                </volist>
+                            </select>
+                            <select id="district" name="district_id" class="form-control">
+                                <option value="0">选择区域</option>
+                                <volist name="area" id="vo">
+                                    <option value="{$vo.id}" <if condition="$storeAddress[district_id] eq $vo['id']">selected</if>>{$vo.name}</option>
+                                </volist>
+                            </select>
+                            <input type="text" placeholder="详细地址" class="text w300" style="margin-top:3px;" name="address" value="{$storeAddress.address}">
+                            <span class="err" id="err_district_id"></span>
+                            <span class="err" id="err_address"></span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>联系人：</dt>
+                        <dd>
+                            <input class="w130 text" name="consignee" value="{$storeAddress.consignee}" type="text"/>
+                            <span class="err" id="err_consignee"></span>
+                            <p class="hint">请填写联系人</p>
+                        </dd>
+                    </dl>
+                    <dl class="luck">
+                        <dt><i class="required">*</i>手机：</dt>
+                        <dd>
+                            <input class="w130 text" name="mobile" value="{$storeAddress.mobile}" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" type="text" maxlength="15"/>
+                            <span class="err" id="err_mobile"></span>
+                            <p class="hint">手机号码</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>邮政编码：</dt>
+                        <dd>
+                            <input name="zip_code" value="{$storeAddress.zip_code}" type="text" class="text w130" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" maxlength="8"/>
+                            <span class="err" id="err_zip_code"></span>
+                            <p class="hint">邮政编码</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>地址类型：</dt>
+                        <dd>
+                            <ul class="ncsc-form-radio-list">
+                                <li><label><input name="type" type="radio" value="0" <if condition="$storeAddress['type'] eq 0">checked='checked'</if>>发货</label></li>
+                                <li><label><input name="type" type="radio" value="1" <if condition="$storeAddress['type'] eq 1">checked='checked'</if>>收货</label></li>
+                            </ul>
+                            <span class="err" id="err_type"></span>
+                            <p class="hint">设置地址类型</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>是否默认：</dt>
+                        <dd>
+                            <ul class="ncsc-form-radio-list">
+                                <li><label><input name="is_default" type="radio" value="0" <if condition="$storeAddress['is_default'] eq 0">checked='checked'</if>>否</label></li>
+                                <li><label><input name="is_default" type="radio" value="1" <if condition="$storeAddress['is_default'] eq 1">checked='checked'</if>>是</label></li>
+                            </ul>
+                            <span class="err" id="err_team_type"></span>
+                            <p class="hint">每种地址类型下只能有一个默认地址</p>
+                        </dd>
+                    </dl>
+                    <div class="bottom"><label class="submit-border">
+                        <input id="submit" type="submit" class="submit" value="提交"></label>
+                    </div>
+                </form>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $(document).on("click", '#submit', function (e) {
+                        $('#submit').attr('disabled',true);
+                        verifyForm();
+                    })
+                })
+                function verifyForm(){
+                    $('span.err').hide();
+                    $.ajax({
+                        type: "POST",
+                        url: "{:U('Address/save')}",
+                        data: $('#handleposition').serialize(),
+                        async:false,
+                        dataType: "json",
+                        error: function () {
+                            layer.alert("服务器繁忙, 请联系管理员!");
+                        },
+                        success: function (data) {
+                            if (data.status == 1) {
+                                layer.msg(data.msg,{icon: 1,time: 2000},function(){
+                                    location.href = "{:U('Seller/Address/index')}";
+                                });
+                            } else {
+                                $('#submit').attr('disabled',false);
+                                $.each(data.result, function (index, item) {
+                                    $('span.err').show();
+                                    $('#err_'+index).text(item);
+                                });
+                                layer.msg(data.msg, {icon: 2,time: 3000});
+                            }
+                        }
+                    });
+                }
+            </script>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

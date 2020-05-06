@@ -1,0 +1,254 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>相册管理<i class="icon-angle-right"></i>图片管理
+        </div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="active"><a href="{:U('Goods/albumList')}">相册列表</a></li>
+                </ul>
+            </div>
+            <div class="alert alert-block mt10">
+                <ul class="mt5">
+                    <li>1、一次最多只能上传10张图片</li>
+                </ul>
+            </div>
+            <table class="search-form">
+		    <tbody>
+		    <input type="hidden" name="album_id" id="album_id" value="{$album_id}">
+		      <tr>
+		        <th>批量处理</th>
+		        <td>    
+		        	    <a href="JavaScript:void(0);" class="ncbtn-mini" onclick="checkAll()"><i class="icon-check"></i>全选</a>
+		        	    <a href="JavaScript:void(0);" class="ncbtn-mini" onclick="uncheckAll()"><i class="icon-check-sign"></i>取消</a>
+		        	    <a href="JavaScript:void(0);" class="ncbtn-mini" onclick="deleteBatchImage()"><i class="icon-trash"></i>删除</a>
+		        	    <!-- a href="JavaScript:void(0);" class="ncbtn-mini" id="img_move"><i class="icon-move"></i>转移相册</a -->
+		                
+		              <dd id="batchClass" style=" display:none;">
+		                <span>选择相册：</span>
+		            <select name="cid" id="cid" style="width:100px;">
+		                            <option value="2" style="width:80px;">详情相册</option>
+		                          </select>
+		            <input type="button" onclick="submit_form('move')" value="开始转移">
+		            </dd>
+		          </td>
+		         
+		        <td class="w100"> <a  class="ncbtn ncbtn-mint" title="上传图片" onclick="GetUploadifyOnlyUpload(10,'','goods_other_album','call_back');"><i class="icon-upload"></i>上传图片</a></td>
+		      </tr>
+		    </tbody>
+		  </table>
+  		<div class="ncsc-picture-list">
+    
+      		<ul>
+      			<empty name="imageList">
+                    <label style="font-size: 16px;width: 100%; display: inline-block;text-align: center; padding: 50px 0;">相册无图片</label>
+                <else/>
+                <volist name="imageList" id="list">
+                	<li style="opacity: 0.945108;" class="">
+			          <dl>
+			            <dt>
+			              <div class="picture"><a href="{$list.url}" target="_blank"> <img id="img_28" src="{$list.url}"></a></div>
+			             <div class="checkboxs"><i class="checkboxlist" data-url="{$list.url}"><input type="checkbox" data-url="{$list.url}"><label></label></i></div>
+			              <input id="28" class="editInput1" readonly="readonly"  value="{$extends[$list.url]['cn_name']|default=$list.name}"  style="cursor:pointer;">
+			              </span>
+			            </dt>
+			            <dd class="date">
+			              <p>上传时间：{$list.mtime|date='Y-m-d',###}</p>
+			              <p>原图尺寸：{$list.size}</p>
+			            </dd>
+			            <dd class="buttons">
+			              <a href="javascript:void(0);" onclick="setAlbumImage({$album_id} , '{$list.url}')"><i class="icon-picture"></i>设为封面</a> 
+			              <a href="javascript:void(0)" onclick="deleteImage('{$list.url}')"><i class="icon-trash"></i>删除图片</a>
+			              <!-- a href="javascript:void(0)" onclick="copy_url('{$list.url}')"><i class="icon-copy"></i>复制地址</a  -->
+			               </dd>
+			          </dl>
+			        </li>
+                </volist>
+		        </empty>  
+       		</ul>
+       		
+    		</div>
+        </div>
+            <div id="show_recommend_pic" class=" album_pg">{$show_page}</div>
+    </div>
+
+</div>
+<include file="public/foot"/>
+<script>
+$(".ncsc-picture-list>ul>li").hover(function  () {
+	$(this).addClass("hover");
+	$(this).css("opacity","1");
+	$(this).siblings("li").css("opacity","0.5");
+},function  () {
+	$(this).removeClass("hover");
+	$(this).siblings("li").css("opacity","0.945108");
+} )
+//全选
+function checkAll () {
+	$(".ncsc-picture-list :checkbox").prop("checked", true);
+	$(".ncsc-picture-list :checkbox").parent(".checkboxlist").addClass("checkboxlists");
+}
+
+//取消
+function uncheckAll () {
+	$(".ncsc-picture-list :checkbox").prop("checked", false); 
+	$(".ncsc-picture-list :checkbox").parent(".checkboxlist").removeClass("checkboxlists");
+}
+$(".ncsc-picture-list label").click(function  () {
+	$(this).parent(".checkboxlist").toggleClass("checkboxlists");
+})
+
+
+
+
+//反选
+function switchAll () {
+	 $(".ncsc-picture-list label").each(function () {  
+//            $(this).prop("checked", !$(this).prop("checked")); 
+              $(this).parent(".checkboxlist").toggleClass("checkboxlists");
+         });
+}
+//删除所选
+function submit_form () {
+	$(".ncsc-picture-list>ul>li .checkboxlists").each(function () {  
+		$(this).parents("li").remove();
+//           var index =$(this).parents("dt").parent("dl").parent("li").index();
+//           $(".ncsc-picture-list").find("li").eq(index).remove();
+         });
+}
+
+function deleteBatchImage(){
+	
+	var urlArr = new Array();
+	$(".ncsc-picture-list .checkboxlist").each(function(){
+		if($(this).children('input').attr('checked')){
+			var checkUrl = $(this).attr('data-url');
+			urlArr.push(checkUrl);
+		}
+	});
+
+	if(urlArr.length < 1){
+		layer.msg('请选择图片', {icon: 3});
+		return ;
+	} 
+	deleteImage(urlArr);
+}
+
+
+function deleteImage(imgUrl){
+	
+	var data  = {'filename':imgUrl , 'action':'del'};
+	if(imgUrl instanceof Array){
+		data = {'filenames':imgUrl , 'action':'del'};
+	}
+ 
+	layConfirm("确定删除此图片吗,如果删除的话会影响使用的图片!" , function(){
+		// 删除数据库记录
+        $.ajax({
+           type:'GET',
+           url:"{:U('Seller/Uploadify/delupload')}",
+           data:data,
+           success:function(data){
+                if(data == 1){
+                	layer.msg('删除成功', {icon: 1});
+                	window.location.reload();
+                }else{
+                	layer.msg('删除失败', {icon: 2});
+                }
+           }
+       });		
+	});
+}
+
+function setAlbumImage(albumId , imgUrl){
+		// 删除数据库记录
+        $.ajax({
+           type:'GET',
+           url:"{:U('Seller/Goods/set_mobile_url')}",
+           data:{'filename':imgUrl , 'album_id':albumId},
+           success:function(data){
+        	 
+        	   var result=eval("("+data+")");
+                if(result.status == 1){
+                	layer.msg(result.msg, {icon: 1});
+                }else{
+                	layer.msg(result.msg, {icon: 2});
+                }
+           }
+       });		
+}
+ 
+function call_back(){
+	window.location.reload();
+}
+
+
+function copy_url(imgUrl){
+	window.clipboardData.setData("Text",imgUrl);  
+	alert('拷贝成功');
+}
+
+
+
+//$(function(){
+//	 $('.ncbtn-mint').on('click' , function(){
+//		 add_edit_album();
+//	 });
+//});
+//
+//function album_success_callback(albumUrl){
+//	window.location.href = albumUrl;
+//}
+//
+///*
+// * 通用图片上传方法
+// */
+//function add_edit_album(album_id)
+//{	   	
+//	var upurl ='/index.php?m=seller&c=Goods&a=addEditAlbum&id='+album_id;
+//  var title = '编辑相册';
+//  layer.open({
+//      type: 2,
+//      title: title,
+//      shadeClose: true,
+//      shade: false,
+//      maxmin: true, //开启最大化最小化按钮
+//      area: ['50%', '60%'],
+//      content: upurl
+//   });
+//}
+//
+///*
+// * 通用图片上传方法
+// */
+//function add_album()
+//{	   	
+//	var upurl ='/index.php?m='+module+'&c=Uploadify&a=upload&num='+num+'&input='+elementid+'&path='+path+'&func='+callback+'&fileType='+fileType;
+//  var title = '上传图片';
+//  if(fileType == 'Flash'){
+//      title = '上传视频';
+//  }
+//  layer.open({
+//      type: 2,
+//      title: title,
+//      shadeClose: true,
+//      shade: false,
+//      maxmin: true, //开启最大化最小化按钮
+//      area: ['50%', '60%'],
+//      content: upurl
+//   });
+//}
+</script>
+<style>
+	.ncsc-picture-list li dl dt .editInput1{
+		top: 175px;
+		left: 30px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+</style>
+</body>
+</html>

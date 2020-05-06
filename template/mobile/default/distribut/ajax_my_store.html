@@ -1,0 +1,17 @@
+<foreach name="lists" item="goods">
+    <li>
+        <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$good['goods_id'],'first_leader'=>$user_id))}">
+            <div class="product_image goods">
+                <img class="goods_Img" src="{$goods.goods_id|goods_thum_images=200,200}"/>
+            </div>
+            <div class="goods_name ma-to-24 pa-0-30">
+              <h3>{$goods.goods_name}</h3>
+            </div>
+            <div class="goods_price pa-0-30">
+                <em>￥</em>
+                <span>{$goods.shop_price}</span>
+            </div>
+            <div class="amount">已售{$goods.sales_sum}件</div>
+        </a>
+    </li>
+</foreach>

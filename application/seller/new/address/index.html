@@ -1,0 +1,96 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i class="icon-angle-right"></i>地址管理
+		</div>
+		<div class="main-content" id="mainContent">
+			<div class="tabmenu">
+				<ul class="tab pngFix">
+					<li class="active"><a href="{:U('Address/index')}">地址列表</a></li>
+				</ul>
+				<a href="{:U('Address/info')}" class="ncbtn ncbtn-mint" title="新增地址"><i class="icon-plus-sign"></i>新增地址</a>
+
+			</div>
+			<div class="alert alert-block mt10">
+				<ul class="mt5">
+					<li>1、点击新增地址按钮可以添加地址</li>
+                    <li>2、地址分为两种，收货地址与发货地址.</li>
+				</ul>
+			</div>
+			<table class="ncsc-default-table">
+				<thead>
+				<tr>
+					<th class="w80">地址ID</th>
+					<th class="w200 tl">地址</th>
+					<th class="w50">联系人</th>
+					<th class="w50">电话</th>
+					<th class="w50">类型</th>
+					<th class="w50">默认</th>
+					<th class="w100">操作</th>
+				</tr>
+				</thead>
+				<empty name="list">
+			  		<tbody>
+			  		<tr>
+			      		<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+			    	</tr>
+			      </tbody>
+			  <else/> 
+				<tbody>
+				<volist name="list" id="address">
+					<tr class="bd-line">
+						<td>{$address.store_address_id}</td>
+						<td class="tl">{$address.full_address}</td>
+						<td>{$address.consignee}</td>
+						<td>{$address.mobile}</td>
+						<td>{$address.type_desc}</td>
+						<td>{$address.is_default_desc}</td>
+						<td class="nscs-table-handle">
+							<span><a href="{:U('Address/info',array('id'=>$address['store_address_id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
+							<span><a data-url="{:U('Address/delete')}" data-id="{$address.store_address_id}" onclick="delfun(this)" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+						</td>
+					</tr>
+				</volist>
+				</tbody>
+				</empty>
+				<tfoot>
+				<tr>
+					<td colspan="20">
+						{$page->show()}
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+<script>
+	function delfun(obj) {
+		layer.confirm('确认删除？', {
+					btn: ['确定', '取消'] //按钮
+				}, function () {
+					$.ajax({
+						type: 'post',
+						url: $(obj).attr('data-url'),
+						data: {id: $(obj).attr('data-id')},
+						dataType: 'json',
+						success: function (data) {
+							layer.closeAll();
+							if (data.status == 1) {
+								layer.msg(data.msg, {icon: 1});
+								$(obj).parent().parent().parent().remove();
+							} else {
+								layer.msg(data.msg, {icon: 2, time: 2000});
+							}
+						}
+					})
+				}, function (index) {
+					layer.close(index);
+				}
+		);
+	}
+</script>
+</body>
+</html>

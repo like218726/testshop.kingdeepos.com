@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>商家入驻</title>
+    <link href="__STATIC__/css/tpshop.css" rel="stylesheet" type="text/css">
+    <link href="__STATIC__/css/join.css" rel="stylesheet" type="text/css">
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="shortcut  icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+</head>
+<body class="font-my">
+<!--header-s-->
+<include file="public/sign-header"/>
+<!--header-e-->
+<!--main-start-->
+<div class="main-header show-center-1224 clearfix">
+    <div class="header-l clearfix">
+        <a class="logo" href="/"><img src="{$tpshop_config['shop_info_store_logo']|default='__PUBLIC__/static/images/logo/pc_home_logo_default.png'}" alt="" /></a>
+        <p class="des">商家入驻</p>
+    </div>
+    <ul class="header-r children-a-100 clearfix">
+        <li class="active"><a href="{:U('Newjoin/index')}">入驻首页</a></li>
+        <tpshop sql="select * from `__PREFIX__help` where type_id = 2 and is_show=1" key="k2" item='v2'>
+        	<li><a href="{:U('Article/helpInfo',array('help_id'=>$v2['help_id']))}">{$v2.help_title}</a></li>
+        </tpshop>
+    </ul>
+</div>
+<div class="main-banner-warp">
+    <div class="main-banner">
+        <img src="__STATIC__/images/join-banner.jpg" alt="">
+        <a class="join-btn btn-item" href="{:U('Newjoin/agreement')}">立即入驻</a>
+        <a class="selete-btn btn-item" href="{:U('Newjoin/agreement')}"">查询入驻进度</a>
+    </div>
+</div>
+<div class="hot-brand show-center-1224">
+    <h3 class="title">热招品牌<span></span></h3>
+    <h4 class="sub-title"><span></span>Business brand</h4>
+    <p class="des">以消费者的需求和市场需要的角度出发建立招商品牌池，其目的是寻找有好商品和好品牌的商家，共同为消费者提供优质商品和服务。</p>
+    <ul class="pros-list children-a-100 clearfix">
+        <li>
+            <a href="javascript:;">
+                <i class="ico-food pro-icon"></i>
+                <h5 class="pro-name">食品，酒类，生鲜</h5>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="ico-maintain pro-icon"></i>
+                <h5 class="pro-name">美容，护理，洗发沐浴</h5>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="ico-digital pro-icon"></i>
+                <h5 class="pro-name">手机，数码，配件</h5>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="ico-fruits pro-icon"></i>
+                <h5 class="pro-name">生鲜食品，零食特产</h5>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="ico-clothes pro-icon"></i>
+                <h5 class="pro-name">服饰内衣，鞋靴童装</h5>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="ico-drinks pro-icon"></i>
+                <h5 class="pro-name">茶冲乳品，饮料零食</h5>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="ico-snacks pro-icon"></i>
+                <h5 class="pro-name">零食特产，粮油</h5>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:;">
+                <i class="ico-pregnant pro-icon"></i>
+                <h5 class="pro-name">母婴用品，玩具</h5>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="business-join show-center-1224">
+    <h3 class="title">商家入驻</h3>
+    <h4 class="sub-title">Merchants settled</h4>
+    <ul class="business-list clearfix" id="business-list">
+        <li>
+            <i class="ico-business item-icon"></i>
+            <h5 class="item-title">招商计划</h5>
+            <p class="item-des">查询商城发布的热招品牌和类目</p>
+            <a class="item-btn" href="{:U('home/Article/helpInfo',['help_id'=>1])}">查看招商计划</a>
+        </li>
+        <li>
+            <i class="ico-cooperation item-icon"></i>
+            <h5 class="item-title">入驻流程</h5>
+            <p class="item-des">查看入驻流程注意事项</p>
+            <a class="item-btn" href="{:U('home/Article/helpInfo',['help_id'=>4])}">查看入驻流程</a>
+        </li>
+        <li>
+            <i class="ico-standard item-icon"></i>
+            <h5 class="item-title">入驻资质</h5>
+            <p class="item-des">资质标准审核</p>
+            <a class="item-btn" href="{:U('home/Article/helpInfo',['help_id'=>2])}">查看入驻资质</a>
+        </li>
+        <li>
+            <i class="ico-more item-icon"></i>
+            <h5 class="item-title">资费标准</h5>
+            <p class="item-des">查看类目详细资费标准</p>
+            <a class="item-btn" href="{:U('home/Article/helpInfo',['help_id'=>3])}">查看资费标准</a>
+        </li>
+    </ul>
+    <script>
+        /*兼容ie8*/
+        $('#business-list').find('li:nth-child(4n+4)').css('margin-right','0');
+    </script>
+</div>
+<div class="join-step show-center-1224">
+    <h3 class="title"><span class="left-line"></span>入驻流程<span class="right-line"></span></h3>
+    <div class="step-cont clearfix">
+        <div class="left-pic"><img src="__STATIC__/images/join-process.png" alt=""></div>
+        <div class="right-list">
+            <ul class="step-list clearfix">
+                <li>
+                    <i class="ico-step1 left-icon"></i>
+                    <p class="step-title"><span class="step-num">1</span>申请入驻</p>
+                    <p class="step-des">准备店铺信息</p>
+                    <p class="step-des">资质上线填写入驻</p>
+                    <p class="step-des">信息上传资质文件</p>
+                </li>
+                <li>
+                    <i class="ico-step2 left-icon"></i>
+                    <p class="step-title"><span class="step-num">2</span>签订协议</p>
+                    <p class="step-des">{$tpshop_config.shop_info_store_name|default='TPshop商城'}在线审核</p>
+                    <p class="step-des">双方确认合同</p>
+                    <p class="step-des">商家邮寄合同</p>
+                </li>
+                <li>
+                    <i class="ico-step3 left-icon"></i>
+                    <p class="step-title"><span class="step-num">3</span>开店准备</p>
+                    <p class="step-des">商家交纳费用</p>
+                    <p class="step-des">上线前培训</p>
+                    <p class="step-des">开通商家管理后台</p>
+                </li>
+                <li>
+                    <i class="ico-step4 left-icon"></i>
+                    <p class="step-title"><span class="step-num">4</span>商品销售</p>
+                    <p class="step-des">商品录入</p>
+                    <p class="step-des">装修店铺</p>
+                    <p class="step-des">店铺上线销售</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="join-cooperation">
+    <div class="show-center-1224">
+        <h3 class="title">商城合作模式<span></span></h3>
+        <h4 class="sub-title"><span></span>Mall cooperation model</h4>
+    </div>
+    <p class="des">电子商务模式随着其应用领域的不断扩大和信息服务方式的不断创新，商城合作模式主要包括平台模式、自营模式、联营模式、特卖模式等。</p>
+    <div class="tab-warp">
+        <div class="tab-inner show-center-1224 clearfix" id="join-tab1">
+            <ul class="tab-nav">
+                <li class="checked">
+                    <i class="ico-tabitem1 tab-icon"></i>
+                    <p class="tab-title">平台模式</p>
+                    <span class="white-arrow"></span>
+                </li>
+                <li>
+                    <i class="ico-tabitem2 tab-icon"></i>
+                    <p class="tab-title">自营模式</p>
+                    <span class="white-arrow"></span>
+                </li>
+                <li>
+                    <i class="ico-tabitem3 tab-icon"></i>
+                    <p class="tab-title">联营模式</p>
+                    <span class="white-arrow"></span>
+                </li>
+                <li>
+                    <i class="ico-tabitem4 tab-icon"></i>
+                    <p class="tab-title">海外购物模式</p>
+                    <span class="white-arrow"></span>
+                </li>
+                <li>
+                    <i class="ico-tabitem5 tab-icon"></i>
+                    <p class="tab-title">特卖模式</p>
+                    <span class="white-arrow"></span>
+                </li>
+                <li>
+                    <i class="ico-tabitem6 tab-icon"></i>
+                    <p class="tab-title">SWL模式</p>
+                    <span class="white-arrow"></span>
+                </li>
+            </ul>
+            <ul class="tab-cont">
+                <li class="active clearfix">
+                    <div class="left-des">
+                        <p class="des-title">平台模式介绍</p>
+                        <p class="des-cont">1、自主运营后台。</p>
+                        <p class="des-cont">2、商家自建或者第三方物流。</p>
+                        <p class="des-cont">3、商家提供售后、退换货服务 。</p>
+                        <p class="des-cont">4、商家自主开票给顾客。</p>
+                        <p class="des-cont">5、易付宝结算货款，确认收货后
+                            T+0账期，回款快。</p>
+                        <a class="more-btn" href="javascript:;">了解详情<span></span></a>
+                    </div>
+                    <div class="right-pic">
+                        <img src="__STATIC__/images/join-ally-module.png" alt="" />
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <div class="left-des">
+                        <p class="des-title">平台模式介绍</p>
+                        <p class="des-cont">1、自主运营后台。</p>
+                        <p class="des-cont">2、商家自建或者第三方物流。</p>
+                        <p class="des-cont">3、商家提供售后、退换货服务 。</p>
+                        <p class="des-cont">4、商家自主开票给顾客。</p>
+                        <p class="des-cont">5、易付宝结算货款，确认收货后
+                            T+0账期，回款快。</p>
+                        <a class="more-btn" href="javascript:;">了解详情<span></span></a>
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <div class="right-pic">
+                        <img src="__STATIC__/images/join-ally-module.png" alt="" />
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <div class="left-des">
+                        <p class="des-title">平台模式介绍</p>
+                        <p class="des-cont">1、自主运营后台。</p>
+                        <p class="des-cont">2、商家自建或者第三方物流。</p>
+                        <p class="des-cont">3、商家提供售后、退换货服务 。</p>
+                        <p class="des-cont">4、商家自主开票给顾客。</p>
+                        <p class="des-cont">5、易付宝结算货款，确认收货后
+                            T+0账期，回款快。</p>
+                        <a class="more-btn" href="javascript:;">了解详情<span></span></a>
+                    </div>
+                    <div class="right-pic">
+                        <img src="__STATIC__/images/join-ally-module.png" alt="" />
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <div class="left-des">
+                        <p class="des-title">平台模式介绍</p>
+                        <p class="des-cont">1、自主运营后台。</p>
+                        <p class="des-cont">2、商家自建或者第三方物流。</p>
+                        <p class="des-cont">3、商家提供售后、退换货服务 。</p>
+                        <p class="des-cont">4、商家自主开票给顾客。</p>
+                        <p class="des-cont">5、易付宝结算货款，确认收货后
+                            T+0账期，回款快。</p>
+                        <a class="more-btn" href="javascript:;">了解详情<span></span></a>
+                    </div>
+                    <div class="right-pic">
+                        <img src="__STATIC__/images/join-ally-module.png" alt="" />
+                    </div>
+                </li>
+                <li class="clearfix">
+                    <div class="left-des">
+                        <p class="des-title">平台模式介绍</p>
+                        <p class="des-cont">1、自主运营后台。</p>
+                        <p class="des-cont">2、商家自建或者第三方物流。</p>
+                        <p class="des-cont">3、商家提供售后、退换货服务 。</p>
+                        <p class="des-cont">4、商家自主开票给顾客。</p>
+                        <p class="des-cont">5、易付宝结算货款，确认收货后
+                            T+0账期，回款快。</p>
+                        <a class="more-btn" href="javascript:;">了解详情<span></span></a>
+                    </div>
+                    <div class="right-pic">
+                        <img src="__STATIC__/images/join-ally-module.png" alt="" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        var $_tab1=$('#join-tab1');
+        /*兼容ie8*/
+        $_tab1.find('.tab-nav li:last-child').css('margin-bottom','0');
+        $_tab1.find('.tab-nav li').click(function () {  //点击切换列表
+            $(this).addClass('checked').siblings().removeClass('checked');
+            $_tab1.find('.tab-cont li').eq($(this).index()).addClass('active').siblings().removeClass('active');
+        });
+    </script>
+</div>
+<!--
+<div class="common-problem show-center-1224">
+    <h3 class="title">常见问题</h3>
+    <h4 class="sub-title">Common problem</h4>
+    <div class="problem-warp">
+        <ul class="problem-list clearfix" id="join-problem">
+            <li>
+                <i class="ico-mes item-icon"></i>
+                <h5 class="item-title">信息公布</h5>
+                <p class="item-des">好消息,{$tpshop_config.shop_info_store_name|default='TPshop商城'}上线啦</p>
+            </li>
+            <li>
+                <i class="ico-seller item-icon"></i>
+                <h5 class="item-title">招商标准</h5>
+                <p class="item-des">符合资质的您，赶紧加入我们吧</p>
+            </li>
+            <li>
+                <i class="ico-cost item-icon"></i>
+                <h5 class="item-title">资费标准</h5>
+                <p class="item-des">资费标准</p>
+            </li>
+            <li>
+                <i class="ico-management item-icon"></i>
+                <h5 class="item-title">店铺管理</h5>
+                <p class="item-des">用户及权限分配</p>
+            </li>
+            <li>
+                <i class="ico-advantage item-icon"></i>
+                <h5 class="item-title">{$tpshop_config.shop_info_store_name|default='TPshop商城'}优势</h5>
+                <p class="item-des">你想要的，我们都有</p>
+            </li>
+            <li>
+                <i class="ico-cont item-icon"></i>
+                <h5 class="item-title">经营内容</h5>
+                <p class="item-des">商城经营大类一览表</p>
+            </li>
+            <li>
+                <i class="ico-help item-icon"></i>
+                <h5 class="item-title">帮助中心</h5>
+                <p class="item-des">平台开发总则</p>
+            </li>
+            <li>
+                <i class="ico-tel item-icon"></i>
+                <h5 class="item-title">联系方式</h5>
+                <p class="item-des">入驻咨询:<br />{$tpshop_config.shop_info_qq|default=''}<br />{$tpshop_config.shop_info_qq2|default=''}</p>
+            </li>
+        </ul>
+        <script>
+            /*兼容ie8*/
+            $('#join-problem').find('li:nth-child(4n+2)').css('width','350px');
+        </script>
+    </div>
+    <div class="problem-more clearfix">
+        <div class="problem-pic"><img src="__STATIC__/images/join-question.png" alt="" /></div>
+        <a class="btn-more" href="{:U('Home/Article/help')}">跟多问题请查看官网帮助手册<i></i></a>
+    </div>
+</div>
+<!--main-end-->
+
+<!--footer-s-->
+<include file="public/footer" />
+<script type="text/javascript">
+
+</script>
+<!--footer-e-->
+</body>
+</html>

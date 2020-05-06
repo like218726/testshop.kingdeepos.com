@@ -1,0 +1,133 @@
+<include file="public/layout"/>
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i
+                class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>该动态点赞列表</h3>
+                <h5>注意审核规范</h5>
+            </div>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div id="explanation" class="explanation"
+         style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
+        <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="动态详情">动态详情</h4>
+            <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+        </div>
+        <ul>
+            <li>发表时间：{$vo.add_time|date="Y-m-d H:i",###}</li>
+            <li>用户名 ：{$vo['nickname']?$vo['nickname']:$vo['mobile']}</li>
+            <li>内容 ： {$vo.moments_content}</li>
+            <li>
+                <span  style="float: left;"> 图片：</span>
+                <div style="float: left;">
+                    <volist name="$vo.img" id="v">
+                        <if condition="$v">
+                            <img src="{$v}" style="width: 100px;float: left;margin: 4px;">
+                        </if>
+                    </volist>
+                </div>
+
+            </li>
+
+        </ul>
+    </div>
+    <div class="flexigrid">
+        <div class="mDiv">
+            <div class="ftitle">
+                <h3>点赞列表</h3>
+                <h5>(共{$list|count}条记录)</h5>
+            </div>
+            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+        </div>
+        <div class="hDiv">
+            <div class="hDivBox">
+                <table cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <th class="sign" axis="col0">
+                            <div style="width: 24px;"><i class="ico-check"></i></div>
+                        </th>
+                        <th align="left" abbr="comment_id" axis="col3" class="">
+                            <div style="text-align: left; width: 50px;" class="">ID</div>
+                        </th>
+                        <th align="left" abbr="user_id" axis="col4" class="">
+                            <div style="text-align: left; width: 100px;" class="">会员名称</div>
+                        </th>
+                        <th align="center" abbr="add_time" axis="col6" class="">
+                            <div style="text-align: center; width: 150px;" class="">点赞时间</div>
+                        </th>
+                        <!--<th align="center" axis="col1" class="handle">-->
+                            <!--<div style="text-align: center; width: 100px;">操作</div>-->
+                        <!--</th>-->
+                        <th style="width:100%" axis="col7">
+                            <div></div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="bDiv" style="height: auto;">
+            <div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+                <table>
+                    <tbody>
+                    <foreach name="list" item="vo" key="k">
+                        <tr>
+                            <td class="sign">
+                                <div style="width: 24px;">
+                                    <i class="ico-check">
+                                        <!--<input type="checkbox"  name="selected[]"  value="{$vo['moments_id']}">-->
+                                    </i>
+                                </div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">{$vo.like_id}</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 100px;">
+                                    {$vo['nickname']?$vo['nickname']:$vo['mobile']}
+                                </div>
+                            </td>
+
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 150px;">{$vo.add_time|date="Y-m-d H:i:s",###}
+                                </div>
+                            </td>
+
+                            <td align="" class="" style="width: 100%;">
+                                <div>&nbsp;</div>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="iDiv" style="display: none;"></div>
+        </div>
+        <!--分页位置-->
+        {$page}
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        // 表格行点击选中切换
+        $('#flexigrid > table>tbody >tr').click(function () {
+            $(this).toggleClass('trSelected');
+        });
+
+        // 点击刷新数据
+        $('.fa-refresh').click(function () {
+            location.href = location.href;
+        });
+
+    });
+
+</script>
+</body>
+</html>

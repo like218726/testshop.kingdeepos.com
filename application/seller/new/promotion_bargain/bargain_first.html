@@ -1,0 +1,88 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>促销<i class="icon-angle-right"></i>砍价管理
+		<a href="http://help.tp-shop.cn/Index/Help/info/cat_id/24/id/215.html" class="seller_help" target="_blank">帮助</a>
+		</div>
+		<div class="main-content" id="mainContent">
+			<div class="tabmenu">
+				<ul class="tab pngFix">
+					<li class="active"><a href="#">发起者列表</a></li>
+				</ul>
+
+			</div>
+			<!--<div class="alert alert-block mt10">
+				<ul class="mt5">
+					<li>1、点击新增砍价按钮可以添加砍价活动</li>
+				</ul>
+			</div>-->
+			<table class="ncsc-default-table">
+				<thead>
+				<tr>
+					<th class="w20">活动ID</th>
+					<th class="w100">发起者</th>
+					<th class="w100">商品数量</th>
+					<th class="w50">帮忙次数</th>
+					<th class="w120">剩余价格</th>
+					<th class="w120">创建时间</th>
+					<th class="w50">状态</th>
+					<th class="w130">操作</th>
+				</tr>
+				</thead>
+				<empty name="prom_list">
+			  		<tbody>
+			  		<tr>
+			      		<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+			    	</tr>
+			      </tbody>
+			  <else/>
+				<tbody>
+				<foreach name="prom_list" item="vo" key="k" >
+					<tr class="bd-line">
+						<td>{$vo.id}</td>
+						<td>{$vo['users']['nickname']}</td>
+						<td>{$vo.goods_num}</td>
+						<td>{$vo.cut_count}</td>
+						<td>{$vo.end_price}</td>
+						<td>{$vo.add_time|date='Y-m-d H:i:s',###}</td>
+						<td>{$vo['is_end']?'已完成':'进行中'}</td>
+						<td class="nscs-table-handle">
+							<span><a data-id="{$vo['id']}" onclick="bargain_list(this)" class="btn-bluejeans"><i class="icon-search"></i><p>砍价徬</p></a></span>
+						</td>
+					</tr>
+				</foreach>
+				</tbody>
+				</empty>
+				<tfoot>
+				<tr>
+					<td colspan="20">
+						{$page}
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+<script>
+	function bargain_list(obj) {
+        var id = $(obj).data('id');
+        var url = '/index.php?m=Seller&c=PromotionBargain&a=bargain_list&id=' + id;
+        //iframe窗
+        layer.open({
+            type: 2,
+            title: '帮砍列表',
+            shadeClose: true,
+            shade: 0.4,
+            area: ['60%', '80%'],
+            content: [url], //iframe的url，no代表不显示滚动条
+            end: function () { //此处用于演示
+
+            }
+        });
+    }
+</script>
+</body>
+</html>

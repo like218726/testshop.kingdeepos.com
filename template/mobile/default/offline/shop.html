@@ -1,0 +1,406 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>店铺信息</title>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/style.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/iconfont.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/020Mobile.css">
+<script src="__STATIC__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/style.js " type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<style>
+    .category-cur{
+        pointer-events: none;
+    }
+</style>
+<body>
+<div class="o2o-store-top">
+	<div class="o2o-store-opa">
+    	<a href="#"><img src="__STATIC__/images/return.png" alt="返回"></a>
+        <a href="#" class="collect-store"><img src="__STATIC__/images/collect.png" alt="收藏"></a>
+        <a href="#" class="sharing-store"><img src="__STATIC__/images/sharing.png" alt="分享"></a>
+    </div>
+    <div class="o2o-store-info">
+    	<div class="o2o-store-logo"><img src="{$shop_info.shop_avatar|default='__STATIC__/images/user68.jpg'}"></div>
+        <div class="o2o-store-text">
+            <h3>{$shop_info.shop_name}</h3>
+            <p>商家配送&nbsp;/&nbsp;<em>{$shop_info.shipping_time}</em>分钟送达&nbsp;/&nbsp;配送费￥<i>{$shop_info.shipping_price}</i></p>
+            <!--<p>公告：此处填写商家的广告或者商品注意事项等不回可能可能</p>-->
+        </div>
+    </div>
+    <div class="o2o-store-act1 st-act-detail" id="st-act-detail"><p>
+        <b></b><i></i>
+        <a><em>{:count($shop_info.shop_prom)}</em>个活动</a></p>
+    </div>
+</div>
+<!--店铺信息-s-->
+<div class="store-nav">
+    <ul>
+        <li class="store-nav-cur"><a href="{:U('Offline/shop',['shop_id'=>$Request.param.shop_id])}">商品</a></li>
+        <li><a class="shop-cur" data-href="{:U('Offline/comment',['shop_id'=>$Request.param.shop_id])}">评价</a></li>
+        <li><a class="shop-cur" data-href="{:U('Offline/info',['shop_id'=>$Request.param.shop_id])}">店铺</a></li>
+    </ul>
+</div>
+<div id="shop_html">
+    <div class="store-index-container">
+        <div class="sicon">
+            <div class="sicon-left">
+                <ul>
+                    <li class="category-cur"><img src="__STATIC__/images/icon-coupons.png"><em>优惠</em></li>
+                    <li><img src="__STATIC__/images/icon-fire.png"><em>热销</em></li>
+                    <foreach name="$goods_class" item="cl">
+                        <li data-cat_id="{$cl.cat_id}"><b>{$cl.cat_name}</b></li>
+                    </foreach>
+                </ul>
+            </div>
+            <div class="sicon-right">
+                <div class="template-coupons">
+                    <span class="tem-coupon-le"><b>
+                        <i>{:count($shop_info.coupon)}</i>张优惠券</b><br><em>
+                        <foreach name="$shop_info.coupon" item="vo">
+                            {$vo.name},
+                        </foreach>
+                    </em>
+                    </span>
+                    <span class="tem-coupon-ri"><a class="st-act-detail"><b>立即<br/>领取</b></a></span>
+                </div>
+                <div class="store-act-ban">
+                    <img src="__STATIC__/images/store-ban.png"><!--活动banner，尺寸520*140px，最多添加两张若无活动，则此模块不显示-->
+                </div>
+
+                <!--商品-->
+                <div class="goods-list">
+                    <h4>热销商品（<em>2</em>）</h4>
+                    <ul id="goods_list">
+
+                    </ul>
+                </div>
+                <!--商品-->
+            </div>
+        </div>
+
+        <!--购物车-->
+        <div class="o2o-shopping-car" id="o2o-shopping-car">
+            <div class="shopping-car-contain">
+                <div class="shopping-car-tit">
+                    <span>购物车</span>
+                    <a href="JavaScript:clearCart();"><img src="__STATIC__/images/shopping-car-del.png">清空</a>
+                </div>
+                <div class="shopping-car-goods" id="scg">
+                    <ul id="cart_list"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!--购物车-s-->
+        <div class="shopping-car-full" id="shopping-car-full">
+            <div class="car-logo" id="car-logo"><img src="__STATIC__/images/car-logo-white.png"><i id="total_num">0</i></div>
+            <div class="car-totle-price"><small>￥</small><big id="total_fee">0</big><br><span>配送费￥<i>{$shop_info.shipping_price}</i></span></div>
+            <div class="confirm-order"><a href="#">提交订单</a></div>
+        </div>
+        <!--购物车-e-->
+    </div>
+</div>
+<!--店铺信息-e-->
+
+<!--顶部优惠券活动框-s-->
+<div class="pull-activity-container" id="pull-activity">
+	<div class="o2o-store-act2">
+        <foreach name="$shop_info.shop_prom" item="prom">
+            <p><b class="full">{$type[$prom.type]}</b><i>{$prom.title}</i></p>
+        </foreach>
+    </div>
+    <div class="o2o-store-coupons">
+    	<div class="store-coupons-tit"><span>店铺优惠券</span></div>
+        <foreach name="$shop_info.coupon" item="coupon">
+                <div class="store-coupons">
+                    <span class="coupons-left">￥<b>{$coupon.money}</b></span>
+                    <span class="coupons-mid"><em>满<i>{$coupon.condition}</i>元可用</em><b>{:date('Y.m.d',$coupon.send_start_time)}-{:date('Y.m.d',$coupon.send_end_time)}</b></span>
+                    <span class="coupons-right"><a data-coupon-id="{$coupon.id}" onclick="getCoupon(this)"><b>立即<br/>领取</b></a></span>
+                </div>
+        </foreach>
+        <div class="store-coupons-bot"><a id="store-coupons-top"><img src="__STATIC__/images/slide.png"><br>点击上滑继续购物</a></div>
+    </div>
+</div>
+<!--顶部优惠券活动框-e-->
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script>
+    var shop_id = "{$Request.param.shop_id}";
+    var page = 0;
+    //购物车内容显示隐藏
+    $(document).ready(function(){
+        $("#car-logo").click(function(){
+            $("#o2o-shopping-car").toggle();
+        });
+        getCart(shop_id)
+        ajax_sourch_submit();
+    });
+    //控制优惠券显示隐藏
+    $(document).on('click',".st-act-detail",function(){
+        $("#pull-activity").css('display',"block");
+        $('.st-act-detail').addClass('store-coupons-top');
+    })
+    $(document).on('click',".store-coupons-top",function(){
+        $("#pull-activity").css('display',"none");
+        $('.st-act-detail').removeClass('store-coupons-top');
+    })
+    $(document).on('click',"#store-coupons-top",function(){
+        $("#pull-activity").css('display',"none");
+        $("html,body").animate({scrollTop:0}, 10);  //回到顶部
+    })
+    $(document).on('click',".store-nav ul li",function(){
+        $(this).addClass("store-nav-cur").siblings('li').removeClass("store-nav-cur");
+    })
+    $(document).on('click',".sicon-left ul li",function(){
+       var  _this = $(this);
+        $('#cat_id').val(_this.data('cat_id'));
+        _this.addClass('category-cur').siblings().removeClass('category-cur');
+        page = 0;
+        ajax_sourch_submit();
+    })
+    $(document).on('click',"#o2o-shopping-car",function(){
+       $(this).css('display','none')
+    })
+
+    var before_request = 1;  //ajax状态
+    $(document).on('click',".shop-cur",function(){
+        if(before_request == 0) return false;
+        before_request = 0
+        $.ajax({
+            type: "get",
+            url: $(this).data('href'),
+            dataType: "html",
+            error: function () {
+                layer.open({content: "服务器繁忙, 请联系管理员!",skin: 'msg',time: 2});
+                before_request = 1
+            },
+            success: function (data) {
+                before_request = 1
+                if(data != ''){
+                    $('#shop_html').html(data);
+                }
+            }
+        });
+
+    })
+
+    //领券
+    function getCoupon(obj){
+        if(before_request == 0) return false;
+        before_request = 0
+        $.ajax({
+            type: "POST",
+            url: "{:U('Mobile/User/getCoupon')}",
+            data: {coupon_id: $(obj).data('coupon-id')},
+            dataType: "json",
+            error: function () {
+                layer.open({content: "服务器繁忙, 请联系管理员!",skin: 'msg',time: 2});
+                before_request = 1
+            },
+            success: function (data) {
+                layer.open({content: data.msg,skin: 'msg',time: 2});
+                before_request = 1
+            }
+        });
+
+    }
+
+    //获取商品
+    function ajax_sourch_submit(){
+        if(before_request == 0) return false;
+        before_request = 0
+        page ++;
+        var cat_id  = $('#cat_id').val();
+        $.ajax({
+            type: "get",
+            url: "{:U('Offline/getGoods')}",
+            data: {shop_id: shop_id,cat_id:cat_id,p:page},
+            dataType: "json",
+            error: function () {
+                layer.open({content: "服务器繁忙, 请联系管理员!",skin: 'msg',time: 2});
+                before_request = 1
+            },
+            success: function (data) {
+                before_request = 1;
+                if (data.restut.length){
+                    var html = '';
+                    for (var i=0 ;i<data.restut.length;i++){
+                        var list = data.restut[i];
+                        html += '<li id="sgs_id_'+list.sgs_id+'"> ' +
+                                    '<div class="goods-picture">' +
+                                    '<img src="'+list.spec.spec_img+'">' +
+                                    '</div> ' +
+                                        '<div class="goods-text">' +
+                                        '<h3>'+list.goods_name+'</h3> <p>'+list.key_name+'</p> ' +
+                                        '<p class="sales-rate">' +
+                                            '<b>销量<i>'+list.sales_sum+'</i>件</b>' +
+                                            '<em>库存<i>'+list.store_count+'</i></em>' +
+                                        '</p>' +
+                                        '<div class="price-and-quantity">' +
+                                        '<span class="price">￥<big>'+list.spec.price+'</big></span>'
+                        if (list.goods_cart_info.goods_num >0){    //购物车有这商品
+                            html += '<span class="goods-quantity goods-data" data-item_id="'+list.item_id+'" data-goods_id="'+list.goods_id+'" data-shop_id="'+list.shop_id+'" data-sgs_id="'+list.sgs_id+'" data-cart_id="'+list.goods_cart_info.cart_id+'"><b class="goods-reduce" style="display: inline-block">-</b>' +
+                                    '<i class="goods_num_'+list.sgs_id+'" style="display: inline-block">'+list.goods_cart_info.goods_num+'</i>'
+                        }else{
+                            html +=  '<span class="goods-quantity goods-data" data-item_id="'+list.item_id+'" data-goods_id="'+list.goods_id+'" data-shop_id="'+list.shop_id+'" data-sgs_id="'+list.sgs_id+'" ><b class="goods-reduce">-</b><i class="goods_num_'+list.sgs_id+'">0</i>'
+                        }
+                        html +=  '<b class="goods-add" data-store_count="'+list.store_count+'">+</b></span></div></div> </li>';
+                    }
+                    $('#goods_list').append(html);
+                }
+            }
+        });
+    }
+    function checkUser(){
+        var user_id= "{:$_COOKIE['user_id']}";
+        if(user_id > 0){
+            return true
+        }else{
+            layer.open({content:'请先登录！！！',skin: 'msg',time: 1});
+            return false;
+        }
+    }
+    //购物车增加数量
+    var num = 0;
+    $(document).on('click','.goods-add',function(){
+        checkUser();
+        var store_count = $(this).data('store_count');
+        var n = $(this).prev().text();
+        num = parseInt(n) + 1;
+        if (num>store_count){
+            layer.open({content:'库存不足！！',skin: 'msg',time: 1});//库存限制
+        }
+        editCart(this,1);
+    });
+    //购物车减少数量
+    $(document).on('click','.goods-reduce',function(){
+        checkUser();
+        var sgs_id = $(this).parent('.goods-data').data('sgs_id');  //店铺商品表ID
+        var n = $(this).siblings('.goods_num_'+sgs_id).text();
+        num = parseInt(n) - 1;
+        if (num <= 0) {
+            var ids =$(this).parent('.goods-data').data('cart_id')
+            $('.goods_num_'+sgs_id).css("display", "none").text(0);  //隐藏数量
+            $('.goods_num_'+sgs_id).siblings('.goods-reduce').css("display", "none"); //隐藏减号
+            var sgs_id = $(this).parents('li').data('sgs_id');
+            $('.sgs_id_'+sgs_id).children('goods-reduce').css("display", "none");
+            $('.sgs_id_'+sgs_id).children('goods_num').css("display", "none");
+            delCart(ids);
+        }else{
+            editCart(this,-1);
+        }
+    });
+
+    //购物车操作
+    function editCart(obj,goods_num){
+        if(before_request == 0) return false;
+        before_request = 0
+        var goods_id = $(obj).parent('.goods-data').data('goods_id');  //店铺商品表ID
+        var item_id = $(obj).parent('.goods-data').data('item_id');  //店铺商品规格表ID
+        var sgs_id = $(obj).parent('.goods-data').data('sgs_id');  //店铺商品表ID
+        $.ajax({
+            type: "POST",
+            url: "{:U('Cart/ajaxAddCart')}",
+            data: {goods_num:goods_num,item_id:item_id,goods_id:goods_id,shop_id:shop_id,sgs_id:sgs_id},
+            dataType: "json",
+            error: function () {
+                layer.open({content: "服务器繁忙, 请联系管理员!",skin: 'msg',time: 2});
+                before_request = 1;
+                return false;
+            },
+            success: function (data) {
+                if(data.status !=1){
+                    before_request = 1;
+                    layer.open({content:data.msg,skin: 'msg',time: 1});
+                }else{
+                    var goods_num_obj =  $('.goods_num_'+sgs_id);
+                    goods_num_obj.prevAll().css("display", "inline-block");
+                    goods_num_obj.css("display", "inline").text(num);
+                    getCart(shop_id);
+                }
+            }
+        });
+
+    }
+    //清空当前店铺购物车
+    function clearCart(){
+        var ids = '';
+        $('#cart_list li').each(function(i,o){
+            ids += $(o).children('.goods-data').data('cart_id')+',';
+            var sgs_id = $(o).parents('li').data('sgs_id');
+            $('.sgs_id_'+sgs_id).children('goods-reduce').css("display", "none");
+            $('.sgs_id_'+sgs_id).children('goods_num').css("display", "none");
+        })
+        delCart(ids)
+    }
+
+    //删除购物车商品
+    function delCart(ids){
+        if(before_request == 0) return false;
+        before_request = 0
+        $.ajax({
+            type: "get",
+            url: "{:U('Cart/ajaxDelCart')}",
+            data: {ids:ids},
+            dataType: "json",
+            error: function () {
+                layer.open({content: "服务器繁忙, 请联系管理员!",skin: 'msg',time: 2});
+                before_request = 1;
+            },
+            success: function (data) {
+                before_request = 1;
+                if(data.status !=1){
+                    layer.open({content:data.msg,skin: 'msg',time: 1});
+                }else{
+                    window.location.reload();
+                }
+            }
+        });
+
+    }
+
+    /**
+     * 获取购物车商品
+     * @param shop_id
+     */
+    function getCart(shop_id){
+        $.ajax({
+            type: "POST",
+            url: "{:U('Offline/getShopCart')}",
+            data: {shop_id:shop_id},
+            dataType: "json",
+            error: function () {
+                layer.open({content: "服务器繁忙, 请联系管理员!",skin: 'msg',time: 2});
+                before_request = 1
+            },
+            success: function (data) {
+                before_request = 1;
+                if(data.status ==1){
+                    var html = '';
+                    for (var i=0; i < data.result.cartList.length; i++){
+                        var list  = data.result.cartList[i];
+                        html += '<li class="sgs_id"  data-sgs_id="'+list.sgs_id+'"> ' +
+                                    '<span class="car-store-name">'+list.goods_name+''+list.spec_key_name+'</span> ' +
+                                    '<span class="car-goods-price">￥<b>'+list.member_goods_price*list.goods_num+'</b></span> ' +
+                                    '<span class="car-goods-quantity goods-data" data-item_id="'+list.item_id+'" data-goods_id="'+list.goods_id+'" data-shop_id="'+list.shop_id+'" data-sgs_id="'+list.sgs_id+'"  data-cart_id="'+list.id+'">' +
+                                        '<b class="goods-reduce">-</b><i class="goods_num_'+list.sgs_id+'">'+list.goods_num+'</i>' +
+                                        '<b class="goods-add">+</b>' +
+                                    '</span> ' +
+                                '</li>'
+                    }
+                    $('#total_num').html(data.result.total_num);  //总数
+                    $('#total_fee').html(data.result.total_fee);  //总价
+                    $('#cart_list').html(html);  //购物车列表
+                }else{
+                    layer.open({content:data.msg,skin: 'msg',time: 1});
+                }
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

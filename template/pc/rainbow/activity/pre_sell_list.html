@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>预售</title>
+		<meta name="keywords" content="{$seo['keywords']}"/>
+		<meta name="description" content="{$seo['description']}"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css" />
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/global.js"></script>
+        <link rel="shortcut  icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+	</head>
+	<body>
+		<style type="text/css">
+			.page .fr{float: none;position: relative;left: 50%;right: 50%;margin-left: -350px;}
+			.f-total{margin-top: 10px;}
+		</style>
+		<!--header-s-->
+		<include file="public/header" w='w1224'/>
+			<!--header-e-->
+		<div class="search-box p">
+			<div class="w1224">
+				<div class="search-path fl">
+					<a>全部结果</a>
+					<i class="litt-xyb"></i>
+					<span>预售活动</span>
+				</div>
+			</div>
+		</div>
+		<script>
+			// 倒计时
+			function GetRTime2(){
+				//var text = GetRTime('2016/02/27 17:34:00');
+			<foreach name="pre_sell_list" item="v" key="k" >
+						<if condition="$v['sell_end_time'] lt time()">
+					var text{$v[goods_id]}_{$v[item_id]} = "活动已结束";
+			<elseif condition="($v['sell_end_time'] gt time()) AND ($v['sell_start_time'] lt time())" />
+				var text{$v[goods_id]}_{$v[item_id]} = "预售中 剩余" + GetRTime('{$v.sell_end_time|date="Y/m/d H:i:s",###}');
+			<else />
+				var text{$v[goods_id]}_{$v[item_id]} = "预热中 剩余" + GetRTime('{$v.sell_start_time|date="Y/m/d H:i:s",###}');
+			</if>
+				$("#surplus_text{$v[goods_id]}_{$v[item_id]}").text(text{$v[goods_id]}_{$v[item_id]});
+			</foreach>
+			}
+			setInterval(GetRTime2,1000);
+		</script>
+		<div class="shop-list-tour p">
+			<div class="w1224">
+				<div class="stsho pre-sts">
+					<div class="shop-list-splb pre-set-suma p">
+						<ul>
+							<empty name="pre_sell_list">
+								<p class="ncyekjl" style="font-size: 16px;margin:100px auto;text-align: center;">--暂无预售商品--</p>
+								<else/>
+									<volist name="pre_sell_list" id="vo">
+										<li>
+											<div class="s_xsall">
+												<div class="xs_img">
+													<a href="{:U('Home/Goods/goodsInfo',array('id'=>$vo['goods_id'],'item_id'=>$vo['item_id']))}">
+														<img class="lazy-list" data-original="{$vo.goods_id|goods_thum_images=262,262,$vo.item_id}" />
+													</a>
+												</div>
+												<div class="shop_name2">
+													<a href="{:U('Home/Goods/goodsInfo',array('id'=>$vo['goods_id'],'item_id'=>$vo['item_id']))}">
+														{$vo.goods_name}
+													</a>
+												</div>
+												<div class="price-tag">
+													<span class="now"><em class="li_xfo">￥</em><em>{$vo.ing_price}</em></span>
+													<span class="pre-per">已购<em>{$vo.deposit_goods_num}</em>件</span>
+													<div class="sjs-olde p">
+														<p class="djs-cctime" ><span id="surplus_text{$vo[goods_id]}_{$vo[item_id]}"></span></p>
+													</div>
+												</div>
+											</div>
+										</li>
+									</volist>
+								</empty>
+						</ul>
+					</div>
+					<!-- page -->
+					<div class="page p">
+						<div class="operating fixed" id="bottom">
+							<div class="fn_page clearfix">
+								{$page->show()}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--footer-s-->
+		<div class="footer p">
+            <include file="public/footer" />
+			<include file="public/sidebar_cart" />
+		</div>
+		<!--footer-e-->
+		<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+		</script>
+	</body>
+</html>

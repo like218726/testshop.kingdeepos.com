@@ -1,0 +1,210 @@
+<include file="public/layout" />
+<script type="text/javascript">
+  var SITEURL = window.location.host +'/index.php/admin';
+</script>
+<script type="text/javascript" src="__PUBLIC__/static/js/dialog/dialog.js" id="dialog_js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/js/perfect-scrollbar.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/js/seller/common.js"></script>
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+	<div class="fixed-bar">
+		<div class="item-title">
+			<div class="subject">
+				<h3>分销商等级</h3>
+				<h5></h5>
+			</div>
+			<ul class="tab-base nc-row">
+				<li><a href="{:U('System/index',array('inc_type'=>'distribut'))}" class="" ><span>默认分销规则</span></a></li>
+				<li><a href="{:U('Distribut/grade_list')}" class="current" ><span>分销商等级</span></a></li>
+				<!--<li><a href="{:U('Distribut/agent_list')}" class="" ><span>区域代理商</span></a></li>
+				<li><a href="{:U('Distribut/partner_list')}" class="" ><span>全民股东</span></a></li>-->
+            </ul>
+		</div>
+	</div>
+	<!-- 操作说明 -->
+	<div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
+		<div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
+			<h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+			<span title="收起提示" id="explanationZoom" style="display: block;"></span>
+		</div>
+		<ul>
+			<li>分销商等级, 由平台设置管理.</li>
+		</ul>
+	</div>
+	<div class="flexigrid">
+		<div class="hDiv">
+			<div class="hDivBox">
+				<table cellspacing="0" cellpadding="0">
+					<thead>
+					<tr>
+						<th class="sign" axis="col0">
+							<div style="width: 24px;"><i class="ico-check"></i></div>
+						</th>
+						<th align="left" abbr="article_title" axis="col3" class="">
+							<div style="text-align: left; width: 100px;" class="">等级名称</div>
+						</th>
+						<th align="left" abbr="ac_id" axis="col4" class="">
+							<div style="text-align: left; width: 100px;" class="">一级佣金比例</div>
+						</th>
+						<th align="center" abbr="article_show" axis="col5" class="">
+							<div style="text-align: center; width: 100px;" class="">二级佣金比例</div>
+						</th>
+						<th align="center" abbr="article_time" axis="col6" class="">
+							<div style="text-align: center; width: 100px;" class="">三级佣金比例</div>
+						</th>
+						<th align="center" abbr="article_time" axis="col6" class="">
+							<div style="text-align: center; width: 180px;" class="">升级条件</div>
+						</th>
+						<th align="center" axis="col1" class="handle">
+							<div style="text-align: center; width: 150px;">操作</div>
+						</th>
+						<th style="width:100%" axis="col7">
+							<div></div>
+						</th>
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div class="tDiv">
+			<div class="tDiv2">
+				<div class="fbutton">
+					<a href="javascript:;"  onClick="CUR_DIALOG = ajax_form('grade_info', '编辑分销商等级', '{:U('Distribut/grade_info')}');">
+						<div class="add" title="添加新等级">
+							<span><i class="fa fa-plus"></i>添加新等级</span>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		<div class="bDiv" style="height: auto;">
+			<div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+				<table>
+					<tbody>
+						<tr class="">
+							<td class="sign">
+								<div style="width: 24px;"><i class="ico-check"></i></div>
+							</td>
+							<td align="left" class="">
+								<div style="text-align: left; width: 100px;">默认分销商</div>
+							</td>
+							<td align="center"  class="">
+								<div style="text-align: left; width: 100px;">
+									{$config.first_rate}%
+								</div>
+							</td>
+							<td align="center" >
+								<div style="text-align: left; width: 100px;">
+									{$config.second_rate}%
+								</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: left; width: 100px;">
+									{$config.third_rate}%
+								</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 180px;">
+									--
+								</div>
+							</td>
+							<td align="center" class="handle">
+								<div style="text-align: center; width: 170px; max-width:170px;">
+									<a href="{:U('System/index',array('inc_type'=>'distribut'))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>编辑</a>
+								</div>
+							</td>
+							<td align="" class="" style="width: 100%;">
+								<div>&nbsp;</div>
+							</td>
+						</tr>
+					<foreach name="grade_list" item="vo" key="k" >
+						<tr class="">
+							<td class="sign">
+								<div style="width: 24px;"><i class="ico-check"></i></div>
+							</td>
+							<td align="left" class="">
+								<div style="text-align: left; width: 100px;">{$vo.level_name}</div>
+							</td>
+							<td align="center"  class="">
+								<div style="text-align: left; width: 100px;">
+									<input style="text-align: left;" type="text" onchange="changeTableVal('distribut_level','level_id','{$vo.level_id}','rate1',this)"  size="10"  value="{$vo.rate1}" />%
+								</div>
+							</td>
+							<td align="center" >
+								<div style="text-align: left; width: 100px;">
+									<input style="text-align: left;" type="text" onchange="changeTableVal('distribut_level','level_id','{$vo.level_id}','rate2',this)"  size="10"  value="{$vo.rate2}" />%
+								</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: left; width: 100px;">
+									<input style="text-align: left;" type="text" onchange="changeTableVal('distribut_level','level_id','{$vo.level_id}','rate3',this)"  size="10"  value="{$vo.rate3}" />%
+								</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 180px;">
+									累计获佣金额满 {$vo.order_money}元
+								</div>
+							</td>
+							<td align="center" class="handle">
+								<div style="text-align: center; width: 170px; max-width:170px;">
+									<a href="javascript:;" class="btn blue" onClick="CUR_DIALOG = ajax_form('grade_info', '编辑分销商等级', '{:U('Distribut/grade_info',array("level_id"=>$vo[level_id]))}');"><i class="fa fa-pencil-square-o"></i>编辑</a>
+									<!--<a class="btn red"  href="javascript:void(0)" data-url="{:U('Article/linkHandle')}" data-id="{$vo.evel_id}" onClick="delfun(this)"><i class="fa fa-trash-o"></i>删除</a>-->
+								</div>
+							</td>
+							<td align="" class="" style="width: 100%;">
+								<div>&nbsp;</div>
+							</td>
+						</tr>
+					</foreach>
+					</tbody>
+				</table>
+			</div>
+			<div class="iDiv" style="display: none;"></div>
+		</div>
+		<!--分页位置-->
+		{$page} </div>
+</div>
+<script>
+	$(document).ready(function(){
+		// 表格行点击选中切换
+		$('#flexigrid > table>tbody >tr').click(function(){
+			$(this).toggleClass('trSelected');
+		});
+
+		// 点击刷新数据
+		$('.fa-refresh').click(function(){
+			location.href = location.href;
+		});
+
+	});
+
+
+	function delfun(obj) {
+		// 删除按钮
+		layer.confirm('确认删除？', {
+			btn: ['确定', '取消'] //按钮
+		}, function () {
+			$.ajax({
+				type: 'post',
+				url: $(obj).attr('data-url'),
+				data : {act:'del',link_id:$(obj).attr('data-id')},
+				dataType: 'json',
+				success: function (data) {
+					layer.closeAll();
+					if (data) {
+						$(obj).parent().parent().parent().remove();
+					} else {
+						layer.alert('删除失败', {icon: 2});  //alert('删除失败');
+					}
+				}
+			})
+		}, function () {
+			layer.closeAll();
+		});
+	}
+</script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+<include file="public/left"/>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>供应商<i class="icon-angle-right"></i>商品销售商</div>
+    <div class="main-content" id="mainContent">
+<div class="tabmenu">
+    <ul class="tab pngFix">
+  <li class="active"><a href="">商品销售商</a></li>
+  </ul>
+</div>
+<div class="alert mt15 mb5">
+	操作提示：
+	<ul>
+		<li>1、当商品状态为“待审理”时，表示源供应商品修改了部分商品数据（如供货价、运费等），销售商需要审理后才能正常上架</li>
+	</ul>
+</div>
+<table class="ncsc-default-table">
+  <thead>
+    <tr>
+    <th class="w20">&nbsp;</th>
+      <th class="tl">销售商名称</th>
+      <th class="tl">商品状态</th>
+	  <th class="tl">库存</th>
+      <th class="tl">销量</th>
+    </tr>
+  </thead>
+  <tbody>
+  <empty name="goods_list">
+    <tr>
+      <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+    </tr>
+  <else/>
+  <php>
+	$sgs_txt = [
+		'0' => '正常供应',
+		'1' => '变价待审理',
+    '2' => '暂停供应',
+		'3' => '暂停供应',
+	];
+  </php>
+  <foreach name="goods_list" item="vo">
+   <tr class="bd-line">
+      <td></td>
+      <td class="tl">{$vo.store_name}</td>
+      <td class="tl">{$sgs_txt[$vo.supplier_goods_status]}<if condition="$vo.supplier_goods_status eq 1">{$dealer_status[$store['store_id']] == 2 ?= '(拒绝变价)'}</if></td>
+      <td class="tl">{$vo.store_count}</td>
+      <td class="tl">{$vo.sales_sum}</td>
+    </tr>
+  </foreach>
+  </empty>  
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="20"><div class="pagination">{$page}</div></td>
+    </tr>
+  </tfoot>
+</table>
+    </div>
+  </div>
+</div>
+<include file="public/foot"/>
+<script type="text/javascript">
+function handleSupplier(obj, act){
+	act == 'agree' ? tit = '确认同意？' : (act == 'refuse' ? tit = '确认拒绝？' : tit = '');
+	layer.confirm(tit, {
+		  btn: ['确定','取消'] //按钮
+		}, function(){
+		    // 确定
+				$.ajax({
+					type : 'post',
+					url : '{:U("Store/seller_apply_handle")}',
+					data : {act: act, id:$(obj).attr('data-id')},
+					dataType : 'json',
+					success : function(data){
+                        layer.closeAll();
+						if(data.status == 1){
+							layer.msg(data.msg, {icon: 1, end: function(){
+								location.reload();
+							}});
+						}else{
+							layer.msg(data.msg, {icon: 2,time: 2000});
+						}
+					}
+				})
+		}, function(index){
+			layer.close(index);
+			return false;// 取消
+		}
+	);
+}
+
+</script>
+</body>
+</html>

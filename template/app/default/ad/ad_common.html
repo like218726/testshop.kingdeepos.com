@@ -1,0 +1,14 @@
+<include file="public/header" title="首页"/>
+<body style="background-color: #FFF; overflow: auto;"> 
+<div class="pos-wrap" style="">
+    <img src="__STATIC__/images/ad/{$Request.param.img_url}" style="width:375px; height: auto;"> 
+    <adv limit="1" item="v" pid="$_GET['pid']">
+            <a class="inset-banner2"  href="{$v.ad_link}&is_app_ad=1&suggestion=750*244">
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
+            </a>
+    </adv> 
+</div>
+</body>
+</html>
+
+ 

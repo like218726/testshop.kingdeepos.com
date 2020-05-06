@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>用户帮助</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/distribut/css/main.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/style.css">
+    <script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<!--app不要头部-->
+<if condition="$Request.param.app lt 1">
+<div class="classreturn loginsignup ">
+    <div class="content">
+        <div class="ds-in-bl return">
+            <a href="javascript:history.back(-1);"><img src="__STATIC__/images/return.png" alt="返回"></a>
+        </div>
+        <div class="ds-in-bl search center">
+            <span>帮助手册</span>
+        </div>
+
+    </div>
+</div></if>
+<foreach name="list" item="v" key="k">
+    <div class="greenhand_question" style="white-space:nowrap;overflow:hidden;">
+        <a href="/mobile/article/userHelpInfo?article_id={$v['article_id']}&app={$Request.param.app}">
+            <p>{$k+1}、{$v['title']}</p>
+            <i class="icon-arrow_r"></i>
+        </a>
+    </div>
+</foreach>
+
+
+</body>
+</html>

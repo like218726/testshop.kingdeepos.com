@@ -1,0 +1,105 @@
+<if condition="$count gt 0">
+  <div style="border-bottom:none;" class="assess-flat " id="comList">
+      <volist name="commentlist" id="v" key="k">
+            <span class="assess-wrapper"  >
+                <div class="assess-top clearfix">
+                    <span class="user-portrait pinlun-wenzi">
+                        <img src="{$v['head_pic']|default='__STATIC__/images/user68.jpg'}">
+                    </span>
+                    <div class="auto-anm-1">
+                        <div class="clearfix">
+                            <span class="user-name">
+                                <if condition="$v['is_anonymous'] eq 0">
+                                    匿名用户
+                                    <else />
+                                    {$v['nickname']}
+                                </if>
+                            </span>
+                            <span class="comment-item-star">
+                                <span class="real-star comment-stars-width{$v['goods_rank']|floor}"></span>
+                            </span>
+                        </div>
+                        <div class="assess-bottom">
+                   
+                            <p class="assess-content">{$v['content']|htmlspecialchars_decode}</p>
+                            <div class="product-img-module">
+                                <a class="J_ping">
+                                    <ul class="jd-slider-container gallery">
+                                        <foreach name="v['img']" key="key" item="v2">
+                                            <li class="jd-slider-item product-imgs-li">
+                                                <a href="{$v2}"><img src="{$v2}" width="100px" height="100px"></a>
+                                            </li>
+                                        </foreach>
+                                    </ul>
+                                </a>
+                            </div>
+                            <!--商家回复-s-->
+                            <foreach name="replyList" item="reply">
+                                <if condition="$reply['parent_id']  eq $v['comment_id']">
+                                    <p class="pay-date">{$reply['username']|default='商家'}回复：{$reply['content']}</p>
+                                </if>
+                            </foreach>
+                            <!--商家回复-e-->
+                        </div>
+                    </div>
+                    <span class="assess-date">{$v.add_time|date='Y-m-d H:i',###}</span>
+                </div>
+             
+            </span>
+      </volist>
+    </div>
+<else/>
+     <script>
+         $('.getmore').hide();
+     </script>
+</if>
+<link href="__STATIC__/css/photoswipe.css" rel="stylesheet" type="text/css">
+<script src="__STATIC__/js/klass.min.js"></script>
+<script src="__STATIC__/js/photoswipe.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var gallery_a = $(".gallery a");
+        if(gallery_a.length > 0){
+            $(".assess-wrapper .gallery a").photoSwipe({
+                enableMouseWheel: false,
+                enableKeyboard: false,
+                allowUserZoom: false,
+                loop:false
+            });
+        }
+    });
+    // 限制详情页的评论条数
+    var lyan = $('.assess-flat').eq(1).children('.assess-wrapper');
+    for (let i = 0; i < lyan.length; i++) {
+        $(lyan)
+      if(i > 1){
+        $(lyan[i]).remove();
+      }
+        
+    }
+
+     var page = {$Request.param.p};
+     function ajax_sourch_submit() {
+         page += 1;
+         $.ajax({
+             type: "GET",
+             url: "{:U('Mobile/Goods/ajaxComment',array('goods_id'=>$Request.param.goods_id,'commentType'=>$commentType),'')}"+"/p/" + page,
+             success: function (data) {
+                 $('.getmore').hide();
+                 if ($.trim(data) != ''){
+                     $("#comList").append(data);
+                 }
+             }
+         });
+     }
+     function ajax_sourch_submit_hide(){
+         $('.getmore').hide();
+     }
+
+     //点赞
+     function hde(){
+         setTimeout(function(){
+             $('.alert').hide();
+         },1200)
+     }
+ </script>

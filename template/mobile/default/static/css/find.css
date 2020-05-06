@@ -1,0 +1,262 @@
+header {
+  height: 1.17333333rem;
+  width: 100%;
+  background-color: #ff3535;
+  overflow: hidden;
+}
+header .touxiang {
+  width: 0.74666667rem;
+  height: 0.74666667rem;
+  border-radius: 50%;
+  float: left;
+  overflow: hidden;
+  margin-top: 0.22666667rem;
+}
+header .touxiang img {
+  width: 0.81333333rem;
+  height: 0.81333333rem;
+}
+header .search {
+  float: right;
+  width: 0.61333333rem;
+  height: 1.17333333rem;
+  background: url("../images/search_icon@2x.png") no-repeat left center;
+  background-size: contain;
+}
+header h1 {
+  padding-left: 0.29333333rem;
+  padding-right: 0.61333333rem;
+  font-size: 0.48rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  line-height: 1.17333333rem;
+  height: 1.17333333rem;
+}
+nav {
+  height: 1.06666667rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+nav .wrap {
+  height: 100%;
+}
+nav .nav_list {
+  width: 100%;
+  padding: 0 0.18666667rem;
+}
+nav .nav_list li {
+  float: left;
+  font-size: 0.4rem;
+  height: 1.06666667rem;
+  line-height: 1.06666667rem;
+  color: #1b1b1b;
+  text-align: center;
+  margin-right: 1.25333333rem;
+}
+nav .nav_list li:last-child {
+  margin-right: 0;
+}
+nav .nav_list li.active {
+  color: #ff3535;
+  position: relative;
+  font-weight: bold;
+}
+nav .nav_list li.active::after {
+  content: '';
+  width: 0.48rem;
+  height: 0.06666667rem;
+  border-radius: 0.03333333rem;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ff3535;
+}
+.trends {
+  background-color: #fff;
+  overflow: hidden;
+  margin-bottom: 1.33333333rem;
+}
+.trends .trends_content ul li {
+  margin-top: 0.37333333rem;
+  height: 5.52rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.trends .trends_content ul li:last-child {
+  border-bottom: 0;
+}
+.trends .trends_content ul li .trends_left {
+  float: left;
+  width: 1.49333333rem;
+  height: 100%;
+}
+.trends .trends_content ul li .trends_left a {
+  display: block;
+  width: 1.14666667rem;
+  height: 1.14666667rem;
+  border-radius: 0.06666667rem;
+  overflow: hidden;
+}
+.trends .trends_content ul li .trends_left a img {
+  width: 1.48rem;
+  height: auto;
+}
+.trends .trends_content ul li .trends_right {
+  padding-left: 1.49333333rem;
+  padding-right: 0.26666667rem;
+}
+.trends .trends_content ul li .trends_right h3 {
+  height: 0.42666667rem;
+  font-size: 0.42666667rem;
+  line-height: 0.42666667rem;
+  color: #191919;
+}
+.trends .trends_content ul li .trends_right h3 .redu {
+  font-size: 0.29333333rem;
+  padding-left: 0.66666667rem;
+  color: #ff3535;
+  position: relative;
+}
+.trends .trends_content ul li .trends_right h3 .redu::before {
+  content: '';
+  position: absolute;
+  width: 0.24rem;
+  height: 0.29333333rem;
+  left: 0.26666667rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: url("../images/fire@2x.png") no-repeat;
+  background-size: contain;
+}
+.trends .trends_content ul li .trends_right h3 .attention {
+  float: right;
+  width: 1.2rem;
+  height: 0.50666667rem;
+  border-radius: 0.25333333rem;
+  border: 0.02666667rem solid #ff3535;
+  line-height: 0.45333333rem;
+  text-align: center;
+  color: #ff3535;
+  font-size: 0.29333333rem;
+  font-weight: normal;
+}
+.trends .trends_content ul li .trends_right .info_content {
+  width: 100%;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 0.37333333rem;
+  color: #333;
+  margin-top: 0.24rem;
+  margin-bottom: 0.4rem;
+}
+.trends .trends_content ul li .trends_right .trend_images {
+  height: 2.4rem;
+}
+.trends .trends_content ul li .trends_right .trend_images a {
+  float: left;
+  width: 31%;
+  height: 2.4rem;
+  margin-right: 3%;
+  overflow: hidden;
+}
+.trends .trends_content ul li .trends_right .trend_images a img {
+  width: 2.4rem;
+  height: auto;
+}
+.trends .trends_content ul li .trends_right .trend_images a:last-child {
+  margin-right: 0;
+}
+.trends .trends_content ul li .trends_right .trends_bottom {
+  margin: 0.32rem 0;
+}
+.trends .trends_content ul li .trends_right .trends_bottom .time {
+  float: left;
+  font-size: 0.32rem;
+  color: #999;
+}
+.trends .trends_content ul li .trends_right .trends_bottom .zan {
+  font-size: 0.32rem;
+  color: #999;
+  float: right;
+  position: relative;
+  padding-left: 0.53333333rem;
+}
+.trends .trends_content ul li .trends_right .trends_bottom .zan-light {
+  font-size: 0.32rem;
+  color: #999;
+  float: right;
+  position: relative;
+  padding-left: 0.53333333rem;
+}
+.trends .trends_content ul li .trends_right .trends_bottom .zan::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 0.38666667rem;
+  height: 0.4rem;
+  background: url("../images/zan@2x.png") no-repeat;
+  background-size: contain;
+}
+.trends .trends_content ul li .trends_right .trends_bottom .zan-light::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 0.38666667rem;
+  height: 0.4rem;
+  background: url("../images/zan-light.png") no-repeat;
+  background-size: contain;
+}
+.trends .trends_content ul li .trends_right .trends_bottom input {
+  float: right;
+  font-size: 0;
+  width: 0.72rem;
+  height: 0.4rem;
+  background: url("../images/xiaoxi@2x.png") no-repeat;
+  background-size: contain;
+  margin-left: 0.4rem;
+}
+.fudong {
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background: #ff3535 url("../images/fabu@2x.png") no-repeat center center;
+  background-size: 0.61333333rem 0.65333333rem;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+  position: fixed;
+  right: 0.26666667rem;
+  bottom: 2.26666667rem;
+  z-index: 100;
+}
+footer {
+  position: fixed;
+  width: 100%;
+  height: 1.33333333rem;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+footer a {
+  margin-top: 0.2rem;
+  float: left;
+  width: 20%;
+  padding: 0 5%;
+  text-align: center;
+}
+footer a img {
+  display: block;
+  width: auto;
+  height: 0.56rem;
+  margin: 0 auto;
+}
+footer a span {
+  font-size: 0.29333333rem;
+}
+footer a span.active {
+  color: #ff3535;
+}
+
+/*# sourceMappingURL=find.css.map */

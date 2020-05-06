@@ -1,0 +1,329 @@
+<include file="public/header" title="我的拼团订单" body="g4" />
+<include file="public/header_nav" title="我的拼团订单" href="{:U('User/index')}" />
+<style>
+    body {
+        padding-top: 3.584rem;
+    }
+
+    .classreturn {
+        position: fixed;
+        top: 0;
+    }
+
+    .tit-flash-sale {
+        position: fixed;
+        top: 1.87733rem;
+        width: 16rem;
+        z-index: 9;
+    }
+
+    .paycloseto .shopimg,
+    .paycloseto .shopimg img {
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+
+    .maleri30 {
+        margin: .427rem .427rem 0;
+    }
+
+    .maleri {
+        margin: 0 .427rem;
+    }
+    .maleri_one{
+        margin-right: .427rem;
+    }
+    .paycloseto {
+        width: 14.29rem;
+        height: auto;
+        margin: 0;
+    }
+
+    .se_sclist .deleshow {
+        height: auto;
+        width: 11.09rem;
+    }
+
+    .price-alln .threel {
+        font-size: .512rem;
+        color: #999;
+        margin-right: .427rem;
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .price-alln .order_t span:nth-child(1) {
+        color: #666;
+        font-size: .512rem;
+    }
+
+    .sc_list .deleshow .deletes {
+        display: flex;
+    }
+    .sc_list .deleshow .deletes .similar-product-text {
+    height: 1.5rem;
+}
+.des-mes .similar-pro-text{
+        margin-top: .58rem;
+        width: 8rem;
+    }
+    .deleshow .product_r {
+        width: 3.643rem;
+        text-align: right;
+        color: #999;
+        font-size: .47rem;
+        line-height: 0.64rem;
+        padding-top: .05rem;
+    }
+
+    .deleshow .product_r .weight span {
+        font-size: .4rem;
+    }
+    .price-alln{
+        padding-right: 0;
+    }
+    .buttondde{
+        right: 0;
+    bottom: .25rem;
+    }
+</style>
+<div class="tit-flash-sale p mytit_flash">
+    <div class="addset-wrap-h">
+        <ul class="addset-h">
+            <li <if condition="$Request.param.type eq ''">class="red"</if>>
+                <a href="{:U('/Mobile/Order/team_list')}" class="tab_head">全部订单</a>
+            </li>
+            <li id="WAITPAY" <if condition="$Request.param.type eq 'WAITPAY'">class="red"</if>">
+                <a href="{:U('/Mobile/Order/team_list',array('type'=>'WAITPAY'))}" class="tab_head">待付款</a>
+            </li>
+            <li id="WAITTEAM" <if condition="$Request.param.type eq 'WAITTEAM'">class="red"</if>">
+                <a href="{:U('/Mobile/Order/team_list',array('type'=>'WAITTEAM'))}" class="tab_head">待成团</a>
+            </li>
+            <li id="WAITSEND" <if condition="$Request.param.type eq 'WAITSEND'">class="red"</if>>
+                <a href="{:U('/Mobile/Order/team_list',array('type'=>'WAITSEND'))}" class="tab_head">待发货</a>
+            </li>
+            <li id="WAITRECEIVE" <if condition="$Request.param.type eq 'WAITRECEIVE'">class="red"</if>>
+                <a href="{:U('/Mobile/Order/team_list',array('type'=>'WAITRECEIVE'))}" class="tab_head">待收货</a>
+            </li>
+            <li id="WAITCCOMMENT" <if condition="$Request.param.type eq 'WAITCCOMMENT'">class="red"</if>>
+                <a href="{:U('/Mobile/Order/team_list',array('type'=>'WAITCCOMMENT'))}" class="tab_head">已完成</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!--订单列表-s-->
+<div class="ajax_return">
+    <empty name="order_list">
+        <!--没有内容时-s--->
+        <div class="comment_con p">
+            <div class="none">
+                <img src="__STATIC__/images/none2.png">
+                <br><br>抱歉未查到数据！
+                <div class="paiton">
+                    <div class="maleri30">
+                        <a class="soon" href="{:U('Index/index')}"><span>去逛逛</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--没有内容时-e--->
+        <else />
+        <volist name="order_list" id="order">
+            <div class="mypackeg ma-to-20 getmore">
+                <div class="packeg p">
+                    <div class="maleri">
+                        <div class="fl">
+                            <h1>
+                                <a href="{:U('mobile/Store/index',['store_id'=>$order[store][store_id]])}">
+                                    <span class="bg"></span>
+                                    <span class="bgnum">{$order[store][store_name]}</span>
+                                </a>
+                            </h1>
+                        </div>
+                        <div class="fr">
+                            <span>{$order[order_status_detail]}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-mfive p">
+                    <div class="maleri30">
+                        <volist name="order[order_goods]" id="goods">
+                            <div class="sc_list se_sclist paycloseto">
+                                <a href="{:U('/Mobile/Order/team_detail',array('order_id'=>$order[order_id]))}">
+                                    <div class="shopimg fl">
+                                        <img src="{$goods[goods_id]|goods_thum_images=200,200,$goods.item_id}">
+                                    </div>
+                                    <div class="deleshow fr">
+                                        <div class="deletes">
+                                            <span
+                                                class="similar-product-text">{$goods[goods_name]|getSubstr=0,20}</span>
+                                            <div class="product_r">
+                                                <p class="sc_pri">
+                                                    <span>￥</span><span>{$goods[member_goods_price]}</span></p>
+                                                <p class="weight"><span>x</span><span>{$goods[goods_num]}</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="des-mes">
+                                            <span class="similar-pro-text">{$goods[spec_key_name]}</span>
+                                        </div>
+
+
+                                        <div class="buttondde">
+                                            <if
+                                                condition="($order[order_button][return_btn] eq 1) and ($goods[is_send] lt 2)">
+                                                <a
+                                                    href="{:U('Mobile/Order/return_goods',['rec_id'=>$goods['rec_id']])}">申请售后</a>
+                                            </if>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </volist>
+                    </div>
+                    <div class="shop-rebuy-price p">
+                        <div class="maleri">
+                            <span class="price-alln">
+                                <span class="threel">共{$order[order_goods]|count}件商品</span>
+                                <div class="order_t"><span>订单总价：</span><span class="red">￥{$order[total_amount]}</span>
+                                </div>
+
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- 立即付款 -->
+                <if condition="$order.order_button[pay_btn] eq 1">
+                    <div class="shop-rebuy-price p">
+                        <div class="maleri_one">
+                            <a class="shop-rebuy paysoon"
+                                href="{:U('Mobile/Team/order',array('order_id'=>$order[order_id]))}">立即付款</a>
+                        </div>
+                    </div>
+                </if>
+                <!-- 取消订单 -->
+                <if condition="$order.order_button[cancel_btn] eq 1">
+                    <div class="shop-rebuy-price p">
+                        <div class="maleri_one">
+                            <a class="shop-rebuy " onClick="cancel_order({$order.order_id})">取消订单</a>
+                        </div>
+                    </div>
+                </if>
+                <!-- 确认收货 -->
+                <if condition="$order.order_button[receive_btn] eq 1">
+                    <div class="shop-rebuy-price p">
+                        <div class="maleri_one">
+                            <a class="shop-rebuy paysoon" onclick="order_confirm({$order['order_id']})">确认收货</a>
+                        </div>
+                    </div>
+                </if>
+                <!-- 评价晒单 -->
+                <if condition="$order.order_button[comment_btn] eq 1">
+                    <div class="shop-rebuy-price p">
+                        <div class="maleri_one">
+                            <a class="shop-rebuy" href="{:U('Mobile/Order/comment',['status'=>0])}">评价晒单</a>
+                        </div>
+                    </div>
+                </if>
+                <!-- 查看物流 -->
+                <if condition="$order.order_button[shipping_btn] eq 1">
+                    <div class="shop-rebuy-price p">
+                        <div class="maleri_one">
+                            <a class="shop-rebuy"
+                                href="{:U('Mobile/Order/express',array('order_id'=>$order['order_id']))}">查看物流</a>
+                        </div>
+                    </div>
+                </if>
+            </div>
+        </volist>
+    </empty>
+</div>
+<!--订单列表-e-->
+<!--加载更多-s-->
+<notempty name="order_list">
+    <div id="getmore"
+        >
+        <a>已显示完所有记录</a>
+    </div>
+</notempty>
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+
+    /**
+     * 确认收货
+     * @param orderId
+     */
+    function order_confirm(orderId) {
+        if (!confirm("确定收货?"))
+            return false;
+        $.ajax({
+            url: "{:U('Order/order_confirm')}",
+            type: 'POST',
+            dataType: 'JSON',
+            data: { order_id: orderId },
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.open({ content: data.msg, time: 2 });
+                    location.href = '/index.php?m=mobile&c=Order&a=team_detail&order_id=' + orderId;
+                } else {
+                    layer.open({ content: data.msg, time: 2 });
+                    location.href = '/index.php?m=mobile&c=Order&a=team_list&type={$Request.param.type}&p={$Request.param.p}';
+                }
+            },
+            error: function () {
+                layer.open({ content: '网络失败，请刷新页面后重试', time: 2 });
+            }
+        })
+    }
+
+    /**
+     * 取消订单
+     */
+    function cancel_order(id) {
+        if (!confirm("确定取消订单?"))
+            return false;
+        $.ajax({
+            type: 'GET',
+            url: "/index.php?m=Mobile&c=Order&a=cancel_order&id=" + id,
+            dataType: 'JSON',
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.open({ content: data.msg, time: 2 });
+                    location.href = "/index.php?m=Mobile&c=Order&a=team_list";
+                } else {
+                    layer.open({ content: data.msg, time: 2 });
+                    return false;
+                }
+            },
+            error: function () {
+                layer.open({ content: '网络失败，请刷新页面后重试', time: 3 });
+            }
+        });
+    }
+
+    var page = 1;
+    /**
+     *加载更多
+     */
+    function ajax_sourch_submit() {
+        page += 1;
+        $.ajax({
+            type: "GET",
+            url: "/index.php?m=Mobile&c=Order&a=team_list&type={$Request.param.type}&p=" + page,//+tab,
+            success: function (data) {
+                if (data == '') {
+                    $('#getmore').show();
+                    return false;
+                } else {
+                    $(".ajax_return").append(data);
+                    $(".m_loading").hide();
+                }
+            }
+        });
+    }
+</script>
+</body>
+
+</html>

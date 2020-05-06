@@ -1,0 +1,126 @@
+<include file="public/header" title="{$tpshop_config['shop_info_store_name']}砍价" body="g4"/>
+<include file="public/header_nav" title="{$tpshop_config['shop_info_store_name']}砍价" href="{:U('User/index')}" back="back"/>
+<div class="ol-tabs">
+    <ul>
+        <li data-type="0" class="red" onclick="ajax_sourch_submit(this,1)">全部</li>
+        <li data-type="1" onclick="ajax_sourch_submit(this,1)">砍价中</li>
+        <li data-type="2" onclick="ajax_sourch_submit(this,1)">待购买</li>
+        <li data-type="3" onclick="ajax_sourch_submit(this,1)">已支付</li>
+        <li data-type="4" onclick="ajax_sourch_submit(this,1)">未支付</li>
+        <li data-type="5" onclick="ajax_sourch_submit(this,1)">失败</li>
+    </ul>
+    <div class="ol-tool"></div>
+</div>
+<div class="ol-list">
+    <ul id="page">
+
+    </ul>
+</div>
+<div class="bargain-accounts">
+    <span ><a href="{:U('Bargain/bargain_list')}" style="display: block;">砍价商品列表</a></span>
+    <span class="gradient"><a href="" style="display: block;color: #fff">我的砍价</a></span>
+</div>
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script>
+    $('.bargain-accounts').on('click','span',function () {
+        $('.bargain-accounts').find('a').css('color','#333333');
+        $(this).addClass('gradient').css('color','#ffffff').siblings().removeClass().css('color','#333333');
+    })
+    $('.ol-tabs').on('click','li',function () {
+        $(this).css('color','#FF0000').siblings().css('color','#666666').parent().next().css('left',$(this).index()*$(this).width());
+    })
+
+
+    var  page = 1;
+    var ajax_status = 1;
+    type = 0;
+    ajax_sourch_submit(-1,1)
+    /**
+     *加载更多
+     */
+    function ajax_sourch_submit(obj,num)
+    {
+        if($(obj).data('type') > -1){
+            type = $(obj).data('type');
+        }
+        page += 1;
+        if(num == 1){
+            page=1;
+            ajax_status =1;
+        }
+        if(ajax_status == 0){
+            return ;
+        }
+        ajax_status =0;
+
+        $.ajax({
+            type : "POST",
+            dataType:'JSON',
+            url:"/index.php?m=api&c=Bargain&a=order_list&type="+type+"&is_ajax=1&p="+page,//+tab,
+            success: function(data)
+            {
+                if(data.status == 1) {
+                    if(data.result.length >0){
+                        ajax_status = 1;
+                        var html = '';
+                        $.each(data.result,function (i,o) {
+                            html +='<li><div class="pl-left"><a ><img src="'+o.original_img+'"/></a></div>';
+                            var item_key = o.item_key?o.item_key:'';
+                            html +=' <div class="pl-right"><p class="pr-title">'+o.promotionBargain.goods_name+'  '+item_key+'</p>';
+                            switch (o.status)
+                            {
+                                case 0:
+                                    html +='<div class="pr-price"><p>现价 <i>¥ '+o.end_price+'</i></p><span>原价 ¥ '+o.goods_price+'</span><span>剩余 '+o.remain_num+'件</span></div><span class="pr-btn"><a href="/index.php/Mobile/Bargain/index/id/'+o.id+'" style="display: block;color: #fff">砍价中</a></span>';
+                                    break;
+                                case 1:
+                                    html +='<div class="pr-price"><p>已砍至最低价 <i>¥ '+o.end_price+'</i></p></div><span class="pr-btn"><a href="/index.php/Mobile/Bargain/index/id/'+o.id+'" style="display: block;color: #fff">待购买</a></span>';
+                                    break;
+                                case 2:
+                                    html +='<div class="pr-price"><p>成交价 <i>¥ '+o.end_price+'</i></p></div><span class="pr-btn"><a href="/index.php/Mobile/Order/order_detail/id/'+o.order_id+'/type/bargain" style="display: block;color: #fff">已支付</a></span>';
+                                    break;
+                                case 3:
+                                    html +='<div class="pr-price"><p>成交价 <i>¥ '+o.end_price+'</i></p></div><span class="pr-btn"><a href="/index.php/Mobile/Order/order_detail/id/'+o.order_id+'/type/bargain" style="display: block;color: #fff">未支付</a></span>';
+                                    break;
+                                case 4:
+                                    switch (o.order_status){
+                                        case 5:
+                                            var t ='订单作废';
+                                            break;
+                                        default:
+                                            var t = o.order_id ==0?'活动已结束':'订单取消';
+                                            break;
+                                    }
+                                    if(o.order_id == 0){
+                                       var url = "/index.php/Mobile/Bargain/index/id/"+o.id+"";
+                                    }else{
+                                        var url = "/index.php/Mobile/Order/order_detail/id/"+o.order_id+"/type/bargain";
+                                    }
+                                    html +='<div class="pr-price"><p>'+t+'</p></div><span class="pr-no-btn"><a style="color: #fff" href="'+url+'">失败</a></span>';
+                                    break;
+                            }
+                            html +='</div></li>';
+                        });
+                        if(num == 1){
+                            $('#page').html(html);
+                        }else{
+                            $('#page').append(html);
+                        }
+                    }else{
+                        if(num == 1){
+                            $('#page').html('');
+                        }
+                    }
+
+                }else {
+                    if(data.status < 0){
+                        window.location.href = "{:U('Mobile/User/login')}";
+                    }
+                }
+            },
+            error: function(data)
+            {
+                $('#page').html('');
+            }
+        });
+    }
+</script>

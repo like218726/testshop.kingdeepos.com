@@ -1,0 +1,444 @@
+<style>
+	/*自提发货弹窗 s*/
+	.z-ztfh-bg{
+		position: fixed;
+		max-width: 1920px;
+		margin: 0 auto;
+		width: 100%;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		z-index: 12;
+		background: rgba(0,0,0,0.4);
+	}
+	.z-ztfh-pop{
+		width: 730px;
+		min-height: 555px;
+		box-sizing: border-box;
+		text-align: center;
+		color: #333;
+		background-color: #fff;
+		overflow: hidden;
+		box-shadow: 1px 1px 0 rgba(0,0,0,.3);
+		z-index: 899;
+		position: fixed;
+		left: 50%;
+		top: 50%;
+		margin:0 auto;
+		-webkit-transform: translate(-50%,-50%);
+		transform: translate(-50%,-50%);
+	}
+	.z-ztfh-head h3{
+		text-align: left;
+		height: 43px;
+		line-height: 43px;
+		background-color: #f9f9f9;
+		color: #313132;
+		padding-left: 53px;
+		border-bottom: 1px solid #e3e3e3;
+	}
+	.z-ztfh-head{
+		position: relative;
+	}
+	.z-ztfh-head .z-ztfh-close{
+		width: 15px;
+		height: 15px;
+		cursor: pointer;
+		position: absolute;
+		right: 10px;
+		top: 16px;
+		background: url(__PUBLIC__/static/images/close.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.z-ztfh-tab{
+		margin: 30px auto 0;
+		width: 683px;
+	}
+	.z-ztfh-tab .tab-ul-title,.z-ztfh-tab .tab-ul-cont{
+		overflow: hidden;
+		width: 100%;
+		border: 1px solid #e3e3e3;
+	}
+	.z-ztfh-tab .tab-ul-cont{
+		border-top: 0;
+	}
+	.z-ztfh-tab .tab-ul-title li{
+		height: 45px;
+		line-height: 45px;
+		background-color: #f9fbfd;
+	}
+	.z-ztfh-tab .tab-ul-title li,.z-ztfh-tab .tab-ul-cont li{
+		text-align: center;
+		float: left;
+		border-right:1px solid #e3e3e3;
+
+	}
+	.z-ztfh-tab .tab-ul-title li:last-of-type{
+		border-right:0px;
+	}
+	.z-ztfh-tab .tab-ul-cont li:last-of-type{
+		border-right:0px;
+	}
+	.z-ztfh-tab .tab-ul-cont li{
+		height: 88px;
+		line-height: 88px;
+	}
+	.z-ztfh-information{
+		margin-top: 10px;
+	}
+	.z-ztfh-information h5{
+		line-height: 45px;
+		text-align: left;
+		font-size: 13px;
+		color: #313132;
+		padding-left: 63px;
+	}
+	.ztfh-information-cont{
+		margin: 0 auto;
+		width: 555px;
+		padding: 30px 25px;
+		background-color:#e3e3e3;
+		overflow: hidden;
+	}
+	.information-list{
+		line-height: 27px;
+		color: #313132;
+		font-size: 13px;
+		float: left;
+		width: 50%;
+		text-align: left;
+	}
+	.z-ztfh-select{
+		overflow: hidden;
+		margin-top: 25px
+	}
+	.z-ztfh-select span{
+		float: left;
+		padding-left: 63px;
+		font-size: 13px;
+		color: #313132;
+		font-weight: 600;
+	}
+	.z-ztfh-select .z-ztfh-hema{
+		float: left;
+		margin-left: 15px;
+	}
+	.z-ztfh-select .z-ztfh-wuma{
+		float: left;
+		margin-left: 50px
+	}
+	.ztfh-label label{
+
+		margin-right: 5px;
+		display: inline-block;
+		width: 12px;
+		height: 12px;
+		border-radius:25px ;
+		border: 1px solid #999;
+		cursor: pointer;
+		vertical-align: middle;
+		margin-top: -2px;
+	}
+	.ztfh-lab-bg{
+		background: url(__PUBLIC__/static/images/withdraw-radio.png)no-repeat 2px 2px;
+		background-size: 70% 70%;
+	}
+	.z-ztfh-input{
+		text-align: left;
+		margin-top: 20px;
+	}
+	.z-ztfh-input span{
+		padding-left: 63px;
+		font-size: 13px;
+		color: #313132;
+		font-weight: 600;
+	}
+	.z-ztfh-input input{
+		margin-left: 13px;
+	}
+	.z-ztfh-btns{
+		margin:20px ;
+	}
+	.z-ztfh-btns input{
+		width: 108px;
+		height: 32px;
+		color: #fff;
+		border: 0px;
+		background-color:#5eb978 ;
+		cursor: pointer;
+	}
+	.fbutton_span {
+		border-radius: 4px;padding: 2px 7px;height: 20px;font-size: 12px;
+	}
+	.fbutton_right{
+		display: inline-block;margin-left: 310px;
+	}
+
+
+	/*自提发货弹窗 e*/
+</style>
+<table class="ncsc-default-table order">
+	<thead>
+	<tr>
+		<th class="w10"></th>
+		<th colspan="2">商品</th>
+		<th class="w100">单价（元）</th>
+		<th class="w40">数量</th>
+		<th class="w100">买家</th>
+		<th class="w100">自提点</th>
+		<th class="w100">自提时间</th>
+		<th class="w100">订单金额</th>
+		<th class="w90">交易状态</th>
+		<th class="w120">交易操作</th>
+	</tr>
+	</thead>
+	<if condition="empty($orderList) eq true">
+		<tbody>
+		<tr>
+			<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+		</tr>
+		</tbody>
+		<else/>
+		<volist name="orderList" id="list">
+			<tbody>
+			<tr>
+				<td colspan="20" class="sep-row"></td>
+			</tr>
+			<tr>
+				<th colspan="20">
+					<span class="ml10">订单编号：<em>{$list.order_sn}</em></span>
+					<span>下单时间：<em class="goods-time">{$list.add_time|date='Y-m-d H:i',###}</em></span>
+					<span>订单状态：<em class="goods-time">{$Think.config.ORDER_STATUS[$list[order_status]]}</em></span>
+					<!--<span class="fr mr10"><a href="{:U('Order/order_print',array('order_id'=>$list['order_id'],'template'=>'picking'))}" target="_blank" class="ncbtn-mini" title="打印配货单"><i class="icon-print"></i>打印配货单</a></span>-->
+				</th>
+			</tr>
+
+			<assign name="goodsList" value="$goodsArr[$list['order_id']]" />
+			<volist name="goodsList" id="good" key='k'>
+				<if condition="$k eq 1">
+					<!--  第一行 -->
+					<tr>
+						<td class="bdl"></td>
+						<td class="w70">
+							<div class="ncsc-goods-thumb"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$good['goods_id']))}" target="_blank"><img src="{$good['goods_id']|goods_thum_images=240,240}"  ></a></div></td>
+						<td class="tl">
+							<dl class="goods-name">
+								<dt><a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$good['goods_id']))}">{$good['goods_name']}</a></dt>
+							</dl>
+						</td>
+						<td class="bdl"><p>{$good['goods_price']}</p></td>
+						<td class="bdl">{$good['goods_num']}</td>
+						<!-- S 合并TD -->
+						<td class="bdl" rowspan="{$goodsArr[$list['order_id']]|count}">
+							<div class="buyer">{$list.consignee} <p member_id="5"></p>
+								<div class="buyer-info"> <em></em>
+									<div class="con">
+										<h3><i></i><span>联系信息 </span></h3>
+										<dl>
+											<dt>姓名：</dt>
+											<dd>{$list.consignee}</dd>
+										</dl>
+										<dl>
+											<dt>电话：</dt>
+											<dd>{$list.mobile}</dd>
+										</dl>
+										<dl>
+											<dt>地址：</dt>
+											<dd>{$list.address}</dd>
+										</dl>
+									</div>
+								</div>
+							</div>
+						</td>
+
+						<td class="bdl" rowspan="{$goodsArr[$list['order_id']]|count}">
+							{$list.shop.shop_name}
+						</td>
+						<td class="bdl" rowspan="{$goodsArr[$list['order_id']]|count}">
+							{$list.take_time}
+						</td>
+
+						<td class="bdl" rowspan="{$goodsArr[$list['order_id']]|count}">
+							<p class="ncsc-order-amount">{$list.total_amount}</p>
+							<p class="goods-freight"><if condition="($list.shipping_price lt 0.01)">（免运费）<else />邮费:{$list.shipping_price}</if></p>
+							<p class="goods-pay" title="支付方式：{$list.pay_name}">{$list.pay_name}</p>
+						</td>
+
+						<td class="bdl bdr" rowspan="{$goodsArr[$list['order_id']]|count}"><p>{$pay_status[$list[pay_status]]} </p>
+							<!-- 物流跟踪 -->
+							<p></p>
+						</td>
+						<!-- 取消订单 -->
+						<td class="nscs-table-handle" rowspan="{$goodsArr[$list['order_id']]|count}">
+							<span><a href="{:U('order/detail',array('order_id'=>$list['order_id']))}" class="ncbtn-mint"><i class="icon-search"></i><p>详情</p></a></span>
+							<if condition="($list['order_status'] eq 5)">
+								<span><a href="{:U('order/delete_order',array('order_id'=>$list['order_id']))}" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+								<else/>
+								<!--<span><a href="javascript:void(0)" onclick="layer.alert('该订单不得删除!',{icon:2});" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>-->
+							</if>
+							<span>
+			  <if condition="$list['shipping_status'] eq 0 && $list['order_status'] lt 2 && $list['pay_status'] eq 1">fah
+				  <a class="btn orange" style="cursor:pointer" onclick="deliverGoods({$list.order_id})"><p>发货</p></a>
+			  </if>
+			  </span>
+						</td>
+					</tr>
+					<else />
+					<!--  非第一行 -->
+					<tr>
+						<td class="bdl"></td>
+						<td class="w70">
+							<div class="ncsc-goods-thumb"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$good['goods_id']))}" target="_blank"><img src="{$good['goods_id']|goods_thum_images=240,240}"  ></a></div>
+						</td>
+						<td class="tl">
+							<dl class="goods-name">
+								<dt><a target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$good['goods_id']))}">{$good['goods_name']}</a></dt>
+							</dl>
+						</td>
+						<td class="bdl"><p>{$good['goods_price']}</p></td>
+						<td class="bdl">{$good['goods_num']}</td>
+					</tr>
+				</if>
+			</volist>
+			</tbody>
+		</volist>
+		<tfoot>
+		<tr>
+			<td colspan="20">{$page}</td>
+		</tr>
+		</tfoot>
+	</if>
+</table>
+<div class="z-ztfh-bg" hidden>
+</div>
+<div class="z-ztfh-pop" hidden>
+	<form>
+		<div class="z-ztfh-head">
+			<i class="z-ztfh-close"></i>
+			<h3>商品发货</h3>
+		</div>
+		<div class="z-ztfh-tab">
+			<ul class="tab-ul-title">
+				<li style="width: 21%;">订单编号</li>
+				<li style="width: 24%;">下单时间</li>
+				<li style="width: 15%;">会员ID</li>
+				<li style="width: 15%;">订单总额</li>
+				<li style="width: 12%;">发货状态</li>
+				<li style="width: 12%;">配送方式</li>
+			</ul>
+			<ul class="tab-ul-cont" id="shop-order-info">
+			</ul>
+		</div>
+		<div class="z-ztfh-information">
+			<h5>自提信息:</h5>
+			<div class="ztfh-information-cont" id="shop-info"></div>
+		</div>
+		<div class="z-ztfh-select">
+			<span>提供方式:</span>
+			<div class="z-ztfh-hema ztfh-label">
+				<label ints="1" class="ztfh-lab-bg" data-val="1"></label>核码提货
+			</div>
+			<div class="z-ztfh-wuma ztfh-label">
+				<label data-val="0"></label>无码提货
+			</div>
+		</div>
+		<div class="z-ztfh-input">
+			<span>提      货 &nbsp;码:</span>
+			<label  ></label>
+			<input type="hidden" name="old_shop_order_id" id="old-shop-order-id" />
+			<input type="text" name="shop_order_id" id="shop-order-id" placeholder="请输入提货码" />
+		</div>
+		<div class="z-ztfh-btns">
+			<label></label>
+			<input type="button" id="fahuo" value="发货" />
+		</div>
+	</form>
+</div>
+<script>
+    function deliverGoods(order_id){
+        var ordreStr = '',shopStr = '';
+        $.ajax({
+            type:"POST",
+            url:"/index.php?m=seller&c=ShopOrder&a=getOrderGoodsInfo",
+            data:{order_id:order_id},
+            dataType:"json",
+            success: function (data) {
+                $("#old-shop-order-id").val(data.shop_order.bar_code);
+                ordreStr += '<li style="width: 21%;">' + data.order_sn + '</li><li style="width: 24%;">' + time_format(data.add_time) + '</li><li style="width: 15%;">' + data.user_id + '</li><li style="width: 15%;">' + data.total_amount + '</li><li style="width: 12%;">' + data.shipping_status_desc + '</li><li style="width: 12%;">' + data.delivery_method + '</li>';
+                $("#shop-order-info").html(ordreStr);
+
+                shopStr += '<div class="information-list">提货人：<em>' + data.consignee + '</em></div><div class="information-list">自提点：<em>' + data.shop.shop_name + '</em></div><div class="information-list">联系电话：<em>' + data.mobile + '</em></div><div class="information-list">自提时间：<em>' + data.shop_order.take_time + '</em></div>';
+                $("#shop-info").html(shopStr);
+
+                $(".z-ztfh-bg,.z-ztfh-pop").show();
+            }
+        })
+    }
+    //小时分钟秒的后尾补零
+    function checkTime(i){
+        if (i<10){
+            i = "0" + i;
+        }
+        return i;
+    }
+    //将时间戳转成字符串
+    function time_format(timestamp)
+    {
+        var d = new Date(timestamp * 1000);    //根据时间戳生成的时间对象
+        return (d.getFullYear()) + "-" + (d.getMonth() + 1) + "-" + (d.getDate()) + " " + (checkTime(d.getHours())) + ":" + (checkTime(d.getMinutes()));
+    }
+
+    $("#fahuo").click(function(){
+        var shopOrderId = $("#shop-order-id").val();
+        var oldShopOrderId = $("#old-shop-order-id").val();
+        console.log(shopOrderId,oldShopOrderId)
+        var isCode = $(".ztfh-lab-bg").data().val;
+        var newShopOrderId = oldShopOrderId;
+        if (isCode == 1) {
+            console.log(shopOrderId)
+            console.log(oldShopOrderId)
+            if(shopOrderId != oldShopOrderId){
+                layer.alert("提货码错误", {icon: 2});
+                return;
+            }
+            if(shopOrderId == ""){
+                layer.alert("请输入提货码", {icon: 2});
+                return;
+            }
+            newShopOrderId = shopOrderId;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=seller&c=ShopOrder&a=writeOff",
+            data: {bar_code: newShopOrderId},
+            dataType: "json",
+            success: function (data) {
+                if(data.status == 1){
+                    location.reload();
+                }else{
+                    layer.alert(data.msg, {icon: 2});
+                }
+            }
+        })
+    })
+    $(".ztfh-label label").click(function  () {
+        var index= $(this).attr("ints")
+        $(".ztfh-label label").removeClass("ztfh-lab-bg");
+        $(this).addClass("ztfh-lab-bg");
+        if (index==1) {
+            $(".z-ztfh-input").show();
+        } else{
+            $(".z-ztfh-input").hide();
+        }
+    });
+    $(".z-ztfh-close").click(function  () {
+        $(".z-ztfh-bg,.z-ztfh-pop").hide();
+    })
+
+
+    $(".pagination  a").click(function(){
+        var page = $(this).data('p');
+        ajax_get_table('search-form2',page);
+    });
+</script>

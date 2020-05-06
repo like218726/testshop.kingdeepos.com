@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-sacle=1,user-scalable=no">
+    <title>分销中心</title>
+    <link rel="stylesheet" href="__STATIC__/css/base.css">
+    <link rel="stylesheet" href="__STATIC__/css/retailIndex.css">
+    <include file="public/distrbut_header" />
+</head>
+<body class="g4">
+<!--头部开始-->
+<header>
+    <div class="wrap">
+        <a href="{:U('User/index')}" class="back"></a>
+        <a href="{:U('Distribut/set_store')}" class="setting"></a>
+        <h1>分销中心</h1>
+    </div>
+</header>
+<!--头部结束-->
+<!--用户信息开始-->
+<section class="user_info">
+    <div class="wrap">
+        <div class="user_info_header">
+            <a class="logo" href="#"><img src="__STATIC__/images/distrbut/index_header@2x.png" alt=""></a>
+            <div class="details">
+                <h3>{$user['nickname']}</h3>
+                <span>{$distribut_level}</span>
+                <span>	
+	                <empty name="store.store_time">
+	              	  <a class="a" style="color:#ffffff" href="{:U('Distribut/set_store')}">点击创建店铺</a>
+						<else/>开店时间:{$store.store_time|date="Y年m月d日",###}
+					</empty>
+				</span>
+			
+            </div>
+        </div>
+        <div class="info_data">
+            <ul>
+                <li class="commission">
+                    <a href="#">
+                        <em>{$user.distribut_money|default="0.00"}</em>
+                        <span>累计佣金</span>
+                    </a>
+                </li>
+                <li class="income">
+                    <a href="#">
+                        <em>{$money.today_money|default="0.00"}</em>
+                        <span>今日收入</span>
+                    </a>
+                </li>
+                <li class="total">
+                    <a href="#">
+                        <em>{$user.userTeamOrder.total_amount|default="0.00"}</em>
+                        <span>总销售额</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--用户信息结束-->
+<!--提现金额模块开始-->
+<section class="withdraw">
+    <div class="wrap">
+        <div class="brokerage_able">
+            <div class="brokerage_able_data">
+                <em>{$user.withdraw|default="0.00"}</em>
+                <span>可提现佣金（元）</span>
+            </div>
+            <a href="{:U('distribut/distribut_detail')}">申请提现</a>
+        </div>
+        <div style="width: 50%;float: left;border-right: .028rem solid #f3f3f3;" class="brokerage_success">
+            <em>{$user.withdrawing|default="0.00"}</em>
+            <span>提现中（元）</span>
+        </div>
+        <div style="padding-left: 0.50666667rem;" class="brokerage_success">
+            <em>{$user.distribut_withdrawals_money|default="0.00"}</em>
+            <span>成功提现金额（元）</span>
+        </div>
+    </div>
+</section>
+<!--提现金额模块结束-->
+<!--导航模块开始-->
+<nav>
+    <div class="wrap">
+        <ul class="clearfix">
+            <li>
+                <a href="{:U('Distribut/order_list')}">
+                    <div class="nav_icon"></div>
+                    <div class="nav_detail">
+                        <em>团队订单</em>
+                        <span>{$user.userTeamOrder.order_count|default=0}笔</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Distribut/distribut_detail')}">
+                    <div class="nav_icon"></div>
+                    <div class="nav_detail">
+                        <em>团队佣金</em>
+                        <span>￥{$user.rebate_money|default=0}</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Distribut/lower_list')}">
+                    <div class="nav_icon"></div>
+                    <div class="nav_detail">
+                        <em>我的下线</em>
+                        <span>{$user.userTeamOrder.user_count|default=0}人</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('distribut/withdrawals_log')}">
+                    <div class="nav_icon"></div>
+                    <div class="nav_detail">
+                        <em>提现明细</em>
+                        <span>{$user.rebate_log|default=0}笔</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<!--导航模块结束-->
+<!--其他信息模块开始-->
+<section class="others">
+    <div class="wrap">
+    	<a href="{:U('Distribut/must_see')}" class="qian">
+        <div class="new_help">
+            <span>新手必看</span>  
+             <i></i>          
+        </div>
+        </a>
+         <a href="{:U('User/qr_code')}" class="qian">
+        <div class="poster">
+            <span>推广海报</span>
+            <i></i>           
+        </div>
+        </a>
+         <a href="{:U('Distribut/goods_list')}" class="qian">
+        <div class="sell_rank">
+            <span>分销商品排行</span>    
+             <i></i>       
+        </div>
+        </a>
+    </div>
+</section>
+<!--其他信息模块结束-->
+<!--底部开始-->
+<include file="public/distrbut_footer_nav" />
+<!--底部结束-->
+
+</body>
+</html>

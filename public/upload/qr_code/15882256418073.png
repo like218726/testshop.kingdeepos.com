@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>首页-</title>
+        <meta name="keywords" content=""/>
+		<meta name="description" content=""/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="shortcut  icon" type="image/x-icon" href="/public/static/images/logo/storeico_default.png" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="/template/pc/rainbow/static/css/tpshop.css"/>
+		<link rel="stylesheet" type="text/css" href="/template/pc/rainbow/static/css/swiper.min.css"/>
+		<script src="/template/pc/rainbow/static/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/public/js/global.js"></script>
+		<script src="/public/js/swiper.min.js"></script>
+		<style>
+			body {
+				background-color: #f0f3ef !important;
+			}
+			.coupon:hover .swiper-button-next,.coupon:hover .swiper-button-prev{
+				display:block;
+			}
+			.conditions:hover .swiper-button-next,.conditions:hover .swiper-button-prev{
+				display:block;
+			}
+			.next100:hover .swiper-button-next,.next100:hover .swiper-button-prev{
+				display:block;
+			}
+			.prev100:hover .swiper-button-next,.prev100:hover .swiper-button-prev{
+				display:block;
+			}
+			.next100,.prev100{
+				font-size: 0;
+				width: 30px;
+				height: 50px;
+				background: #000;
+				padding-top: 0;
+				opacity: .2;
+				display: none;
+			}
+			.prev100 span{
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				border-top: 2px solid #fff;
+				border-left: 2px solid #fff;
+				transform: rotate(-45deg);
+				margin-top: 18px;
+				margin-left: 10px;
+			}
+			.next100 span{
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				border-top: 2px solid #fff;
+				border-left: 2px solid #fff;
+				margin-top: 18px;
+				margin-left: 5px;
+				transform: rotate(135deg);
+			 }
+			.prev100{
+				left: 0;
+				z-index: 999;
+			}
+			.next100{
+				left: 322px;
+				z-index: 999;
+			}
+			.next101,.prev101{
+				font-size: 0;
+				width: 30px;
+				height: 50px;
+				background: #000;
+				padding-top: 0;
+				opacity: .2;
+				display: none;
+			}
+			.prev101 span{
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				border-top: 2px solid #fff;
+				border-left: 2px solid #fff;
+				transform: rotate(-45deg);
+				margin-top: 18px;
+				margin-left: 10px;
+			}
+			.next101 span{
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				border-top: 2px solid #fff;
+				border-left: 2px solid #fff;
+				margin-top: 18px;
+				margin-left: 5px;
+				transform: rotate(135deg);
+			}
+			.prev101{
+				left: 0;
+				z-index: 999;
+			}
+			.next101{
+				left: 322px;
+				z-index: 999;
+			}
+			.categorys .subitems dl:nth-child(1) dd{
+				border-top:none;
+			}
+			#cata-nav .item .item-left{
+				/* opacity: 0.7; */
+			}
+		</style>
+	</head>
+	<body>
+		<!--顶部广告-s-->
+				<!--顶部广告-e-->
+		<!--header-s-->
+		
+<div class="tpshop-tm-hander p">
+	<div class="top-hander p">
+		<div class="w1224 pr">
+			<link rel="stylesheet" href="/template/pc/rainbow/static/css/location.css" type="text/css"><!-- 收货地址，物流运费 -->
+			<div class="fl">
+				<div class="ls-dlzc fl nologin">
+					<a href="/Home/user/login.html">登录</a>
+					<a class="red" href="/Home/user/reg.html">注册</a>
+				</div>
+				<div class="ls-dlzc fl islogin">
+					<a class="red userinfo" href="/Home/user/index.html"></a>
+					<a href="/Home/user/logout.html">退出</a>
+				</div>
+				<div class="fl spc" style="margin-top:10px"></div>
+				<div class="sendaddress pr fl">
+											<!-- 收货地址，物流运费 -start-->
+						<ul class="list1" >
+							<li class="jaj"><span>送货至：</span></li>
+							<li class="summary-stock though-line" style="margin-top:-1px">
+								<div class="dd" style="border-right:0px;">
+									<div class="store-selector add_cj_p">
+										<div class="text" style="margin-top:3px;border-left: 0 !important; cursor: pointer;"><div></div><b></b></div>
+										<div onclick="$(this).parent().removeClass('hover')" class="close"></div>
+									</div>
+								</div>
+							</li>
+						</ul>
+						<!--<i class="jt-x"></i>-->
+						<!-- 收货地址，物流运费 -end-->
+						<!--------收货地址，物流运费-开始-------------->
+						<script src="/public/js/locationJson.js"></script>
+						<script src="/template/pc/rainbow/static/js/location.js"></script>
+						<script>doInitRegion();</script>
+						<!--------收货地址，物流运费--结束-------------->
+									</div>
+			</div>
+			<div class="top-ri-header fr">
+				<ul>
+					<li><a target="_blank" href="/Home/Order/order_list.html">我的订单</a></li>
+					<li class="spacer"></li>
+					<li><a target="_blank" href="/Home/User/account.html">我的积分</a></li>
+					<li class="spacer"></li>
+					<li><a target="_blank" href="/Home/User/coupon.html">我的优惠券</a></li>
+					<li class="spacer"></li>
+					<li><a target="_blank" href="/Home/User/goods_collect.html">我的收藏</a></li>
+					<li class="spacer"></li>
+					<li class="hover-ba-navdh">
+						<div class="nav-dh">
+							<span>客户服务</span>
+							<i class="jt-x"></i>
+							<div class="conta-hv-nav">
+								<ul>
+									<li><a href="/Seller/Index/index.html">商家后台</a></li>
+									<li><a href="/Home/Newjoin/index.html">商家帮助</a></li>
+								</ul>
+							</div>
+						</div>
+					</li>
+					<li class="spacer"></li>
+					<li class="navoxth">
+						<div class="nav-dh">
+							<i class="fl ico"></i>
+							<span class="moblie_right">手机TPshop商城</span>
+							<i class="jt-x"></i>
+						</div>
+						<div class="sub-panel m-lst">
+							<p>扫一扫，下载TPshop商城客户端</p>
+							<dl>
+								<dt class="fl mr10"><a target="_blank" href="">
+                                <img height="80" width="80" img-url="/index.php?m=Home&c=Index&a=qr_code&data=http://testshop.kingdeepos.com/Mobile/index/app_down.html&head_pic=http://testshop.kingdeepos.com/public/upload/logo/2020/04-30/1a518601c0de2e89374ed05c55adcc56.png&back_img=" id="qcode_img"/>
+                                </a></dt>
+								<dd class="fl mb10"><a target="_blank" href="javscript:;" img-url="/public/images/919and.png" onclick="set_img(this)" id="qcode_img_and"><i class="andr"></i> Andiord</a></dd>
+								<dd class="fl"><a target="_blank" href="javscript:;" img-url="/public/images/919ios.png" onclick="set_img(this)"><i class="iph"></i> iPhone</a></dd>
+							</dl>
+						</div>
+					</li>
+					<li class="spacer"></li>
+					<!--<li class="wxbox-hover">
+						<a target="_blank" href="">关注我们：</a>
+						<img class="wechat-top" src="/template/pc/rainbow/static/images/wechat.png" alt="">
+						<div class="sub-panel wx-box">
+							<span class="arrow-b">◆</span>
+							<span class="arrow-a">◆</span>
+							<p class="n"> 扫描二维码 <br>  关注TPshop商城官方微信 </p>
+							<img src="/template/pc/rainbow/static/images/qrcode_vmall_app01.png">
+						</div>
+					</li>-->
+					<script>
+						function set_img(obj){
+							var img = $(obj).attr('img-url');
+							$('#qcode_img').attr('src',img)
+						}
+						$(function(){
+							var img = $('#qcode_img_and').attr('img-url');
+							$('#qcode_img').attr('src',img)
+						})
+					</script>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="nav-middan-z tphsop2_0 p">
+		<div class="header w1224">
+			<div class="ecsc-logo">
+	<a href="/" class="logo">
+        <img src="/public/upload/logo/2020/04-30/1a518601c0de2e89374ed05c55adcc56.png" style="max-width: 240px;max-height: 80px;">
+    </a>
+</div>
+<div class="ecsc-search">
+	<form id="sourch_form" name="sourch_form" method="get" action="/Home/Goods/search.html" class="ecsc-search-form">
+		<div class="search-select-h">
+			<span><em>商品</em><i class="jt-x"></i></span>
+			<ul id="select-h">
+				<li rel="/Home/Goods/search.html">商品</li>
+				<li rel="/Home/Index/street.html">店铺</li>
+				<!--<li>服务</li>-->
+			</ul>
+			<script>
+				var select = $('#select-h');
+				$('.search-select-h').mouseenter(function(){
+					select.show();
+				});
+				$('.search-select-h').mouseleave(function(){
+					select.hide();
+				});
+				select.find('li').click(function() {
+					select.hide();
+					$('#sourch_form').attr('action',$(this).attr("rel"));
+					$('.search-select-h').find('em').text($(this).text());
+				});
+									$('.search-select-h').find('em').text("商品");
+					$('#sourch_form').attr('action',"/Home/Goods/search.html");
+							</script>
+		</div>
+		<input autocomplete="off" name="q" id="q" type="text" value="" placeholder="搜索关键字" class="ecsc-search-input">
+		<button type="button" class="ecsc-search-button" >搜索 </button>
+		<div class="candidate p">
+			<ul id="search_list"></ul>
+		</div>
+		<script type="text/javascript">
+
+            $('.ecsc-search-button').on('click',function(){
+                if($.trim($('#q').val()) != ''){
+                    $('#sourch_form').submit();
+                }else{
+                    $('#q').css('background-color','#F6D4CB');
+                    $('#q').attr('placeholder','请输入关键字');
+                }
+            })
+			;(function($){
+				$.fn.extend({
+					donetyping: function(callback,timeout){
+						timeout = timeout || 1e3;
+						var timeoutReference,
+								doneTyping = function(el){
+									if (!timeoutReference) return;
+									timeoutReference = null;
+									callback.call(el);
+								};
+						return this.each(function(i,el){
+							var $el = $(el);
+							$el.is(':input') && $el.on('keyup keypress',function(e){
+								if (e.type=='keyup' && e.keyCode!=8) return;
+								if (timeoutReference) clearTimeout(timeoutReference);
+								timeoutReference = setTimeout(function(){
+									doneTyping(el);
+								}, timeout);
+							}).on('blur',function(){
+								doneTyping(el);
+							});
+						});
+					}
+				});
+			})(jQuery);
+
+			$('.ecsc-search-input').donetyping(function(){
+				search_key();
+			},500).focus(function(){
+				var search_key = $.trim($('#q').val());
+				if(search_key != ''){
+					$('.candidate').show();
+				}
+			});
+			$('.candidate').mouseleave(function(){
+				$(this).hide();
+			});
+
+			function searchWord(words){
+				$('#q').val(words);
+				$('#sourch_form').submit();
+			}
+			function search_key(){
+				var search_key = $.trim($('#q').val());
+				if(search_key != ''){
+					$.ajax({
+						type:'post',
+						dataType:'json',
+						data: {key: search_key},
+						url:"/Home/Api/searchKey.html",
+						success:function(data){
+							if(data.status == 1){
+								var html = '';
+								$.each(data.result, function (n, value) {
+									html += '<li onclick="searchWord(\''+value.keywords+'\');"><div class="search-item">'+value.keywords+'</div><div class="search-count">约'+value.goods_num+'个商品</div></li>';
+								});
+//								html += '<li class="close"><div class="search-count">关闭</div></li>';
+								$('#search_list').empty().append(html);
+								$('.candidate').show();
+							}else{
+								$('#search_list').empty();
+							}
+						}
+					});
+				}
+			}
+		</script>
+	</form>
+	<div class="keyword">
+		<ul>
+					</ul>
+	</div>
+</div>
+<div class="shopingcar-index fr">
+	<div class="u-g-cart fr fixed" id="hd-my-cart">
+		<a href="/Home/Cart/index.html">
+			<p class="c-num">
+				<i class="car2_0"></i>
+				<span>我的购物车</span>
+				<span class="count cart_quantity" id="cart_quantity"></span>
+			</p>
+		</a>
+		<div class="u-fn-cart u-mn-cart" id="show_minicart">
+			<div class="minicartContent" id="minicart">
+			</div>
+		</div>
+	</div>
+</div>
+		</div>
+	</div>
+	<div class="nav tpshop2_0_nav p">
+		<div class="w1224 p">
+			<div class="categorys home_categorys">
+				<div class="dt">
+					<img src="/template/pc/rainbow/static/images/nav_new.png" alt="">
+					<a href="/Home/Goods/goodsList.html" target="_blank">全部商品分类</a>
+				</div>
+				<!--全部商品分类-s-->
+				<div class="dd">
+					<div class="cata-nav" id="cata-nav">
+													<div class="item fore1">
+								<div class="item-left">
+									<div class="cata-nav-name">
+										<a href="/Home/Goods/goodsList/id/1.html" title="电子产品">电子产品</a>
+
+																					<a href="/Home/Goods/goodsList/id/2.html" target="_blank"><em></em>手机 </a>
+																					<a href="/Home/Goods/goodsList/id/4.html" target="_blank"><em></em>电脑</a>
+																					<a href="/Home/Goods/goodsList/id/6.html" target="_blank"><em></em>数码产品</a>
+																			</div>
+								</div>
+								<div class="cata-nav-layer">
+									<div class="cata-nav-left">
+										<div class="item-channels">
+											<div class="channels">
+																							</div>
+										</div>
+										<div class="subitems">
+																						<dl>
+												<dt><a href="/Home/Goods/goodsList/id/2.html" target="_blank">手机 <i>&gt;</i></a></dt>
+																									<dd>
+																													<a href="/Home/Goods/goodsList/id/3.html" target="_blank">品牌</a>
+																											</dd>
+																							</dl>
+																						<dl>
+												<dt><a href="/Home/Goods/goodsList/id/4.html" target="_blank">电脑<i>&gt;</i></a></dt>
+																									<dd>
+																													<a href="/Home/Goods/goodsList/id/5.html" target="_blank">联想</a>
+																											</dd>
+																							</dl>
+																						<dl>
+												<dt><a href="/Home/Goods/goodsList/id/6.html" target="_blank">数码产品<i>&gt;</i></a></dt>
+																							</dl>
+																						<div class="item-brands">
+												<ul>
+												</ul>
+											</div>
+											<div class="item-promotions">
+											</div>
+										</div>
+									</div>
+									<div class="cata-nav-rigth">
+										<div class="item-brands">
+											<ul>
+																							</ul>
+										</div>
+										<div class="item-promotions">
+																					</div>
+									</div>
+								</div>
+							</div>
+													<div class="item fore1">
+								<div class="item-left">
+									<div class="cata-nav-name">
+										<a href="/Home/Goods/goodsList/id/7.html" title="生活用品">生活用品</a>
+
+																					<a href="/Home/Goods/goodsList/id/8.html" target="_blank"><em></em>洗发水</a>
+																					<a href="/Home/Goods/goodsList/id/9.html" target="_blank"><em></em>沐浴露</a>
+																					<a href="/Home/Goods/goodsList/id/10.html" target="_blank"><em></em>洗面奶</a>
+																			</div>
+								</div>
+								<div class="cata-nav-layer">
+									<div class="cata-nav-left">
+										<div class="item-channels">
+											<div class="channels">
+																							</div>
+										</div>
+										<div class="subitems">
+																						<dl>
+												<dt><a href="/Home/Goods/goodsList/id/8.html" target="_blank">洗发水<i>&gt;</i></a></dt>
+																									<dd>
+																													<a href="/Home/Goods/goodsList/id/11.html" target="_blank">多芬</a>
+																											</dd>
+																							</dl>
+																						<dl>
+												<dt><a href="/Home/Goods/goodsList/id/9.html" target="_blank">沐浴露<i>&gt;</i></a></dt>
+																									<dd>
+																													<a href="/Home/Goods/goodsList/id/12.html" target="_blank">舒肤佳</a>
+																											</dd>
+																							</dl>
+																						<dl>
+												<dt><a href="/Home/Goods/goodsList/id/10.html" target="_blank">洗面奶<i>&gt;</i></a></dt>
+																									<dd>
+																													<a href="/Home/Goods/goodsList/id/13.html" target="_blank">阿芙</a>
+																											</dd>
+																							</dl>
+																						<div class="item-brands">
+												<ul>
+												</ul>
+											</div>
+											<div class="item-promotions">
+											</div>
+										</div>
+									</div>
+									<div class="cata-nav-rigth">
+										<div class="item-brands">
+											<ul>
+																							</ul>
+										</div>
+										<div class="item-promotions">
+																					</div>
+									</div>
+								</div>
+							</div>
+													<div class="item fore1">
+								<div class="item-left">
+									<div class="cata-nav-name">
+										<a href="/Home/Goods/goodsList/id/14.html" title="电器">电器</a>
+
+																					<a href="/Home/Goods/goodsList/id/15.html" target="_blank"><em></em>洗衣机</a>
+																					<a href="/Home/Goods/goodsList/id/16.html" target="_blank"><em></em>微波炉</a>
+																			</div>
+								</div>
+								<div class="cata-nav-layer">
+									<div class="cata-nav-left">
+										<div class="item-channels">
+											<div class="channels">
+																							</div>
+										</div>
+										<div class="subitems">
+																						<dl>
+												<dt><a href="/Home/Goods/goodsList/id/15.html" target="_blank">洗衣机<i>&gt;</i></a></dt>
+																									<dd>
+																													<a href="/Home/Goods/goodsList/id/17.html" target="_blank">小天鹅</a>
+																											</dd>
+																							</dl>
+																						<dl>
+												<dt><a href="/Home/Goods/goodsList/id/16.html" target="_blank">微波炉<i>&gt;</i></a></dt>
+																									<dd>
+																													<a href="/Home/Goods/goodsList/id/18.html" target="_blank">海尔</a>
+																											</dd>
+																							</dl>
+																						<div class="item-brands">
+												<ul>
+												</ul>
+											</div>
+											<div class="item-promotions">
+											</div>
+										</div>
+									</div>
+									<div class="cata-nav-rigth">
+										<div class="item-brands">
+											<ul>
+																							</ul>
+										</div>
+										<div class="item-promotions">
+																					</div>
+									</div>
+								</div>
+							</div>
+											</div>
+					<script>
+						$('#cata-nav').find('.item').hover(function(){
+							$(this).addClass('item-left-active').siblings().removeClass('item-left-active');
+						},function(){
+							$(this).removeClass('item-left-active');
+						})
+					</script>
+				</div>
+				<!--全部商品分类-e-->
+			</div>
+			<div class="navitems" id="nav">
+				<ul>
+					<li>
+						<a href="/" class="selected">首页</a>
+					</li>
+											<li>
+                            <a href="/index.php?m=Home&amp;c=Activity&amp;a=promoteList"  >促销活动</a>
+                        </li>
+									</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+		<!--header-e-->
+
+		<div id="myCarousel" class="carousel slide p header-tp tpshop2_0_carousel">
+			<ol class="carousel-indicators"></ol>
+			<div class="carousel-inner">
+							</div>
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span></span></a>
+			<a class="right carousel-control" href="#myCarousel" data-slide="next"><span></span></a>
+			<div class="right-sidebar p">
+				<div class="usertpshop">
+					<div class="head_index">
+						<a href="/Home/User/index.html" target="_blank">
+							<img class="head_pic" src="/template/pc/rainbow/static/images/default.png" alt="" />
+						</a>
+					</div>
+					<p class="welcome nologin">您好，欢迎来到TPshop商城！</p>
+					<p class="welcome islogin"><img src="/template/pc/rainbow/static/images/members.png" alt="">&nbsp;Hi，<span class="userinfo"></span></p>
+					<div class="login_index">
+						<a class="nologin" href="/Home/User/login.html" target="_blank">请登录</a>
+						<a class="nologin add_newperson" href="/Home/Activity/coupon_list/type/4.html">新人有礼</a>
+						<a class="islogin" href="/Home/User/index.html" target="_blank">会员中心</a>
+						<a class="islogin add_newperson" href="/Home/user/logout.html">退出登录</a>
+					</div>
+				</div>
+				<div class="bulletin">
+					<div class="content box_ad_content">
+						<div class="gome_news">
+							<h2 class="gome_news_title">快讯</h2>
+							<a href="/home/article/detail.html" target="_blank">更多<span></span></a>
+						</div>
+						<div class="swiper-container swiper-container30" >
+							<div style="transition-duration:0ms !important" class="swiper-wrapper swiper-no-swiping">
+								<div class="swiper-slide">
+									<div class="content-slide">
+										<div class="cont4-box">
+																							<a href="/Home/Article/detail/article_id/2.html" target="_blank">
+													<p>商城入驻功能重新上线</p>
+												</a>
+																							<a href="/Home/Article/detail/article_id/6.html" target="_blank">
+													<p>商城入驻功能上线</p>
+												</a>
+																							<a href="/Home/Article/detail/article_id/10.html" target="_blank">
+													<p>公告</p>
+												</a>
+																							<a href="/Home/Article/detail/article_id/11.html" target="_blank">
+													<p>信息公告</p>
+												</a>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="content box_prom_content" style="display: none">
+											</div>
+					<div class="six_entrance">
+						<table border="" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+									<div class="access">
+										<a href="/Home/User/visit_log.html" target="_blank">
+											<i class="mybrowse"></i>
+											<span>浏览</span>
+										</a>
+									</div>
+								</td>
+								<td>
+									<div class="access">
+										<a href="/Home/User/goods_collect.html" target="_blank">
+											<i class="mycollect"></i>
+											<span>收藏</span>
+										</a>
+									</div>
+								</td>
+								<td class="lastcol">
+									<div class="access">
+										<a href="/Home/Order/order_list.html" target="_blank">
+											<i class="myorders"></i>
+											<span>订单</span>
+										</a>
+									</div>
+								</td>
+							</tr>
+							<tr class="lastcow">
+								<td>
+									<div class="access">
+										<a href="/Home/User/safety_settings.html" target="_blank">
+											<i class="account_security"></i>
+											<span>账号安全</span>
+										</a>
+									</div>
+								</td>
+								<td>
+									<div class="access">
+										<a href="/Home/User/recharge.html" target="_blank">
+											<i class="myshares"></i>
+											<span>余额</span>
+										</a>
+									</div>
+								</td>
+								<td class="lastcol">
+									<div class="access">
+										<a href="/Home/Newjoin/index.html" target="_blank">
+											<i class="seller_enter"></i>
+											<span>商家入驻</span>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fn-mall p ma-to-20">
+			<div class="w1224">
+				<!--&lt;!&ndash;精品推荐&ndash;&gt;-->
+				<div class="conditions top_content">
+					<div class="top">
+						<p>精品推荐</p>
+						<span>甄选优质好物</span>
+					</div>
+					<div class="swiper-container" id="swiper-container101">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="content-slide">
+									<div class="cont1-box">
+																				<ul>
+																					</ul>
+									</div>
+								</div>
+							</div>
+													</div>
+						<div class="swiper-button-next next101"><span></span></div>
+						<div class="swiper-button-prev prev101"><span></span></div>
+					</div>
+					<div class="swiper-pagination pagination101"></div>
+				</div>
+				<!--好货上新-->
+				<div class="good_goods top_content">
+					<div class="top">
+						<p>好货上新</p>
+						<span>发现品质生活</span>
+					</div>
+					<ul>
+						
+					</ul>
+				</div>
+				<!--领券中心-->
+				<div class="coupon top_content">
+					<div class="top">
+						<a href="/Home/Activity/coupon_list.html">
+							<p>领券中心</p>
+							<img src="/template/pc/rainbow/static/images/right.png" alt="">
+						</a>
+
+						<span>买的多，省的多</span>
+					</div>
+					<div class="swiper-container" id="swiper-container100">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="content-slide">
+									<div class="cont1-box">
+										<ul>
+																					</ul>
+									</div>
+								</div>
+							</div>
+													</div>
+						<div class="swiper-button-next next100"><span></span></div>
+						<div class="swiper-button-prev prev100"><span></span></div>
+					</div>
+					<div class="swiper-pagination pagination100"></div>
+				</div>
+				<div class="advertisement p">
+					<ul style="margin-top: 20px;">
+											</ul>
+				</div>
+				<!--猜你喜欢-->
+				<div class="wbox gm_guess">
+					<div class="gm_title">
+						<h2>猜你喜欢</h2>
+						<span>YOU MAY LIKE</span>
+						<div class="change_btn">
+							<a class="pre" onclick="like_page(-1)"><span></span></a>
+							<a class="nex" onclick="like_page(1)"><span></span></a>
+						</div>
+					</div>
+					<div id="guess_main" class="guess_main">
+						<div id="j-imgload-recomm">
+							<ul id="likeGoods">
+															</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--1F-s-->
+				<!--左侧边栏-->
+		<div class="sideleft-nav" id="sideleft">
+			<div class="first-l">楼层导航</div>
+			<ul>
+							</ul>
+		</div>
+		<!--左侧边栏-->
+		<div class="footer p">
+    <div class="mod_service_inner">
+        <div class="w1224">
+            <ul>
+                <li>
+                    <div class="mod_service_unit">
+                        <h5 class="mod_service_duo">多</h5>
+                        <p>品类齐全，轻松购物</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="mod_service_unit">
+                        <h5 class="mod_service_kuai">快</h5>
+                        <p>多仓直发，极速配送</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="mod_service_unit">
+                        <h5 class="mod_service_hao">好</h5>
+                        <p>正品行货，精致服务</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="mod_service_unit">
+                        <h5 class="mod_service_sheng">省</h5>
+                        <p>天天低价，畅选无忧</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="w1224">
+        <div class="footer-ewmcode">
+		    <div class="foot-list-fl">
+                <div class="foot-list-wrap p">
+                                            <ul>
+                            <li class="foot-th">
+                                系统分类                            </li>
+                                                    </ul>
+                                            <ul>
+                            <li class="foot-th">
+                                购物常见问题                            </li>
+                                                            <li>
+                                    <a href="/Home/Article/detail/article_id/4.html">购物流程</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                            <li class="foot-th">
+                                支付方式                            </li>
+                                                            <li>
+                                    <a href="/Home/Article/detail/article_id/5.html">商城支持的支付方式</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                            <li class="foot-th">
+                                购物指南                            </li>
+                                                            <li>
+                                    <a href="/Home/Article/detail/article_id/9.html">购物指南</a>
+                                </li>
+                                                    </ul>
+                                            <ul>
+                            <li class="foot-th">
+                                退款/售后                            </li>
+                                                            <li>
+                                    <a href="/Home/Article/detail/article_id/3.html">退款售后流程</a>
+                                </li>
+                                                    </ul>
+                                    </div>
+		        <div class="friendship-links p">
+                    <span>友情链接 : </span>
+                    <div class="links-wrap-h p">
+                                        </div>
+                </div>
+		    </div>
+			<div class="right-contact-us">
+				<h3 class="title">客服热线（9:00-22:00）</h3>
+				<span class="phone">0755-88888888</span>
+				<p class="tips">官方微信</p>
+				<div class="qr-code-list clearfix">
+					<!--<a class="qr-code" href="javascript:;"><img src="/template/pc/rainbow/static/images/qrcode.png" alt="" /></a>-->
+					<a class="qr-code qr-code-tpshop" href="javascript:;">
+						<img src="/public/static/images/qrcode.png" alt="" />
+					</a>
+				</div>
+			</div>
+		    <!--<div class="QRcode-fr">
+		        <ul>
+		            <li class="foot-th">客户端</li>
+		            <li><img src="/template/pc/rainbow/static/images/qrcode.png"/></li>
+		        </ul>
+		        <ul>
+		            <li class="foot-th">微信</li>
+		            <li><img src="/template/pc/rainbow/static/images/qrcode.png"/></li>
+		        </ul>
+		    </div>-->
+		</div>
+		<div class="mod_copyright p">
+		    <div class="grid-top">
+                		    </div>
+		    <p>Copyright © 2016-2025 TPshop商城 版权所有 保留一切权利 备案号:<a href="http://www.beian.miit.gov.cn" ></a></p>
+		    <p class="mod_copyright_auth">
+		        <a class="mod_copyright_auth_ico mod_copyright_auth_ico_1" href="" target="_blank">经营性网站备案中心</a>
+		        <a class="mod_copyright_auth_ico mod_copyright_auth_ico_2" href="" target="_blank">可信网站信用评估</a>
+		        <a class="mod_copyright_auth_ico mod_copyright_auth_ico_3" href="" target="_blank">网络警察提醒你</a>
+		        <a class="mod_copyright_auth_ico mod_copyright_auth_ico_4" href="" target="_blank">诚信网站</a>
+		        <a class="mod_copyright_auth_ico mod_copyright_auth_ico_5" href="" target="_blank">中国互联网举报中心</a>
+		    </p>
+		</div>
+    </div>
+</div>
+<script>
+    // 延时加载二维码图片
+    jQuery(function($) {
+        $('img[img-url]').each(function() {
+            var _this = $(this),
+                    url = _this.attr('img-url');
+            _this.attr('src',url);
+        });
+    });
+</script>
+		<div class="soubao-sidebar">
+    <div class="soubao-sidebar-bg"></div>
+    <div class="sidertabs tab-lis-1">
+        <div class="sider-top-stra sider-midd-1">
+            <div class="icon-tabe-chan">
+                <a href="/Home/User/index.html">
+                    <i class="share-side share-side1"></i>
+                    <i class="share-side tab-icon-tip triangleshow"></i>
+                </a>
+                <div class="dl_login">
+                    <div class="hinihdk">
+                        <img class="head_pic" src="/template/pc/rainbow/static/images/dl.png"/>
+                        <p class="loginafter nologin"><span>你好，请先</span><a href="/Home/user/login.html">登录</a>！</p>
+                        <!--未登录-e--->
+                        <!--登录后-s--->
+                        <p class="loginafter islogin"><span class="id_jq userinfo">陈xxxxxxx</span><span>点击</span><a href="/Home/user/logout.html">退出</a>！</p>
+                        <!--未登录-s--->
+                    </div>
+                </div>
+            </div>
+            <div class="icon-tabe-chan shop-car">
+                <a href="javascript:void(0);" onclick="ajax_side_cart_list()">
+                    <div class="tab-cart-tip-warp-box">
+                        <div class="tab-cart-tip-warp">
+                            <i class="share-side share-side1"></i>
+                            <i class="share-side tab-icon-tip"></i>
+                            <span class="tab-cart-tip">购物车</span>
+                            <span class="tab-cart-num J_cart_total_num" id="tab_cart_num">0</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="icon-tabe-chan massage">
+                <a href="/Home/User/message_notice.html" target="_blank">
+                    <i class="share-side share-side1"></i>
+                    <!--<i class="share-side tab-icon-tip"></i>-->
+                    <span class="tab-tip">消息</span>
+                </a>
+            </div>
+        </div>
+        <div class="sider-top-stra sider-midd-2">
+            <div class="icon-tabe-chan mmm">
+                <a href="/Home/User/goods_collect.html" target="_blank">
+                    <i class="share-side share-side1"></i>
+                    <!--<i class="share-side tab-icon-tip"></i>-->
+                    <span class="tab-tip">收藏</span>
+                </a>
+            </div>
+            <div class="icon-tabe-chan hostry">
+                <a href="/Home/User/visit_log.html" target="_blank">
+                    <i class="share-side share-side1"></i>
+                    <!--<i class="share-side tab-icon-tip"></i>-->
+                    <span class="tab-tip">足迹</span>
+                </a>
+            </div>
+      <!--      <div class="icon-tabe-chan sign">
+                <a href="" target="_blank">
+                    <i class="share-side share-side1"></i>
+                    &lt;!&ndash;<i class="share-side tab-icon-tip"></i>&ndash;&gt;
+                    <span class="tab-tip">签到</span>
+                </a>
+            </div>-->
+        </div>
+    </div>
+    <div class="sidertabs tab-lis-2">
+        <div class="icon-tabe-chan advice">
+            <a href="tencent://message/?uin=&amp;Site=&amp;Menu=yes">
+                <i class="share-side share-side1"></i>
+                <!--<i class="share-side tab-icon-tip"></i>-->
+                <span class="tab-tip">在线咨询</span>
+            </a>
+        </div>
+       <!-- <div class="icon-tabe-chan request">
+            <a href="" target="_blank">
+                <i class="share-side share-side1"></i>
+                &lt;!&ndash;<i class="share-side tab-icon-tip"></i>&ndash;&gt;
+                <span class="tab-tip">意见反馈</span>
+            </a>
+        </div>-->
+        <div class="icon-tabe-chan qrcode">
+            <a href="" target="_blank">
+                <i class="share-side share-side1"></i>
+                <i class="share-side tab-icon-tip triangleshow"></i>
+				<span class="tab-tip qrewm">
+					<img img-url="/index.php?m=Home&c=Index&a=qr_code&data=http://testshop.kingdeepos.com/Mobile/index/app_down.html&head_pic=http://testshop.kingdeepos.com/public/upload/logo/2020/04-30/1a518601c0de2e89374ed05c55adcc56.png&back_img="/>
+					扫一扫下载APP
+				</span>
+            </a>
+        </div>
+        <div class="icon-tabe-chan comebacktop">
+            <a href="" target="_blank">
+                <i class="share-side share-side1"></i>
+                <!--<i class="share-side tab-icon-tip"></i>-->
+                <span class="tab-tip">返回顶部</span>
+            </a>
+        </div>
+    </div>
+    <div class="shop-car-sider">
+
+    </div>
+</div>
+<script src="/template/pc/rainbow/static/js/common.js"></script>
+<script>
+    //侧边栏
+    $(function(){
+        var auto_bd=0
+        $('.shop-car').click(function(){
+            //购物车
+            if($('.shop-car-sider').hasClass('sh-hi')){
+                $('.shop-car-sider').animate({left:'35px',opacity:'hide'},'normal',function(){
+                    $('.shop-car-sider').removeClass('sh-hi');
+                    $('.shop-car .tab-cart-tip-warp-box').css('background-color','');
+                    $('.shop-car .tab-icon-tip').removeClass('jsshow');
+                });
+            }else{
+                $('.shop-car-sider').animate({left:'-280px',opacity:'show'},'normal',function(){
+                    $('.shop-car-sider').addClass('sh-hi');
+                    $('.shop-car .tab-cart-tip-warp-box').css('background-color','#e23435');
+                    $('.shop-car .tab-icon-tip').addClass('jsshow');
+                });
+            }
+
+        })
+        $(".comebacktop").click(function () {
+            //回到顶部
+            var speed=300;//滑动的速度
+            $('body,html').animate({ scrollTop: 0 }, speed);
+            return false;
+        });
+    });
+</script>
+
+		<script src="/template/pc/rainbow/static/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/template/pc/rainbow/static/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/template/pc/rainbow/static/js/carousel.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+//			页面加载触发
+			$(document).on('click','.next100',function(){
+				return 0;
+			})
+			$(document).on('click','.next101',function(){
+				return 0;
+			})
+			//			只保留15个分类
+			$(function(){
+				for(var i=14;i<30;i++){
+					$("#cata-nav .item.fore1:eq(14)").remove();
+				}
+			})
+			function sidebarRollChange() {  //首页侧边栏滚动改变楼层
+				var $_floorList=$('.tpshop2_0_floor');
+				var $_sidebar=$('#sideleft');
+				$_sidebar.find('li').click(function () { //点击切换楼层
+					$('html,body').animate({'scrollTop':$_floorList.eq($(this).index()).offset().top},500);
+				});
+				$(window).scroll(function(){
+					if($("div").is(".tpshop2_0_floor")){
+						var scrollTop=$(window).scrollTop();
+						/*显示左边侧边栏*/
+						if(scrollTop<$_floorList.eq(0).offset().top-$(window).height()/2){ //还没滚到到楼层或向上滚出楼层隐藏侧边栏
+							$_sidebar.hide();
+							return;
+						}
+						$_sidebar.show(); //左边侧边栏显示
+						/*滚动改变侧边栏的状态*/
+						for(var j=0; j<$_floorList.length;j++){
+							if(scrollTop>$_floorList.eq(j).offset().top-$(window).height()/2){
+								$_sidebar.find('li').eq(j).addClass('sid-red').siblings().removeClass('sid-red');
+							}
+						};
+					}
+
+				})
+			}
+			sidebarRollChange();
+
+			$(function() {
+				$('.categorys .dd').show();//首页商品分类显示
+				$(".carousel").carousel();//轮播自动播放
+			});
+
+			//轮播图小圆点
+			var imgle = $("#myCarousel .carousel-inner .item").length;
+			for(var i = 0; i < imgle; i++) {
+				$('#myCarousel ol.carousel-indicators').append("<li onclick='yuandian()' data-target=" + "#myCarousel" + " data-slide-to=" + i + " class=" + "" + "></li>")
+			}
+			$('ol.carousel-indicators li:first').addClass('active');
+//			圆点切换
+			function yuandian(){
+				$(this).addClass('active').siblings().removeClass('active');
+			}
+			//品牌logo
+			$(function() {
+				var op = 500;
+				$('.tpshop2_0_brand ul li').hover(function() {
+					if(!$(this).hasClass('b')) {
+						$(this).stop().animate({
+							opacity: "1"
+						}, op).siblings().stop().animate({
+							opacity: "0.5"
+						}, op);
+					}
+				}, function() {
+					if(!$(this).hasClass('b')) {
+						$(this).stop().animate({
+							opacity: "1"
+						}, op).siblings().stop().animate({
+							opacity: "1"
+						}, op);
+					}
+				})
+			})
+			//楼层横向导航
+			$('ul.f-tab li').hover(function(){
+				$(this).addClass('z-select').siblings().removeClass('z-select');
+				var page_id = $(this).data('id');
+				var floot_page = $(this).data('floot');
+				$('.'+floot_page).hide();
+				$('#'+page_id).show();
+			})
+			//公告/促销切换
+			$(function(){
+				$('.bn_box span').hover(function(){
+					$(this).addClass('action').siblings().removeClass('action');
+					$('.bulletin .content').hide();
+					if($(this).hasClass('box_prom')){
+						$('.box_prom_content').show();
+					}else{
+						$('.box_ad_content').show();
+					}
+				})
+			})
+
+			function showul(obj){
+				var fid = $(obj).attr('fid');
+				var nky = $(obj).attr('rel');
+				$('#floor'+fid).find('.content_goods_sh').hide();
+				$('#floor'+fid).find('#wbg'+nky).show();
+			}
+
+		//			swiper插件轮播精品推荐
+		var mySwiper101 = new Swiper('#swiper-container101',{
+			centeredSlides: true,
+			spaceBetween: 10,
+			loop:true,
+			pagination: {
+				el: '.conditions .pagination101',
+				clickable: true,
+			},
+			navigation: {
+				nextEl: '.conditions .swiper-button-next',
+				prevEl: '.conditions .swiper-button-prev',
+			},
+		})
+		//			swiper插件轮播领券中心
+		var mySwiper100 = new Swiper('#swiper-container100',{
+			centeredSlides: true,
+			spaceBetween: 10,
+			loop:true,
+			pagination: {
+				el: '.coupon .pagination100',
+				clickable: true,
+			},
+			navigation: {
+				nextEl: '.coupon .swiper-button-next',
+				prevEl: '.coupon .swiper-button-prev',
+			},
+		})
+		</script>
+		<style>
+			.tpshop2_0_floor .uantit.default{
+				border-bottom: 1px solid #96cb85;
+			}
+			.lc_bot ul .lemain.default{
+				background: #96cb85;
+			}
+			.p.default{
+				border-bottom: 1px solid #e23435;
+			}
+			.tpshop2_0_floor .f-tab li.z-select a{
+				border-color: #e23435;
+				color: #e23435;
+			}
+
+
+			.tpshop2_0_floor .uantit.orange{
+				border-bottom: 1px solid orange;
+			}
+			.lc_bot ul .lemain.orange{
+				background: orange;
+			}
+			.p.orange{
+				border-bottom: 1px solid orange;
+			}
+			.tpshop2_0_floor .f-tab.orange li.z-select a{
+				border-color: orange;
+				color: orange;
+			}
+
+			.tpshop2_0_floor .uantit.green{
+				border-bottom: 1px solid green;
+			}
+			.lc_bot ul .lemain.green{
+				background: green;
+			}
+			.p.green{
+				border-bottom: 1px solid green;
+			}
+			.tpshop2_0_floor .f-tab.green li.z-select a{
+				border-color: green;
+				color: green;
+			}
+
+			.tpshop2_0_floor .uantit.purple{
+				border-bottom: 1px solid purple;
+			}
+			.lc_bot ul .lemain.purple{
+				background: purple;
+			}
+			.p.purple{
+				border-bottom: 1px solid purple;
+			}
+			.tpshop2_0_floor .f-tab.purple li.z-select a{
+				border-color: purple;
+				color: purple;
+			}
+
+			.tpshop2_0_floor .uantit.blue{
+				border-bottom: 1px solid blue;
+			}
+			.lc_bot ul .lemain.blue{
+				background: blue;
+			}
+			.p.blue{
+				border-bottom: 1px solid blue;
+			}
+			.tpshop2_0_floor .f-tab.blue li.z-select a{
+				border-color: blue;
+				color: blue;
+			}
+
+
+			.tpshop2_0_floor .uantit.pink{
+				border-bottom: 1px solid pink;
+			}
+			.lc_bot ul .lemain.pink{
+				background: pink;
+			}
+			.p.pink{
+				border-bottom: 1px solid pink;
+			}
+			.tpshop2_0_floor .f-tab.pink li.z-select a{
+				border-color: pink;
+				color: pink;
+			}
+
+			.tpshop2_0_floor .uantit.red{
+				border-bottom: 1px solid red;
+			}
+			.lc_bot ul .lemain.red{
+				background: red;
+			}
+			.p.red{
+				border-bottom: 1px solid red;
+			}
+			.tpshop2_0_floor .f-tab.red li.z-select a{
+				border-color: red;
+				color: red;
+			}
+
+		</style>
+	</body>
+</html>
+<script>
+    var l_page = 1;
+    var new_l_page = 1;
+    //猜你喜欢分页
+    function like_page(p=1){
+        new_l_page = l_page;
+        l_page = l_page + p;
+        if(l_page <=0){
+            l_page = 1;
+            return false;
+        }
+        ajax_page = 0;
+        $.ajax({
+            type : "get",
+            url:"/index.php?m=Home&c=Index&a=ajaxLikePage&p="+l_page,
+            dataType:'json',
+            success: function(data)
+            {
+                if (data.status == 1 && data.result.length >0){
+                    var html = '';
+                    $.each(data.result,function (k,v) {
+                        html +='<li><a href="/Home/Goods/goodsInfo/id/'+v.goods_id+'"><img src="'+v.original_img+'"><p class="guess_title">'+v.goods_name+'</p><p class="guess_price"><span class="yuan">¥</span>'+v.shop_price+'</p></a></li>';
+                    });
+                    $('#likeGoods').html(html);
+                }else{
+                    l_page = new_l_page;
+                }
+
+            }
+        });
+    }
+</script>

@@ -1,0 +1,293 @@
+<include file="public/header" title="{$store.store_name}"/>
+<include file="public/header_nav" title="店铺详情" href="javascript:history.back(-1)"/>
+<link rel="stylesheet" href="__STATIC__/css/store_index.css">
+<div class="topa"></div>
+<div class="dp_head">
+    <div class="maleri30">
+        <div class="clearfix">
+            <div class="dp_logo">
+                <img src="{$store.store_logo|default='__STATIC__/images/logo.png'}"/>
+            </div>
+            <div class="dp_dis">
+                <div class="dp_dis_s">
+                    <span>{$store.store_name}</span>
+                    <i></i>
+                </div>
+                <div class="dp_dis_x">
+                    <div class="dp_clic" data-id="{$Request.param.store_id}" id="favoriteStore">
+                        <if condition="$user_collect eq 0">
+                            <i class=""></i>
+                            <span>关注</span>
+                            <else/>
+                            <i class="red"></i>
+                            <span>已关注</span>
+                        </if>
+                    </div>
+                    <if condition="$store.store_collect gt 10000">
+                        <div class="attention_num">{$store.store_collect/10000|round=###,2}万人已关注</div>
+                        <else/>
+                        <div class="attention_num">{$store.store_collect}人已关注</div>
+                    </if>
+                </div>
+            </div>
+        </div>
+        <ul class="pro_list clearfix">
+            <li class="active">
+                <a href="{:U('Store/goods_list',['store_id'=>$store.store_id])}">
+                    全部商品
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Store/goods_list',['store_id'=>$store.store_id,'sta'=>is_new])}">
+                    新品
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Store/goods_list',['store_id'=>$store.store_id,'sta'=>is_hot])}">
+                    热销
+                </a>
+            </li>
+        </ul>
+        <div class="search_pro">
+            <a href="{:U('Store/ajaxSearch',array('store_id'=>$store.store_id))}">
+                <i></i>
+                <input type="text" placeholder="搜商品">
+            </a>
+        </div>
+    </div>
+</div>
+<!--排序按钮-s-->
+<nav class="storenav p search_list_dump" id="head_search_box product_sort">
+    <ul>
+        <li class="<if condition="I('sort') eq ''">red</if>">
+            <a href="{:U('Mobile/Store/index',array('store_id'=>$store['store_id']))}">
+            <span class="lb">默认</span>
+            </a>
+        </li>
+        <li class="<if condition="I('sort') eq 'sales_sum'">red</if>">
+            <a href="<?php echo urldecode(U('Mobile/Store/index',array_merge(array('store_id'=>$store['store_id'],'sort'=>'sales_sum')),''));?>">
+            <span class="dq" >销量</span>
+        </a>
+        </li>
+        <li class="<if condition="I('sort') eq 'shop_price'">red</if>">
+        <a href="<?php echo urldecode(U('Mobile/Store/index',array_merge(array('store_id'=>$store['store_id'],'sort'=>'shop_price','sort_asc'=>$sort_asc)),''));?>">
+            <span class="jg dq">价格</span>
+        </a>
+        <i class="pr <if condition="I('sort_asc') eq 'asc'">bpr2</if>  <if condition="I('sort_asc') eq 'desc'"> bpr1 </if>"></i>
+        </li>
+        <li>
+            <i class="listorimg"></i>
+        </li>
+    </ul>
+</nav>
+<!--排序按钮-e-->
+<div class="floor guesslike dp_mb0 choose">
+    <div class="likeshop">
+        <ul id="db_mb0_goods">
+            <foreach name="goods_list" item="vo">
+                <li>
+                    <div class="similer-product">
+                        <a href="{:U('Goods/goodsInfo',array('id'=>$vo[goods_id]))}">
+                            <img src="{$vo.goods_id|goods_thum_images=400,400}">
+                            <span class="mian_h2 mian_hidde">{$vo.goods_name}</span>
+                        </a>
+                        <span class="similar-product-price">
+                            <span class="money">¥</span><span class="big-price">{$vo.shop_price}</span>
+                        </span>
+                    </div>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+</div>
+<div class="floor guesslike dp_mb1">
+    <div class="likeshop">
+        <ul id="db_mb1_goods">
+            <foreach name="goods_list" item="vo">
+                <li>
+                    <div class="similer-product">
+                        <a href="{:U('Goods/goodsInfo',array('id'=>$vo[goods_id]))}">
+                            <img src="{$vo.goods_id|goods_thum_images=400,400}">
+                            <span class="similar-product-text">{$vo.goods_name}</span>
+                        </a>
+                        <span class="similar-product-price">
+                            <span class="money">¥</span><span class="big-price">{$vo.shop_price}</span>
+                        </span>
+                    </div>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+</div>
+<div style="font-size:.512rem;text-align: center;" class="" id="list_over">
+    已展示完所有信息
+</div>
+<div class="store_nav p">
+    <ul>
+        <li class="active">
+            <div class="n">
+                <a href="{:U('Store/about',array('store_id'=>$store[store_id]))}">
+                    <img src="__STATIC__/images/shop_icon.png" alt="">
+                    <span>店铺详情</span>
+                </a>
+            </div>
+        </li>
+        <li>
+            <div class="n">
+                <a href="{:U('Store/store_goods_class',['store_id'=>$store.store_id])}">
+                    <img src="__STATIC__/images/product_icon_black.png" alt="">
+                    <span>商品分类</span>
+                </a>
+            </div>
+        </li>
+
+        <li>
+            <div class="n">
+                <a href="tel:{$store.store_phone}">
+                    <img src="__STATIC__/images/service_icon_black.png" alt="">
+                    <span>联系客服</span>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>
+<script>
+    var type={$user_collect}
+//    橱窗式,列表式样式切换
+    $(".listorimg").click(function(){
+        $(".guesslike").removeClass("choose");
+        if($(".listorimg").hasClass("orimg")){
+            $(this).removeClass("orimg");
+            $(".dp_mb0").addClass("choose");
+        }else {
+            $(this).addClass('orimg');
+            $(".dp_mb1").addClass("choose");
+        }
+    })
+    //收藏店铺
+    $('#favoriteStore').click(function () {
+        if (getCookie('user_id') == '') {
+            if(confirm('请先登录')){
+                window.location.href = "{:U('Mobile/User/login')}";
+            }
+        } else {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                data: {store_id: $(this).attr('data-id'),'type':type},
+                url: "{:U('Home/Store/collect_store')}",
+                success: function (data) {
+                    if (data.status == 1) {
+                        if(type==0){
+                            $('#favoriteStore').find('i').addClass('red');
+                            $('#favoriteStore').find('span').text('已关注');
+                        }else{
+                            $('#favoriteStore').find('i').removeClass('red');
+                            $('#favoriteStore').find('span').text('关注');
+                        }
+                        type=type==1?0:1
+                        layer.open({content:data.msg,time:2});
+                    } else {
+                        layer.open({content:data.msg,time:2});
+                    }
+                }
+            });
+        }
+    });
+    $(function(){
+        if($('#slideTpshop').find('li').length<=0){
+            $('.banner').hide()
+        }
+    })
+    //轮播
+    $(function(){
+        $('#slideTpshop').swipeSlide({
+            continuousScroll:true,
+            speed : 3000,
+            transitionType : 'cubic-bezier(0.22, 0.69, 0.72, 0.88)',
+            firstCallback : function(i,sum,me){
+                me.find('.dot').children().first().addClass('cur');
+            },
+            callback : function(i,sum,me){
+                me.find('.dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+            }
+        });
+        //圆点
+        var ed = $('.mslide ul li').length - 2;
+        $('.mslide').append("<div class=" + "dot" + "></div>");
+        for(var i = 0; i<ed ;i++){
+            $('.mslide .dot').append("<span></span>");
+        };
+        $('.mslide .dot span:first').addClass('cur');
+        var wid = - ($('.mslide .dot').width() / 2);
+        $('.mslide .dot').css('position','absolute').css('left','50%').css('margin-left',wid);
+    });
+
+
+
+    var  page = 1;
+    var over=1;
+    var statu=1;
+    /**
+     * ajax加载更多商品
+     */
+    function ajax_sourch_submit()
+    {
+        page += 1;
+        statu=0
+        $.ajax({
+            type : "get",
+            url:"<?php echo urldecode(U('Mobile/Store/index',array_merge(array('store_id'=>$store[store_id],'sort'=>$_GET[sort],'sort_asc'=>$_GET[sort_asc],'sel'=>$_GET[sel])),''));?>/is_ajax/1/p/"+page,//+tab,
+//			data : $('#filter_form').serialize(),// 你的formid 搜索表单 序列化提交
+            success: function(data)
+            {
+                statu=1
+                data=$.parseJSON(data);
+                if($.trim(data) == ''){
+                    over=0
+                    $('#list_over').addClass('list_over')
+                    return false;
+                } else{
+                    var html=''
+                    var html1=''
+                    for(var i=0;i<data.length;i++){
+                        html+='<li><div class="similer-product"><a href="/mobile/Goods/goodsInfo/id/'+data[i]['goods_id']+'">'
+                        html+='<img src="'+data[i]['thum_images']+'">'//<img src="{$vo.goods_id|goods_thum_images=400,400}">
+                        html+='<span class="mian_h2 mian_hidde">'+data[i]['goods_name']+'</span></a> <span class="similar-product-price">'
+                        html+='<span class="money">¥</span><span class="big-price">'+data[i]['shop_price']+'</span></span></div></li>'
+
+                        html1+='<li><div class="similer-product"><a href="/mobile/Goods/goodsInfo/id/'+data[i]['goods_id']+'">'
+                        html1+='<img src="'+data[i]['thum_images']+'">'
+                        html1+='<span class="similar-product-text">'+data[i]['goods_name']+'</span></a>'
+                        html1+='<span class="similar-product-price"><span class="money">¥</span><span class="big-price">'+data[i]['shop_price']
+                        html1+='</span></span></div></li>'
+                    }
+
+                    $('#db_mb0_goods').append(html)
+                    $('#db_mb1_goods').append(html1)
+                    $("#goods_list").append(data);
+                    if( $("#goods_list").hasClass('addimgchan')){
+                        $('.orderlistshpop').addClass('addimgchan')
+                    }else{
+                        $('.orderlistshpop').removeClass('addimgchan')
+                    }
+                }
+            }
+        });
+    }
+
+
+    // scroll event
+    $(window).scroll(function(){
+        // scroll at bottom
+        if ($(document).height()-($(window).scrollTop() + $(window).height())<50) {
+            // load data
+            if(over && statu){
+                ajax_sourch_submit()
+            }
+        }
+    });
+</script>

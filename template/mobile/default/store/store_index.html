@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>店铺首页</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+	<script>
+	//通过window.screen.width获取屏幕的宽度
+	var offWidth = window.screen.width / 16; //这里用宽度/25表示1rem取得的px
+	document.getElementsByTagName("html")[0].style.fontSize = offWidth + 'px'; //把rem的值复制给顶级标签html的font-size
+	</script>
+	<link rel="stylesheet" href="__STATIC__/css/o2o/store_index.css">
+	<script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+	<script src="__PUBLIC__/js/global.js"></script>
+	<script src="__STATIC__/js/o2o/store_index.js"></script>
+	<!--<script src="/public/static/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>-->
+	<script src="__STATIC__/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+<input type="hidden" name="store_id" value="{$store_id}" >
+	<!--点击分享按钮显示隐藏-->
+	<div class="themeon">
+		<img src="__STATIC__/images/o2o/themeon.png" alt="">
+		<button class="know">知道了</button>
+	</div>
+	<!-- 购物车 -->
+	<div class="mark scl">
+		<div class="scl-main">
+			<div class="title">
+				<span id="scl-num">（已选0件商品）</span>
+				<div class="del">清空</div>
+			</div>
+			<ul class="scl-list">
+				<!--<li>-->
+					<!--<label>TPshop羊肉火锅</label>-->
+					<!--<div class="money"><span>￥</span><span>58</span></div>-->
+					<!--<div class="add-sub">-->
+						<!--<span class="subduction"></span>-->
+						<!--<span class="number">1</span>-->
+						<!--<span class="add"></span>-->
+					<!--</div>-->
+				<!--</li>-->
+			</ul>
+		</div>
+	</div>
+
+
+	<div class="wrap">
+		<!-- <div class="wrap-bg"></div> -->
+		<div class="header">
+			<!--<div class="back-icon"></div>-->
+			<a class="back-icon" href="{:U('/mobile/index')}"></a>
+			<h1></h1>
+			<div class="theme"></div>
+			<div class="set-up"></div>
+		</div>
+		<div class="cont1">
+			<div class="box1">
+				<img src="__STATIC__/images/o2o/tjdd-icon05.png" alt="">
+				<div class="right">
+					<!--<p>TPshop线下店</p>-->
+					<!--<p>TPshop线下店</p>-->
+					<!--<p>商家配送 / 28分钟送达 / 配送费¥5</p>-->
+					<!--<p>公告：此处填写商家的广告或者商品注意事项等告或者商品注意事项</p>-->
+				</div>
+			</div>
+			<div class="box2">
+				<span class="more" onclick="cont1_show();">0个优惠券</span>
+				<!--<p><img src="__STATIC__/images/o2o/xin.png" alt="">新用户下单立减5元，满50减20</p>-->
+				<p id="man_all" style="display: none"><img src="__STATIC__/images/o2o/man.png" alt="" ></p>
+				<!--<p><img src="__STATIC__/images/o2o/quan.png" alt="">买A送B商家自定义，同种商品不宜设置过多活动以免冲突</p>-->
+				<!--<p><img src="__STATIC__/images/o2o/tuan.png" alt="">四人同行，一人免单</p>-->
+			</div>
+			<div class="box3">
+				<div class="title">店铺优惠券</div>
+				<div class="quan-list">
+					<div class="list">
+						<div class="left">
+							<span>￥</span><span>10</span>
+						</div>
+						<div class="right">
+							<p>满30元可用</p>
+							<p>2017.12.15-2017.12.16</p>
+						</div>
+						<div class="btn"><a href=""></a></div>
+					</div>
+					<div class="list">
+						<div class="left">
+							<span>￥</span><span>10</span>
+						</div>
+						<div class="right">
+							<p>满30元可用</p>
+							<p>2017.12.15-2017.12.16</p>
+						</div>
+						<div class="btn"><a href=""></a></div>
+					</div>
+					<div class="list">
+						<div class="left">
+							<span>￥</span><span>10</span>
+						</div>
+						<div class="right">
+							<p>满30元可用</p>
+							<p>2017.12.15-2017.12.16</p>
+						</div>
+						<div class="btn"><a href=""></a></div>
+					</div>
+				</div>
+			</div>
+			<div class="retract" onclick="cont1_hide();">
+				<i></i>
+				<span>点击上滑继续购物</span>
+			</div>
+		</div>
+
+		<div class="cont2">
+			<ul class="tab-nav">
+				<li class="on">商品</li>
+				<li>评价</li>
+				<li>店铺</li>
+			</ul>
+			<div class="tab-box">
+				<!-- 商品 -->
+				<div class="box1 active goods">
+					<div class="left">
+						<ul class="left-tab">
+							<!--<li class="on"><i class="icon"></i><span>优惠</span></li>-->
+							<!--<li><i class="icon"></i><span>热销</span></li>-->
+							<!--<li><span>小炒类</span></li>-->
+
+						</ul>
+					</div>
+					<div id="right_list">
+								<!--<div class="right">-->
+									<!--&lt;!&ndash;<div class="cont2-banner">&ndash;&gt;-->
+										<!--&lt;!&ndash;<img src="__STATIC__/images/o2o/dpsy-img01.png" alt="">&ndash;&gt;-->
+										<!--&lt;!&ndash;<img src="__STATIC__/images/o2o/dpsy-img01.png" alt="">&ndash;&gt;-->
+									<!--&lt;!&ndash;</div>&ndash;&gt;-->
+									<!--<div class="right-tab">-->
+										<!--&lt;!&ndash; 一类商品 &ndash;&gt;-->
+										<!--&lt;!&ndash;<div class="tab-title">&ndash;&gt;-->
+											<!--&lt;!&ndash;热销商品（2）&ndash;&gt;-->
+										<!--&lt;!&ndash;</div>&ndash;&gt;-->
+										<!--<ul class="right-list">-->
+											<!--<li>-->
+												<!--<img src="__STATIC__/images/o2o/tjdd-icon05.png" alt="">-->
+												<!--<div class="li-right">-->
+													<!--<p class="p1">TPshop招牌牛肉饭 营养美味 好吃不上火</p>-->
+													<!--<p class="p2">此处填写其他信息，可不填</p>-->
+													<!--<p class="p2"><span>月售5846</span><span class="hpl">好评率98%</span></p>-->
+													<!--<div class="num">-->
+														<!--<p class="money"><span>￥</span><span>18</span></p>-->
+														<!--<div>-->
+															<!--<span class="subduction"></span>-->
+															<!--<span class="number">1</span>-->
+															<!--<span class="add"></span>-->
+														<!--</div>-->
+													<!--</div>-->
+												<!--</div>-->
+												<!--<div class="spec_background"></div>-->
+												<!--<div class="spec_select">-->
+													<!--<div class="spec-close">×</div>-->
+													<!--<div class="spec-top">-->
+														<!--<div class="spec-order-img"><img src="" alt=""></div>-->
+														<!--<div class="sepc-detail">-->
+															<!--<p class="sd-title">测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品</p>-->
+															<!--<p class="sd-selected">已选：选中的内容选中的内容选中的内容选中的内容</p>-->
+															<!--<div class="sd-wrap"><span class="sd-em">￥</span><span class="sd-price">64.00</span></div>-->
+														<!--</div>-->
+													<!--</div>-->
+													<!--<div class="spec-bottom">-->
+														<!--<p class="sb-title">内存</p>-->
+														<!--<span class="sb-item">64</span>-->
+														<!--<span class="sb-item">32</span>-->
+													<!--</div>-->
+													<!--<div class="spec-bottom">-->
+														<!--<p class="sb-title">内存</p>-->
+														<!--<span class="sb-item">64</span>-->
+														<!--<span class="sb-item">32</span>-->
+													<!--</div>-->
+													<!--<div class="spec-bottom">-->
+														<!--<p class="sb-title">内存</p>-->
+														<!--<span class="sb-item">64</span>-->
+														<!--<span class="sb-item">32</span>-->
+													<!--</div>-->
+													<!--<div class="spec-bottom">-->
+														<!--<p class="sb-title">内存</p>-->
+														<!--<span class="sb-item">64</span>-->
+														<!--<span class="sb-item">32</span>-->
+													<!--</div>-->
+													<!--<span class="sepc-commit">选好了</span>-->
+												<!--</div>-->
+											<!--</li>-->
+										<!--</ul>-->
+
+									<!--</div>-->
+								<!--</div>-->
+					</div>
+
+					<div class="shop-cart" >
+						<div class="cart-icon">
+							<span class="shop-cart-num" style="display: none">0</span>
+						</div>
+						<div class="shop-num" style="display: none">
+							<p><span>￥</span><span>0</span></p>
+							<!--<p>配送费￥3</p>-->
+						</div>
+						<div class="btn">提交订单</div>
+					</div>
+				</div>
+
+				<!-- 评价 -->
+				<div class="box1 evaluate">
+					<div class="eva-top">
+						<div class="eva-t-left">
+							<span>4.9</span><span>综合评价</span>
+						</div>
+						<div class="eva-t-right">
+							<p><span>描述评价</span><span><i class="stars-on"></i><i class="stars-on"></i><i class="stars-on"></i><i class="stars-half"></i><i class="stars-off"></i></span><span class="score-num">4.5</span></p>
+							<p><span>服务评价</span><span><i class="stars-on"></i><i class="stars-on"></i><i class="stars-on"></i><i class="stars-half"></i><i class="stars-off"></i></span><span class="score-num">4.5</span></p>
+							<p><span>发货评价</span><span><i class="stars-on"></i><i class="stars-on"></i><i class="stars-on"></i><i class="stars-half"></i><i class="stars-off"></i></span><span class="score-num">4.5</span></p>
+							<!--<p><span>评论数量</span><span>0条</span></p>-->
+						</div>
+					</div>
+					<div class="eva-num">
+						<span class="eva-all eva-act" data-id="1">全部(<i style="font-style:normal">0</i>)</span>
+						<span class="eva-good" data-id="2">好评(<i style="font-style:normal">0</i>)</span>
+						<span class="eva-medium" data-id="3">中评(<i style="font-style:normal">0</i>)</span>
+						<span class="eva-bad" data-id="4">差评(<i style="font-style:normal">0</i>)</span>
+						<span class="eva-pic" data-id="5">有图(<i style="font-style:normal">0</i>)</span>
+					</div>
+					<div class="eva-list">
+						<!--<div class="list">-->
+							<!--<img src="__STATIC__/images/o2o/test.png" alt="" class="portrait">-->
+							<!--<div class="list-right">-->
+								<!--<p class="p1">-->
+									<!--<span>用户ID</span><span>2019-03-27</span>-->
+								<!--</p>-->
+								<!--<p class="list-stars"><i class="stars-on"></i><i class="stars-on"></i><i class="stars-on"></i><i class="stars-half"></i><i class="stars-off"></i></p>-->
+								<!--<p class="p2">味道还不错，希望送餐速度能再快点！味道还不错，希望送餐速度能再快点！味道还不错，希望送餐速度能再快点！味道还不错，希望送餐速度能再快点！</p>-->
+								<!--<div class="img">-->
+									<!--<img src="__STATIC__/images/o2o/tjdd-icon05.png" alt="">-->
+									<!--<img src="__STATIC__/images/o2o/tjdd-icon05.png" alt="">-->
+									<!--<img src="__STATIC__/images/o2o/tjdd-icon05.png" alt="">-->
+								<!--</div>-->
+							<!--</div>-->
+						<!--</div>-->
+
+					</div>
+				</div>
+
+				<!-- 店铺 -->
+				<div class="box1 shop">
+					<div class="shop-box1">
+						<div class="title">商家信息</div>
+						<div class="shop-box1-list">
+							<div class="list">
+								<span class="left"></span>
+							</div>
+							<div class="list">
+								<span class="left">商家电话</span>
+								<span class="right"></span>
+							</div>
+							<div class="list">
+								<span class="left">商家地址</span>
+								<span class="right"></span>
+							</div>
+							<!--<div class="list">-->
+								<!--<span class="left">营业时间</span>-->
+								<!--<span class="right">09:20 - 20:00</span>-->
+							<!--</div>-->
+							<!--<div class="list">-->
+								<!--<span class="left">营业资质</span>-->
+								<!--<span class="icon"></span>-->
+							<!--</div>-->
+						</div>
+					</div>
+
+					<div class="shop-box2">
+						<div class="title">店铺优惠券</div>
+						<div class="quan-list">
+							<!--<div class="list">-->
+								<!--<div class="left">-->
+									<!--<span>￥</span><span>10</span>-->
+								<!--</div>-->
+								<!--<div class="right">-->
+									<!--<p>满30元可用</p>-->
+									<!--<p>2017.12.15-2017.12.16</p>-->
+								<!--</div>-->
+								<!--<div class="btn"><a href=""></a></div>-->
+							<!--</div>-->
+							<!--<div class="list">-->
+								<!--<div class="left">-->
+									<!--<span>￥</span><span>10</span>-->
+								<!--</div>-->
+								<!--<div class="right">-->
+									<!--<p>满30元可用</p>-->
+									<!--<p>2017.12.15-2017.12.16</p>-->
+								<!--</div>-->
+								<!--<div class="btn"><a href=""></a></div>-->
+							<!--</div>-->
+							<!--<div class="list">-->
+								<!--<div class="left">-->
+									<!--<span>￥</span><span>10</span>-->
+								<!--</div>-->
+								<!--<div class="right">-->
+									<!--<p>满30元可用</p>-->
+									<!--<p>2017.12.15-2017.12.16</p>-->
+								<!--</div>-->
+								<!--<div class="btn"><a href=""></a></div>-->
+							<!--</div>-->
+						</div>
+					</div>
+					<div class="shop-box3" style="display:none;">
+						<div class="title">优惠活动</div>
+						<div class="list">
+							<p><img src="__STATIC__/images/o2o/xin.png" alt="">新用户下单立减5元，满50减20</p>
+							<p><img src="__STATIC__/images/o2o/man.png" alt="">满20减5，满40减15，满60减30</p>
+							<p><img src="__STATIC__/images/o2o/quan.png" alt="">买A送B商家自定义，同种商品不宜设置过多活动以免冲突</p>
+							<p><img src="__STATIC__/images/o2o/tuan.png" alt="">四人同行，一人免单</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script>
+	function cont1_show(){
+		if ($('html,body').scrollTop() > 0) {
+			$('html,body').animate({scrollTop:0},0);
+			setTimeout(function(){
+				$('.cont1').addClass('show');
+				$('.shop-cart').addClass('hide');
+		},0)
+		}else{
+			$('.cont1').addClass('show');
+			$('.shop-cart').addClass('hide');
+		}
+
+	}
+	function cont1_hide(){
+		$('.cont1').removeClass('show');
+		$('.shop-cart').removeClass('hide');
+	}
+	//$(document).on('scroll',function(){
+	//	if ($('.cont1').hasClass('show')) {
+		//	cont1_hide();
+		//}
+	//});
+
+	$(".theme").click(function(){
+		$(".themeon").css({display:"block"})
+	})
+	$(".themeon .know").click(function(){
+		$(".themeon").css({display:"none"})
+	})
+</script>

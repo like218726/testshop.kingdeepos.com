@@ -1,0 +1,23 @@
+<foreach name="goods_list" item="vo" key="k">
+    <div class="orderlistshpop p">
+        <div class="">
+            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo[goods_id]))}" class="item">
+                <div class="sc_list se_sclist">
+                    <div class="shopimg fl">
+                        <div class="prom_title"style="display: {$vo['activity']['prom_title']==''?'none':''}" >{$vo['activity']['prom_title']}</div>
+                        <img src="{$vo.goods_id|goods_thum_images=400,400}">
+                    </div>
+                    <div class="deleshow fr">
+                        <div class="deletes">
+                            <span class="similar-product-text fl">{$vo.goods_name|getSubstr=0,20}</span>
+                        </div>
+                        <div class="prices">
+                            <p class="sc_pri fl"><span>￥</span><span>{$vo[shop_price]}元</span></p>
+                        </div>
+                        <p class="weight"><span>市场价</span><span>{$vo[market_price]}</span><span goods_id="{$vo.goods_id}"style="display: {$vo.bespeak_template_id > 0 ? 'none':'block'}" class="add_cart"><img style="vertical-align: top;margin-top: 0.25rem;" src="__STATIC__/images/red-icon-cart.png" alt=""></span></p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</foreach>

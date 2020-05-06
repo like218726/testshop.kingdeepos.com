@@ -1,0 +1,48 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+<include file="public/left"/>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i class="icon-angle-right"></i>店铺装修</div>
+    <div class="main-content" id="mainContent">
+      
+<div class="tabmenu">
+  <ul class="tab pngFix">
+  <li class="active"><a  href="">店铺装修</a></li>
+  <!-- li class="normal"><a  href="">装修图库</a></li -->
+  </ul>
+</div>
+<div class="ncsc-form-default">
+  <form id="form_setting" method="post" action="">
+    <dl>
+      <dt>启用自定义首页：</dt>
+      <dd>
+        <label for="store_decoration_switch_on" class="mr30">
+          <input onclick="$('#decoration_div').show();" id="store_decoration_switch_on" type="radio" class="radio vm mr5" name="store_decoration_switch" value="{$decoration.decoration_id}" <if condition="$store.store_decoration_switch gt 0">checked</if>>
+          是</label>
+        <label for="store_decoration_switch_off">
+          <input onclick="$('#decoration_div').hide();" id="store_decoration_switch_off" type="radio" class="radio vm mr5" name="store_decoration_switch" value="0" <if condition="$store.store_decoration_switch eq 0">checked</if>>
+          否</label>
+        <p class="hint">选择是否使用自定义店铺首页；<br/>
+          如选择“是”，店铺首页将根据自定义首页所设置的内容进行显示；<br/>
+          如选择“否”将按照系统预设值店铺首页进行显示。</p>
+      </dd>
+    </dl>
+    <div id="decoration_div" <if condition="$store.store_decoration_switch eq 0">style="display: none"</if>>
+
+    <dl>
+      <dt>自定义首页：</dt>
+      <dd> <a href="{:U('Seller/store/template_edit',array('is_index'=>1))}" class="ncbtn ncbtn-aqua mr5"><i class="icon-puzzle-piece"></i>编辑首页</a> 
+      <a id="btn_build" href="" class="ncbtn ncbtn-bittersweet" target="_blank"><i class="icon-magic"></i>预览首页</a>
+        <p class="hint">点击“编辑首页”按钮，在新窗口对店铺首页进行编辑设计；<br/>
+          预览效果满意后，点击“保存”按钮则可将预览效果保存为您的店铺首页。</p>
+      </dd>
+    </dl>
+      </div>
+  </form>
+</div>
+    </div>
+  </div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

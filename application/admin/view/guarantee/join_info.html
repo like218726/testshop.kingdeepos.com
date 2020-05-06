@@ -1,0 +1,84 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+
+<div class="page">
+  <!-- 页面导航 -->
+  <div class="fixed-bar">
+    <div class="item-title"><a class="back" href="{:U('Guarantee/join_list')}" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+      <div class="subject">
+        <h3>消费者保障服务</h3>
+        <h5>消费者保障服务查看与管理</h5>
+      </div>
+    </div>
+  </div>
+    <div class="ncap-form-default">
+        <dl class="row">
+            <dt class="tit">
+                <label>店铺名称</label>
+            </dt>
+            <dd class="opt">{$join.store_name}</dd>
+        </dl>
+        <dl class="row">
+            <dt class="tit">
+                <label>项目名称</label>
+            </dt>
+            <dd class="opt">{$item.grt_name}</dd>
+        </dl>
+        <dl class="row">
+            <dt class="tit">
+                <label>保证金余额</label>
+            </dt>
+            <dd class="opt">{$item.grt_cost}&nbsp;元</dd>
+        </dl>
+        <dl class="row">
+            <dt class="tit">
+                <label>状态</label>
+            </dt>
+            <dd class="opt">   			
+            <if condition="$join.isopen eq 0">
+				禁止使用	
+			<elseif condition="$join.joinstate eq 0" />
+				未申请
+			<else/>
+				{$auditstate[$join.auditstate]}
+			</if></dd>
+        </dl>
+    </div>
+  <div class="flexigrid"><div class="mDiv"><div class="ftitle"><h3>保障服务日志列表</h3><h5>(共{$pager->totalRows}条记录)</h5></div> 
+  <div class="pReload" title="刷新数据"><i class="fa fa-refresh"></i></div>
+  <div class="sline"></div><div class="nBtn"><span class="hBtn"><i class="fa fa-cogs"></i></span></div></div>
+  <div class="hDiv"><div class="hDivBox"><table cellpadding="0" cellspacing="0"><thead>
+  <tr><th class="sign" axis="col0"><div style="width: 24px;"><i class="ico-check"></i></div></th>
+  <th axis="col1" align="left"><div style="text-align: left; width: 200px;">店铺名称</div></th>
+  <th axis="col2" align="left" class=""><div style="text-align: left; width: 200px;">保障服务</div></th>
+  <th axis="col3" align="center" class=""><div style="text-align: center; width: 130px;">添加时间</div></th>
+  <th axis="col4" align="left"><div style="text-align: left; width: 150px;">操作人</div></th>
+  <th axis="col5" align="left"><div style="text-align: left; width: 500px;">描述</div></th>
+  <th style="width:100%" axis="col6"><div></div></th></tr></thead></table></div></div>
+
+
+  <div class="bDiv" style="height: auto;">
+  <div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+  <table>
+  	<tbody>
+  	   <foreach name="handle_log" item="vo">
+	  <tr id="row32" data-id="32"><td class="sign"><div style="width: 24px;"><i class="ico-check"></i></div></td>
+	  <td align="left" class=""><div style="text-align: left; width: 200px;">{$vo.log_storename}</div></td>
+	  <td align="left" class=""><div style="text-align: left; width: 200px;">{$vo.log_grtname}</div></td>
+	  <td align="center" class=""><div style="text-align: center; width: 130px;">{$vo.log_addtime|date='Y-m-d H:i:s',###}</div></td>
+	  <td align="left" class=""><div style="text-align: left; width: 150px;">{$vo.log_username}({$vo.log_role})</div></td>
+	  <td align="left" class=""><div style="text-align: left; width: 500px;">{$vo.log_msg}</div></td>
+	  <td align="" class="" style="width: 100%;"><div>&nbsp;</div></td>
+	  </tr>
+	  </foreach>
+	</tbody>
+	</table>
+	</div>
+  </div>
+  	<div class="pDiv">{$page}</div>
+  </div>
+</div>
+</body>
+</html>

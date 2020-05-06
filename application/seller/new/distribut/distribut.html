@@ -1,0 +1,160 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>分销商品<i class="icon-angle-right"></i>分销设置</div>
+        <div class="main-content" id="mainContent">
+            <div class="item-publish">
+                <form method="post" id="handlepost" action="{:U('Store/distribut')}">
+                	<input type="hidden" name="id" value="{$config.id}">
+                	<input type="hidden" name="result_url" value="Distribut/distribut">
+                    <div class="ncsc-form-goods active" id="tab_tongyong">
+                        <h3 id="demo1">分销设置</h3>
+                        <if condition="$distribut_set_by eq 1">
+                        <dl>
+                            <dt>分销开关:</dt>
+                            <dd>
+                            	开<input type="radio"  name="switch" value="1" <if condition="$config['switch'] eq 1">checked="checked"</if> />
+                         		关<input type="radio"  name="switch" value="0" <if condition="$config['switch'] eq 0">checked="checked"</if> />
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>一级分销商比例：</dt>
+                            <dd>
+                                <input type="text"  class="text" placeholder="输入 1-100 整数" name="first_rate" id="distribut_first_rate" value="{$config.first_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')">
+                                <p class="hint">购买者直接推荐人返佣占商品分销金比例,单位：%</p> 
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>二级分销商比例：</dt>
+                            <dd>
+                                 <input type="text" placeholder="输入 1-100 整数" class="text" name="second_rate" id="distribut_second_rate" value="{$config.second_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" >
+                                 <p class="hint">购买者推荐人的上级返佣占商品分销金比例,单位：%</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>三级分销商比例：</dt>
+                            <dd>
+                                <input type="text" placeholder="输入 1-100 整数" class="text" name="third_rate" id="distribut_third_rate" value="{$config.third_rate}"onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')">
+                                <p class="hint">购买者推荐人的上上级占商品分销金比例,单位：%</p>
+                            </dd> 
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>返佣级数：</dt>
+                            <dd>
+                                <select name="regrade" id="distribut_regrade">
+									<option value="0" <if condition="$config['regrade'] eq 0">selected="selected"</if>>返一级</option>
+									<option value="1" <if condition="$config['regrade'] eq 1">selected="selected"</if>>返两级</option>
+									<option value="2" <if condition="$config['regrade'] eq 2">selected="selected"</if>>返三级</option>
+			                    </select>
+                                <p class="hint">最多返佣三级，例如设为两级，即消费会员的推荐人，以及推荐人的上级都有提成</p>
+                            </dd> 
+                        </dl>
+                            <dl>
+                                <dt><i class="required">*</i>推荐开店有效期：</dt>
+                                <dd>
+                                    <select name="open_store_time" id="distribut_open_store">
+                                        <option value="1" <if condition="$default_config['open_store_time'] eq 1">selected="selected"</if>>1天</option>
+                                        <option value="2" <if condition="$default_config['open_store_time'] eq 2">selected="selected"</if>>2天</option>
+                                        <option value="3" <if condition="$default_config['open_store_time'] eq 3">selected="selected"</if>>3天</option>
+                                        <option value="4" <if condition="$default_config['open_store_time'] eq 4">selected="selected"</if>>4天</option>
+                                        <option value="5" <if condition="$default_config['open_store_time'] eq 5">selected="selected"</if>>5天</option>
+                                        <option value="6" <if condition="$default_config['open_store_time'] eq 6">selected="selected"</if>>6天</option>
+                                        <option value="7" <if condition="$default_config['open_store_time'] eq 7">selected="selected"</if>>7天</option>
+                                        <option value="8" <if condition="$default_config['open_store_time'] eq 8">selected="selected"</if>>8天</option>
+                                        <option value="9" <if condition="$default_config['open_store_time'] eq 9">selected="selected"</if>>9天</option>
+                                        <option value="10" <if condition="$default_config['open_store_time'] eq 10">selected="selected"</if>>10天</option>
+                                        <option value="0" <if condition="$default_config['open_store_time'] eq 0">selected="selected"</if>>长期</option>
+                                    </select>
+                                    <p class="hint">例：几天日内开店成功，才能算是这个人推荐的的店</p>
+                                </dd>
+                            </dl>
+                        <dl>
+                            <dt><i class="required">*</i>分成时间：</dt>
+                            <dd>
+								订单收货确认{$auto_service_date}天后可以分成,此时间由平台设置.
+                            </dd>
+                        </dl>
+                        <else/>
+                        <dl>
+                            <dt><i class="required">*</i>分销规则设置：</dt>
+                            <dd>当前由平台设置了默认分销规则</dd>
+                        </dl>
+                            <dl>
+                                <dt><i class="required">*</i>推荐开店有效期：</dt>
+                                <dd>
+                                    <select name="open_store_time">
+                                        <option value="1" <if condition="$default_config['open_store_time'] eq 1">selected="selected"</if>>1天</option>
+                                        <option value="2" <if condition="$default_config['open_store_time'] eq 2">selected="selected"</if>>2天</option>
+                                        <option value="3" <if condition="$default_config['open_store_time'] eq 3">selected="selected"</if>>3天</option>
+                                        <option value="4" <if condition="$default_config['open_store_time'] eq 4">selected="selected"</if>>4天</option>
+                                        <option value="5" <if condition="$default_config['open_store_time'] eq 5">selected="selected"</if>>5天</option>
+                                        <option value="6" <if condition="$default_config['open_store_time'] eq 6">selected="selected"</if>>6天</option>
+                                        <option value="7" <if condition="$default_config['open_store_time'] eq 7">selected="selected"</if>>7天</option>
+                                        <option value="8" <if condition="$default_config['open_store_time'] eq 8">selected="selected"</if>>8天</option>
+                                        <option value="9" <if condition="$default_config['open_store_time'] eq 9">selected="selected"</if>>9天</option>
+                                        <option value="10" <if condition="$default_config['open_store_time'] eq 10">selected="selected"</if>>10天</option>
+                                        <option value="0" <if condition="$default_config['open_store_time'] eq 0">selected="selected"</if>>长期</option>
+                                    </select>
+                                    <p class="hint">例：几天日内开店成功，才能算是这个人推荐的的店</p>
+                                </dd>
+                            </dl>
+                        <dl>
+                            <dt><i class="required">*</i>一级分销商比例：</dt>
+                            <dd>
+                                <input type="text"  class="text"  name="first_rate"  value="{$default_config.first_rate}">
+                                <p class="hint">购买者直接推荐人返佣占 商品分销金比例,单位：%</p> 
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>二级分销商比例：</dt>
+                            <dd>
+                                 <input type="text"  class="text"  name="first_rate"  value="{$default_config.second_rate}">
+                                 <p class="hint">购买者推荐人的上级返佣占商品分销金比例,单位：%</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>三级分销商比例：</dt>
+                            <dd><input type="text"  class="text"  name="first_rate" value="{$default_config.third_rate}">
+                            	<p class="hint">购买者推荐人的上上级占商品分销金比例,单位：%</p>
+                            </dd> 
+                        </dl>
+                        <dl>
+                            <dt><i class="required">*</i>返佣级数：</dt>
+                            <dd>{$default_config.regrade+1}级</dd> 
+                        </dl>
+                        </if>
+                    </div>
+                    <if condition="$distribut_set_by eq 1">
+                    <div class="bottom tc hr32">
+                        <label class="submit-border">
+                            <input nctype="formSubmit" class="submit" value="保存" type="button" onclick="adsubmit()" >
+                        </label>
+                    </div>
+                    </if>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+<script>
+ 
+
+function adsubmit(){
+	var distribut_first_rate  = $.trim($('#distribut_first_rate').val());
+	var distribut_second_rate = $.trim($('#distribut_second_rate').val());
+	var distribut_third_rate  = $.trim($('#distribut_third_rate').val());		
+	
+	var rate = parseInt(distribut_first_rate) + parseInt(distribut_second_rate) + parseInt(distribut_third_rate);
+	if(rate > 100)
+	{
+		layer.msg('三个分销商比例总和不得超过100%', {icon: 2,time: 2000});//alert('少年，邮箱不能为空！');		
+		// alert('三个分销商比例总和不得超过100%');
+		return false;
+	}
+	$('#handlepost').submit();
+}
+</script>
+</body>
+</html>

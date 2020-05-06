@@ -1,0 +1,59 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i class="icon-angle-right"></i>店铺信息</div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="normal"><a  href="{:U('Store/bind_class_list')}">经营类目</a></li>
+                    <li class="normal"><a  href="{:U('Store/store_info')}">店铺信息</a></li>
+                    <li class="active"><a  href="{:U('Store/store_reopen')}">申请续签</a></li>
+                </ul>
+    </div>
+    <div class="upload-box">
+        <div class="eject_con">
+            <div id="warning" class="alert alert-error"></div>
+            <dl>
+                <dt>申请等级：</dt>
+                <dd>{$data.re_grade_name}</dd>
+            </dl>
+            <dl>
+                <dt>费用(元/年)：</dt><dd id="re_price">{$data.re_grade_price}</dd>
+            </dl>
+            <dl>
+                <dt>续签时长：</dt>
+                <dd>{$data.re_year}年</dd>
+            </dl>
+            <dl>
+                <dt>应付总额：</dt>
+                <dd>{$data.re_pay_amount}</dd>
+            </dl>
+            <dl>
+                <dt><i class="required">*</i>支付凭证：</dt>
+                <dd><a href="{$data.re_pay_cert}" ><img src="{$data.re_pay_cert}" style="width: 300px;height: 200px;"></a></dd>
+            </dl>
+            <dl>
+                <dt>支付说明：</dt>
+                <dd>
+                    <textarea name="re_pay_cert_explain" rows="2" class="textarea w400"  maxlength="100" >{$data.re_pay_cert_explain}</textarea>
+                </dd>
+            </dl>
+            <dl>
+                <dt>审核备注：</dt>
+                <dd>{$data.admin_note}</dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">审核状态：</dt>
+                <dd class="opt">{$data.reopen_state}</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="ncsc-form-default">
+    </div>
+</div>
+</div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

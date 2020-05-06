@@ -1,0 +1,514 @@
+body {
+    background-color: #fff;
+}
+header {
+    height: 1.17333333rem;
+    width: 100%;
+    background-color: #ff3535;
+}
+header h1 {
+    padding-left: 1.22666667rem;
+    padding-right: 1.22666667rem;
+    font-size: 0.48rem;
+    color: white;
+    text-align: center;
+    height: 1.17333333rem;
+    line-height: 1.17333333rem;
+}
+.addset-h .red a{
+    color: red;
+    font-size: .72533rem;
+    display: inline-block;
+    height: 1.70667rem;
+    border-bottom:.13rem solid #ed5657;
+    box-sizing: border-box;
+}
+.addset-h a{
+    font-size: .62533rem;
+    color: #666666;
+}
+.addset-wrap-hh{
+    margin: 0 auto;
+    overflow-x: auto;
+}
+.team_info {
+    margin-bottom: 1.33333333rem;
+}
+.team_info .team_tab a {
+    float: left;
+    height: 1.17333333rem;
+    font-size: 0.4rem;
+    color: #666;
+    line-height: 1.17333333rem;
+    text-align: center;
+    width: 33.333%;
+    background-color: #eee;
+}
+.team_info .team_tab a.active {
+    color: #f6c70c;
+    background-color: #404040;
+    font-weight: bold;
+}
+.team_info .prompt {
+    height: 0.93333333rem;
+    padding-left: 1.28rem;
+    font-size: 0.32rem;
+    color: #666;
+    line-height: 0.93333333rem;
+    background-color: #f9f2d8;
+    position: relative;
+}
+.team_info .prompt::before {
+    content: '';
+    position: absolute;
+    left: 0.72rem;
+    top: 0;
+    height: 100%;
+    width: 0.34666667rem;
+    background: url("../images/distrbut/crown@2x.png") no-repeat center 0.29333333rem;
+    background-size: contain;
+}
+.fgtemple .zeqzuo .action-af{
+    height: .6rem;
+}
+.team_info .team_details .team_details_list {
+    height: 1.86666667rem;
+    border-bottom: .0125rem solid #f3f3f3;
+    padding-top: 0.4rem;
+    padding-bottom: 0.33333333rem;
+}
+.team_info .team_details .team_details_list .header_image {
+    float: left;
+    height: 1.06666667rem;
+    width: 1.06666667rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.team_info .team_details .team_details_list .header_image img {
+    height: 100%;
+    width: auto;
+}
+.team_info .team_details .team_details_list .user_info {
+    float: left;
+    margin-left: 0.4rem;
+}
+.team_info .team_details .team_details_list .user_info em {
+    display: block;
+    color: #333;
+    font-size: 0.37333333rem;
+    height: 0.50666667rem;
+    position: relative;
+}
+.team_info .team_details .team_details_list .user_info em i {
+    position: absolute;
+    height: 0.50666667rem;
+    width: 0.34666667rem;
+    margin-left: 0.10666667rem;
+    background: url("../images/distrbut/crown@2x.png") no-repeat center center;
+    background-size: contain;
+}
+.team_info .team_details .team_details_list .user_info span {
+    margin-top: 0.06666667rem;
+    color: #666;
+    font-size: 0.29333333rem;
+}
+.team_info .team_details .team_details_list .user_data {
+    float: right;
+}
+.team_info .team_details .team_details_list .user_data .consume {
+    color: #333;
+    font-size: 0.32rem;
+}
+.team_info .team_details .team_details_list .user_data .consume span {
+    font-weight: bold;
+    color: #ff3535;
+}
+.team_info .team_details .team_details_list .user_data > span {
+    display: block;
+    color: #666;
+    font-size: 0.29333333rem;
+    margin-top: 0.06666667rem;
+    text-align: right;
+}
+footer {
+    position: fixed;
+    width: 100%;
+    height: 1.33333333rem;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+footer a {
+    margin-top: 0.2rem;
+    float: left;
+    width: 20%;
+    padding: 0 3%;
+    text-align: center;
+}
+footer a img {
+    display: block;
+    width: auto;
+    height: 0.56rem;
+    margin: 0 auto;
+}
+footer a span {
+    font-size: 0.29333333rem;
+}
+footer a span.active {
+    color: #ff3535;
+}
+/*# sourceMappingURL=team.css.map */
+/*拼团页Team/index start*/
+.classreturn{
+    position: fixed;
+}
+.content{
+    background-color: #f8f8f8;
+}
+.fg_peop, .alone_price {
+    font-size: .5rem;
+    vertical-align: bottom !important;
+}
+.fgtemple .g_price{
+    line-height: 30%;
+    display: inline-block;
+}
+.fgtemple .g_price em{
+    font-size: .5rem;
+}
+.grandmogr{
+    padding: 0 !important;
+    margin-top:1.877rem;
+}
+.banner img{
+    height: 16rem !important;
+}
+.ggroup-bx .similar-product-text{
+    max-height: 1.792rem;
+}
+.ggroup-bx .cpt img{
+    height: 14.72rem !important;
+}
+.fgtemple .leok{
+    margin-top: .5rem;
+}
+.fgtemple .zeqzuo{
+    margin-top: .3rem;
+}
+/*拼团页Team/index end*/
+/*拼团详情-s*/
+.choose_shop_aready .shop-top-under{
+    padding-bottom: 0;
+}
+.shop-top-under .shulges .choic-sel{
+    float: left;
+}
+.shop-top-under p{
+    padding: 0;
+    padding-top: 0.2rem;
+    font-size: 0.64rem;
+    color: #1b1b1b;
+    font-weight: bold;
+}
+.shop-top-under .shulges .choic-sel a{
+    margin: 0;
+    background-color: #efefef;
+    border-radius: 0.6rem;
+    border: solid 0.02rem #efefef;
+    font-size: 0.51rem;
+    padding: 0.23rem 0.57rem;
+    margin: 0.60rem 0.73rem 0.1rem 0;
+    line-height: .8rem;
+}
+.shulges{
+    overflow: hidden;
+    float: left;
+    width: 100%;
+    margin-top: 0.94rem;
+    padding-right: 0.64rem;
+    line-height: 1.28rem;
+}
+.plus{
+    float: right;
+}
+.pro-num{
+    font-size: 0.64rem;
+    color: #1b1b1b;
+}
+.shop-top-under .shulges .plus span input{
+    font-size: 0.77rem;
+    color: #1b1b1b;
+}
+.shop-top-under .shulges .plus span{
+    font-size: 0.77rem;
+    border: none;
+}
+.num-count{
+    margin-top: 0.94rem;
+}
+.plusshopcar-buy{
+    padding: 0.68rem 0.64rem;
+    background-color: #ffffff;
+}
+.plusshopcar-buy .pb_buy{
+    width: 14.72rem;
+    height: 1.45rem;
+    background-color: #fb4242;
+    border-radius: 0.73rem;
+    line-height: 1.45rem!important;
+}
+.shop-top-under .shulges .choic-sel .red{
+    background-color: #ffefef;
+    color: #ff3a3a;
+}
+.thirty{
+    overflow: hidden;
+}
+.recommed h2{
+    font-size: 0.55rem;
+    color: #1b1b1b;
+    font-weight: bold;
+}
+.recommed .guesslike .likeshop ul li{
+    width: 5.03rem;
+}
+.recommed .guesslike .likeshop ul li a .similer-product img{
+    width: 5.03rem;
+    height: 5.03rem;
+}
+.guesslike .likeshop ul li .similer-product .similar-product-text{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    margin-top: 0.32rem;
+    padding: 0 0.23rem;
+    height: 0.65rem;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+.recommed .guesslike .likeshop ul li a .similer-product .similar-product-price{
+    margin-top: 0.38rem;
+    font-size: 0.55rem;
+    font-weight: bold;
+}
+.recommed .guesslike .likeshop ul li a .similer-product .similar-product-price em{
+    font-size: 0.4rem;
+}
+.pro-num {
+    font-size: 0.64rem;
+    color: #1b1b1b;
+    margin-left: 0.64rem;
+    font-weight: bold;
+}
+.shop-top-under .shulges .plus span {
+    font-size: 0.77rem;
+    border: none;
+}
+.plus span{
+    font-size: 0.77rem;
+    border: none;
+    width: 2.09067rem;
+    height: 1.28rem;
+    line-height: 1.18rem;
+    font-size: 0.77rem;
+    color: #1b1b1b;
+}
+.plus span input{
+    font-size: 0.77rem;
+    border: none;
+    width: 2.09067rem;
+    height: 1.28rem;
+    line-height: 1.18rem;
+    font-size: 0.77rem;
+    color: #1b1b1b;
+}
+.choose_shop_aready .shopprice .fon_or .similar-product-text{
+    margin-top: 0.11rem;
+    font-size: 0.64rem;
+    color: #1c1c1c;
+    line-height: 0.8rem;
+    -webkit-line-clamp: 1;
+    height: 0.85rem;
+    margin-bottom: 0.9rem;
+}
+.choose_shop_aready .shopprice .fon_or .price_or{
+    padding: 0;
+    margin-top: 0;
+    font-size: 0.64rem;
+}
+.actionfooer .cart-concert-btm .fl{
+    width: 7rem;
+}
+.actionfooer .cart-concert-btm .fl li{
+    width: 50% !important;
+}
+.cart-concert-btm .ico-heart{
+    margin-top: 0.25rem;
+}
+.cart-concert-btm .ico-kf6{
+    margin-top: 0.25rem;
+    margin-bottom: 0.17rem;
+}
+.podee .cart-concert-btm .fl ul li a p{
+    line-height: 1rem;
+}
+.detail .content .search span {
+    padding: 0 0.8rem;
+    margin: 0 0.26667rem;
+    font-size: 0.597rem;
+}
+.detail .content .search .sxp {
+    color: #ec5151;
+}
+.he_sustain .classreturn {
+    border-bottom: 0.03rem solid #ccc;
+    background-color: #ffffff;
+    overflow: hidden;
+}
+.he_sustain .classreturn .content {
+    background-color: #fafafa;
+}
+
+.thirty .p {
+    /*padding-top: 2rem;*/
+}
+.detail {
+    z-index: 100000;
+}
+
+
+.similar-product-text{
+    margin-bottom: 0.2rem;
+}
+.de_font .fr{
+    margin-top:-1.2rem !important;
+}
+.thirty .fl{
+    margin-top:0.3rem;
+}
+
+.de_font .scunde .red{
+    font-weight: bold;
+}
+/*收藏*/
+.cart-concert-btm .fr i{
+    background-image: url(../images/hear1.png) !important;
+    margin: 0.042667rem auto !important;
+}
+.cart-concert-btm .fr .ico-heart-h {
+    background-image: url(../images/hear2.png) !important;
+}
+.cart-concert-btm .ico-heart-h {
+    background-position-x: 0;
+}
+.podee .cart-concert-btm .fl ul li a i{
+    width: .9rem;
+}
+/*拼团详情-e*/
+/*拼单详情-s*/
+/* 分享样式 */
+.fenxiang-1{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 7.04rem;
+    z-index: 999;
+    display: none;
+}
+.fenxiang-1 .bg-fenxiang{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 0;
+}
+.fenxiang-1 .cancel{
+    width: 16rem;
+    height: 1.92rem;
+    line-height: 1.92rem;
+    background-color: #ffffff;
+    position: absolute;
+    bottom: 0;
+    color: #333333;
+    font-size: .768rem;
+    font-weight: 600;
+    border-top: .0213rem solid #e6e6e6;
+    z-index: 999;
+    text-align: center;
+}
+.fenxiang-1 .img-wen{
+    position: relative;
+    width: 100%;
+    height: 5.12rem;
+    background: #fff;
+    text-align: center;
+    z-index: 10;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.fenxiang-1 .img-wen img{
+    width: 2.13rem;
+    height: 2.13rem;
+}
+.fenxiang-1 .img-wen span{
+    display: block;
+    font-size: 0.512rem;
+    padding-top: 0.512rem;
+    color: #666;
+}
+.fenxiang_two{
+    display: none;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+.bg_posters .flex{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.bg_posters{
+    /*display: none;*/
+    position: fixed;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+}
+.bg_posters .save{
+    color: #fff;
+    font-size: .55rem;
+    text-align: center;
+    padding-top: .9rem;
+}
+.bg_posters .save img{
+    width: 1.024rem;
+    height: 1.024rem;
+    margin-top: 1rem;
+}
+.fenxiang_two img{
+    width: 11.56rem;
+    height: 6.91rem;
+    margin: .6rem 2.5rem;
+}
+.posters_photo{
+    width: 12.8rem;
+    height: 22.76rem;
+}
+.posters_photo img{
+    width: 12.8rem;
+    height: 19.2rem;
+}
+/*拼单详情-e*/

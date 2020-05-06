@@ -1,0 +1,128 @@
+<include file="public/layout" />
+<script type="text/javascript" src="__PUBLIC__/static/js/perfect-scrollbar.min.js"></script>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>店铺门店管理</h3>
+                <h5>门店详情查看</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label >门店名称</label>
+                </dt>
+                <dd class="opt">{$info.shopper_name}
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label >自提点名称</label>
+                </dt>
+                <dd class="opt">{$info.shop_name}
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label >自提点地址</label>
+                </dt>
+                <dd class="opt">{$info['area_list'][0]['name']}，{$info['area_list'][1]['name']}，{$info['area_list'][2]['name']}
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label >自提点详细地址</label>
+                </dt>
+                <dd class="opt">{$info.shop_address}
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label >营业时间</label>
+                </dt>
+                <dd class="opt">
+                    {$info['work_start_time']}~{$info['work_end_time']}
+                    <div class="z-week fl p">
+                        <span class="z-week-list">
+                            周一
+                            <input type="hidden" name="monday" value="{$info['monday']}"/>
+                        </span>
+                        <span class="z-week-list">
+                            周二
+                            <input type="hidden" name="tuesday" value="{$info['tuesday']}"/>
+                        </span>
+                        <span class="z-week-list">
+                            周三
+                            <input type="hidden" name="wednesday" value="{$info['wednesday']}"/>
+                        </span>
+                        <span class="z-week-list">
+                            周四
+                            <input type="hidden" name="thursday" value="{$info['thursday']}"/>
+                        </span>
+                        <span class="z-week-list">
+                            周五
+                            <input type="hidden" name="friday" value="{$info['friday']}"/>
+                        </span>
+                        <span class="z-week-list">
+                            周六
+                            <input type="hidden" name="saturday" value="{$info['saturday']}"/>
+                        </span>
+                        <span class="z-week-list">
+                            周日
+                            <input type="hidden" name="sunday" value="{$info['sunday']}"/>
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label >联系方式</label>
+                </dt>
+                <dd class="opt">
+                    <volist name="shop_image_list" id="shop_image" item="vo" key="k" >
+                        <div style="width:100px; text-align:center; margin: 5px; display:inline-block;" class="goods_xc">
+                            <input type="hidden" value="{$shop_image['image_url']}" name="shop_images[]">
+                            <a href="{$shop_image['image_url']}" target="_blank"><img width="100" height="100" src="{$shop_image['image_url']}"></a>
+                            <br>
+                        </div>
+                    </volist>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label >联系方式</label>
+                </dt>
+                <dd class="opt">{$info['shop_phone_code']}{$info['shop_phone']}
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label >供应商</label>
+                </dt>
+                <dd class="opt">{$info['suppliers']['suppliers_name']|default='--'}
+                </dd>
+            </dl>
+
+        </div>
+    </form>
+</div>
+
+</body>
+<script>
+    $(document).ready(function(e) {
+
+        $('.z-week').find('.z-week-list').each(function(i,o){
+            var day = $(this).find('input').val();
+            if(day != 1){
+                $(this).css('display','none');
+            }
+        })
+    });
+    </script>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<body>
+<div class="foohi foohiext newcarfoo" style="display:none;">
+    <div class="payit ma-to-20 payallb" style="bottom:0px;">
+        <div class="fl alllef">
+            <div class="radio fl">
+                <input class="check-box" name="checkboxes" type="checkbox" style="display: none;"/>
+                <span class="che checkFull">
+                    <i></i>
+                </span>
+                <span style="margin-left: .25rem;">全选</span>
+                <!--<span class="all">全选</span>-->
+            </div>
+        </div>
+        <div class="fr">
+            <a class="delete_item" onclick="delete_item()">删除</a>
+        </div>
+    </div>
+        <div class="payit ma-to-20 payallb" style="bottom:0px;">
+        <div class="fl alllef">
+            <div class="radio fl">
+                <input class="check-box" name="checkboxes" type="checkbox" style="display: none;"/>
+                <span class="che checkFull">
+                    <i></i>
+                </span>
+                <span style="margin-left: .25rem;">全选</span>
+                <!--<span class="all">全选</span>-->
+            </div>
+        </div>
+        <div class="fr">
+            <a class="delete_item" onclick="delete_item()">删除</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+ 
+    //模拟checkbox，选中时背景变色
+    function checkBox(obj) {
+        if (!obj.hasClass('check_t')) {
+            obj.addClass('check_t');
+            obj.parent().find('.check-box').attr('checked', 'checked');
+        } else {
+            obj.removeClass('check_t');
+            obj.parent().find('.check-box').removeAttr('checked');
+        }
+        //选中全选多选框
+        if (obj.hasClass('checkFull')) {
+            if (!obj.hasClass('check_t')) {
+                $(".che").each(function (i, o) {
+                    $(this).addClass('check_t');
+                    $(this).parent().find('.check-box').attr('checked', 'checked');
+                })
+            } else {
+                $(".che").each(function (i, o) {
+                    $(this).removeClass('check_t');
+                    $(this).parent().find('.check-box').removeAttr('checked');
+                })
+            }
+        }
+    }
+
+    /**
+     * ajax加载商品
+     */
+    var ajax_return_status = 1; // 标识ajax 请求是否已经回来 可以进行下一次请求
+    var page = 1;
+    function ajax_sourch_submit() {
+        if (ajax_return_status == 0){
+            return false;
+        }
+        ajax_return_status = 0;
+
+        $.ajax({
+            type: "POST",
+            url: "{:U('Mobile/Distribut/distribution_list')}",
+            data: {p: page},
+            success: function (data) {
+
+                if ($.trim(data) == '') {
+                    $('#getmore').show();
+                    return false;
+                } else {
+                    $("#goods_list").append(data);
+                    page = page + 1;
+                    ajax_return_status = 1;
+                }
+            }
+        });
+    }
+    /**
+     * 删除分销商品
+     */
+function delete_item () {
+        var goods_ids = new Array();
+        $("input[type='checkbox']:checked").each(function () {
+            goods_ids.push($(this).val());
+        });
+
+        //选择数大于0
+        if (goods_ids.length > 0 && goods_ids[0] !='on') {
+            $.ajax({
+                type : "POST",
+                url:"{:U('mobile/Distribut/delete')}",
+                dataType:'json',
+                data: {goods_ids: goods_ids},
+                success: function(data){
+                    if(data.status == 1) {
+                        $("input[type='checkbox']:checked").each(function () {
+                            $(this).parents('.orderlistshpop').remove();
+                        });
+                        layer.open({content: '删除成功', time: 2});
+                        // $("input[name='checkboxes']").removeAttr("checked");
+                        // $("input[name='checkboxes']").next().removeClass('check_t');
+
+                        setTimeout(function () {
+                            window.location.reload()
+                        },2000)
+                    }
+                }
+            });
+        } else {
+            layer.open({content: '请选择要删除的商品！', time: 2});
+        }
+    }
+</script>
+<script>document.write('<h3>'+unescape('%20%u6DF1%u5733%u641C%u8C79%u7F51%u7EDC%u6709%u9650%u516C%u53F8%2C%u7248%u6743%u6240%u6709%u76D7%u7248%u5FC5%u7A76')+'</h3>');</script>
+<div class="foohi foohiext newcarfoo" style="display:none;">
+    <div class="payit ma-to-20 payallb" style="bottom:0px;">
+        <div class="fl alllef">
+            <div class="radio fl">
+                <input class="check-box" name="checkboxes" type="checkbox" style="display: none;"/>
+                <span class="che checkFull">
+                    <i></i>
+                </span>
+                <span style="margin-left: .25rem;">全选</span>
+                <!--<span class="all">全选</span>-->
+            </div>
+        </div>
+        <div class="fr">
+            <a class="delete_item" onclick="delete_item()">删除</a>
+        </div>
+    </div>
+        <div class="payit ma-to-20 payallb" style="bottom:0px;">
+        <div class="fl alllef">
+            <div class="radio fl">
+                <input class="check-box" name="checkboxes" type="checkbox" style="display: none;"/>
+                <span class="che checkFull">
+                    <i></i>
+                </span>
+                <span style="margin-left: .25rem;">全选</span>
+                <!--<span class="all">全选</span>-->
+            </div>
+        </div>
+        <div class="fr">
+            <a class="delete_item" onclick="delete_item()">删除</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

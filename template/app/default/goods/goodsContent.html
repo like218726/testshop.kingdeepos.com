@@ -1,0 +1,52 @@
+<include file="public/header" title="商品详情"/>
+<!--详情-s-->
+<div class="xq_details">
+    <div class="spxq-ggcs">
+        <ul>
+            <li class="red">商品详情</li>
+            <li>规格参数</li>
+        </ul>
+    </div>
+    <div class="sg">
+        <div class="spxq p">
+            {$goods.goods_content|htmlspecialchars_decode}
+        </div>
+    </div>
+    <div class="sg" style="display: none;">
+        <div class="spxq p">
+            <table class="de_table" border="1" bordercolor="#cbcbcb" style="border-collapse:collapse;">
+                <tr>
+                    <th colspan="2">主体</th>
+                </tr>
+                <foreach name="goods_attr_list" item="v" key="k" >
+                    <tr>
+                        <td>{$goods_attribute[$v[attr_id]]}</td>
+                        <td>{$v[attr_value]}</td>
+                    </tr>
+                </foreach>
+            </table>
+        </div>
+    </div>
+</div>
+<!--详情-e-->
+
+<script type="text/javascript" src="__STATIC__/js/mobile-location.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+        /**
+         * 内部导航切换
+         */
+        $('.spxq-ggcs ul li').click(function(){
+            $(this).addClass('red').siblings().removeClass('red');
+            var sg = $('.spxq-ggcs ul li').index(this);
+            $('.sg').eq(sg).show().siblings('.sg').hide();
+            var $commentType= $(this).children('span').attr('ctype');
+            //切换到评论按钮才加载评论列表
+            if($('.detail .search span').eq(2).hasClass('sxp')){
+                ajaxComment($commentType,1);// ajax 加载评价列表
+            }
+        });
+});
+</script>
+</body>
+</html>

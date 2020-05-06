@@ -1,0 +1,128 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+  <!-- 页面导航 -->
+  <div class="fixed-bar">
+    <div class="item-title">
+      <div class="subject">
+        <h3>消费者保障服务</h3>
+        <h5>消费者保障服务查看与管理</h5>
+      </div>
+      <ul class="tab-base nc-row">
+	      <li><a href="{:U('Guarantee/index',array('apply_type'=>1))}"><span>加入申请</span></a></li>
+	      <li><a href="{:U('Guarantee/index',array('apply_type'=>0))}"><span>退出申请</span></a></li>
+	      <li><a href="{:U('Guarantee/join_list')}" class="current"><span>店铺保障服务</span></a></li>
+	      <li><a href="{:U('Guarantee/item_list')}"><span>保障服务管理</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 操作说明 -->
+  <div class="explanation" id="explanation">
+    <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
+      <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+      <span id="explanationZoom" title="收起提示"></span> </div>
+    <ul>
+      <li>列表为店铺各项消费者保障服务信息以及其当下的状态</li>
+      <li>点击“编辑”可以进入店铺加入服务的详情页面，并可以关闭店铺使用的保障服务</li>
+    </ul>
+  </div>
+    <div class="flexigrid">
+		<div class="mDiv">
+			<div class="ftitle">
+				<h3>加入申请列表</h3>
+				<h5>(共{$pager->totalRows}条记录)</h5>
+			</div>
+			<div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+			<div class="sDiv">
+				<div class="sDiv2">
+					<select name="qtype" class="select"><option value="ct_storename">店铺名称&nbsp;&nbsp;</option></select>
+			 		<input type="text" size="30" name="q" class="qsbox" placeholder="搜索相关数据..."> 
+			 		<input type="button" class="btn" value="搜索">
+			 	</div>
+			 </div>
+		</div>
+		<div class="hDiv">
+			<div class="hDivBox">
+				<table cellspacing="0" cellpadding="0">
+					<thead>
+					<tr>
+						<th class="sign" axis="col0">
+							<div style="width: 24px;"><i class="ico-check"></i></div>
+						</th>
+						<th align="center" abbr="article_title" axis="col3" class="">
+							<div style="text-align: center; width: 150px;" class="">店铺名称</div>
+						</th>
+						<th align="center" abbr="ac_id" axis="col4" class="">
+							<div style="text-align: center; width: 100px;" class="">保障服务</div>
+						</th>
+						<th align="center" abbr="article_time" axis="col6" class="">
+							<div style="text-align: center; width: 100px;" class="">保证金(元)</div>
+						</th>
+						<th align="center" abbr="article_time" axis="col6" class="">
+							<div style="text-align: center; width: 150px;" class="">状态</div>
+						</th>
+						<th align="center" axis="col1" class="handle">
+							<div style="text-align: center; width: 270px;">操作</div>
+						</th>
+						<th style="width:100%" axis="col7">
+							<div></div>
+						</th>
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div class="bDiv" style="height: auto;">
+			<div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+				<table>
+					<tbody>
+					<foreach name="lists" item="vo" key="k" >
+						<tr>
+							<td class="sign">
+								<div style="width: 24px;"><i class="ico-check"></i></div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 150px;">{$vo.store_name}</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 100px;">{$guarantee_item[$vo.grt_id]}</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 100px;">{$vo.cost}</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 150px;">
+								<if condition="$vo.isopen eq 0">
+									禁止使用	
+								<elseif condition="$vo.joinstate eq 0" />
+									未申请
+								<else/>
+									{$auditstate[$vo.auditstate]}
+								</if>
+								</div>
+							</td>
+							<td align="center" class="handle">
+								<div style="text-align: center; width: 170px; max-width:270px;">
+									<a class="btn blue" href="{:U('Guarantee/join_edit',array('id'=>$vo['id']))}"><i class="fa fa-pencil-square-o"></i>编辑</a>
+									<span class="btn"><em><i class="fa fa-cog"></i>设置 <i class="arrow"></i></em><ul>
+									<li><a href="{:U('Guarantee/join_info',array('id'=>$vo['id']))}">查看详情</a></li>
+									<!--<li><a href="{:U('Guarantee/cost_edit',array('id'=>$vo['id']))}">编辑保证金</a></li>-->
+									<li><a href="{:U('Guarantee/cost_log',array('id'=>$vo['id']))}">保证金日志</a></li></ul></span>
+								</div>
+							</td>
+							<td align="" class="" style="width: 100%;">
+								<div>&nbsp;</div>
+							</td>
+						</tr>
+					</foreach>
+					</tbody>
+				</table>
+			</div>
+			<div class="iDiv" style="display: none;"></div>
+		</div>
+		<!--分页位置-->{$page} 
+	</div>
+</div>

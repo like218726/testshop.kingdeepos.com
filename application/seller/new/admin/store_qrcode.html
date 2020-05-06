@@ -1,0 +1,37 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>账号<i class="icon-angle-right"></i>店长二维码</div>
+		<div class="main-content" style="text-align: center;">
+			<img  class="img1" src="/index.php?m=Home&c=Index&a=qr_code&data={$ShareLink}&head_pic={$head_pic}&back_img={$back_img}<if condition='$qr_mode eq 1'>&valid_date={:Date('Y.m.d',strtotime('+30 days'))}</if>"/>
+			<div class="tabmenu" style="text-align: center;">
+				<a class="ncbtn ncbtn-mint" style="position:unset" download="qr_code.png" onclick="downloadIamge('.img1','qr_code.jpg')">店长二维码点击下载</a>
+			</div>
+		</div>
+		<div class="main-content" style="text-align: center;">
+			<img  class="img1" src="/index.php?m=Home&c=Index&a=qr_code&data={$open_store_shareLink}&head_pic={$head_pic}&back_img={$back_img}<if condition='$qr_mode eq 1'>&valid_date={:Date('Y.m.d',strtotime('+30 days'))}</if>"/>
+			<div class="tabmenu" style="text-align: center;">
+				<a class="ncbtn ncbtn-mint" style="position:unset" download="qr_code.png" onclick="downloadIamge('.img1','open_store_code.jpg')">开店二维码点击下载</a>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>
+<script>
+    function downloadIamge(selector, name) {
+        // 通过选择器获取img元素，
+        var img = document.querySelector(selector);
+        // 将图片的src属性作为URL地址
+        var url = img.src;
+        var a = document.createElement('a');
+        var event = new MouseEvent('click');
+
+        a.download = name || '下载图片名称';
+        a.href = url;
+
+        a.dispatchEvent(event)
+    }
+</script>

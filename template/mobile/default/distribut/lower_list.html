@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-sacle=1,user-scalable=no">
+    <title>我的团队</title>
+    <link rel="stylesheet" href="__STATIC__/css/base.css">
+    <link rel="stylesheet" href="__STATIC__/css/team2.css">
+     <include file="public/distrbut_header" />
+</head>
+<body>
+<!--头部开始-->
+<header>
+    <div class="wrap">
+        <a href="{:U('User/index')}" class="back"></a>
+        <h1>我的团队</h1>
+    </div>
+</header>
+<!--头部结束-->
+<!--团队信息开始-->
+<section class="team_info">
+    <div class="team_tab clearfix">
+        <a href="{:U('Distribut/lower_list',array('level'=>1))}" <if condition="($Request.param.level eq 1) or ($Request.param.level eq '') ">class="active"</if> >一级（{$fcount|default=0}）</a>
+        <a href="{:U('Distribut/lower_list',array('level'=>2))}" <if condition="$Request.param.level eq 2">class="active"</if> >二级（{$scount|default=0}）</a>
+        <a href="{:U('Distribut/lower_list',array('level'=>3))}" <if condition="$Request.param.level eq 3">class="active"</if> >三级（{$tcount|default=0}）</a>
+    </div>
+    <div class="prompt">皇冠标志表示该用户为高级会员</div>
+    <div class="team_details">
+    <if condition="!empty($lists)">
+    <foreach name="lists" item="v">
+    	<if condition="$v.user_level.type eq 1">
+	    	<div class="team_details_list wrap">
+	            <div class="header_image">
+	                <img src="{$v.head_pic|default='/template/mobile/rainbow/static/images/user68.jpg'}" alt="">
+	            </div>
+	            <div class="user_info">
+	                <em>{$v.nickname}<i></i></em>
+	                <span>加入时间：{:date('Y-m-d',$v[reg_time])}</span>
+	            </div>
+	            <div class="user_data">
+	                <div class="consume">获佣：<span>+ ￥{$v.distribut_money}</span></div>
+	                <span>{$v.user_type_data} 位成员</span>
+	            </div>
+	        </div>
+    	<else />    	
+        <div class="team_details_list wrap">
+            <div class="header_image">
+                <img src="{$v.head_pic|default='/template/mobile/rainbow/static/images/user68.jpg'}" alt="">
+            </div>
+            <div class="user_info">
+                <em>{$v.nickname}</em>
+                <span>加入时间：{$v[reg_time]|date="Y-m-d",###}</span>
+            </div>
+            <div class="user_data">
+                <div class="consume">消费：<span>￥{$v.user_order.total_amount}</span></div>
+                <span>{$v.user_order.count} 订单</span>
+            </div>
+        </div>
+        </if>
+  	</foreach>
+  	<else/>
+    <!--没有内容时-s-->
+    <div class="comment_con p">
+        <div style="padding:1rem;text-align: center;font-size: .59733rem;color: #777777;"><img src="__STATIC__/images/none.png"/><br /><br />亲，您还没有分销下线！</div>
+    </div>
+    <!--没有内容时-e-->
+    </if>
+</if>
+    </div>
+</section>
+<!--团队信息结束-->
+<!--底部开始-->
+<include file="public/distrbut_footer_nav" />
+<!--底部结束-->
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script>
+    $(function () {
+        $('.retails_li3 > ul').css('width',$('.retails_li3 > ul >li').length * $('.retails_li3 > ul >li').width() +'px')
+    })
+    var  page = 1;
+    /*** ajax 提交表单 查询订单列表结果*/
+    function ajax_sourch_submit()
+    {
+    	var level="{$level}";
+        page += 1;
+        $.ajax({
+            type : "GET",
+            url:"/index.php?m=Mobile&c=Distribut&a=lower_list&is_ajax=1&p="+page+"&level="+level,//+tab,
+//            data : $('#filter_form').serialize(),// 你的formid 搜索表单 序列化提交
+            success: function(data)
+            {
+                if($.trim(data) == '')
+                    $('#getmore').hide();
+                else{
+                    $("#ajax_return").append(data);
+                }
+            }
+        });
+    }
+
+    $('.team_info .team_tab a').on('click',function () {
+        $(this).addClass('active').siblings().removeClass('active')
+    })
+</script>
+</body>
+</html>

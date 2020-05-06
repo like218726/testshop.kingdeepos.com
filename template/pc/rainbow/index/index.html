@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>首页-{$seo['title']}</title>
+        <meta name="keywords" content="{$seo['keywords']}"/>
+		<meta name="description" content="{$seo['description']}"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="shortcut  icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css"/>
+		<link rel="stylesheet" type="text/css" href="__STATIC__/css/swiper.min.css"/>
+		<script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/js/global.js"></script>
+		<script src="__PUBLIC__/js/swiper.min.js"></script>
+		<style>
+			body {
+				background-color: #f0f3ef !important;
+			}
+			.coupon:hover .swiper-button-next,.coupon:hover .swiper-button-prev{
+				display:block;
+			}
+			.conditions:hover .swiper-button-next,.conditions:hover .swiper-button-prev{
+				display:block;
+			}
+			.next100:hover .swiper-button-next,.next100:hover .swiper-button-prev{
+				display:block;
+			}
+			.prev100:hover .swiper-button-next,.prev100:hover .swiper-button-prev{
+				display:block;
+			}
+			.next100,.prev100{
+				font-size: 0;
+				width: 30px;
+				height: 50px;
+				background: #000;
+				padding-top: 0;
+				opacity: .2;
+				display: none;
+			}
+			.prev100 span{
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				border-top: 2px solid #fff;
+				border-left: 2px solid #fff;
+				transform: rotate(-45deg);
+				margin-top: 18px;
+				margin-left: 10px;
+			}
+			.next100 span{
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				border-top: 2px solid #fff;
+				border-left: 2px solid #fff;
+				margin-top: 18px;
+				margin-left: 5px;
+				transform: rotate(135deg);
+			 }
+			.prev100{
+				left: 0;
+				z-index: 999;
+			}
+			.next100{
+				left: 322px;
+				z-index: 999;
+			}
+			.next101,.prev101{
+				font-size: 0;
+				width: 30px;
+				height: 50px;
+				background: #000;
+				padding-top: 0;
+				opacity: .2;
+				display: none;
+			}
+			.prev101 span{
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				border-top: 2px solid #fff;
+				border-left: 2px solid #fff;
+				transform: rotate(-45deg);
+				margin-top: 18px;
+				margin-left: 10px;
+			}
+			.next101 span{
+				display: inline-block;
+				width: 12px;
+				height: 12px;
+				border-top: 2px solid #fff;
+				border-left: 2px solid #fff;
+				margin-top: 18px;
+				margin-left: 5px;
+				transform: rotate(135deg);
+			}
+			.prev101{
+				left: 0;
+				z-index: 999;
+			}
+			.next101{
+				left: 322px;
+				z-index: 999;
+			}
+			.categorys .subitems dl:nth-child(1) dd{
+				border-top:none;
+			}
+			#cata-nav .item .item-left{
+				/* opacity: 0.7; */
+			}
+		</style>
+	</head>
+	<body>
+		<!--顶部广告-s-->
+		<adv pid="1" limit="1" item="v">
+			<div class="topic-banner" style="background-color:{$v.bgcolor|default=gray};">
+				<div class="w1224">
+					<a href="{$v['ad_link']}{$edit_ad ? '&suggestion=1224*82' : ''}" <if condition="$v['target'] eq 1">target="_blank"</if>>
+						<img src="{$v[ad_code]}"/>
+					</a>
+					<i onclick="$('.topic-banner').hide();"></i>
+				</div>
+			</div>
+		</adv>
+		<!--顶部广告-e-->
+		<!--header-s-->
+		<include file="public/header" w="w1224"/>
+		<!--header-e-->
+
+		<div id="myCarousel" class="carousel slide p header-tp tpshop2_0_carousel">
+			<ol class="carousel-indicators"></ol>
+			<div class="carousel-inner">
+				<adv limit="6" item="v" pid="10">
+					<div class="item <if condition='$key eq 0'>active</if>" style="background-color:{$v.bgcolor|default=gray};" >
+						<a class="item-image" href="{$v.ad_link}{$edit_ad ? '&suggestion=820*450' : ''}" <if condition="$v['target'] eq 1">target="_blank"</if> ><img src="{$v[ad_code]}" alt="" /></a>
+					</div>
+				</adv>
+			</div>
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev"><span></span></a>
+			<a class="right carousel-control" href="#myCarousel" data-slide="next"><span></span></a>
+			<div class="right-sidebar p">
+				<div class="usertpshop">
+					<div class="head_index">
+						<a href="{:U('Home/User/index')}" target="_blank">
+							<img class="head_pic" src="{$user.head_pic|default='__STATIC__/images/default.png'}" alt="" />
+						</a>
+					</div>
+					<p class="welcome nologin">您好，欢迎来到{$tpshop_config.shop_info_store_name|default='TPshop商城'}！</p>
+					<p class="welcome islogin"><img src="__STATIC__/images/members.png" alt="">&nbsp;Hi，<span class="userinfo"></span></p>
+					<div class="login_index">
+						<a class="nologin" href="{:U('Home/User/login')}" target="_blank">请登录</a>
+						<a class="nologin add_newperson" href="{:U('Home/Activity/coupon_list',array('type'=>4))}">新人有礼</a>
+						<a class="islogin" href="{:U('Home/User/index')}" target="_blank">会员中心</a>
+						<a class="islogin add_newperson" href="{:U('Home/user/logout')}">退出登录</a>
+					</div>
+				</div>
+				<div class="bulletin">
+					<div class="content box_ad_content">
+						<div class="gome_news">
+							<h2 class="gome_news_title">快讯</h2>
+							<a href="{:U('article/detail')}" target="_blank">更多<span></span></a>
+						</div>
+						<div class="swiper-container swiper-container30" >
+							<div style="transition-duration:0ms !important" class="swiper-wrapper swiper-no-swiping">
+								<div class="swiper-slide">
+									<div class="content-slide">
+										<div class="cont4-box">
+											<volist name="notice_list" id="v">
+												<a href="{:U('Home/Article/detail',array('article_id'=>$v['article_id']))}" target="_blank">
+													<p>{$v['title']}</p>
+												</a>
+											</volist>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="content box_prom_content" style="display: none">
+						<volist name="box_prom" id="v">
+							<a href="{:U('Home/Article/detail',array('article_id'=>$v[article_id]))}" target="_blank">{$v[title]}</a>
+						</volist>
+					</div>
+					<div class="six_entrance">
+						<table border="" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>
+									<div class="access">
+										<a href="{:U('Home/User/visit_log')}" target="_blank">
+											<i class="mybrowse"></i>
+											<span>浏览</span>
+										</a>
+									</div>
+								</td>
+								<td>
+									<div class="access">
+										<a href="{:U('Home/User/goods_collect')}" target="_blank">
+											<i class="mycollect"></i>
+											<span>收藏</span>
+										</a>
+									</div>
+								</td>
+								<td class="lastcol">
+									<div class="access">
+										<a href="{:U('Home/Order/order_list')}" target="_blank">
+											<i class="myorders"></i>
+											<span>订单</span>
+										</a>
+									</div>
+								</td>
+							</tr>
+							<tr class="lastcow">
+								<td>
+									<div class="access">
+										<a href="{:U('Home/User/safety_settings')}" target="_blank">
+											<i class="account_security"></i>
+											<span>账号安全</span>
+										</a>
+									</div>
+								</td>
+								<td>
+									<div class="access">
+										<a href="{:U('Home/User/recharge')}" target="_blank">
+											<i class="myshares"></i>
+											<span>余额</span>
+										</a>
+									</div>
+								</td>
+								<td class="lastcol">
+									<div class="access">
+										<a href="{:U('Home/Newjoin/index')}" target="_blank">
+											<i class="seller_enter"></i>
+											<span>商家入驻</span>
+										</a>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="fn-mall p ma-to-20">
+			<div class="w1224">
+				<!--&lt;!&ndash;精品推荐&ndash;&gt;-->
+				<div class="conditions top_content">
+					<div class="top">
+						<p>精品推荐</p>
+						<span>甄选优质好物</span>
+					</div>
+					<div class="swiper-container" id="swiper-container101">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="content-slide">
+									<div class="cont1-box">
+										<adv pid="52" limit="1" item="v">
+											<a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*130' : ''}" <if condition="$v['target'] eq 1">target="_blank"</if>><img class="wbg1_img" src="{$v[ad_code]}"/></a>
+										</adv>
+										<ul>
+											<volist name="is_recommend" id="v">
+												<if condition="$key lt 3">
+													<li>
+														<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">
+															<img src="{$v['original_img']}" alt="">
+															<p>{$v['goods_name']}</p>
+															<p><span>￥</span><span class="price">{$v['shop_price_new'][0]}</span><span>.{$v['shop_price_new'][1]}</span></p>
+														</a>
+													</li>
+												</if>
+											</volist>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<if condition="$is_recommend['3']">
+								<div class="swiper-slide">
+									<div class="content-slide">
+										<div class="cont1-box">
+											<adv pid="53" limit="1" item="v">
+												<a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*130' : ''}" <if condition="$v['target'] eq 1">target="_blank"</if>><img src="{$v[ad_code]}"  class="wbg1_img"  /></a>
+											</adv>
+												<ul>
+													<volist name="is_recommend" id="v">
+														<if condition="$key elt 5 && $key egt 3">
+															<li>
+																<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">
+																	<img src="{$v['original_img']}" alt="">
+																	<p>{$v['goods_name']}</p>
+																	<p><span>￥</span><span class="price">{$v['shop_price_new'][0]}</span><span>.{$v['shop_price_new'][1]}</span></p>
+																</a>
+															</li>
+														</if>
+													</volist>
+												</ul>
+										</div>
+									</div>
+								</div>
+							</if>
+							<if condition="$is_recommend['6']">
+								<div class="swiper-slide">
+									<div class="content-slide">
+										<div class="cont1-box">
+											<adv pid="54" limit="1" item="v">
+												<a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*130' : ''}" <if condition="$v['target'] eq 1">target="_blank"</if>><img src="{$v[ad_code]}"  class="wbg1_img"  /></a>
+											</adv>
+												<ul>
+													<volist name="is_recommend" id="v">
+														<if condition="$key gt 5">
+															<li>
+																<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">
+																	<img src="{$v['original_img']}" alt="">
+																	<p>{$v['goods_name']}</p>
+																	<p><span>￥</span><span class="price">{$v['shop_price_new'][0]}</span><span>.{$v['shop_price_new'][1]}</span></p>
+																</a>
+															</li>
+														</if>
+													</volist>
+												</ul>
+										</div>
+									</div>
+								</div>
+							</if>
+						</div>
+						<div class="swiper-button-next next101"><span></span></div>
+						<div class="swiper-button-prev prev101"><span></span></div>
+					</div>
+					<div class="swiper-pagination pagination101"></div>
+				</div>
+				<!--好货上新-->
+				<div class="good_goods top_content">
+					<div class="top">
+						<p>好货上新</p>
+						<span>发现品质生活</span>
+					</div>
+					<ul>
+						<volist name="is_new" id="v">
+							<li>
+								<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">
+									<img src="{$v['original_img']}" alt="">
+									<p>{$v['goods_name']}</p>
+									<p>{$v['goods_remark']}</p>
+								</a>
+							</li>
+						</volist>
+
+					</ul>
+				</div>
+				<!--领券中心-->
+				<div class="coupon top_content">
+					<div class="top">
+						<a href="{:U('Home/Activity/coupon_list')}">
+							<p>领券中心</p>
+							<img src="__STATIC__/images/right.png" alt="">
+						</a>
+
+						<span>买的多，省的多</span>
+					</div>
+					<div class="swiper-container" id="swiper-container100">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="content-slide">
+									<div class="cont1-box">
+										<ul>
+											<volist name="couponList" id="v">
+												<if condition="$key lt 3">
+													<a href="{:U('Home/Activity/coupon_list')}">
+														<li>
+															<img src="{$v['coupon_img']?$v['coupon_img']:'__STATIC__/images/coupon_1.png'}" alt="">
+															<div>
+																<p><span>￥</span>{$v['money']}</p>
+																<p>
+																	<if condition="$v['condition'] gt 0">
+																		满{$v['condition']}元可用
+																	</if>
+																</p>
+																<p>{$v['use_type_title']}</p>
+															</div>
+														</li>
+													</a>
+												</if>
+											</volist>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<if condition="$couponList['3']">
+								<div class="swiper-slide">
+									<div class="content-slide">
+										<div class="cont1-box">
+											<ul>
+												<volist name="couponList" id="v">
+													<if condition="$key elt 5 && $key egt 3">
+														<li>
+															<img src="{$v['coupon_img']?$v['coupon_img']:'__STATIC__/images/coupon_1.png'}" alt="">
+															<div>
+																<p><span>￥</span>{$v['money']}</p>
+																<p>
+																	<if condition="$v['condition'] gt 0">
+																		满{$v['condition']}元可用
+																	</if>
+																</p>
+																<p>{$v['use_type_title']}</p>
+															</div>
+														</li>
+													</if>
+												</volist>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</if>
+							<if condition="$couponList['6']">
+								<div class="swiper-slide">
+									<div class="content-slide">
+										<div class="cont1-box">
+											<ul>
+												<volist name="couponList" id="v">
+													<if condition="$key gt 5">
+														<li>
+															<img src="{$v['coupon_img']?$v['coupon_img']:'__STATIC__/images/coupon_1.png'}" alt="">
+															<div>
+																<p><span>￥</span>{$v['money']}</p>
+																<p>
+																	<if condition="$v['condition'] gt 0">
+																		满{$v['condition']}元可用
+																	</if>
+																</p>
+																<p>{$v['use_type_title']}</p>
+															</div>
+														</li>
+													</if>
+												</volist>
+
+											</ul>
+										</div>
+									</div>
+								</div>
+							</if>
+						</div>
+						<div class="swiper-button-next next100"><span></span></div>
+						<div class="swiper-button-prev prev100"><span></span></div>
+					</div>
+					<div class="swiper-pagination pagination100"></div>
+				</div>
+				<div class="advertisement p">
+					<ul style="margin-top: 20px;">
+						<adv pid="50" limit="4" item="v">
+							<li>
+								<a href="{$v.ad_link}{$edit_ad ? '&suggestion=300*130' : ''}" <if condition="$v['target'] eq 1">target="_blank"</if>><img src="{$v[ad_code]}"/></a>
+							</li>
+						</adv>
+					</ul>
+				</div>
+				<!--猜你喜欢-->
+				<div class="wbox gm_guess">
+					<div class="gm_title">
+						<h2>猜你喜欢</h2>
+						<span>YOU MAY LIKE</span>
+						<div class="change_btn">
+							<a class="pre" onclick="like_page(-1)"><span></span></a>
+							<a class="nex" onclick="like_page(1)"><span></span></a>
+						</div>
+					</div>
+					<div id="guess_main" class="guess_main">
+						<div id="j-imgload-recomm">
+							<ul id="likeGoods">
+								<volist name="getLikeGoods" id="like_v">
+								<li>
+									<a href="{:U('Home/Goods/goodsInfo',array('id'=>$like_v[goods_id]))}">
+										<img src="{$like_v['original_img']}">
+										<p class="guess_title">{$like_v['goods_name']}</p>
+										<p class="guess_price"><span class="yuan">¥</span>{$like_v['shop_price']}</p>
+									</a>
+								</li>
+								</volist>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--1F-s-->
+		<foreach name="web_list" item="wb" key="wk">
+		<div class="tpshop2_0_floor p" id="floor{$wk+1}">
+			<div class="w1224">
+				<div class="uantit fixedu p {$wb['style_name']}" >
+					<h3 class="fl">{$wb[tit][title]} <i>{$wb[tit][floor]}</i></h3>
+					<ul class="f-tab {$wb['style_name']} fr">
+						<li class="z-select">
+							<a href="javascript:;" rel="0" fid="{$wk+1}"  onmouseover="showul(this)">精选推荐</a>
+							<span></span>
+						</li>
+						<foreach name="wb[recommend_list]" item="rcd" key="rck">
+						<li>
+							<a href="javascript:;" rel="{$rck+1}" fid="{$wk+1}" onmouseover="showul(this)">{$rcd[recommend][name]}</a>
+							<span></span>
+						</li>
+						</foreach>
+					</ul>
+				</div>
+				<div class="uanmain fixedu p">
+					<div class="leftcol fl">
+						<div style="width: 224px;height: 317px;" class="lc_top">
+							<a href="{$wb[act][url]}" class="adlight" target="_blank">
+								<img src="{$wb[act][pic]}" alt="" title="{$wb[act][title]}">
+							</a>
+						</div>
+						<div class="lc_bot">
+							<ul>
+								<li class="lemain {$wb['style_name']}">
+									<foreach name="wb[category_list][goods_class]" item="gc">
+									<a href="{:U('Goods/goodsList',array('id'=>$gc[gc_id]))}">{$gc.gc_name}</a>
+									</foreach>
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="rightcol fl">
+						<div class="content_goods_sh" id="wbg0">
+						  <if condition="$wb[adv][0][adv_type] eq 'upload_advmin'">
+							<ul class="floor-list hasSlide floor-list2">
+							    <foreach name="wb[adv]" item="ad">
+							    	<if condition="$ad[adv_type] eq 'upload_advbig'">
+							    	<li>
+										<div id="myCarouselq{$wk}" class="carousel slide w399 p">
+											<ol class="carousel-indicators">
+											<foreach name="ad[adv_info]" key="sk" item="sd">
+                                                <if condition="!empty($sd.pic_img)">
+											<li data-target="#myCarouselq{$wk}" data-slide-to="{$sk-1}" class="<if condition='$sk-1 eq 0'>active</if>"></li>
+                                                    </if>
+											</foreach>
+											</ol>
+											<div class="carousel-inner">
+												<foreach name="ad[adv_info]" key="sk" item="sd">
+                                                    <if condition="!empty($sd.pic_img)">
+												<div class="item <if condition='$sk eq 1'>active</if>">
+													<a href="{$sd.pic_url}">
+                                                        <img src="{$sd.pic_img|default='/public/images/icon_goods_thumb_empty_300.png'}">
+                                                    </a>
+												</div>
+                                                    </if>
+												</foreach>
+											</div>
+										</div>
+									</li>
+							    	<else />
+							    	<li>
+                                    <a href="{$ad.adv_info[pic_url]}">
+    <img data-original="{$ad[adv_info][pic_img]|default='/public/images/icon_goods_thumb_empty_300.png'}" class="lazy" width="199" height="243"/>
+                                    </a>
+									</li>
+							    	</if>
+								</foreach>
+							</ul>
+						  <else />
+						 	<ul class="floor-list floor-list1 hasSlide">
+						 	<foreach name="wb[adv]" item="ad" key="ak">
+						 	    <if condition="$ad[adv_type] eq 'upload_advbig'">
+								<li>
+									<div id="myCarouselq{$wk}" class="carousel slide w399 p">
+										<ol class="carousel-indicators">
+											<foreach name="ad[adv_info]" key="sk" item="sd">
+                                                <if condition="!empty($sd.pic_img)">
+                                        <li data-target="#myCarouselq{$wk}" data-slide-to="{$sk-1}" class="<if condition='$sk-1 eq 0'>active</if>"></li>
+                                                    </if>
+											</foreach>
+										</ol>
+										<div class="carousel-inner">
+											<foreach name="ad[adv_info]" key="sk" item="sd">
+                                                <if condition="!empty($sd.pic_img)">
+                                                <div class="item <if condition='$sk eq 1'>active</if>">
+                                                    <a href="{$sd.pic_url}"  asfadfads>
+                                                        <img src="{$sd.pic_img|default='/public/images/icon_goods_thumb_empty_300.png'}">
+                                                    </a>
+                                                </div>
+                                                </if>
+											</foreach>
+										</div>
+									</div>
+								</li>
+								<else/>
+								<li>
+									<a href="{$ad[adv_info][pic_url]}{$edit_ad ? '&suggestion=1224*82' : ''}">
+                                        <img src="{$ad[adv_info][pic_img]|default='/public/images/icon_goods_thumb_empty_300.png'}" class="lazy" />
+                                    </a>
+								</li>
+								</if>
+							</foreach>
+							</ul>
+						 </if>
+						</div>
+						<foreach name="wb[recommend_list]" item="wg" key="gk">
+						<div class="content_goods_sh content_goods_list" id="wbg{$gk+1}" style="display:none;">
+							<ul class="floor-list-cont">
+								<foreach name="$wg[goods_list]" item="pd">
+								<li>
+									<a href="{:U('Home/Goods/goodsInfo',array('id'=>$pd[goods_id]))}">
+										<img src="{$pd.goods_pic}" width="160" height="160">
+										<p class="goods_name_tp2">{$pd.goods_name}</p>
+										<p class="goods_price_tp2"><em>￥</em><span>{$pd.goods_price}</span></p>
+									</a>
+								</li>
+								</foreach>
+							</ul>
+						</div>
+						</foreach>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--1F-e-->
+		<div class="tpshop2_0_brand ma-to-10 p">
+			<div class="w1224 bggc">
+				<ul>
+					<foreach name="wb[brand_list]" item="bd">
+					<li>
+						<a href="{:U('Goods/goodsList',array('brand_id'=>$bd[brand_id]))}"><img class="lazy" data-original="{$bd.brand_pic|default='/public/images/icon_goods_thumb_empty_300.png'}" src="" title="{$bd.brand_name}"/></a>
+					</li>
+					</foreach>
+				</ul>
+			</div>
+		</div>
+		</foreach>
+		<!--左侧边栏-->
+		<div class="sideleft-nav" id="sideleft">
+			<div class="first-l">楼层导航</div>
+			<ul>
+				<foreach name="web_list" item="vo" key="k">
+					<li class="<if condition='$k eq 0'>sid-red</if>">
+                        <if condition="!empty($vo[tit][title])">
+						    <a href="javascript:;"><i></i>{$vo[tit][title]}</a>
+                        <else/>
+                            <a style="background-image: url({$vo.tit['pic']});background-size:100% 31px;" href="javascript:;"><i></i></a>
+                        </if>
+					</li>
+				</foreach>
+			</ul>
+		</div>
+		<!--左侧边栏-->
+		<include file="public/footer"/>
+		<include file="public/sidebar_cart" />
+		<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__STATIC__/js/carousel.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+//			页面加载触发
+			$(document).on('click','.next100',function(){
+				return 0;
+			})
+			$(document).on('click','.next101',function(){
+				return 0;
+			})
+			//			只保留15个分类
+			$(function(){
+				for(var i=14;i<30;i++){
+					$("#cata-nav .item.fore1:eq(14)").remove();
+				}
+			})
+			function sidebarRollChange() {  //首页侧边栏滚动改变楼层
+				var $_floorList=$('.tpshop2_0_floor');
+				var $_sidebar=$('#sideleft');
+				$_sidebar.find('li').click(function () { //点击切换楼层
+					$('html,body').animate({'scrollTop':$_floorList.eq($(this).index()).offset().top},500);
+				});
+				$(window).scroll(function(){
+					if($("div").is(".tpshop2_0_floor")){
+						var scrollTop=$(window).scrollTop();
+						/*显示左边侧边栏*/
+						if(scrollTop<$_floorList.eq(0).offset().top-$(window).height()/2){ //还没滚到到楼层或向上滚出楼层隐藏侧边栏
+							$_sidebar.hide();
+							return;
+						}
+						$_sidebar.show(); //左边侧边栏显示
+						/*滚动改变侧边栏的状态*/
+						for(var j=0; j<$_floorList.length;j++){
+							if(scrollTop>$_floorList.eq(j).offset().top-$(window).height()/2){
+								$_sidebar.find('li').eq(j).addClass('sid-red').siblings().removeClass('sid-red');
+							}
+						};
+					}
+
+				})
+			}
+			sidebarRollChange();
+
+			$(function() {
+				$('.categorys .dd').show();//首页商品分类显示
+				$(".carousel").carousel();//轮播自动播放
+			});
+
+			//轮播图小圆点
+			var imgle = $("#myCarousel .carousel-inner .item").length;
+			for(var i = 0; i < imgle; i++) {
+				$('#myCarousel ol.carousel-indicators').append("<li onclick='yuandian()' data-target=" + "#myCarousel" + " data-slide-to=" + i + " class=" + "" + "></li>")
+			}
+			$('ol.carousel-indicators li:first').addClass('active');
+//			圆点切换
+			function yuandian(){
+				$(this).addClass('active').siblings().removeClass('active');
+			}
+			//品牌logo
+			$(function() {
+				var op = 500;
+				$('.tpshop2_0_brand ul li').hover(function() {
+					if(!$(this).hasClass('b')) {
+						$(this).stop().animate({
+							opacity: "1"
+						}, op).siblings().stop().animate({
+							opacity: "0.5"
+						}, op);
+					}
+				}, function() {
+					if(!$(this).hasClass('b')) {
+						$(this).stop().animate({
+							opacity: "1"
+						}, op).siblings().stop().animate({
+							opacity: "1"
+						}, op);
+					}
+				})
+			})
+			//楼层横向导航
+			$('ul.f-tab li').hover(function(){
+				$(this).addClass('z-select').siblings().removeClass('z-select');
+				var page_id = $(this).data('id');
+				var floot_page = $(this).data('floot');
+				$('.'+floot_page).hide();
+				$('#'+page_id).show();
+			})
+			//公告/促销切换
+			$(function(){
+				$('.bn_box span').hover(function(){
+					$(this).addClass('action').siblings().removeClass('action');
+					$('.bulletin .content').hide();
+					if($(this).hasClass('box_prom')){
+						$('.box_prom_content').show();
+					}else{
+						$('.box_ad_content').show();
+					}
+				})
+			})
+
+			function showul(obj){
+				var fid = $(obj).attr('fid');
+				var nky = $(obj).attr('rel');
+				$('#floor'+fid).find('.content_goods_sh').hide();
+				$('#floor'+fid).find('#wbg'+nky).show();
+			}
+
+		//			swiper插件轮播精品推荐
+		var mySwiper101 = new Swiper('#swiper-container101',{
+			centeredSlides: true,
+			spaceBetween: 10,
+			loop:true,
+			pagination: {
+				el: '.conditions .pagination101',
+				clickable: true,
+			},
+			navigation: {
+				nextEl: '.conditions .swiper-button-next',
+				prevEl: '.conditions .swiper-button-prev',
+			},
+		})
+		//			swiper插件轮播领券中心
+		var mySwiper100 = new Swiper('#swiper-container100',{
+			centeredSlides: true,
+			spaceBetween: 10,
+			loop:true,
+			pagination: {
+				el: '.coupon .pagination100',
+				clickable: true,
+			},
+			navigation: {
+				nextEl: '.coupon .swiper-button-next',
+				prevEl: '.coupon .swiper-button-prev',
+			},
+		})
+		</script>
+		<style>
+			.tpshop2_0_floor .uantit.default{
+				border-bottom: 1px solid #96cb85;
+			}
+			.lc_bot ul .lemain.default{
+				background: #96cb85;
+			}
+			.p.default{
+				border-bottom: 1px solid #e23435;
+			}
+			.tpshop2_0_floor .f-tab li.z-select a{
+				border-color: #e23435;
+				color: #e23435;
+			}
+
+
+			.tpshop2_0_floor .uantit.orange{
+				border-bottom: 1px solid orange;
+			}
+			.lc_bot ul .lemain.orange{
+				background: orange;
+			}
+			.p.orange{
+				border-bottom: 1px solid orange;
+			}
+			.tpshop2_0_floor .f-tab.orange li.z-select a{
+				border-color: orange;
+				color: orange;
+			}
+
+			.tpshop2_0_floor .uantit.green{
+				border-bottom: 1px solid green;
+			}
+			.lc_bot ul .lemain.green{
+				background: green;
+			}
+			.p.green{
+				border-bottom: 1px solid green;
+			}
+			.tpshop2_0_floor .f-tab.green li.z-select a{
+				border-color: green;
+				color: green;
+			}
+
+			.tpshop2_0_floor .uantit.purple{
+				border-bottom: 1px solid purple;
+			}
+			.lc_bot ul .lemain.purple{
+				background: purple;
+			}
+			.p.purple{
+				border-bottom: 1px solid purple;
+			}
+			.tpshop2_0_floor .f-tab.purple li.z-select a{
+				border-color: purple;
+				color: purple;
+			}
+
+			.tpshop2_0_floor .uantit.blue{
+				border-bottom: 1px solid blue;
+			}
+			.lc_bot ul .lemain.blue{
+				background: blue;
+			}
+			.p.blue{
+				border-bottom: 1px solid blue;
+			}
+			.tpshop2_0_floor .f-tab.blue li.z-select a{
+				border-color: blue;
+				color: blue;
+			}
+
+
+			.tpshop2_0_floor .uantit.pink{
+				border-bottom: 1px solid pink;
+			}
+			.lc_bot ul .lemain.pink{
+				background: pink;
+			}
+			.p.pink{
+				border-bottom: 1px solid pink;
+			}
+			.tpshop2_0_floor .f-tab.pink li.z-select a{
+				border-color: pink;
+				color: pink;
+			}
+
+			.tpshop2_0_floor .uantit.red{
+				border-bottom: 1px solid red;
+			}
+			.lc_bot ul .lemain.red{
+				background: red;
+			}
+			.p.red{
+				border-bottom: 1px solid red;
+			}
+			.tpshop2_0_floor .f-tab.red li.z-select a{
+				border-color: red;
+				color: red;
+			}
+
+		</style>
+	</body>
+</html>
+<script>
+    var l_page = 1;
+    var new_l_page = 1;
+    //猜你喜欢分页
+    function like_page(p=1){
+        new_l_page = l_page;
+        l_page = l_page + p;
+        if(l_page <=0){
+            l_page = 1;
+            return false;
+        }
+        ajax_page = 0;
+        $.ajax({
+            type : "get",
+            url:"/index.php?m=Home&c=Index&a=ajaxLikePage&p="+l_page,
+            dataType:'json',
+            success: function(data)
+            {
+                if (data.status == 1 && data.result.length >0){
+                    var html = '';
+                    $.each(data.result,function (k,v) {
+                        html +='<li><a href="/Home/Goods/goodsInfo/id/'+v.goods_id+'"><img src="'+v.original_img+'"><p class="guess_title">'+v.goods_name+'</p><p class="guess_price"><span class="yuan">¥</span>'+v.shop_price+'</p></a></li>';
+                    });
+                    $('#likeGoods').html(html);
+                }else{
+                    l_page = new_l_page;
+                }
+
+            }
+        });
+    }
+</script>

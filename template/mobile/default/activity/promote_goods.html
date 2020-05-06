@@ -1,0 +1,106 @@
+<include file="public/header" title="优惠活动" />
+<include file="public/header_nav" title="优惠活动"  href="javascript:history.back(-1)"/>
+<style>
+    body{
+        background: #f5f5f5;
+        padding-top: 1.87733rem;
+    }
+    .classreturn{
+        position: fixed;
+        top: 0;
+    }
+    #goods_list {
+        width: 15.15rem;
+        margin: 0 auto;
+    }
+    #goods_list .maleri30{
+        margin: 0 auto;
+    }
+    #goods_list a{
+        display: inline-block;
+        background: #fff;
+        border-radius: .256rem;
+        margin-bottom: .427rem;
+        padding: .277rem;
+    }
+    #goods_list img{
+        width: 14.5rem;
+        height: 5.952rem;
+        margin: 0 auto;
+        object-fit: cover;
+    }
+    #goods_list .cbaudience p:nth-child(1){
+        height:.64rem;
+        line-height: .64rem;
+        margin-bottom: .427rem;
+        font-weight: 600;
+        font-size: .68rem;
+        color: #202020;
+        margin-top: .3rem;
+        position: relative;
+        padding-left: .5rem;
+    }
+    #goods_list .cbaudience p:nth-child(1):before{
+        content: "";
+        display: inline-block;
+        width: .128rem;
+        height:.64rem;
+        background: #ff3f3f;
+        border-radius: .064rem;
+        margin-right: .427rem;
+        position: absolute;
+        left: 0;
+        top: .05rem;
+    }
+    #goods_list .cbaudience p:nth-child(2){
+        font-size: .512rem;
+        color: #666;;
+        padding-left: .555rem;
+    }
+</style>    
+<!--促销列表-s-->
+        <div id="goods_list">
+            <foreach name="promote" item="list">
+                <a href="{:U('Activity/discount_list',array('id'=>$list[id]))}">
+                <div class="banner">
+                    <img src="{$list[prom_img]|default='__STATIC__/images/pr_06.jpg'}"/>
+                </div>
+                <div class="cbaudience">
+                    <div class="maleri30">
+                        <p>{$list[title]}</p>
+                        <p>时间：{:date('Y-m-d h:m:s',$list[start_time])}—{:date('Y-m-d h:m:s',$list[end_time])}</p>
+                    </div>
+                </div>
+                </a>
+            </foreach>
+        </div>
+    <!--促销列表-e-->
+        <div id="getmore">
+            <a >已显示完所有记录</a>
+        </div>
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+</body>
+<script>
+    /**
+     * 加载更多商品
+     **/
+    var  page = 1;
+    function ajax_sourch_submit()
+    {
+        ++page;
+        $.ajax({
+            type : "GET",
+            url:"/index.php?m=Mobile&c=Activity&a=promote_goods&is_ajax=1&p="+page,
+            success: function(data) {
+                if ($.trim(data) == '') {
+                    $('#getmore').show();
+                    return false;
+                } else {
+                    $("#goods_list").append(data);
+                }
+            }
+        });
+    }
+</script>
+</html>

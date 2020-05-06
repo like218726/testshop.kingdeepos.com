@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>客服-{$tpshop_config['shop_info_store_title']}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <link rel="stylesheet" href="{$tpshop_config.basic_im_website}/static/test/common/layui/css/layui.mobile.css" media="all">
+</head>
+<style>
+    .layim-title{
+        background: #F1F1F1 !important;
+        color: #000 !important;
+        border-bottom: .213rem solid #fff;
+    }
+    .layim-chat-text{
+        border-radius: 10px !important;
+    }
+    .layim-chat-mine .layim-chat-text{
+        background: #fff !important;
+        color: #000 !important;
+    }
+    .layim-chat-mine .layim-chat-text:after{
+        border-top-color: #fff !important;
+    }
+    .layim-chat-main .goods-a .goods-right h4{
+        color: #000 !important;
+    }
+    .layim-chat-main .goods-a .goods-right p{
+        color: #FE0000 !important;
+    }
+    .layim-chat-send input{
+        border-radius: 30px !important;
+    }
+    .layim-chat-send button{
+        border-radius: 50% !important;
+        width: 40px !important;
+        padding: 0 !important;
+        margin-right: 5px !important;
+    }
+    .layui-disabled{
+        background-color: #d2d2d2 !important;
+    }
+    .layui-form-radio div{
+        margin-top: -5px;
+    }
+</style>
+<body>
+
+<a user_id="{$user['user_id']}" uname="{$user['nickname']}" avatar="{$user['head_pic']}" sign="" storeid="{$user['store_id']}"
+   goods_id="{$user['goods_id']}" web_id="{$Think.const.SITE_URL}" im_href="{$tpshop_config.basic_im_website}" id="workerman-kefu"
+   order_id="{$order.order_id}" order_sn="{$order.order_sn}" add_time="{:date('Y-m-d  H:i:s', $order.add_time)}"  full_address="{$order.full_address}"
+   consignee="{$order.consignee} {$order.mobile}" ws_socket="{$tpshop_config.basic_ws_socket}"></a>
+</body>
+<script src="{$tpshop_config.basic_im_website}/static/test/common/jquery.min.js"></script>
+<script type="text/javascript" src="{$tpshop_config.basic_im_website}/static/test/common/layui/layui.js"></script>
+<script type="text/javascript" src="{$tpshop_config.basic_im_website}/static/test/common/js/main.mobile.js"></script>
+
+</html>

@@ -1,0 +1,87 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>快递公司</div>
+		<div class="main-content" id="mainContent">
+			<div class="tabmenu">
+				<ul class="tab pngFix">
+					<li class="active"><a href="{:U('Freight/index')}">快递公司列表</a></li>
+				</ul>
+			</div>
+			<div class="alert alert-block mt10">
+				<ul class="mt5">
+					<li>1、勾选要使用的快递公司，然后保存.</li>
+					<li>1、没有欲使用的快递公司请联系总平台.</li>
+				</ul>
+			</div>
+			<div class="item-publish">
+				<form id="handleposition">
+					<div class="ncsc-form-goods">
+						<div class="ncsc-account-container">
+							<h4>
+								<input type="checkbox" class="checkbox checkAll"/>
+								<label>全选</label>
+							</h4>
+							<ul class="ncsc-account-container-list">
+								<volist name="shipping_list" id="shipping">
+									<li>
+										<input type="checkbox" class="checkbox" name="shipping_id[]" value="{$shipping.shipping_id}" <in name="$shipping['shipping_id']" value="$store_shipping_ids">checked</in>/>
+										<label>{$shipping.shipping_name}</label>
+									</li>
+								</volist>
+							</ul>
+						</div>
+					</div>
+					<div class="bottom tc hr32">
+						<label class="submit-border">
+							<input id="submit" class="submit" value="保存" type="button" onclick="verifyForm();">
+						</label>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+<script>
+	//审核
+	$(function(){
+		$(document).on('click','.checkAll',function(){
+			if($(this).is(':checked')){
+				$('.checkbox').attr("checked",'true');//全选
+			}else{
+				$('.checkbox').removeAttr("checked");//全选
+			}
+		})
+	})
+	function verifyForm(){
+		$('span.err').hide();
+		$.ajax({
+			type: "POST",
+			url: "{:U('Shipping/save')}",
+			data: $('#handleposition').serialize(),
+			async:false,
+			dataType: "json",
+			error: function () {
+				layer.alert("服务器繁忙, 请联系管理员!");
+			},
+			success: function (data) {
+				if (data.status == 1) {
+					layer.msg(data.msg,{icon: 1,time: 2000},function(){
+						window.location.reload();
+					});
+				} else {
+					$('#submit').attr('disabled',false);
+					$.each(data.result, function (index, item) {
+						$('span.err').show();
+						$('#err_'+index).text(item);
+					});
+					layer.msg(data.msg, {icon: 2,time: 3000});
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html>

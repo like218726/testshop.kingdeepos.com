@@ -1,0 +1,138 @@
+<!--<volist name="coupon_list" id="coupon">-->
+    <!--<notin name="$coupon['id']" value="$user_coupon_cid">-->
+        <!--<div class="maleri30">-->
+            <!--<div class="alcowlone p">-->
+                <!--<div class="goods-limit fl">-->
+                    <!--<div class="goodsimgbo fl">-->
+                        <!--<img src="{$store_list[$coupon[store_id]]['store_logo']}"/>-->
+                    <!--</div>-->
+                    <!--<div class="goods-limit-fo fl">-->
+                        <!--<p class="name">仅可购买{$store_list[$coupon[store_id]]['store_name']}商品</p>-->
+                        <!--<p class="condition"><em>{$coupon.money|intval}</em>满{$coupon.condition|intval}元可用</p>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="get-limit fr">-->
+                    <!--<canvas class="alreadyget" data-num="<notempty name='$coupon[createnum]'>{:round($coupon[send_num]/$coupon[createnum]*100,2)}<else/>0</notempty>"  width="100"  height="100"></canvas>-->
+                    <!--<a class="clickgetcoupon" data-coupon-id="{$coupon.id}" onclick="getCoupon(this)">点击领取</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</notin>-->
+<!--</volist>-->
+<!--<volist name="coupon_list" id="coupon">
+    <notin name="$coupon['id']" value="$user_coupon_cid">
+        <div class="maleri30">
+            <div class="alcowlone p">
+                <div class="goods-limit fl">
+                    <div class="goodsimgbo fl">
+                        <img src="{$store_list[$coupon[store_id]]['store_logo']}"/>
+                    </div>
+                    <div class="goods-limit-fo fl">
+                        <p class="name">仅可购买{$store_list[$coupon[store_id]]['store_name']}商品</p>
+                        <p class="condition"><em>{$coupon.money|intval}</em>满{$coupon.condition|intval}元可用</p>
+                    </div>
+                </div>
+                <div class="get-limit fr">
+                    <canvas class="alreadyget" data-num="<notempty name='$coupon[createnum]'>{:round($coupon[send_num]/$coupon[createnum]*100,2)}<else/>0</notempty>"  width="100"  height="100"></canvas>
+                    <a class="clickgetcoupon" data-coupon-id="{$coupon.id}" onclick="getCoupon(this)">点击领取</a>-->
+                    <!--{$store_list[$coupon[store_id]]['goods_id']},-->
+                    <!--<a class="clickgetcoupon show" onclick="gouse({$coupon['goods_id']|default=0},{$store_list[$coupon[store_id]]['store_id']|default=0},{$coupon.use_type})">去使用</a>
+                    <p class="already">
+                        <span>已领取</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </notin>
+    <in name="$coupon['id']" value="$user_coupon_cid">
+        <div class="maleri30">
+            <div class="alcowlone p">
+                <div class="goods-limit fl">
+                    <div class="goodsimgbo fl">
+                        <img src="{$store_list[$coupon[store_id]]['store_logo']}"/>
+                    </div>
+                    <div class="goods-limit-fo fl">
+                        <p class="name">仅可购买{$store_list[$coupon[store_id]]['store_name']}商品</p>
+                        <p class="condition"><em>{$coupon.money|intval}</em>满{$coupon.condition|intval}元可用</p>
+                    </div>
+                </div>
+                <div class="get-limit fr receive">
+                    <canvas class="alreadyget" data-num="<notempty name='$coupon[createnum]'>{:round($coupon[send_num]/$coupon[createnum]*100,2)}<else/>0</notempty>"  width="100"  height="100"></canvas>
+                    <a class="clickgetcoupon" data-coupon-id="{$coupon.id}" onclick="getCoupon(this)">点击领取</a>
+                    <!--{$store_list[$coupon[store_id]]['goods_id']},-->
+                    <!--<a class="clickgetcoupon show" onclick="gouse({$coupon['goods_id']|default=0},{$store_list[$coupon[store_id]]['store_id']|default=0},{$coupon.use_type})">去使用</a>
+                    <p class="already">
+                        <span>已领取</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </in>
+</volist>-->
+
+
+<volist name="coupon_list" id="coupon">
+    <notin name="$coupon['id']" value="$user_coupon_cid">
+        <div class="couponbox">
+            <div class="left">
+                <img src="{$coupon['coupon_img']?$coupon['coupon_img']:'__STATIC__/images/coupon.jpg'}"/>
+            </div>
+            <div class="right">
+                <!-- <img class="alreadyimg" src="__STATIC__/images/already.png" alt=""> -->
+                <div class="righttop">仅可购买{$store_list[$coupon[store_id]]['store_name']}商品</div>
+                <div class="rightfoot">
+                    <div class="price">
+                        <!-- <p class="money">￥<span class="big">100</span>.00</p> -->
+                        <p class="money">￥<span class="big">{$coupon.money|intval}</span></p>
+                        <p class="full">满{$coupon.condition|intval}元可用</p>
+                    </div>
+                    <div class="getbox" data-coupon-id="{$coupon.id}" onclick="getCoupon(this)">
+                        立即领取
+                    </div>
+                    <!-- <div class="already">
+                        已领取
+                    </div> -->
+                </div>
+                <!-- <a class="clickgetcoupon" data-coupon-id="{$coupon.id}" onclick="getCoupon(this)">点击领取</a>
+                <a class="clickgetcoupon show" onclick="gouse({$coupon['goods_id']|default=0},{$store_list[$coupon[store_id]]['store_id']|default=0},{$coupon.use_type})">去使用</a>
+                <p class="already">
+                    <span>已领取</span>
+                </p> -->
+            </div>
+        </div>
+    </notin>
+    <in name="$coupon['id']" value="$user_coupon_cid">
+            <div class="couponbox">
+                <div class="left">
+                    <img src="{$coupon['coupon_img']?$coupon['coupon_img']:'__STATIC__/images/coupon.jpg'}"/>
+                </div>
+                <div class="right">
+                    <img class="alreadyimg" src="__STATIC__/images/already.png" alt="">
+                    <div class="righttop">仅可购买{$store_list[$coupon[store_id]]['store_name']}商品</div>
+                    <div class="rightfoot">
+                        <div class="price">
+                            <!-- <p class="money">￥<span class="big">100</span>.00</p> -->
+                            <p class="money">￥<span class="big">{$coupon.money|intval}</span></p>
+                            <p class="full">满{$coupon.condition|intval}元可用</p>
+                        </div>
+                        <!-- <div class="getbox">
+                                立即领取
+                            </div> -->
+                        <div class="already">
+                            已领取
+                        </div>
+                    </div>
+                    <!-- <a class="clickgetcoupon" data-coupon-id="{$coupon.id}" onclick="getCoupon(this)">点击领取</a>
+                    <a class="clickgetcoupon show" onclick="gouse({$coupon['goods_id']|default=0},{$store_list[$coupon[store_id]]['store_id']|default=0},{$coupon.use_type})">去使用</a>
+                    <p class="already">
+                        <span>已领取</span>
+                    </p> -->
+                </div>
+            </div>
+        </in>
+</volist>
+
+
+
+
+

@@ -1,0 +1,71 @@
+<include file="public/header" title="积分明细"/>
+<include file="public/header_nav" title="积分明细" href="javascript:history.back(-1)"/>
+<style>
+        body{
+            padding-top: 1.877333rem;
+        }
+         .classreturn{
+            position: fixed;
+            top: 0;
+        }
+    </style>
+<div class="allaccounted">
+    <div class="maleri30">
+        <div class="head_acc ma-to-20">
+            <ul>
+                <li <if condition="$type eq 'all'">class="red"</if>>
+                    <a href="{:U('User/points_list',array('type'=>'all'))}"  data-list="1">全部</a>
+                </li>
+                <li <if condition="$type eq 'plus'">class="red"</if>>
+                    <a href="{:U('User/points_list',array('type'=>'plus'))}"   data-list="2">赚取</a>
+                </li>
+                <li  <if condition="$type eq 'minus'">class="red"</if>>
+                    <a href="{:U('User/points_list',array('type'=>'minus'))}"  data-list="3">消费</a>
+                </li>
+            </ul>
+        </div>
+        <div class="allpion">
+	         <div class="fll_acc fll_acc-h">
+	         	<ul><li class="orderid-h">来源</li><li class="time-h">时间</li><li class="price-h">积分</li></ul>
+	         </div>
+             <foreach name="account_log" item="v">
+                 <div class="fll_acc new">
+                     <ul>
+                         <li class="orderid-h">{$v[desc]}</li>
+                         <li class="time-h">{:date('Y-m-d H:i:s',$v[change_time])}</li>
+                         <li class="price-h">{$v[pay_points]}</li>
+                     </ul>
+                 </div>
+             </foreach>
+         </div>
+        <div id="getmore">
+            <a >已显示完所有记录</a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    //加载更多记录
+    var page = 0;
+    function ajax_sourch_submit()
+    {
+        page ++;
+        $.ajax({
+            type : "GET",
+            url:"/index.php?m=mobile&c=User&a=points_list&is_ajax=1&type={$type}&p="+page,//+tab,
+            success: function(data)
+            {
+                if($.trim(data) == '') {
+                    $('#getmore').show();
+                    return false;
+                }else{
+                    $(".allpion").append(data);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+<foreach name="lists" item="v">
+    <div class="my_team_alon p">
+        <a >
+            <div class="team_head">
+                <img src="{$v[store_logo]|default="__STATIC__/distribut/images/m_03.jpg"}"/>
+            </div>
+            <div class="team_name_time">
+                <span class="t_n">{$v[nickname]}</span>
+                <span class="t_t">店铺：{$v[store_name]}</span>
+            </div>
+            <!--<span class="team_price">{$v[StoreOrderSum]}元</span>-->
+            <span class="team_price" style="margin: 0.3rem 0;width: 4.3rem;font-size: .5rem">会员数：{$v[store_member_count]?:0}人</span>
+            <span class="team_price" style="margin: 0.3rem 0;width: 4.3rem;font-size: .5rem">营业额：{$v[StoreOrderSum]}元</span>
+            <!--<i class="icon-arrow_r"></i>-->
+        </a>
+    </div>
+</foreach>

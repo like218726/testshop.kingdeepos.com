@@ -1,0 +1,467 @@
+<include file="public/header" title="资金管理" body="g4"/>
+<include file="public/header_nav" title="我的账户"  href="{:U('Mobile/user/index')}"/>
+<style>
+    .my-act{
+        color: #ffffff;
+        font-size: 0.683rem;
+        text-align: center;
+        line-height: 2.005rem;
+    }
+    .hh span{
+        font-size: 0.469rem;
+        margin-right: 0.512rem;
+    }
+    .scgz ul:after{
+        display: block;
+        content: '';
+        clear: both;
+    }
+    .scgz ul li{
+        position: relative;
+    }
+    .scgz ul li:nth-child(-n+2)::after{
+        display: block;
+        content: '';
+        height: 0.427rem;
+        border-right: 0.021rem solid #ffffff;
+        position: absolute;
+        right: 0;
+        top: 0.107rem;
+    }
+    .list7 .myorder{
+        padding: 0;
+        width: 33.333%;
+        float: left;
+        text-align: center;
+        background-color: #ebebeb;
+        font-size: 0.64rem;
+        border-bottom: none;
+    }
+    .list7 .myctr{
+        background-color: #fff;
+    }
+    .list7 .myorder .fl{
+        width: 100%;
+
+    }
+    .act-detail{
+        width: 100%;
+        min-height: 18rem;
+        background-color: #ffffff;
+    }
+    .ft-color{
+        color:#000000!important;
+    }
+    .btr::before{
+        content: '';
+        width: 0.853rem;
+        height: 0.107rem;
+        background-color: #ff3b34;
+        margin-left: 2.283rem;
+        position: absolute;
+        bottom: 0;
+        right: 50%;
+        margin-right: -0.4265rem;
+    }
+    .head_acc li{
+        position: relative;
+    }
+    .dt-detail{
+        height: 2.731rem;
+        margin: 0 0.640rem;
+        border-bottom: 0.021rem solid #e4e4e4;
+        padding: 0.512rem 0;
+    }
+    .dt-detail li{
+        width: 50%;
+        float: left;
+        font-size: 0.64rem;
+        min-height: 0.512rem;
+    }
+    .dt-detail li:nth-child(n+3){
+        font-size: 0.512rem;
+        margin-top: 0.469rem;
+        color: #999999;
+    }
+    .dt-detail li:nth-child(2){
+        color: #FF0000;
+    }
+    .dt-detail li:nth-child(even){
+        text-align: right;
+    }
+
+    .p:before,.p:after {
+        /* content:""; */
+        /* clear:both; */
+        display:block;
+        font-size:0;
+        height:0;
+    }
+    .ma-to-20 {
+         margin-top: 0rem;
+    }
+    .content:before,.content:after {
+        /* content:""; */
+        clear:both;
+        /* display:block; */
+        font-size:0;
+        height:0;
+    }
+    .classreturn .content .search {
+        font-size: 0.683rem;
+    }
+    .myhearder {
+        background-repeat:no-repeat;
+        background-size:cover;
+        position:relative;
+        width:100%;
+        height:6.63467rem;
+        background: #ff8400;
+        background: linear-gradient(to top,#f6302f,#f7542e);
+    }
+    .myhearder .scgz {
+        width:100%;
+        margin-top: 1.109rem;
+        position: static;
+    }
+    .bankhearder {
+        height: 7.587rem;
+    }
+    .bankhearder .hh {
+        color:white;
+        text-align:center;
+        font-size: 0.768rem;
+        margin-top: 0;
+        padding-top: .967rem;
+    }
+    .bankhearder .scgz ul li{
+        top: 0;
+    }
+    .bankhearder .scgz ul li a img {
+        display:inline-block;
+        width: 0.555rem;
+        height: .555rem;
+        margin-right: 0.299rem;
+    }
+    .myorder {
+        padding:0 .64rem;
+        line-height:1.49333rem;
+        background-color:#fff;
+    }
+    .head_acc ul li {
+        float:left;
+        width:33.33333%;
+        text-align:center;
+        line-height:1.87733rem;
+        font-size: 0.64rem;
+        cursor:pointer;
+        height: 1.984rem;
+        background-color: #fff;
+    }
+    .head_acc ul li>a {
+        color: #666666;
+        width: 100%;
+        display:  inline-block;
+        height: 0.64rem;
+        line-height: 0.64rem;
+        border-right: 0.021rem solid #666666;
+    }
+    .head_acc ul li:last-child>a{
+        border-right:none;
+    }
+    .fll_acc {
+        border-bottom:1px solid #ddd;
+        overflow:hidden;
+        padding: 0.64rem 0;
+    }
+    .fll_acc li {
+        /*float:left;*/
+        /*padding:.512rem 0;*/
+        font-size:.512rem;
+        /*text-align:center;*/
+        /* overflow:hidden; */
+        white-space:nowrap;
+        text-overflow:ellipsis;
+    }
+    .fll_acc-h li{
+        float:left;
+        padding:.512rem 0;
+        font-size:.512rem;
+        /* text-align:center; */
+        /* overflow:hidden; */
+        white-space: nowrap;
+        text-overflow:ellipsis;
+    }
+    .fll_acc .des-h {
+        color:#666;
+        font-size:.512rem;
+        /* line-height:.64rem; */
+        padding:.256rem 0 0 .16rem;
+    }
+    .application-record ul {
+        overflow:hidden;
+        border-bottom:1px solid #ddd;
+        height: 2.9rem;
+    }
+    .application-record ul .li1 {
+        width:2.13333rem
+    }
+    .application-record ul .li2 {
+        width:4.26667rem
+    }
+    .application-record ul .li4 {
+        width:3.41333rem;
+        text-align:right;
+        padding-right:.42667rem;
+    }
+    .application-record ul li {
+        float: left;
+        text-align: left;
+        font-size: .64rem;
+        width: 50%!important;
+        min-height: 0.512rem;
+        /* height: 50%; */
+        /* line-height: 1.429rem; */
+    }
+    .application-record ul li{
+        height: auto;
+        line-height: inherit;
+    }
+    .flex{
+        display: flex;
+    }
+    .justify-content{
+        justify-content: space-around;
+    }
+    .maleri30 ul{
+        height: 100%;
+    }
+    #actDetail .loginsignup{
+        display: none;
+    }
+</style>
+<div class="myhearder bankhearder">
+
+    <div class="hh justify-content flex">
+           <div>
+           <span>累计充值</span>
+           <br />
+           <span>{$user['user_total_money']}</span>
+           </div>
+
+        <div>
+            <span>累计提现</span>
+            <br />
+            <span>{$user['withdrawal_total_money']}</span>
+        </div>
+
+        <div>
+            <span>冻结余额</span>
+            <br />
+            <span>{$user['frozen_money']}</span>
+        </div>
+    </div>
+    <div class="hh justify-content flex">
+        <div>
+            <span>可用余额</span>
+            <br />
+            <span>{$user['user_money']}</span>
+        </div>
+        <div>
+            <span>可提现</span>
+            <br />
+            <span>{$user['user_money']}</span>
+        </div>
+        <div>
+            <span>提现中</span>
+            <br />
+            <span>{$user['cash_in']}</span>
+        </div>
+    </div>
+
+    <div class="scgz">
+        <ul>
+            <li>
+                <a href="{:U('Mobile/User/withdrawals')}">
+                    <img src="__STATIC__/images/tx.png"/>
+                    <p>申请提现</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('Mobile/User/recharge')}">
+                    <img src="__STATIC__/images/cz.png"/>
+                    <p>账户充值</p>
+                </a>
+            </li>
+            <if condition="$tpshop_config['basic_rechargevip_on_off'] eq 1">
+                <li>
+                    <a href="{:U('Mobile/User/rechargevip')}">
+                        <img src="__STATIC__/images/vipcz.png"/>
+                        <p> VIP充值</p>
+                    </a>
+                </li>
+            </if>
+        </ul>
+    </div>
+</div>
+<div class="floor my p">
+    <div class="content">
+        <!--<div class="floor w3">-->
+        <!--<ul>-->
+        <!--<li>-->
+        <!--<a href="">-->
+        <!--<p>红包</p>-->
+        <!--<h2>0</h2>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="">-->
+        <!--<p>银行卡</p>-->
+        <!--<h2>0</h2>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+        <!--<a href="{:U('Mobile/User/points')}">-->
+        <!--<p>当前积分</p>-->
+        <!--<h2>{$user.pay_points}</h2>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <div class="floor list7 ma-to-20">
+            <div class="myorder p" data-url="{:U('Mobile/User/account_list')}">
+                <div class="content30">
+                        <div class="order">
+                            <div class="fl">
+                                余额明细
+                            </div>
+                            <!--<div class="fr">-->
+                                <!--<i class="Mright"></i>-->
+                            <!--</div>-->
+                        </div>
+                </div>
+            </div>
+            <div class="myorder p myctr h-flag" data-url="{:U('Mobile/User/recharge_list')}">
+                <div class="content30">
+                        <div class="order">
+                            <div class="fl">
+                                充值记录
+                            </div>
+                            <!--<div class="fr">-->
+                                <!--<i class="Mright"></i>-->
+                            <!--</div>-->
+                        </div>
+                </div>
+            </div>
+            <div class="myorder p h-flag" data-url="{:U('Mobile/User/withdrawals_list',array('type'=>0))}">
+                <div class="content30">
+                        <div class="order">
+                            <div class="fl">
+                                提现记录
+                            </div>
+                            <!--<div class="fr">-->
+                                <!--<i class="Mright"></i>-->
+                            <!--</div>-->
+                        </div>
+                </div>
+            </div>
+            <!--<div class="myorder p">-->
+            <!--<div class="content30">-->
+            <!--<a href="{:U('Mobile/User/points_list')}">-->
+            <!--<div class="order">-->
+            <!--<div class="fl">-->
+            <!--<span>积分明细</span>-->
+            <!--</div>-->
+            <!--<div class="fr">-->
+            <!--<i class="Mright"></i>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="act-detail" id="actDetail"></div>
+    </div>
+</div>
+    <!--底部导航-start-->
+    <include file="public/footer_nav"/>
+    <!--底部导航-end-->
+    </body>
+    </html>
+<script>
+    var info = "{$info}";
+    $(function(){
+        if(info == 1){
+            $('.return a').attr('href','javascript:history.go(-1)');
+        }
+    })
+    $('#actDetail').load('{:U(\'Mobile/User/recharge_list\')}',function (res) {
+    })
+    $('.list7').on('click','.p',function () {
+        $(this).addClass('myctr').siblings().removeClass('myctr')
+        if($(this).hasClass('h-flag')){
+            $('#actDetail').load($(this).attr('data-url'))
+        }else{
+            var html = `<div class="head_acc ma-to-20">
+                            <ul>
+                                <li class="three-sel" data-type="all">
+                                    <a class="ft-color btr">全部</a>
+                                </li>
+                                <li class="three-sel" data-type="plus">
+                                    <a>赚取</a>
+                                </li>
+                                <li class="three-sel" data-type="minus">
+                                    <a>消费</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="actD-c"></div>`
+            $('#actDetail').html(html);
+            html = '';
+            $.ajax({
+                type:'post',
+                data:{type:'all'},
+                url:'/Mobile/User/account_list.html',
+                success:function (res) {
+                    var res = JSON.parse(res)
+                    for(var i of res.result.account_log){
+                        html += `<div class="dt-detail">
+                                        <ul>
+                                            <li>${i.order_sn}</li>
+                                            <li>${i.user_money<0?'-￥'+i.user_money.slice(1):'￥'+i.user_money}</li>
+                                            <li>${i.change_data}</li>
+                                            <li>描述:${i.desc}</li>
+                                        </ul>
+                                     </div>`
+                    }
+                    $('#actD-c').html(html);
+                    html = '';
+                }
+            })
+            $('#actDetail').on('click','.three-sel',function () {
+                var dt =  $(this).attr('data-type')
+                $(this).children().addClass('ft-color btr').parent().siblings().children().removeClass('ft-color btr');
+                $.ajax({
+                    type:'post',
+                    data:{type:dt},
+                    url:'/Mobile/User/account_list.html',
+                    success:function (res) {
+                        var res = JSON.parse(res)
+                        for(var i of res.result.account_log){
+                            html += `<div class="dt-detail">
+                                        <ul>
+                                            <li>${i.order_sn}</li>
+                                            <li>${i.user_money<0?'-￥'+i.user_money.slice(1):'￥'+i.user_money}</li>
+                                            <li>${i.change_data}</li>
+                                            <li>描述:${i.desc}</li>
+                                        </ul>
+                                     </div>`
+                        }
+                        $('#actD-c').html(html);
+                        html = '';
+                    }
+                })
+            })
+        }
+    })
+</script>

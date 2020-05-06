@@ -1,0 +1,135 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>相册管理
+        </div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="active"><a href="{:U('Goods/albumList')}">相册列表</a></li>
+                </ul>
+                <a  class="ncbtn ncbtn-mint" title="添加相册"><i class="icon-plus-sign"></i>添加相册</a>
+            </div>
+            <div class="alert alert-block mt10">
+                <ul class="mt5">
+                    <li>1、点击添加品牌按钮可以添加相册</li>
+                </ul>
+            </div>
+            <form id="search-form2" method="post" action="{:U('Goods/albumList')}">
+                <table class="search-form">
+                    <tr>
+                        <td></td>
+                        <th class="w70">相册名称</th>
+                        <td class="w100"><input style="width: 90px;" class="text" type="text" placeholder="搜索词" value="{$_POST['keyword']}" name="keyword"/></td>
+                        <td class="w70 tc"><label class="submit-border"><input type="submit" class="submit" value="搜索" /></label></td>
+                    </tr>
+                </table>
+            </form>
+            <table class="ncsc-default-table">
+                <thead>
+                <tr>
+                    <th class="w20"></th>
+                    <th class="w50">ID</th>
+                    <th class="w100 tl">相册名称</th>
+                    <th class="w120">海报</th>
+                    <th class="w100">图片数量</th>
+                    <th class="w150">备注</th>
+                    <th class="w50">默认相册</th>
+                    <th class="w150">操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <empty name="albumList">
+                    <tr>
+                        <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+                    </tr>
+                <else/>
+                <volist name="albumList" id="list">
+                    <tr class="bd-line">
+                        <td></td>
+                        <td>{$list.id}</td>
+                        <td class="tl">{$list.album_name}</td>
+                        <td><a href="{$list.album_img|default='/public/images/default_goods_image_240.gif'}" target="_blank"><img onmouseover="$(this).attr('width','80').attr('height','45');" onmouseout="$(this).attr('width','40').attr('height','30');" width="40" height="30" src="{$list.album_img|default='/public/images/default_goods_image_240.gif'}"/></a></td>
+                        <td>{$list.count|default=0}</td>
+                        <td>{$list.album_remark|default='无'}</td>
+                        <td>
+                            <if condition="$list.sort eq 0">是<else/>否</if>
+                        </td>
+                        <td class="nscs-table-handle">
+                        	<span><a href="{:U('seller/Goods/album_image', array('album_id'=>$list.id))}" class="btn-bluejeans"><i class="icon-eye-open"></i><p>查看</p></a></span>
+                            <span><a onclick="add_edit_album('{$list[id]}')" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
+                            <span><a onclick="del_album('{$list[id]}')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+                        </td>
+                    </tr>
+                </volist>
+                </empty>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="20">
+                        {$show}
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+<script>
+
+$(function(){
+	 $('.ncbtn-mint').on('click' , function(){
+		 add_edit_album();
+	 });
+});
+
+function album_success_callback(albumUrl){
+	window.location.href = albumUrl;
+}
+
+/*
+ * 通用图片上传方法
+ */
+function add_edit_album(album_id)
+{	   	
+	
+	var upurl ='/index.php?m=seller&c=Goods&a=addEditAlbum&id='+album_id;
+    var title = '编辑相册';
+    
+    layer.open({
+        type: 2,
+        title: title,
+        shadeClose: true,
+        shade: 0.2,
+        area: ['700px', '440px'],
+        content: upurl
+    });
+}
+ 
+
+function del_album(albumId){
+	layConfirm("删除该相册的话会影响使用的图片!" , function(){
+		// 删除数据库记录
+        $.ajax({
+           type:'GET',
+           url:"{:U('Seller/Goods/delAlbum')}",
+           data:{'id':albumId},
+           success:function(data){
+        	   var result=eval("("+data+")");
+                if(result.status == 1){
+                	layer.msg('删除成功', {icon: 1});
+                	window.location.reload();
+                }else{
+                	layer.msg('删除失败', {icon: 2});
+                }
+           }
+       });		
+	});
+	
+}
+
+</script>
+</body>
+</html>

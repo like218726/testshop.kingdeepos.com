@@ -1,0 +1,244 @@
+<include file="public/head"/>
+<style>
+	.ncsc-default-table tbody th span {
+		margin-right: 2px;
+	}
+</style>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>促销<i class="icon-angle-right"></i>预售管理
+		</div>
+		<div class="main-content" id="mainContent">
+			<div class="tabmenu">
+				<ul class="tab pngFix">
+					<li class="active"><a href="{:U('pre_sell/index')}">预售列表</a></li>
+				</ul>
+				<a href="{:U('pre_sell/info')}" class="ncbtn ncbtn-mint" title="新增预售"><i class="icon-plus-sign"></i>新增预售</a>
+
+			</div>
+			<div class="alert alert-block mt10">
+				<ul class="mt5">
+					<li>1、点击新增预售按钮可以添加预售活动</li>
+					<li>2、如果活动到了结束时间还未结束(已过期和结束活动按钮同时存在)，需要点击商品链接去前台触发，或者点击结束按钮,将活动结束</li>
+					<li>3、每个商品，只能参与一种活动，但积分商品不能参与活动。</li>
+				</ul>
+			</div>
+			<table class="ncsc-default-table order">
+				<thead>
+				<tr>
+					<th class="w10"></th>
+					<th colspan="2">预售商品</th>
+					<th class="w200">预售标题</th>
+					<th class="w80">预售库存</th>
+					<th class="w80">订金</th>
+					<th class="w80">当前价格</th>
+					<th class="w80">订购商品数</th>
+					<th class="w80">订单数</th>
+					<th class="w50">状态</th>
+					<th class="w120">操作</th>
+				</tr>
+				</thead>
+				<empty name="list">
+					<tbody>
+					<tr>
+						<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+					</tr>
+					</tbody>
+				<else/>
+					<volist name="list" id="sell">
+						<tbody>
+						<tr>
+							<td colspan="20" class="sep-row"></td>
+						</tr>
+						<tr>
+							<th colspan="20">
+								<span class="ml10">id:{$sell.pre_sell_id}</span>
+								<span>活动时间：<em class="goods-time">{$sell.sell_start_time|date='Y-m-d H:i:s',###}至{$sell.sell_end_time|date='Y-m-d H:i:s',###}</em></span>
+								<if condition="$sell['deposit_price'] gt 0">
+									<span>尾款支付时间：<em class="goods-time">{$sell.pay_start_time|date='Y-m-d H:i:s',###}至{$sell.pay_end_time|date='Y-m-d H:i:s',###}</em></span>
+								</if>
+								<span><a class="ncbtn-mini ncbtn-grapefruit">{$sell.finish_desc}</a></span>
+								<if condition="$sell['finish_button']">
+									<a href="javascript:void(0)" data-pre-sell-id="{$sell.pre_sell_id}" class="ncbtn-mini ncbtn-bittersweet finish_button"><i class="icon-stop"></i>结束活动</a>
+								</if>
+								<if condition="$sell['success_or_fail_button']">
+									<a href="javascript:void(0)" data-pre-sell-id="{$sell.pre_sell_id}" class="ncbtn-mini ncbtn-bittersweet success_button"><i class="icon-ok"></i>活动成功</a>
+									<a href="javascript:void(0)" data-pre-sell-id="{$sell.pre_sell_id}" class="ncbtn-mini ncbtn-bittersweet fail_button"><i class="icon-remove"></i>活动失败</a>
+								</if>
+							</th>
+						</tr>
+						<tr>
+							<td class="bdl"></td>
+							<td class="w70">
+								<div class="ncsc-goods-thumb">
+									<img src="{$sell.goods_id|goods_thum_images=60,60,sell.item_id}" style="width: 60px;height: 60px;"/>
+								</div>
+							</td>
+							<td class="tl w150">
+								<dl class="goods-name">
+									<dt><a href="{:U('Home/Goods/goodsInfo',['id'=>$sell['goods_id'],'item_id'=>$sell['item_id']])}" target="_blank">{$sell.goods_name|getSubstr=0,20}</a></dt>
+									<dd>{$sell.item_name|getSubstr=0,20}</dd>
+								</dl>
+							</td>
+							<td class="bdl"><p>{$sell.title|getSubstr=0,20}</p></td>
+							<td class="bdl">{$sell.stock_num}</td>
+							<td class="bdl">{$sell.deposit_price}</td>
+							<td class="bdl">{$sell.ing_price}</td>
+							<td class="bdl">{$sell.deposit_goods_num}</td>
+							<td class="bdl">{$sell.deposit_order_num}</td>
+							<td class="bdl bdr">{$sell.status_desc}</td>
+							<td class="nscs-table-handle">
+								<span><a href="{:U('pre_sell/info',array('id'=>$sell.pre_sell_id))}" class="ncbtn-mint"><i class="icon-edit"></i><p>编辑</p></a></span>
+								<span><a data-url="{:U('pre_sell/delete')}" data-id="{$sell.pre_sell_id}" onclick="delfun(this)" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+							</td>
+						</tr>
+					</tbody>
+				</volist>
+				</empty>
+				<tfoot>
+				<tr>
+					<td colspan="20">{$page->show()}</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+<script>
+	function delfun(obj) {
+		layer.confirm('确认删除？', {
+					btn: ['确定', '取消'] //按钮
+				}, function () {
+					$.ajax({
+						type: 'post',
+						url: $(obj).attr('data-url'),
+						data: {pre_sell_id: $(obj).attr('data-id')},
+						dataType: 'json',
+						success: function (data) {
+							layer.closeAll();
+							if (data.status == 1) {
+								layer.msg(data.msg, {icon: 1});
+								$(obj).parent().parent().parent().parent().remove();
+							} else {
+								layer.msg(data.msg, {icon: 2, time: 2000});
+							}
+						}
+					})
+				}, function (index) {
+					layer.close(index);
+				}
+		);
+	}
+
+	//结束活动
+	$(function () {
+		$(document).on("click", '.finish_button', function (e) {
+			var pre_sell_id = $(this).data('pre-sell-id');
+			layer.open({
+				content: '结束活动将（修改活动结束时间为当前时间）。该操作不可逆，确定要执行吗？'
+				,btn: ['确定', '取消']
+				,yes: function(index, layero){
+					layer.close(index);
+					$.ajax({
+						type: "POST",
+						url: "{:U('Seller/PreSell/finish')}",//+tab,
+						data: {pre_sell_id: pre_sell_id},
+						dataType: 'json',
+						success: function (data) {
+							if (data.status == 1) {
+								layer.msg(data.msg, {icon: 1, time: 2000}, function(){
+									window.location.reload();
+								});
+							} else {
+								layer.msg(data.msg, {icon: 2, time: 2000});
+							}
+						}
+					});
+				}
+				,btn2: function(index, layero){
+					layer.close(index);
+				}
+				,cancel: function(){
+					//右上角关闭回调
+					layer.close();
+				}
+			});
+		})
+	})
+
+	//活动成功
+	$(function () {
+		$(document).on("click", '.success_button', function (e) {
+			var pre_sell_id = $(this).data('pre-sell-id');
+			layer.open({
+				content: '此操作不可逆，您确定要设置该预售活动成功吗？'
+				,btn: ['确定', '取消']
+				,yes: function(index, layero){
+					layer.close(index);
+					$.ajax({
+						type: "POST",
+						url: "{:U('Seller/PreSell/succeed')}",//+tab,
+						data: {pre_sell_id: pre_sell_id},
+						dataType: 'json',
+						success: function (data) {
+							if (data.status == 1) {
+								layer.msg(data.msg, {icon: 1, time: 2000}, function(){
+									window.location.reload();
+								});
+							} else {
+								layer.msg(data.msg, {icon: 2, time: 2000});
+							}
+						}
+					});
+				}
+				,btn2: function(index, layero){
+					layer.close(index);
+				}
+				,cancel: function(){
+					//右上角关闭回调
+					layer.close();
+				}
+			});
+		})
+	})
+
+	//活动成功
+	$(function () {
+		$(document).on("click", '.fail_button', function (e) {
+			var pre_sell_id = $(this).data('pre-sell-id');
+			layer.open({
+				content: '此操作不可逆，您确定要设置该预售活动失败吗？'
+				,btn: ['确定', '取消']
+				,yes: function(index, layero){
+					layer.close(index);
+					$.ajax({
+						type: "POST",
+						url: "{:U('Seller/PreSell/fail')}",//+tab,
+						data: {pre_sell_id: pre_sell_id},
+						dataType: 'json',
+						success: function (data) {
+							if (data.status == 1) {
+								layer.msg(data.msg, {icon: 1, time: 2000}, function(){
+									window.location.reload();
+								});
+							} else {
+								layer.msg(data.msg, {icon: 2, time: 2000});
+							}
+						}
+					});
+				}
+				,btn2: function(index, layero){
+					layer.close(index);
+				}
+				,cancel: function(){
+					//右上角关闭回调
+					layer.close();
+				}
+			});
+		})
+	})
+</script>
+</body>
+</html>

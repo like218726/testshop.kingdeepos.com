@@ -1,0 +1,324 @@
+<include file="public/head" />
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.config.js" />
+<load href="__ROOT__/public/plugins/Ueditor/ueditor.all.min.js" />
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<style type="text/css">
+    .news-tag {
+        float: left;
+        margin-right: 20px;
+    }
+</style>
+<div class="ncsc-layout wrapper">
+    <include file="public/left" />
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i
+                class="icon-angle-right"></i>新闻管理</div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="normal"><a href="{:U('News/index')}">新闻列表</a></li>
+                    <li class="active"><a href="{:U('News/article')}">新增/编辑新闻</a></li>
+                </ul>
+            </div>
+            <div class="ncsc-form-default">
+                <form id="handleposition" method="post" onsubmit="return false;">
+                    <input type="hidden" name="article_id" value="{$info.article_id}">
+                    <input type="hidden" name="act" value="{$act}">
+                    <input type="hidden" name="check_type" value="{$info.check_type}">
+                    <dl>
+                        <dt><i class="required">*</i>标题：</dt>
+                        <dd>
+                            <input class="w400 text" type="text" name="title" id="title" value="{$info.title}" />
+                            <span class="err" id="err_title"></span>
+                            <!-- <p class="hint">请填写标题</p> -->
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>所属分类：</dt>
+                        <dd>
+                            <select id="cat_id" name="cat_id" class="select">
+                                <option value="0" <if condition="$info[type] eq 0">selected</if>>选择分类</option>
+                                {$cat_select}
+                            </select>
+                            <span class="err" id="err_cat"></span>
+                            <p class="hint">当选择发布"商城公告"时，还需要设置下面的"出现位置"项</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>新闻标签：</dt>
+                        <dd>
+                            <ul>
+                                <volist name="tags" id="vo">
+                                    <li class="news-tag">
+                                        <label>
+                                            <input class="checkbox" name="tags[]" value="{$i-1}" type="checkbox" <if
+                                                condition="($info['tags_arr']) and (in_array(($i-1),$info['tags_arr']))">
+                                            checked="checked"</if>>
+                                            {$vo}
+                                        </label>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <span class="err" id="err_tags"></span>
+                            <p class="notic"></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required articleForm">*</i>seo关键字：</dt>
+                        <dd>
+                            <input class="w400 text" type="text" name="keywords" id="keywords"
+                                value="{$info.keywords}" />
+                            <span class="err" id="err_title"></span>
+                            <p class="hint">用于seo 搜索引擎友好</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>链接：</dt>
+                        <dd>
+                            <input class="w400 text" type="text" name="link" id="link" value="{$info.link}" />
+                            <span class="err" id="err_title"></span>
+                            <p class="hint">当填写"链接"后点击文章标题将直接跳转至链接地址，不显示文章内容。链接格式请以http://开头</p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>发布时间：</dt>
+                        <dd>
+                            <input id="publish_time" name="publish_time" value="{$info.publish_time|date="
+                                Y-m-d:h:m:s",###}" type="text" class="text w200"
+                                onkeyup="this.value=this.value.replace(/[^\d]/g,'')" /><em class="add-on"><i
+                                    class="icon-calendar"></i></em><span></span>
+                            <span class="err" id="err_publish_time"></span>
+                            <!-- <p class="hint">促销开始时间</p> -->
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>网页描述：</dt>
+                        <dd>
+                            <textarea class="input-txt w400" id="post_description" name="description"
+                                title="">{$info.description}</textarea>
+                            <span class="err"></span>
+                            <p class="notic"></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>新闻导图一：</dt>
+                        <dd>
+                            <div class="ncsc-goods-default-pic">
+                                <div class="goodspic-uplaod">
+                                    <div class="upload-thumb">
+                                        <img id="thumb_img"
+                                            src="{$info.thumb|default='/public/images/default_goods_image_240.gif'}">
+                                    </div>
+                                    <input id="thumb" name="thumb" value="{$info.thumb}" type="hidden">
+
+                                    <p class="hint">上传宣传图片；支持jpg、gif、png格式上传，建议使用<font color="red">
+                                            尺寸800x800像素以上、大小不超过1M的正方形图片</font>。</p>
+                                    <div class="handle">
+                                        <div class="ncsc-upload-btn">
+                                            <a onclick="GetUploadify3(1,'','news','img_call_back1')">
+                                                <p><i class="icon-upload-alt"></i>图片上传</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="demo"></div>
+                            <span class="err" id="err_thumb_img"></span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>新闻导图二：</dt>
+                        <dd>
+                            <div class="ncsc-goods-default-pic">
+                                <div class="goodspic-uplaod">
+                                    <div class="upload-thumb">
+                                        <img id="thumb2_img"
+                                            src="{$info.thumb2|default='/public/images/default_goods_image_240.gif'}">
+                                    </div>
+                                    <input id="thumb2" name="thumb2" value="{$info.thumb2}" type="hidden">
+
+                                    <p class="hint">上传宣传图片；支持jpg、gif、png格式上传，建议使用<font color="red">
+                                            尺寸800x800像素以上、大小不超过1M的正方形图片</font>。</p>
+                                    <div class="handle">
+                                        <div class="ncsc-upload-btn">
+                                            <a onclick="GetUploadify3(1,'','news','img_call_back2')">
+                                                <p><i class="icon-upload-alt"></i>图片上传</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="demo"></div>
+                            <span class="err" id="err_thumb2_img"></span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>新闻导图三：</dt>
+                        <dd>
+                            <div class="ncsc-goods-default-pic">
+                                <div class="goodspic-uplaod">
+                                    <div class="upload-thumb">
+                                        <img id="thumb3_img"
+                                            src="{$info.thumb3|default='/public/images/default_goods_image_240.gif'}">
+                                    </div>
+                                    <input id="thumb3" name="thumb3" value="{$info.thumb3}" type="hidden">
+
+                                    <p class="hint">上传宣传图片；支持jpg、gif、png格式上传，建议使用<font color="red">
+                                            尺寸800x800像素以上、大小不超过1M的正方形图片</font>。</p>
+                                    <div class="handle">
+                                        <div class="ncsc-upload-btn">
+                                            <a onclick="GetUploadify3(1,'','news','img_call_back3')">
+                                                <p><i class="icon-upload-alt"></i>图片上传</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="demo"></div>
+                            <span class="err" id="err_thumb3_img"></span>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>导图展现样式：</dt>
+                        <dd>
+                            <ul>
+                                <li class="news-tag">
+                                    <label><input class="checkbox" name="type" value="0" type="radio"
+                                            {$info['type']==0?'checked':''}>不显示图片</label>
+                                </li>
+                                <li class="news-tag">
+                                    <label><input class="checkbox" name="type" value="1" type="radio"
+                                            {$info['type']==1?'checked':''}>左边图片</label>
+                                </li>
+                                <li class="news-tag">
+                                    <label><input class="checkbox" name="type" value="2" type="radio"
+                                            {$info['type']==2?'checked':''}>右边图片</label>
+                                </li>
+                                <li class="news-tag">
+                                    <label><input class="checkbox" name="type" value="3" type="radio"
+                                            {$info['type']==3?'checked':''}>上边多图片</label>
+                                </li>
+                                <li class="news-tag">
+                                    <label><input class="checkbox" name="type" value="4" type="radio"
+                                            {$info['type']==4?'checked':''}>下边多图片</label>
+                                </li>
+                            </ul>
+                            <span class="err" id="err_type"></span>
+                            <p class="notic" style="color: red">注：左右显示图片只显示导图一，上下多图片显示为3张比例</p>
+                        </dd>
+                    </dl>
+                    <dl class="row">
+                        <dt class="tit">
+                            <label>显示：</label>
+                        </dt>
+                        <dd class="opt">
+                            <div class="onoff">
+                                <input id="is_open1" name="is_open" value="1" type="radio" <if
+                                    condition="$info['is_open'] eq 1">checked="checked"</if>>
+                                <label for="is_open1" class="cb-enable selected">是</label>
+                                <input id="is_open0" name="is_open" value="0" type="radio" <if
+                                    condition="$info['is_open'] eq 0 || $info['is_open'] eq ''">checked="checked"</if>>
+                                <label for="is_open0" class="cb-disable ">否</label>
+                            </div>
+                            <p class="notic"></p>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><i class="required">*</i>文章内容：</dt>
+                        <dd>
+                            <textarea placeholder="请输入文章内容" id="post_content" name="content"
+                                class="tarea w700">{$info.content}</textarea>
+                            <span class="err" id="err_content"></span>
+                            <p class="hint">文章内容</p>
+                        </dd>
+                    </dl>
+                    <div class="bottom"><label class="submit-border">
+                            <input id="submit" type="submit" class="submit" value="提交"></label>
+                    </div>
+                </form>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $(document).ready(function () {
+                        console.log(11)
+                        laydate({
+                            elem: '#publish_time',
+                            istime: true,
+                            format: 'YYYY-MM-DD hh:mm:ss',
+                            min: '2017-05-24 08:00:00',
+                            max: '2017-05-24 12:00:00',
+                        });
+                    })
+                    $(document).on("click", '#submit', function (e) {
+                        verifyForm();
+                    })
+                })
+                function verifyForm() {
+                    $('#submit').attr('disabled', true);
+                    $('span.err').hide();
+                    $.ajax({
+                        type: "POST",
+                        url: "{:U('News/aticleHandle')}",
+                        data: $('#handleposition').serialize(),
+                        async: false,
+                        dataType: "json",
+                        error: function () {
+                            layer.alert("服务器繁忙, 请联系管理员!");
+                        },
+                        success: function (data) {
+                            if (data.status == 1) {
+                                layer.msg(data.msg, {
+                                    icon: 1,
+                                    time: 1000
+                                }, function () {
+                                    location.href = "{:U('Seller/News/index')}";
+                                });
+                            } else {
+                                $.each(data.result, function (index, item) {
+                                    $('#err_' + index).text(item).show();
+                                });
+                                layer.msg(data.msg, { icon: 2, time: 2000 }, function () {
+                                    $('#submit').attr('disabled', false);
+                                });
+                            }
+                        }
+                    });
+                }
+
+                var url = "{:url('Uploadify/index',array('savepath'=>'activity'))}";
+                var ue = UE.getEditor('post_content', {
+                    serverUrl: url,
+                    zIndex: 999,
+                    initialFrameWidth: "100%", //初化宽度
+                    initialFrameHeight: 350, //初化高度            
+                    focus: false, //初始化时，是否让编辑器获得焦点true或false
+                    maximumWords: 99999, removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+                    pasteplain: false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+                    autoHeightEnabled: true
+                });
+                function img_call_back1(fileurl_tmp) {
+                    $("#thumb").attr('value', fileurl_tmp);
+                    $("#thumb_img").attr('src', fileurl_tmp);
+                }
+
+                function img_call_back2(fileurl_tmp) {
+                    $("#thumb2").attr('value', fileurl_tmp);
+                    $("#thumb2_img").attr('src', fileurl_tmp);
+                }
+                function img_call_back3(fileurl_tmp) {
+                    $("#thumb3").attr('value', fileurl_tmp);
+                    $("#thumb3_img").attr('src', fileurl_tmp);
+                }
+
+                $(document).ready(function () {
+                    $('#publish_time').layDate();
+                })
+            </script>
+        </div>
+    </div>
+</div>
+<include file="public/foot" />
+</body>
+
+</html>

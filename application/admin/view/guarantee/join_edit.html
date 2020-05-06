@@ -1,0 +1,103 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title"><a class="back" href="{:U('Guarantee/join_list')}" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+      <div class="subject">
+        <h3>消费者保障服务 - 编辑店铺保障服务</h3>
+        <h5>消费者保障服务查看与管理</h5>
+      </div>
+    </div>
+  </div>
+  <form id="c_form" method="post" name="c_form">
+    <input type="hidden" name="form_submit" value="ok">
+    <div class="ncap-form-default">
+      <dl class="row">
+        <dt class="tit">
+            <label>店铺名称</label>
+        </dt>
+        <dd class="opt">{$join.store_name}</dd>
+      </dl>
+    <dl class="row">
+        <dt class="tit">
+            <label>项目名称</label>
+        </dt>
+        <dd class="opt">{$join.grt_name}</dd>
+    </dl>
+      <dl class="row">
+        <dt class="tit">
+            <label>状态</label>
+        </dt>
+        <dd class="opt">
+   			<if condition="$join.isopen eq 0">
+				禁止使用	
+			<elseif condition="$join.joinstate eq 0" />
+				未申请
+			<else/>
+				{$auditstate[$join.auditstate]}
+			</if>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit">
+          <label>关闭状态</label>
+        </dt>
+        <dd class="opt">
+                        <label for="c_state1"><input type="radio" value="1" id="c_state1" name="c_state" checked="checked">允许使用</label>
+                        <label for="c_state0"><input type="radio" value="0" id="c_state0" name="c_state">禁止使用</label>
+                        <span class="err"></span>
+            <p class="notic"></p>
+        </dd>
+      </dl>
+        <dl id="reason_dl" class="row" style="display: none;">
+            <dt class="tit">
+                <label for="c_reason">原因备注</label>
+            </dt>
+            <dd class="opt">
+                <textarea id="c_reason" name="c_reason" class="w300"></textarea>
+                <span class="err"></span>
+                <p class="notic">原因备注小于200个字符</p>
+            </dd>
+        </dl>
+      <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+    </div>
+  </form>
+</div>
+<script>
+//按钮先执行验证再提交表单
+$(function(){
+    $("[name='c_state']").click(function(){
+        if ($(this).val() == 'close') {
+            $("#reason_dl").show();
+        }else {
+            $("#reason_dl").hide();
+        }
+    });
+	$("#submitBtn").click(function(){
+        if($("#c_form").valid()){
+            $("#c_form").submit();
+    	}
+	});
+    $('#c_form').validate({
+        errorPlacement: function(error, element){
+            var error_td = element.parent('dd').children('span.err');
+            error_td.append(error);
+        },
+        rules : {
+            c_reason : {
+                rangelength:[1,200]
+            }
+        },
+        messages : {
+            c_reason : {
+                rangelength:'<i class="fa fa-exclamation-circle"></i>原因备注应小于200个字符'
+            }
+        }
+    });
+});
+</script>
+</body>
+</html>

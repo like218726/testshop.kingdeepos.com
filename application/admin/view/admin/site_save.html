@@ -1,0 +1,179 @@
+<include file="public/layout" />
+<script src="__ROOT__/public/static/js/layer/laydate/laydate.js"></script>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>分站操作</h3>
+                <h5>网站系统资料</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="adminHandle" action="{:U('Admin/site_save')}" method="post">
+        <input type="hidden" name="site_id" value="{$info.site_id}">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="site_name"><em>*</em>分站名称</label>
+                </dt>
+                <dd class="opt">
+                    <input type="text" name="site_name" value="{$info.site_name}" id="site_name" class="input-txt">
+                    <span class="err">分站名称不能为空!</span>
+                    <p class="notic">分站名称</p>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="region_id"><em>*</em>分站地区</label>
+                </dt>
+                <dd class="opt">
+                    <select name="region_id" id="region_id" >
+                        <option value="">请选择城市分站</option>
+                        <volist name="region" id="item">
+                            <option value="" disabled >{$key}</option>
+                            <volist name="item" id="v">
+                                <option value="{$v.id}" <if condition="$v[id] eq $info[region_id]"> selected="selected"</if> >{$v.name}</option>
+                            </volist>
+                        </volist>
+                    </select>
+                    <span class="err">分站名称不能为空!</span>
+                    <p class="notic">分站名称</p>
+                </dd>
+            </dl>
+            <!-- <dl class="row"> -->
+            <!-- <dt class="tit"> -->
+            <!-- <label for="site_url"><em></em>分站域名</label> -->
+            <!-- </dt> -->
+            <!-- <dd class="opt"> -->
+            <!-- <input type="text" name="site_url" value="{$info.site_url}" id="site_url" class="input-txt"> -->
+            <!-- <span class="err">分站域名不能为空!</span> -->
+            <!-- <p class="notic">填写你配置的分站的具地址，无需带http://</p> -->
+            <!-- </dd> -->
+            <!-- </dl> -->
+            <dl class="row">
+                <dt class="tit">
+                    <label for="user_name"><em>*</em>分站管理员</label>
+                </dt>
+                <dd class="opt">
+                    <select name="admin_id" id="admin_id" >
+                        <option value="">请选择管理员</option>
+                        <volist name="admin" id="item">
+                            <option value="{$item.admin_id}" <if condition="$item[admin_id] eq $info['admin'][admin_id]"> selected="selected"</if> >{$item.user_name}</option>
+                        </volist>
+                    </select>
+                    <span class="err">分站管理员不能为空!</span>
+                    <p class="notic">请勿随意更改分站管理员</p>
+                </dd>
+            </dl>
+            <!-- <dl class="row"> -->
+            <!-- <dt class="tit"> -->
+            <!-- <label for="initial_fee"><em></em>分站加盟费</label> -->
+            <!-- </dt> -->
+            <!-- <dd class="opt"> -->
+            <!-- <input type="text" name="initial_fee" value="{$info.initial_fee}" id="initial_fee" class="input-txt"> -->
+            <!-- <span class="err">分站加盟费不能为空!</span> -->
+            <!-- <p class="notic">分站每年需向平台缴纳固定的费用，0表示无需缴纳费用</p> -->
+            <!-- </dd> -->
+            <!-- </dl> -->
+            <!-- <dl class="row"> -->
+            <!-- <dt class="tit"> -->
+            <!-- <label for="settle_cycle"><em></em>结算周期</label> -->
+            <!-- </dt> -->
+            <!-- <dd class="opt"> -->
+            <!-- <input type="text" name="settle_cycle" value="{$info.settle_cycle}" id="settle_cycle" class="input-txt"> -->
+            <!-- <span class="err">结算周期不能为空!</span> -->
+            <!-- <p class="notic">已天为单位</p> -->
+            <!-- </dd> -->
+            <!-- </dl> -->
+            <!-- <dl class="row"> -->
+            <!-- <dt class="tit"> -->
+            <!-- <label for="end_time"><em></em>到期时间</label> -->
+            <!-- </dt> -->
+            <!-- <dd class="opt"> -->
+            <!-- <input type="text" size="30" name="end_time" id="end_time" value="{$info.end_time}"  class="qsbox"> -->
+            <!-- <span class="err">到期时间不能为空!</span> -->
+            <!-- <p class="notic">不填则为永久</p> -->
+            <!-- </dd> -->
+            <!-- </dl> -->
+            <!-- <dl class="row"> -->
+            <!-- <dt class="tit"> -->
+            <!-- <label for="distribut"><em></em>佣金比例</label> -->
+            <!-- </dt> -->
+            <!-- <dd class="opt"> -->
+            <!-- <input type="text" name="distribut" value="{$info.distribut}" id="distribut" class="input-txt"> -->
+            <!-- <span class="err">佣金比例不能为空!</span> -->
+            <!-- <p class="notic">佣金比例:1% 填1，10% 填10</p> -->
+            <!-- </dd> -->
+            <!-- </dl> -->
+            <dl class="row">
+                <dt class="tit">
+                    <label for="is_status"><em></em>开启分站</label>
+                </dt>
+                <dd class="opt">
+                    <div class="onoff">
+                        <label for="is_status1" class="cb-enable <if condition="$info[is_status] eq 1">selected</if>">开启</label>
+                        <label for="is_status0" class="cb-disable <if condition="$info[is_status] eq 0">selected</if>">关闭</label>
+                        <input id="is_status1" name="is_status" value="1" type="radio" <if condition="$info[is_status] eq 1"> checked="checked"</if>>
+                        <input id="is_status0" name="is_status" value="0" type="radio" <if condition="$info[is_status] eq 0"> checked="checked"</if>>
+                    </div>
+                    <p class="notic">关闭的话，前端不显示该城市分站</p>
+                </dd>
+            </dl>
+
+
+            <div class="bot"><a href="JavaScript:void(0);" onclick="adsubmit();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        // 表格行点击选中切换
+        $('#flexigrid > table>tbody >tr').click(function(){
+            $(this).toggleClass('trSelected');
+        });
+        // 点击刷新数据
+        $('.fa-refresh').click(function(){
+            location.href = location.href;
+        });
+        $('#end_time').layDate();
+    });
+
+    // 判断输入框是否为空
+    function adsubmit(){
+        if($('input[name=site_name]').val() == ''){
+            layer.msg('分站名称不能为空！', {icon: 2,time: 1000});
+            return false;
+        }
+        if(!$('#admin_id').val()){
+            layer.msg('请选择管理员！', {icon: 2,time: 1000});
+            return false;
+        }
+        if(!$('#region_id').val()){
+            layer.msg('请选择分站地区！', {icon: 2,time: 1000});
+            return false;
+        }
+        $.ajax({
+            type:'POST',
+            url:"{:U('Admin/Admin/site_save')}",
+            data:$('#adminHandle').serialize(),
+            dataType:'JSON',
+            success:function(data){
+                if(data.status == 1){
+                    layer.alert(data.msg, {icon: 1});
+                    parent.layer.closeAll();
+                }else{
+                    layer.alert(data.msg, {icon: 2});
+                }
+            },
+            error:function(){
+                layer.alert('网络连接失败，请稍后再试', {icon: 2});
+            }
+        })
+    }
+</script>
+</body>
+</html>

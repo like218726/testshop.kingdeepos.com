@@ -1,0 +1,37 @@
+<foreach name="shopList" item="shop">
+    <li>
+        <div class="index-merchant-logo"><a href="{:U('Offline/shop',['shop_id'=>$shop.shop_id])}">
+            <img src="{$shop.shop_logo}" alt=""></a>
+        </div>
+        <div class="index-merchant-text">
+            <div class="index-merchant-info">
+                <a href="{:U('Offline/shop',['shop_id'=>$shop.shop_id])}">
+                <div class="index-merchant-info-top">
+                    <div class="index-merchant-name"><i>{$shop.shop_name}</i></div>
+                    <div class="index-merchant-scoring">
+                        <span class="scoring-light"></span>
+                        <span></span>
+                        <em>月售<i>{$shop.shop_sales}</i>单</em>
+                    </div>
+                    <div class="index-merchant-delivery">
+                        <span><i>￥<em>{$shop.mini_order_price}</em>起送</i>配送费 ￥{$shop.shipping_price}</span>
+                        <b><em>{$shop.distance}km</em><i>{$shop.shipping_time}分钟</i></b>
+                    </div>
+                </div>
+                    </a>
+                <div class="index-merchant-info-bot">
+                    <p>
+                        <!--<b class="new">新</b><i>新用户下单立减5元</i>-->
+                        <b></b><i></i>
+                        <a><em>{:count($shop.shop_prom)}</em>个活动</a>
+                    </p>
+                    <foreach name="$shop.shop_prom" item="prom">
+                        <p><b class="full">{$type[$prom.type]}</b><i>{$prom.title}</i></p>
+                    </foreach>
+                </div>
+            </div>
+            <div class="store-activity-pro">
+            </div>
+        </div>
+    </li>
+</foreach>

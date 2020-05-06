@@ -1,0 +1,111 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>促销<i class="icon-angle-right"></i>抢购管理
+        <a href="http://help.tp-shop.cn/Index/Help/info/cat_id/24/id/214.html" class="seller_help" target="_blank">帮助</a>
+        </div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="active"><a href="{:U('Promotion/flash_sale')}">抢购列表</a></li>
+                </ul>
+                <!--<a href="" style="right:100px" class="ncbtn ncbtn-mint" title="新增虚拟商品抢购"><i class="icon-plus-sign"></i>新增虚拟抢购</a>-->
+                <a href="{:U('Promotion/flash_sale_info',['prom_type'=>1])}" class="ncbtn ncbtn-mint" title="新增抢购"><i class="icon-plus-sign"></i>新增抢购</a>
+
+            </div>
+            <div class="alert alert-block mt10">
+                <ul class="mt5">
+                    <li>点击新增抢购按钮可以添加抢购活动</li>
+                    <li>只有在总平台设置了推荐，对应的活动才会显示在前台</li>
+                    <li>活动时间必须是同一天的双数整点（如：8:00-10:00)，否则活动将不能正常显示</li>
+                    <li>每个商品，只能参与一种活动，但积分商品不能参与活动。</li>
+                </ul>
+            </div>
+            <form action="" id="search-form2" method="post" >
+                <table class="search-form">
+                    <input type="hidden" name="orderby1" value="goods_id" />
+                    <input type="hidden" name="orderby2" value="desc" />
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="w160"><input type="text" class="text w150" name="key_word" value="{$key_word}" placeholder="活动名称/商品名" /></td>
+                        <td class="tc w70"><label class="submit-border">
+                            <input type="submit" class="submit" value="搜索"/>
+                        </label></td>
+                    </tr>
+                </table>
+            </form>
+            <table class="ncsc-default-table">
+                <thead>
+                <tr>
+                    <th class="w10"></th>
+                    <th class="w50"></th>
+                    <th class="tl" style="padding-left: 20px">活动名称</th>
+                    <th class="tl" style="padding-left: 20px">活动商品</th>
+                    <th class="w50">抢购总量</th>
+                    <th class="w120">抢购价格</th>
+                    <th class="w120">开始时间</th>
+                    <th class="w120">结束时间</th>
+                    <th class="w80">抢购状态</th>
+                    <th class="w80">已购买</th>
+                    <th class="w110">操作</th>
+                </tr>
+                </thead>
+                <if condition="empty($prom_list) eq true">
+			  	<tbody>
+			  		<tr>
+			      		<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+			    	</tr>
+			      </tbody>
+			  <else/> 
+                <tbody>
+                <foreach name="prom_list" item="vo" key="k" >
+                    <tr class="bd-line">
+                        <td></td>
+                        <td>
+                            <div class="pic-thumb"><a target="_blank" href="{:U('Home/Goods/goodsInfo',['id'=>$vo[goods_id],'item_id'=>$vo[item_id]])}"><img src="{$vo.goods_id|goods_thum_images=200,200,$vo.item_id}"/></a></div>
+                        </td>
+                        <td class="tl"  style="white-space: nowrap;width: 100px;overflow: hidden;">
+                            <dl class="goods-name">
+                                <dt style="max-width: 160px !important;padding:0 16px">
+                                    <a target="_blank" href="{:U('Home/Goods/goodsInfo',['id'=>$vo[goods_id],'item_id'=>$vo[item_id]])}">{$vo.title}</a>
+                                </dt>
+                            </dl>
+                        </td>
+                        <td style="width: 200px;overflow: hidden;text-align: left;">
+                            <a  target="_blank" href="{:U('Home/Goods/goodsInfo',['id'=>$vo[goods_id],'item_id'=>$vo[item_id]])}">{$vo.goods_name}</a>
+                        </td>
+                        <td>{$vo.goods_num}</td>
+                        <td>{$vo.price}</td>
+                        <td>{$vo.start_time|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.end_time|date='Y-m-d H:i',###}</td>
+                        <td>{$vo.status_desc}</td>
+                        <td>{$vo.buy_num}</td>
+                        <td class="nscs-table-handle">
+                            <if condition="$vo.edit_status eq 1">
+                                <span>
+                                    <a href="{:U('Promotion/flash_sale_info',array('id'=>$vo['id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a>
+                                </span></if>
+                                <span>
+                                    <a data-url="{:U('Promotion/flash_sale_del')}" data-id="{$vo.id}" onclick="delfunc(this)" class="btn-grapefruit">
+                                        <i class="icon-trash"></i><p>删除</p></a>
+                                </span>
+                        </td>
+                    </tr>
+                </foreach>
+                </tbody>
+                </if>
+                <tfoot>
+                <tr>
+                    <td colspan="20">
+                        {$page}
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

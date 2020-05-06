@@ -1,0 +1,82 @@
+<include file="public/header" title="支付成功"   body="g4"/>
+<include file="public/header_nav" title="支付成功" href="{:U('mobile/order/order_list')}"/>
+<style>
+    .g4{
+        background-color: #ffffff;
+    }
+    .content{
+        background-color: #ffffff;
+    }
+    .p-arrow{
+        width: 3.03rem;
+        height: 3.03rem;
+        margin: 3.52rem 6.69rem;
+        margin-bottom: 1.15rem;
+    }
+    .p-arrow img{
+        width: 100%;
+        height: 100%;
+    }
+    .ps-sum{
+        font-size: 1.02rem;
+        font-family: 'DIN';
+        color: #212121;
+        text-align: center;
+        font-weight: bold;
+    }
+    .ps-number{
+        font-size: 0.55rem;
+        color: #1e1e1e;
+        text-align: center;
+        font-family: 'DIN';
+        margin-top: 0.49rem;
+    }
+    .ps-hint{
+        text-align: center;
+        font-weight: bold;
+        font-size: 0.64rem;
+        margin-top: 0.47rem;
+    }
+    .check-indent{
+        width: 12.8rem;
+        height: 1.62rem;
+        border-radius: 0.06rem;
+        border: solid 0.02rem #cfcfcf;
+        display: block;
+        margin: 1.22rem auto;
+        font-size: 0.64rem;
+        color: #212121;
+        text-align: center;
+        line-height: 1.62rem;
+    }
+    .ps-notice{
+        font-size: 0.47rem;
+        color: #666666;
+        line-height: 1.067rem;
+        padding: 0 1.7rem;
+    }
+    .ps-notice .pn-left{
+        float: left;
+        width: 2.2rem;
+        white-space: nowrap;
+    }
+    .ps-notice .pn-right{
+        float: left;
+        width: 10.4rem;
+    }
+</style>
+<div class="p-arrow">
+    <img src="__STATIC__/images/harrow.png" alt="支付成功">
+</div>
+<p class="ps-sum">¥ {$order.order_amount}</p>
+<p class="ps-hint">订单支付成功</p>
+<p class="ps-number">订单编号：{$order.order_sn}</p>
+<a href="{:U('mobile/order/order_detail',['id'=>$order.order_id])}" class="check-indent">查看订单</a>
+<div class="ps-notice">
+    <div class="pn-left">
+        <p>注意事项：</p>
+    </div>
+    <div class="pn-right">
+        <p>商城平台及销售商不会以订单异常、系统升级为由要求您点击任何网址链接进行退款操作</p>
+    </div>
+</div>

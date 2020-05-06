@@ -1,0 +1,135 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<body>
+    <link rel="stylesheet" href="__STATIC__/css/base.css">
+    <link rel="stylesheet" href="__STATIC__/css/account.css">
+    <include file="public/distrbut_header" />
+    <style>
+         .back {
+            float: left;
+            width: 0.29333333rem;
+            height: 1.17333333rem;
+            background: url(__STATIC__/images/distrbut/back@2x.png) no-repeat left center;
+            background-size: contain;
+        }
+		div{ display:none;}
+    </style>
+</head>
+ 
+
+
+<!--账户信息开始-->
+<div class="account_info" style='background-image: url("{$store.store_img|default='__STATIC__/images/distrbut/team_bg@2x.png'}")'>
+    <div class="wrap">
+        <a href="{:U('User/index')}" class="back"></a>
+    </div>
+    <div class="header_image">
+        <a href="#">
+            <img src="{$head_pic|default="__STATIC__/distribut/images/user68.jpg"}" alt="">
+        </a>
+    </div>
+    <h3>{$store_name}</h3>
+    <div class="info_data">
+        <ul>
+         <li ></li>
+            <li class="products">
+                <a href="{:U('Distribut/distribution_list')}">
+                    <em>{$totalRows}</em>
+                    <span>全部商品</span>
+                </a>
+            </li>
+            <li ></li>
+         <!--    <li class="new">
+                <a href="#">
+                    <em>{$new}</em>
+                    <span>新品上架</span>
+                </a>
+            </li>
+            <li class="sales">
+                <a href="#">
+                    <em>{$promotion}</em>
+                    <span>促销商品</span>
+                </a>
+            </li> -->
+        </ul>
+    </div>
+</div>
+<!--账户信息结束-->
+<!--商品信息开始-->
+<section class="product_infoa">     
+       <if condition="!empty($lists)">
+                <ul class="product_lists clearfix s">
+                    <foreach name="lists" item="good">
+                     <li>
+			            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$good['goods_id'],'first_leader'=>$user_id))}">
+			                <div class="product_image">
+			                    <h2>TPshop</h2>
+			                    <div>开源商城</div>
+			                    <img src="{$good.goods_id|goods_thum_images=200,200}" alt="">
+			                </div>
+			                 
+				                <div class="activities clearfix">
+				                  <if condition="$good.label_id neq '' ">
+				                    	<span>{$good.label_id}</span>
+				                   </if>
+				                   <if condition="$good.is_free_shipping eq 1 ">
+				                    	<span>包邮</span>
+				                   </if>
+				                </div>
+			              
+			                <div class="product_data clearfix">
+			                    <div class="price">￥<span>{$good.shop_price}</span></div>
+			                    <div class="amount">已售{$good.sales_sum}件</div>
+			                </div>
+			            </a>
+			        </li>
+			        
+                    </foreach>
+                </ul>
+            <else/>
+                <!--没有内容时-s-->
+                <div class="comment_con p">
+                    <div style="padding:1rem;text-align: center;font-size: .59733rem;color: #777777;"><img src="__STATIC__/images/none.png"/><br /><br />亲，您还没有分销商品！</div>
+                </div>
+                <!--没有内容时-e-->
+            </if>
+</section>
+<!--商品信息结束-->
+<!--底部开始-->
+<include file="public/distrbut_footer_nav" />
+<!--底部结束-->
+
+ <script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+    <script>
+        var  page = 1;
+        var before_request = 1;
+        /*** ajax 提交表单 查询订单列表结果*/
+        function ajax_sourch_submit()
+        {
+            if(before_request == 0)
+                return false;
+            before_request = 0
+            page += 1;
+            $.ajax({
+                type : "get",
+                url:"/index.php?m=Mobile&c=Distribut&a=my_store&is_ajax=1&p="+page,//+tab,
+                dataTupe:'html',
+                success: function(data)
+                {
+                    before_request = 1;
+                    if($.trim(data) == '')
+                        $('#getmore').hide();
+                    else{
+                        $(".product_list").append(data);
+                    }
+                }
+            });
+        }
+		document.write('<h1>'+decodeURI('T P shop%E6%B7%B1%E5%9C%B3%E6%90%9C%E8%B1%B9%E7%BD%91%E7%BB%9C%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8,%E7%89%88%E6%9D%83%E6%89%80%E6%9C%89%E7%9B%97%E7%89%88%E5%BF%85%E7%A9%B6')+'</h1>');
+    </script>
+</body>
+</html>

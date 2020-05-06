@@ -1,0 +1,281 @@
+<style>
+    .guesslike ul li:nth-of-type(odd){
+        margin-right: .213rem;
+    }
+</style>
+<include file="public/header" title="首页"/>
+<!--顶部搜索栏-s-->
+<header>
+    <div class="content">
+        <div class="ds-in-bl search">
+            <div class="sea-box">
+                <!--<div class="logo">
+                    <a href=""><img src="{$tpshop_config.shop_info_wap_home_logo|default='/public/static/images/logo/wap_home_logo_default.png'}" alt="LOGO"></a>
+                </div>-->
+                <span ></span>
+                <form action=""  method="post">
+                    <div class="sear-input">
+                        <a href="{:U('Goods/ajaxSearch')}">
+                            <input type="text" name="q" id="search_text" class="search_text"   value="" placeholder="请输入您所搜索的商品">
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--      <div class="ds-in-bl login">
+                  <if condition="$user_id gt 0"> <a href="{:U('User/index')}"><else/>
+                  <a href="{:U('User/login')}"></if>
+                  <span><if condition="$user_id gt 0"><img class="after_login" src="__STATIC__/images/my.png"><else/>登录</if></span>
+                  </a>
+              </div>-->
+    </div>
+</header>
+<!--顶部搜索栏-e-->
+
+<!--顶部滚动广告栏-s-->
+<div class="banner ban1">
+    <div class="mslide" id="slideTpshop">
+        <ul>
+            <!--广告表-->
+            <adv pid="500" limit="5" item="v">
+                <li><a href="{$v.ad_link}{$edit_ad ? '&suggestion=710*340' : ''}">
+                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" alt="">
+                </a></li>
+            </adv>
+        </ul>
+    </div>
+    </div>
+    <!--顶部滚动广告栏-e-->
+
+    <!--菜单-start-->
+    <div class="floor dh">
+        <nav>
+            <a href="{:U('Goods/categoryList')}">
+                <span>
+                    <img src="__STATIC__/images/icon_03.png" alt="全部分类" /><br />
+                    <span>全部分类</span>
+                </span>
+            </a>
+            <a href="{:U('Index/street')}">
+                <span>
+                    <img src="__STATIC__/images/icon_05.png" alt="店铺街" /><br />
+                    <span>店铺街</span>
+                </span>
+            </a>
+            <a href="{:U('Index/brand')}">
+                <span>
+                    <img src="__STATIC__/images/icon_07.png" alt="品牌街" /><br />
+                    <span>品牌街</span>
+                </span>
+            </a>
+            <a href="{:U('Activity/promote_goods')}">
+                <span>
+                    <img src="__STATIC__/images/icon_09.png" alt="优惠活动" /><br />
+                    <span>优惠活动</span>
+                </span>
+            </a>
+            <a href="{:U('Activity/group_list')}">
+                <span>
+                    <img src="__STATIC__/images/icon_15.png" alt="团购" /><br />
+                    <span>团购</span>
+                </span>
+            </a>
+            <a href="{:U('Activity/coupon_list')}">
+                <span>
+                    <img src="__STATIC__/images/icon_16.png" alt="领券中心" /><br />
+                    <span>领券中心</span>
+                </span>
+            </a>
+            <!--<a href="shopcar.html">-->
+            <a href="{:U('Goods/integralMall')}">
+                <span>
+                    <img src="__STATIC__/images/icon_17.png" alt="积分商城" /><br />
+                    <span>积分商城</span>
+                </span>
+            </a>
+            <!--<a href="my.html">-->
+            <!--code_15拼团链接-->
+            <a href="{:U('Team/index')}">
+                <!--code_15拼团链接-->
+                <span>
+                    <img src="__STATIC__/images/icon_19.png" alt="我要拼团" /><br />
+                    <span>我要拼团</span>
+                </span>
+            </a>
+        </nav>
+    </div>
+    <!--菜单-end-->
+
+    <!--秒杀-start-->
+    <div class="floor secondkill">
+        <div class="content">
+            <div class="time p">
+                <div class="djs lightning fl">
+                    <span class="add fl">秒杀专场</span>
+                    <!--                -->
+                    <div class="fl"><span class="red fl" id="">{:date('H',$start_time)}点场</span><span class="hms fl"></span></div>
+                </div>
+                <div class="xsxl fr">
+                    <a href="{:U('Mobile/Activity/flash_sale_list')}">
+                        <span>更多秒杀<img src="__STATIC__/images/or.png" alt="" /></span>
+                    </a>
+                </div>
+            </div>
+            <div class="shop p">
+                <if condition="count($flash_sale_list) eq nll">
+                    <div style="text-align: center;font-size: .512rem;color: #999">暂无抢购商品...</div>
+                </if>
+                <foreach name="flash_sale_list" item="v">
+                    <!--<a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id],'item_id'=>$v[item_id]))}">-->
+                    <a href="{:U('Mobile/Activity/flash_sale_list')}">
+                        <div class="timerBox shopnum">
+                            <img src="{$v[goods_id]|goods_thum_images=200,200,$v.item_id}"/>
+                            <p>￥<span>{$v[price]}</span>元</p>
+                        </div>
+                    </a>
+                </foreach>
+            </div>
+        </div>
+    </div>
+    <!--秒杀-end-->
+    <style>
+        .advertisement {
+            margin-top: 0.512rem;
+        }
+    </style>
+    <!--广告位-start-->
+    <div class="floor advertisement">
+        <div class="content">
+            <div class="le lefhe fl">
+                <adv  limit="1" item="v" pid="506">
+                    <a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*150' : ''}">
+                        <div class="td" style="margin-bottom: 0.213rem">
+                            <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}">
+                        </div>
+                    </a>
+                </adv>
+                <adv  limit="1" item="v" pid="507">
+                    <a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*150' : ''}">
+                        <div class="td">
+                            <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}">
+                        </div>
+                    </a>
+                </adv>
+            </div>
+            <div class="le lefhe fr">
+                <adv  limit="1" item="v" pid="508">
+                    <a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*150' : ''}">
+                        <div class="td" style="margin-bottom: 0.213rem">
+                            <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}">
+                        </div>
+                    </a>
+                </adv>
+                <adv  limit="1" item="v" pid="509">
+                    <a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*150' : ''}">
+                        <div class="td">
+                            <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}">
+                        </div>
+                    </a>
+                </adv>
+            </div>
+        </div>
+    </div>
+    <div class="banner" style="margin-top: 0.213rem;height: 4.052rem;overflow: hidden">
+        <adv limit="1" item="v" pid="510">
+            <a href="{$v.ad_link}{$edit_ad ? '&suggestion=710*190' : ''}">
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
+            </a>
+        </adv>
+    </div>
+    <!--广告位-end-->
+
+    <!--猜您喜欢-start-->
+    <div class="floor guesslike">
+        <div class="banner banner_imgs">
+            <img src="__STATIC__/images/tp-cainixih.png" alt="猜您喜欢"/>
+        </div>
+        <div class="likeshop">
+            <div id="J_ItemList" style="padding: 0 .21333rem">
+                <ul class="product single_item info">
+                </ul>
+                <a href="javascript:;" class="get_more" style="text-align:center; display:block;">
+                    <img src='__STATIC__/images/category/loader.gif' width="12" height="12">
+                </a>
+            </div>
+        </div>
+        <!--<div class="add" onClick="getGoodsList()">点击继续加载</div>-->
+        <div class="loadbefore">
+            <img class="ajaxloading" src="__STATIC__/images/category/loader.gif" alt="loading...">
+        </div>
+        <div id="getmore"  style="font-size:.32rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both;display: none"><a >已显示完所有记录</a></div>
+    </div>
+    <!--猜您喜欢-end-->
+
+    <!--底部-start-->
+    <include file="public/footer"/>
+    <!--底部-end-->
+
+    <!--底部导航-start-->
+    <include file="public/footer_nav"/>
+    <!--底部导航-end-->
+
+    <script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+    <script type="text/javascript">
+        /**
+         * 秒杀模块倒计时
+         * */
+        function GetRTime(end_time){
+            var NowTime = new Date();
+            var t = (end_time*1000) - NowTime.getTime();
+            var d=Math.floor(t/1000/60/60/24);
+            var h=Math.floor(t/1000/60/60%24);
+            var m=Math.floor(t/1000/60%60);
+            var s=Math.floor(t/1000%60);
+            var temp = (d * 24 + h) < 10 ? '0' + (d * 24 + h) : d * 24 + h
+            m = m < 10 ? '0' + m : m
+            s = s < 10 ? '0' + s : s
+            if(s >= 0)
+                return temp + ':' + m + ':' +s;
+        }
+
+        function GetRTime2(){
+            var text = GetRTime('{$end_time}');
+            if (text== 0){
+                $(".hms").text('活动已结束');
+            }else{
+                $(".hms").text(text);
+            }
+        }
+        setInterval(GetRTime2,1000);
+
+        /**
+         * 继续加载猜您喜欢
+         * */
+
+        var before_request = 1; // 上一次请求是否已经有返回来, 有才可以进行下一次请求
+        var page = 0;
+        function ajax_sourch_submit(){
+            if(before_request == 0)// 上一次请求没回来 不进行下一次请求
+                return false;
+            before_request = 0;
+            ++page;
+            $('.get_more').show();
+            $.ajax({
+                type : "get",
+                url:"/index.php?m=Mobile&c=Index&a=ajaxGetMore&p="+page,
+                success: function(data)
+                {
+                    if(data){
+                        $("#J_ItemList>ul").append(data);
+                        $('.get_more').hide();
+                        before_request = 1;
+                    }else{
+                        $('.get_more').hide();
+                    }
+                }
+            });
+        }
+    </script>
+    </body>
+    </html>
+    <script> set_first_leader(); //设置推荐人 </script>

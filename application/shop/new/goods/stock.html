@@ -1,0 +1,211 @@
+<include file="public/head"/>
+<style>
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb{width: 180px;height:180px; display: inline-block;}
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb img{ height: 160px; width: 160px;}
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb{line-height: 20px;margin-right: 6px;}
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb:nth-child(5n){margin-right: 0;}
+    .ncsc-goods-default-pic{display: inherit;}
+    /*.ncsc-form-goods dl dd{width: 98%;}*/
+    .text-warning {color: #8a6d3b;}a{ color:#3BAEDA}
+    /*.ncsc-form-goods{padding: 10px;}*/
+    .table-bordered {border: 1px solid #f4f4f4;}
+    .table { width: 100%;max-width: 100%;margin-bottom: 20px;}
+    ul.group-list {width: 96%;min-width: 1000px; margin: auto 5px;list-style: disc outside none;}
+    ul.group-list li { white-space: nowrap;float: left; width: 150px; height: 25px;padding: 3px 5px;list-style-type: none;list-style-position: outside;border: 0px;margin: 0px;}
+    .row .table-bordered td .btn,.row .table-bordered td img{vertical-align: middle;}
+    .row .table-bordered td{padding: 8px;line-height: 1.42857143;}
+    .table-bordered{width: 100%}
+    .table-bordered tr td{border: 1px solid #f4f4f4;}
+    .btn-success {color: #fff;background-color: #48CFAE;border-color: #398439 solid 1px;}
+    .btn {display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;
+        font-weight: 400;line-height: 1.42857143;text-align: center;white-space: nowrap; vertical-align: middle;
+        -ms-touch-action: manipulation;touch-action: manipulation;cursor: pointer;-webkit-user-select: none;-moz-user-select: none;
+        -ms-user-select: none;user-select: none;background-image: none;border: 1px solid transparent; border-radius: 4px;
+    }
+    .col-xs-8 {width: 66.66666667%;}
+    .col-xs-4 {width: 33.33333333%;}
+    .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {float: left;}
+    .row .tab-pane h4{padding: 10px 0;}
+    .row .tab-pane h4 input{vertical-align: middle;}
+    .table-striped>tbody>tr:nth-of-type(odd) {background-color: #f9f9f9;}
+    .ncap-form-default .title{border-bottom: 0}
+    .ncap-form-default dl.row, .ncap-form-all dd.opt{/*border-color: #F0F0F0;*/border: none;}
+    .ncap-form-default dl.row:hover, .ncap-form-all dd.opt:hover{border: none;box-shadow: inherit;}
+    a:hover {color: #3BAEDA;text-decoration: none;}
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 8px;line-height: 1.42857143;vertical-align: top; border-top: 1px solid #ddd;}
+    ul.group-list{min-width: 100%;}
+    input{vertical-align:middle;}
+    .ncsc-form-goods h4{margin: 10px 0 10px 10px;}
+    .clabackkj{background-color: #F5F5F5;border-bottom: solid 1px #E7E7E7;overflow: hidden;}
+    .clabackkj h3{border-bottom: 0;display: inline-block;}
+    .clabackkj .ncbtn{float: right;margin-right: 15px;height: 12px;line-height: 12px;}
+    #tab_goods_images dl dd{width: 99%;}
+    .alert-block{margin-top: 0;}
+    select{
+        min-width:120px;
+    }
+</style>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>门店管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>设置库存</div>
+        <div class="main-content" id="mainContent">
+
+            <div class="item-publish">
+                <form method="post" id="form" onsubmit="return false;">
+                    <input type="hidden" name="goods_id" value="{$Request.param.goods_id}">
+                    <div class="ncsc-form-goods">
+                        <table class="table table-bordered" id="goods_spec_table">
+                            <tr>
+                                <td colspan="2">
+                                    <div class="alert mt15 mb5"><strong>操作提示：</strong>
+									  <ul>
+										<li style="color:red">设置门店商品库存时,请检查注意以下</li>
+									    <li>1、无属性库存时，请填写默认库存。</li>
+									    <li>2、设置属性库存时，则调取属性库存信息，请忽略默认库存。</li>
+									    <li>3、库存数量根据门店内实际库存填写，库存数量较少时请及时补货。</li>
+                                      </ul>
+									</div>
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="search-form">
+                            <tbody><tr>
+                                <td>&nbsp;</td>
+                                <th class="w80">默认库存：</th>
+                                <td class="w160" style="padding-right: 20px;"><input class="text w150" name="stock_default" value="{$shop_stock_default.stock_count}" placeholder="默认库存" type="text"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                        <notempty name="specArray">
+                            <table class="table table-bordered" id="spec_table">
+                                <tbody>
+                                    <tr>
+                                        <td><b> 编号</b></td>
+                                        <volist name="specArray" id="spec">
+                                            <td><b> {$spec.name}</b></td>
+                                        </volist>
+                                        <td><b>货号</b></td>
+                                        <td><b>库存</b></td>
+                                    </tr>
+                                    <empty name="shop_stock_list">
+                                        <tr>
+                                            <td>1</td>
+                                            <volist name="specArray" id="spec">
+                                                <td>
+                                                    <select name="spec[{$spec.id}][id][]">
+                                                        <option value="0">请选择</option>
+                                                        <volist name="spec[spec_item]" id="spec_item">
+                                                            <option value="{$spec_item.id}">{$spec_item.item}</option>
+                                                        </volist>
+                                                    </select>
+                                                </td>
+                                            </volist>
+                                            <td>
+                                                <input name="sku[]" value="" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                                            </td>
+                                            <td>
+                                                <input name="stock_count[]" value="" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                                            </td>
+                                        </tr>
+                                    <else/>
+                                        <volist name="shop_stock_list" id="shop_stock">
+                                            <tr>
+                                                <td>1</td>
+                                                <volist name="specArray" id="spec">
+                                                    <td>
+                                                        <select name="spec[{$spec.id}][id][]">
+                                                            <option value="0">请选择</option>
+                                                            <volist name="spec[spec_item]" id="spec_item">
+                                                                <option value="{$spec_item.id}" <if condition="in_array($spec_item[id],$shop_stock[key_arr])">selected="selected"</if>>{$spec_item.item}</option>
+                                                            </volist>
+                                                        </select>
+                                                    </td>
+                                                </volist>
+                                                <td>
+                                                    <input name="sku[]" value="{$shop_stock.sku}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                                                </td>
+                                                <td>
+                                                    <input name="stock_count[]" value="{$shop_stock.stock_count}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                    </empty>
+                                    <tr id="tr_add">
+                                        <td colspan="5" style="text-align: center;"><span style="vertical-align: middle;display: inline-block;"><input onclick="add();" style="background-color: #15aee4" class="submit" value="+" type="button"></span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </notempty>
+                        </div>
+                    </div>
+                    <div class="bottom tc hr32">
+                        <label class="submit-border">
+                            <input class="submit" id="submit" value="保存" type="submit">
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="public/foot"/>
+<script>
+    var tr_num = 1;
+    //添加库存
+    function add(){
+        var tr_add = $('#tr_add');
+        tr_num ++;
+        var html = ' <tr> <td>'+tr_num+'</td> ' +
+                '<volist name="specArray" id="spec"> <td> <select name="spec[{$spec.id}][id][]"> <option value="0">请选择</option>' +
+                '<volist name="spec[spec_item]" id="spec_item"><option value="{$spec_item.id}">{$spec_item.item}</option> ' +
+                '</volist> </select> </td> ' +
+                '</volist> <td> ' +
+                '<input name="sku[]" value=""> </td> <td><input name="stock_count[]" value=""> </td> </tr>';
+        tr_add.before(html);
+    }
+    $(function () {
+        $(document).on("click", '#submit', function (e) {
+            $('#submit').attr('disabled',true);
+            verifyForm();
+        })
+    })
+    //购物车对象
+    function spec_goods_price(id, goods_num,selected) {
+        this.id = id;
+        this.goods_num = goods_num;
+        this.selected = selected;
+    }
+    function verifyForm() {
+        $('span.err').hide();
+        var shopper_id = $("input[name='shopper_id']").val();
+        $.ajax({
+            url: "{:U('Shop/Goods/stockSave')}",
+            type: 'POST',
+            dataType: 'JSON',
+            data: $('#form').serialize(),
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.msg(data.msg,{icon: 1,time: 2000},function(){
+                        location.href = "{:U('Shop/Goods/goodsList')}";
+                    });
+                } else {
+                    $('#submit').attr('disabled',false);
+                    $.each(data.result, function (index, item) {
+                        $('span.err').show();
+                        $('#err_'+index).text(item);
+                    });
+                    layer.msg(data.msg, {icon: 2,time: 3000});
+                }
+            },
+            error: function () {
+                layer.alert('网络失败，请刷新页面后重试', {icon: 2});
+            }
+        })
+    }
+</script>
+</body>
+</html>

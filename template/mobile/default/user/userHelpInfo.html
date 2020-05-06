@@ -1,0 +1,68 @@
+<include file="public/header" title="{$article.title}"/>
+<style>
+    html,body,div,p{
+        font-size: .53rem;
+    }
+    a{
+        color: steelblue;
+    }
+    img{
+        max-width: 100%;
+        margin: 0.1rem 0;
+    }
+    .title{
+        text-align: center;
+        font-size: .72rem;
+        padding: 0.8rem 0.5rem 0.2rem;
+    }
+    .state{
+        color: #aaa;
+        font-size: .6rem;
+        margin: 0.4rem 0rem 0.6rem;
+        border-bottom: 1px solid #f3f3f3;
+        text-align: center;
+        padding-bottom: .6rem;
+    }
+    .content{
+        font-size: .65rem;
+    }
+    .content.bottom{
+        padding:0 .4rem;
+        word-break: break-all;
+        line-height: 1.35em;
+    }
+    .source{
+        font-size: .65rem;
+        margin: 1rem 0.5rem 1.5rem;
+    }
+    .classreturn{
+        position: relative;
+    }
+</style>
+<!--app不要头部-->
+<if condition="$Request.param.app lt 1">
+<div class="classreturn loginsignup ">
+    <div class="content">
+        <div class="ds-in-bl return">
+            <a href="javascript:history.back(-1);"><img src="__STATIC__/images/return.png" alt="返回"></a>
+        </div>
+        <div class="ds-in-bl search center">
+            <span>帮助手册</span>
+        </div>
+
+    </div>
+</div></if>
+<div class="title">{$article.title}</div>
+<div class="state">
+    <span>{:date('Y年m月d日', $article.publish_time)}</span>
+    <span>{$article.author}</span>
+</div>
+<div class="content bottom">
+    <notempty name="news.show_cover_pic">
+        <img src="{$article.thumb}">
+    </notempty>
+    {$article.content|htmlspecialchars_decode}
+</div>
+
+</body>
+</html>

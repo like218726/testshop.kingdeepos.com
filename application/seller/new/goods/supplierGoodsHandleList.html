@@ -1,0 +1,83 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>供应商品</div>
+<div class="main-content" id="mainContent">
+      
+	<div class="tabmenu">
+	  <ul class="tab pngFix">
+	  <li class="normal"><a href="{:U('Seller/Goods/dealerGoodsList')}">供应商品</a></li>
+	  <li class="active"><a href="">供应商品审理</a></li>
+	  </ul>
+	</div>
+	
+	  <table class="ncsc-default-table">
+	  <thead>
+	    <tr nc_type="table_header">
+	      <th class="w200">商品名称</th>
+		  <th class="w100">供货价</th>
+		  <th class="w100">供应数量数</th>
+		  <th class="w100">供应商名称</th>
+	      <th class="w80">审核状态</th>
+	      <th class="w150">操作</th>
+	    </tr>
+	  </thead>
+	  	  <tbody>
+	  	  	  <foreach name="list" item="vo">
+		      <tr id="list_{$vo[apply_id]}">
+		      <td class="tl">
+		          {$vo.goods_name|getSubstr=0,33}
+		      </td>
+		      <td>{$vo.cost_price}</td>
+		      <td>{$vo.store_count}</td>
+		      <td>{$vo.store_name}</td>
+		      <td>待审核</td>
+			  <td class="nscs-table-handle">
+		      	<span><a href="{:U('Goods/checkGoods',array('apply_id'=>$vo['apply_id']))}" class="btn-bluejeans"><i class="icon-search"></i><p>查看</p> </a></span>
+		        <span><a href="javascript:void(0);" onclick="refuse('{$vo[apply_id]}')" class="btn-grapefruit"><i class="icon-ban-circle"></i><p>拒绝</p></a></span>
+		      </td>
+		      </tr>
+		      </foreach>
+	      </tbody>
+	      <tfoot>
+		    <tr>
+		       <td colspan="20">{$page}</td>
+		    </tr>
+		  </tfoot>
+	  </table>
+   </div>
+  </div>
+</div>
+<include file="public/foot"/>
+<script>
+// 删除操作
+function refuse(id) {
+	layer.confirm('确定要拒绝吗？', {
+				btn: ['确定','取消'] //按钮
+			}, function(){
+				// 确定
+				$.ajax({
+					url: "/index.php?m=Seller&c=goods&a=refuseSupplierGoods&apply_id=" + id,
+                    dataType:'json',
+					success: function (data) {
+						layer.closeAll();
+						if (data.status == 1){
+                            layer.msg(data.msg, {icon: 1, time: 1000},function () {
+                               $('#list_'+id).remove();
+                            });
+
+                        }else{
+                            layer.msg(data.msg, {icon: 2, time: 1000}); //alert(v.msg);
+                        }
+
+					}
+				});
+			}, function(index){
+				layer.close(index);
+			}
+	);
+}
+</script>
+</body>
+</html>

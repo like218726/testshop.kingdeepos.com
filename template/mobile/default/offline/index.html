@@ -1,0 +1,188 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>020首页</title>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/style.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/iconfont.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/020Mobile.css">
+<script src="__STATIC__/js/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/mobile-util.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/style.js " type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/swipeSlide.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<style>
+    .mslide ul img {
+        width: 16rem;
+        height: 7.0rem;
+        border: none;
+    }
+</style>
+<body>
+<div class="index-tit ">
+    <div class="index-top" style="z-index:9;">
+        <div class="index-top-scan"><a href="#"><img src="__STATIC__/images/index-scan.png" alt=""></a></div>
+        <div class="index-top-search">
+            <a href="{:U('Goods/ajaxSearch')}">
+                <img src="__STATIC__/images/index-search.png" alt="">
+                <input type="text" placeholder="输入你想搜索的内容..." id="index_search" maxlength="30">
+            </a>
+        </div>
+        <div class="index-top-login">
+            <if condition="$user_id gt 0">
+                <a href="{:U('User/index')}">
+                    <else/>
+                <a href="{:U('User/login')}"></if>
+            <span>
+                <if condition="$user_id gt 0">
+                    <img class="after_login" src="__STATIC__/images/my.png">
+                    <else/>
+                    <img src="__STATIC__/images/index-login.png" alt=""></if>
+            </span>
+            </a>
+        </div>
+    </div>
+	<div class="index-banner mslide" id="slideTpshop">
+    	<ul>
+            <adv pid="2" limit="3" item="v">
+                <li><a href="{$v.ad_link}">
+                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" alt="">
+                </a></li>
+            </adv>
+        </ul>
+    </div>
+    <div class="index-banner-dot">
+    	<span class="index-ban-cur"></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+<div class="index-pro-class">
+	<div class="category-name"><a href="#"><img src="__STATIC__/images/category01.png" alt=""><br><span>便利超市</span></a></div>
+    <div class="category-name"><a href="#"><img src="__STATIC__/images/category02.png" alt=""><br><span>新鲜蔬果</span></a></div>
+    <div class="category-name"><a href="#"><img src="__STATIC__/images/category03.png" alt=""><br><span>美食外卖</span></a></div>
+    <div class="category-name"><a href="#"><img src="__STATIC__/images/category04.png" alt=""><br><span>健康养生</span></a></div>
+    <div class="category-name"><a href="{:U('Goods/categoryList')}"><img src="__STATIC__/images/category05.png" alt=""><br><span>全部分类</span></a></div>
+</div>
+<div class="index-actity">
+	<ul>
+    	<li class="index-second-kill">
+            <a href="#"><font>
+            <span>好货秒杀</span><br><i id="hms"></i></font><em>
+            <img src="__STATIC__/images/secllendkill.png" alt=""></em></a></li>
+        <li>
+            <a href="#"><font><span>必买清单</span><br><i>高颜值化妆品</i></font><em>
+            <img src="__STATIC__/images/cosmetics.png" alt=""></em></a>
+        </li>
+        <li>
+            <a href="{:U('Activity/promote_goods')}"><font>
+            <span>天天特惠</span><br><i>折上折等你来</i></font><em>
+            <img src="__STATIC__/images/icon_09.png" alt=""></em></a>
+        </li>
+        <li><a href="{:U('Activity/coupon_list')}">
+            <font><span>领券中心</span><br><i>大量店铺优惠券</i></font><em>
+            <img src="__STATIC__/images/icon_16.png" alt=""></em></a>
+        </li>
+    </ul>
+</div>
+<div class="index-ad">
+	<a href="#"><img src="__STATIC__/images/ad.png" alt=""></a>
+</div>
+<!--推荐商家-s-->
+<div class="index-merchant">
+	<div class="index-merchant-tit"><big>推荐商家</big><br><small>BUSINESS</small></div>
+    <div class="index-merchant-con"><ul id="shoplists"></ul></div>
+</div>
+<!--推荐商家-e-->
+<div class="index-bottom">
+	<ul>
+    	<li class="index-bottom-cur"><a href="{:U('Offline/index')}"><img src="__STATIC__/images/index-logo-cur.png" alt=""><br><span>首页</span></a></li>
+        <li><a href="{:U('Goods/categoryList')}"><img src="__STATIC__/images/categroy-logo.png" alt=""><br><span>分类</span></a></li>
+        <li><a href="{:U('Cart/index')}"><img src="__STATIC__/images/shoppingcar-logo.png" alt=""><br><span>购物车</span></a></li>
+        <li><a href="{:U('User/index')}"><img src="__STATIC__/images/mine-logo.png" alt=""><br><span>我的</span></a></li>
+    </ul>
+</div>
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script>
+    var before_request = 1; // 上一次请求是否已经有返回来, 有才可以进行下一次请求
+    $(function () {
+        GetRTime2();
+    })
+    /**
+     * 加载店铺
+     * @type {number}
+     */
+    var  page = 0;
+   function ajax_sourch_submit() {
+       if(before_request == 0)// 上一次请求没回来 不进行下一次请求
+           return false;
+       before_request = 0;
+       navigator.geolocation.getCurrentPosition(function(position) {
+           var lon = position.coords.longitude;  //经度
+           var lat = position.coords.latitude;   //纬度
+           page++;
+           $.ajax({
+               type:'post',
+               url:'/index.php?m=Mobile&c=Offline&a=getNearbyShop',
+               data:{lat:lat,lon:lon,p:page},
+               dataType:'html',
+               success:function(data){
+                   if(data){
+                       $('#shoplists').append(data)
+                       before_request == 0
+                   }else{
+
+                   }
+               },
+               error:function(){
+                   layer.open({content:'网络繁忙，请稍后再试！',time:2});
+               },
+           })
+       });
+   }
+    //轮播
+    $(function(){
+        $('#slideTpshop').swipeSlide({
+            continuousScroll:true,
+            speed : 3000,
+            transitionType : 'cubic-bezier(0.22, 0.69, 0.72, 0.88)',
+            firstCallback : function(i,sum,me){
+                me.find('.dot').children().first().addClass('cur');
+            },
+            callback : function(i,sum,me){
+                me.find('.dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+            }
+        });
+        //圆点
+        var ed = $('.mslide ul li').length - 2;
+        $('.mslide').append("<div class=" + "dot" + "></div>");
+        for(var i = 0; i<ed ;i++){
+            $('.mslide .dot').append("<span></span>");
+        };
+        $('.mslide .dot span:first').addClass('cur');
+        var wid = - ($('.mslide .dot').width() / 2);
+        $('.mslide .dot').css('position','absolute').css('left','50%').css('margin-left',wid);
+    });
+
+    /**
+     * 秒杀模块倒计时
+     * */
+    function GetRTime(end_time){
+        var NowTime = new Date();
+        var t = (end_time*1000) - NowTime.getTime();
+        var d=Math.floor(t/1000/60/60/24);
+        var h=Math.floor(t/1000/60/60%24);
+        var m=Math.floor(t/1000/60%60);
+        var s=Math.floor(t/1000%60);
+        if(s >= 0)
+            return  "<b>"+(d * 24 + h)+"</b>：<b>"+m+"</b>：<b>"+s+"</b>"
+    }
+    function GetRTime2(){
+        var text = GetRTime('{$end_time}');
+        $("#hms").html(text);
+    }
+    setInterval(GetRTime2,1000);
+</script>
+</body>
+</html>

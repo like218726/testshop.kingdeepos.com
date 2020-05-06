@@ -1,0 +1,377 @@
+<include file="public/layout" />
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>会员动态管理</h3>
+                <h5>会员动态，评论与点赞</h5>
+            </div>
+            <ul class="tab-base nc-row">
+                <li><a class="current" href="{:U('user/momentsList')}" data-state="" ><span>动态审核</span></a></li>
+                <!-- <li><a href="{:U('user/commentList')}" data-state="0"  ><span>评论审核</span></a></li> -->
+                <li><a href="{:U('user/commentClassify')}" data-state="0"  ><span>动态分类管理</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
+        <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+        </div>
+        <ul>
+            <li>审核：通过审核科看到别人的动态（自己的动态自己看不需要通过审核）</li>
+            <li>排序规则： 先到显示状态 -> 在按审核状态 ->最后到时间 都是升序（先来后到）</li>
+
+        </ul>
+    </div>
+    <div class="flexigrid">
+        <div class="mDiv">
+            <div class="ftitle">
+                <h3>会员动态列表</h3>
+                <h5>(共{$list|count}条记录)</h5>
+            </div>
+            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" action="{:U('User/momentsList')}" method="post">
+                <div class="sDiv">
+                    <div class="sDiv2">
+                        <select  name="status" class="select">
+                            <option value="0">所有状态</option>
+                            <option <if condition="$_POST['status'] eq 1">selected</if> value="1">未审核</option>
+                            <option <if condition="$_POST['status'] eq 2">selected</if> value="2">通过</option>
+                            <option <if condition="$_POST['status'] eq 3">selected</if> value="3">不通过</option>
+                            <option <if condition="$_POST['status'] eq 4">selected</if> value="4">禁言</option>
+                        </select>
+                        <select  name="classify" class="select">
+                            <option value="">所有类别</option>
+                            <volist name="classify" id="vo">
+                                <option <if condition="$_POST['classify'] eq $vo['classify_id']">selected</if> value="{$vo.classify_id}">{$vo.name}</option>
+                            </volist>
+                        </select>
+                        <input type="text" size="30" name="keywords" class="qsbox" placeholder="{$_POST['keywords']|default='搜索相关数据...'}">
+                        <input type="submit" class="btn" value="搜索">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="hDiv">
+            <div class="hDivBox">
+                <table cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <th class="sign" axis="col0">
+                            <div style="width: 24px;" onclick="checked()"><i class="ico-check"></i></div>
+                        </th>
+                        <th align="left" abbr="moments_id" axis="col3" class="">
+                            <div style="text-align: left; width: 50px;" class="">ID</div>
+                        </th>
+                        <th align="left" abbr="user_id" axis="col4" class="">
+                            <div style="text-align: left; width: 100px;" class="">会员名称</div>
+                        </th>
+                        <th align="left" abbr="user_id" axis="col4" class="">
+                            <div style="text-align: left; width: 200px;" class="">标题</div>
+                        </th>
+                        <th align="center" abbr="moments_content" axis="col5" class="">
+                            <div style="text-align: center; width: 500px;" class="">内容</div>
+                        </th>
+                        <th align="center" abbr="status" axis="col6" class="">
+                            <div style="text-align: center; width: 100px;" class="">审核状态</div>
+                        </th>
+                        <th align="left" abbr="user_id" axis="col4" class="">
+                            <div style="text-align: left; width: 100px;" class="">是否推荐</div>
+                        </th>
+                        <th align="center" abbr="is_delete" axis="col6" class="">
+                            <div style="text-align: center; width:80px;" class="">是否显示</div>
+                        </th>
+                        <th align="center" abbr="add_time" axis="col6" class="">
+                            <div style="text-align: center; width: 150px;" class="">发表时间</div>
+                        </th>
+                        <th align="center" axis="col1" class="handle">
+                            <div style="text-align: center; width: 220px;">操作</div>
+                        </th>
+                        <th style="width:100%" axis="col7">
+                            <div></div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="tDiv">
+            <div class="tDiv2">
+                <div class="fbutton">
+                    <a onclick="act_submit(1)">
+                        <div class="add" title="审核通过">
+                            <span><i class="fa fa-check"></i>审核通过</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="fbutton">
+                    <a onclick="act_submit(2)">
+                        <div class="add" title="审核拒绝">
+                            <span><i class="fa fa-ban"></i>审核拒绝</span>
+                        </div>
+                    </a>
+                </div>
+                <!--<div class="fbutton">-->
+                    <!--<a onclick="act_submit(-2)">-->
+                        <!--<div class="add" title="无效作废">-->
+                            <!--<span><i class="fa fa-close"></i>无效作废</span>-->
+                        <!--</div>-->
+                    <!--</a>-->
+                <!--</div>-->
+            </div>
+            <div style="clear:both"></div>
+        </div>
+        <div class="bDiv" style="height: auto;">
+            <div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+                <table>
+                    <tbody>
+                    <foreach name="list" item="vo" key="k" >
+                        <tr>
+                            <td class="sign">
+                                <div style="width: 24px;">
+                                    <i class="ico-check">
+                                        <input type="checkbox" style="display:none;" name="selected[]"
+                                               value="{$vo['moments_id']}">
+                                    </i>
+                                </div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 50px;">{$vo.moments_id}</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 100px;">{$vo['nickname']?$vo['nickname']:$vo['mobile']}</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 200px;">{$vo.title}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 500px;padding-left:100px;padding-right:100px;box-sizing:border-box;height:100%;">
+                                    {$vo.moments_content}
+                                </div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">
+                                    <!--{$status[$vo['status']]}-->
+                                    <if condition="$vo['status'] == 1">
+                                        <span style="color:green"> {$status[$vo['status']]} </span>
+                                        <elseif condition="$vo['status'] eq 2"/>
+                                        <span style="color:red"> {$status[$vo['status']]} </span>
+                                        <else/>
+                                        <span style="color:#0ba4da"> {$status[$vo['status']]} </span>
+                                    </if>
+                                </div>
+                            </td>
+                           <td align="left" class="">
+                           		 <div style="text-align: center; width: 100px;">
+                           		 
+                           		     <if condition='$vo[status] eq 1'>
+                           					 <if condition='$vo[is_top] eq 1'>
+						                      <span class="yes" onClick="changeTableVal('moments','moments_id','{$vo.moments_id}','is_top',this)" ><i class="fa fa-check-circle"></i>是</span>
+						                      <else />
+						                      <span class="no" onClick="changeTableVal('moments','moments_id','{$vo.moments_id}','is_top',this)" ><i class="fa fa-ban"></i>否</span>
+						                    </if>     
+                           		     <else />
+                           		     	请先通过审核                           		     
+                           		     </if>
+                           		 
+				                   
+			                  </div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 80px;{$vo['is_delete']==1?'color:red':''}">
+                                    <!--{$vo['is_delete']==1?'隐藏':'显示'}-->
+                                    <if condition='$vo[is_delete] eq 1'>
+                                        <span class="no" onClick="isDelete('moments','moments_id','{$vo.moments_id}','is_delete',this)" ><i class="fa fa-ban"></i>否</span>
+                                        <else />
+                                        <span class="yes" onClick="isDelete('moments','moments_id','{$vo.moments_id}','is_delete',this)" ><i class="fa  fa-check-circle"></i>是</span>
+                                    </if>
+                                </div>
+
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 150px;">{$vo.add_time|date="Y-m-d H:i:s",###}</div>
+                            </td>
+                            <td align="center" class="handle">
+                                <div style="text-align: center;  min-width:100px;">
+                                    <a href="{:U('User/seeMoments',array('moments_id'=>$vo['moments_id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>查看</a>
+                                    <a href="{:U('User/seeComment',array('moments_id'=>$vo['moments_id']))}" class="btn blue"><i class="fa fa-pencil-square-o"></i>评论(<spam style="color: red" >{$vo['comment']}</spam>)</a>
+                                    <a class="btn blue" data-url="{:U('User/talk')}" onclick="talk(this)" data-id="{$vo.moments_id}"><if condition="$vo['is_talk']">解除禁言<else/>禁言</if></spam></a>
+                                    <!--<a class="btn red"  href="javascript:void(0)" data-url="{:U('User/levelHandle')}" data-id="{$vo.level_id}" onClick="delfun(this)"><i class="fa fa-trash-o"></i>删除</a>-->
+                                </div>
+                            </td>
+                            <td align="" class="" style="width: 100%;">
+                                <div>&nbsp;</div>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="iDiv" style="display: none;"></div>
+        </div>
+        <!--分页位置-->
+        {$page} </div>
+</div>
+<script>
+    $(document).ready(function(){
+        // $("input[name='box'][value=1]").attr("checked","checked");
+        // 表格行点击选中切换
+        $('#flexigrid > table>tbody >tr').click(function(){
+            //点击选中,否则相反
+            var checked = $(this).find('input').is(':checked');
+            if(checked){
+                $(this).find('input').attr("checked",null);
+            }else{
+                $(this).find('input').attr("checked","checked");
+            }
+
+            $(this).toggleClass('trSelected');
+        });
+
+        // 点击刷新数据
+        $('.fa-refresh').click(function(){
+            location.href = location.href;
+        });
+
+    });
+
+    function checked(){
+        $('input[type="checkbox"]').each(function(i,o){
+            if($(o).is(':checked')){
+                $(o).removeAttr('checked')
+            }else{
+                $(o).attr('checked','checked')
+            }
+
+        })
+    }
+
+    //批量操作提交
+    function act_submit(wst) {
+        var chks = [];
+        $('input[name*=selected]').each(function(i,o){
+            if($(o).is(':checked')){
+                chks.push($(o).val());
+            }
+        })
+
+
+        if(chks.length == 0){
+            layer.alert('少年，请至少选择一项', {icon: 2});return;
+        }
+        var can_post = false;
+        var remark = "审核通过";
+            if(wst != 1 ){
+            layer.prompt({title: '请填写备注', formType: 2}, function(text, index){
+                layer.close(index);
+                remark = text;
+                audit(chks , wst ,  remark);
+            });
+        }else{
+            audit(chks , wst ,  remark);
+        }
+    }
+
+    function audit(chks , wst ,  remark){
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=Admin&c=User&a=moments_update",//+tab,
+            data: {id:chks,status:wst,remark:remark},
+            dataType: 'json',
+            success: function (data) {
+                if(data.status == 1){
+                    layer.alert(data.msg, {
+                        icon: 1,
+                        closeBtn: 0
+                    }, function(){
+                        window.location.reload();
+                    });
+                }else{
+                    layer.alert(data.msg, {icon: 2,time: 3000});
+                }
+            },
+            error:function(){
+                layer.alert('网络异常', {icon: 2,time: 3000});
+            }
+        });
+    }
+
+    function talk(obj) {
+        // 删除按钮
+
+            $.ajax({
+                type: 'post',
+                url: $(obj).attr('data-url'),
+                data : {moments_id:$(obj).attr('data-id')},
+                dataType: 'json',
+                success: function (data) {
+                    layer.closeAll();
+                    if (data.status == 1) {
+                        layer.msg(data.msg, {icon: 1});
+                        $(obj).text(data.msg=='解禁成功'?'禁言':'解除禁言');
+                    } else {
+                        layer.alert(data.msg, {icon: 2});
+                    }
+                }
+            })
+    }
+
+    function delfun(obj) {
+        // 删除按钮
+        layer.confirm('确认删除？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.ajax({
+                type: 'post',
+                url: $(obj).attr('data-url'),
+                data : {act:'del',level_id:$(obj).attr('data-id')},
+                dataType: 'json',
+                success: function (data) {
+                    layer.closeAll();
+                    if (data.status == 1) {
+                        layer.msg(data.msg, {icon: 1});
+                        $(obj).parent().parent().parent().remove();
+                    } else {
+                        layer.alert(data.msg, {icon: 2});
+                    }
+                }
+            })
+        }, function () {
+            layer.closeAll();
+        });
+    }
+    // 修改指定表的指定字段值 包括有按钮点击切换是否(虚拟删除，1为删除，0未删除)
+    function isDelete(table,id_name,id_value,field,obj)
+    {
+        var src = "";
+        if($(obj).hasClass('no')) // 图片点击是否操作
+        {
+            //src = '/public/images/yes.png';
+            $(obj).removeClass('no').addClass('yes');
+            $(obj).html("<i class='fa fa-check-circle'></i>是");
+            var value = 0;
+
+        }else if($(obj).hasClass('yes')){ // 图片点击是否操作
+            $(obj).removeClass('yes').addClass('no');
+            $(obj).html("<i class='fa fa-ban'></i>否");
+            var value = 1;
+        }else{ // 其他输入框操作
+            var value = $(obj).val();
+        }
+
+        $.ajax({
+            url:"/index.php?m=Admin&c=Index&a=changeTableVal&table="+table+"&id_name="+id_name+"&id_value="+id_value+"&field="+field+'&value='+value,
+            success: function(data){
+                if(!$(obj).hasClass('no') && !$(obj).hasClass('yes'))
+                    layer.msg('更新成功', {icon: 1});
+            }
+        });
+    }
+</script>
+</body>
+</html>

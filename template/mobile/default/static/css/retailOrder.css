@@ -1,0 +1,228 @@
+header {
+  height: 1.17333333rem;
+  width: 100%;
+  background-color: #ff3535;
+}
+header h1 {
+  padding-left: 1.22666667rem;
+  padding-right: 1.22666667rem;
+  font-size: 0.48rem;
+  color: #fff;
+  text-align: center;
+  height: 1.17333333rem;
+  line-height: 1.17333333rem;
+}
+.retail_order {
+  background-color: #fff;
+  margin-bottom: 1.13333333rem;
+}
+.retail_order .order_tab li {
+  float: left;
+  width: 25%;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  text-align: center;
+  color: #333;
+  font-size: 0.35rem;
+  border-bottom: .0125rem solid #f3f3f3;
+}
+.retail_order .order_tab li.active {
+  color: #ff3b3b;
+  position: relative;
+}
+.retail_order .order_tab li.active::after {
+  content: '';
+  position: absolute;
+  width: 0.66666667rem;
+  height: 0.06666667rem;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff3b3b;
+}
+.retail_order .order_content .order_content_list .header a {
+  float: left;
+  height: 1.12rem;
+  line-height: 1.12rem;
+  font-size: 0.34666667rem;
+  color: #333;
+}
+.retail_order .order_content .order_content_list .header span {
+  float: right;
+  height: 1.12rem;
+  line-height: 1.12rem;
+  font-size: 0.34666667rem;
+  color: #f67516;
+}
+.retail_order .order_content .order_content_list .details > a {
+  height: 2.05333333rem;
+  border-bottom: .0125rem solid #f3f3f3;
+}
+.retail_order .order_content .order_content_list .details .product_image {
+  float: left;
+  height: 1.8rem;
+  width: 1.8rem;
+}
+.retail_order .order_content .order_content_list .details .product_image img {
+  height: 1.8rem;
+  width: auto;
+}
+.retail_order .order_content .order_content_list .details .product_content {
+  margin-left: 2.13333333rem;
+}
+.retail_order .order_content .order_content_list .details .product_content h3 {
+  font-size: 0.34666667rem;
+  color: #333;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.retail_order .order_content .order_content_list .details .product_content .norms {
+  color: #999;
+  font-size: 0.29333333rem;
+  margin-top: 0.06666667rem;
+}
+.retail_order .order_content .order_content_list .details .product_content .price {
+  margin-top: 0.4rem;
+  font-size: 0.4rem;
+  color: #1d1d1d;
+}
+.retail_order .order_content .order_content_list .details .product_detail {
+  height: 2.16rem;
+}
+.retail_order .order_content .order_content_list .details .product_detail .order_num {
+  font-size: 0.29333333rem;
+  color: #666;
+  height: 0.85333333rem;
+  line-height: 0.85333333rem;
+}
+.retail_order .order_content .order_content_list .details .product_detail .order_time {
+  font-size: 0.29333333rem;
+  color: #666;
+  margin-bottom: 0.26666667rem;
+}
+.retail_order .order_content .order_content_list .details .product_detail .product_total,
+.product_charge {
+  font-size: 0.34666667rem;
+  color: #333;
+}
+.product_total span,
+.product_charge span {
+  font-weight: bold;
+  color: #ff3535;
+  margin-left: 0.13333333rem;
+}
+.retail_order .order_content .order_content_list .details .divided {
+  height: 0.2rem;
+  width: 100%;
+  background-color: #f5f5f5;
+}
+footer {
+  position: fixed;
+  width: 100%;
+  height: 1.33333333rem;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+footer a {
+  margin-top: 0.2rem;
+  float: left;
+  width: 20%;
+  padding: 0 3%;
+  text-align: center;
+}
+footer a img {
+  display: block;
+  width: auto;
+  height: 0.56rem;
+  margin: 0 auto;
+}
+footer a span {
+  font-size: 0.29333333rem;
+}
+footer a span.active {
+  color: #ff3535;
+}
+
+/** 多种商品展示 **/
+.order_shop_list {
+    position: relative;
+    overflow: hidden;
+}
+.order_shop_list ul.shop_num {
+    overflow: hidden;
+    float: left;
+}
+.order_shop_list ul.shop_num li:first-child {
+    margin-left: 0;
+}
+.order_shop_list ul.shop_num li {
+    float: left;
+    width: auto;
+    height: 1.8rem;
+}
+.order_shop_list ul.shop_num li a {
+    display: block;
+}
+.order_shop_list ul.shop_num li img {
+    width: auto;
+    height: 1.8rem;
+}
+[data-dpr="2"] .order_shop_list ul.shop_num .ellipsis {
+    font-size: 50px;
+}
+.order_shop_list ul.shop_num .ellipsis span {
+    position: absolute;
+    bottom: 0;
+    color: #7f7f7f;
+}
+.sum_number_arrow {
+    position: relative;
+    float: right;
+	right: 10px;
+	margin-top: .44rem;
+}
+[data-dpr="2"] .sum_number_arrow span {
+    font-size: 28px;
+}
+.sum_number_arrow span, .sum_number_arrow i {
+    vertical-align: middle;
+}
+.sum_number_arrow span {
+    color: #7f7f7f;
+    margin-right: 0.128rem;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    float: left;
+    max-width: 4.69333rem;
+}
+.sum_number_arrow i {
+    position: static;
+    margin-top: 0;
+    float: left;
+}
+.icon-arrow_r {
+    display: inline-block;
+   
+    right: 0.85333rem;
+    top: 50%;
+ 
+}
+.icon-arrow_r {
+    background-position: 0 -0.768rem;
+    height: 0.53333rem;
+    width: 0.29867rem;
+}
+.icon-sprite, .icon-Commission, .icon-arrow_r, .icon-big_arrow_r, .icon-fire, .icon-leaf, .icon-setting, .icon-share {
+    background-image: url(../distribut/images/icon-s09a0426188.png);
+    background-repeat: no-repeat;
+    background-size: 0.93867rem;
+}
+/** 多种商品展示 **/
+
+
+/*# sourceMappingURL=retailOrder.css.map */

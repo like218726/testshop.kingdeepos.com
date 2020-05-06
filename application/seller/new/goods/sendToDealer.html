@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>商家中心</title>
+<link href="__PUBLIC__/static/css/base.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/static/css/seller_center.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/static/font/css/font-awesome.min.css" rel="stylesheet" />
+<script type="text/javascript" src="__PUBLIC__/static/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/js/layer/layer.js"></script>
+</head>
+<body>
+<div class="w450" style="overflow-y: auto;">
+	<div class="eject_con">
+	  <div id="warning" class="alert alert-error"></div>
+	  <form method="post" onsubmit="javascript:return false;" action="" id="apply_form">
+		<input type="hidden" name="goods_id" value="{$Request.param.goods_id}">
+	    <table class="ncsc-default-table">
+		<thead>
+			<tr>
+				<th class="w20">&nbsp;</th>
+				<th class="tl">销售商</th>
+				<!--<th class="tl">供应库存</th>-->
+			</tr>
+		</thead>
+		<tbody>
+			<empty name="list">
+				<tr>
+					<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+				</tr>
+			<else/>
+				<foreach name="list" item="vo">
+					<tr class="bd-line">
+						<td style="width:30px;text-align:center"><input name="store_ids[]" type="checkbox" value="{$vo.store_id}" /></td>
+						<td class="tl">{$vo.store_name}</td>
+						<!--<td class="tl"><input name="store_count[{$vo.store_id}]" type="text"></td>-->
+					</tr>
+				</foreach>
+			</empty>  
+		</tbody>
+	</table>
+	<div class="bottom">
+	      <label class="submit-border"><input type="button" class="submit" onclick="formSubmit()" value="提交"></label>
+	    </div>
+	  </form>
+	</div>
+</div>
+<script>
+function formSubmit(){
+	if ($('input[name="store_ids\[\]"]:checked').length == 0) {
+		layer.msg('至少选择一个销售商',{icon:2,time:2000});
+		return false;
+	}
+		
+	$.ajax({
+		type : 'post',
+		url : "{:U('Goods/sendToDealer')}",
+		data : $('#apply_form').serialize(),
+		dataType : 'json',
+		success : function(data){
+			if(data.status == 1){
+				layer.msg(data.msg,{icon:1,time:2000,end:function(){
+					window.parent.location.reload();
+				}});
+			}else{
+				layer.msg(data.msg,{icon:2,time:2000});
+			}
+		}
+	})
+}
+</script>
+</body>
+</html>

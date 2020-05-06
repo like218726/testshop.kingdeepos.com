@@ -1,0 +1,359 @@
+<include file="public/layout" />
+<style>
+    .span_1 {
+        float: left;
+        margin-left: 0px;
+        height: 130px;
+        line-height: 130px;
+    }
+
+    .span_1 ul {
+        list-style: none;
+        padding: 0px;
+    }
+
+    .span_1 ul li {
+        border: 1px solid #CCC;
+        height: 40px;
+        padding: 0px 10px;
+        margin-left: -1px;
+        margin-top: -1px;
+        line-height: 40px;
+    }
+    .tab-base a{
+        height: 35px !important;
+    }
+    .ncap-form-default dd.opt input{
+        /*margin-right: 10px;*/
+    }
+    .item-title h3{
+        margin-top: 0;
+    }
+    .item-title .subject{
+        padding: 0;
+    }
+    #myCanvas{
+        padding-bottom: 200px;
+    }
+</style>
+
+<body style="background-color: #FFF; overflow: auto;">
+
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>海报设置</h3>
+                <h5>自定义海报设置</h5>
+            </div>
+            <ul class="tab-base nc-row">
+                <foreach name="group_list" item="v" key="k">
+                    <li><a href="{:U('System/index',['inc_type'=> $k])}" <if condition="$k==$inc_type">class="current"</if>><span>{$v}</span></a></li>
+                </foreach>
+            </ul>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div class="explanation" id="explanation">
+        <div class="bckopa-tips">
+            <div class="title">
+                <img src="__PUBLIC__/static/images/handd.png" alt="">
+                <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            </div>
+            <ul>
+                <li>自定义海报设置请注意上传的图片尺寸，避免影响海报的展示效果。</li>
+            </ul>
+        </div>
+        <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+    </div>
+    <div class="z_cont_wrap" style="overflow:auto;">
+
+
+        <div class="z_form_wraps cont_fl">
+        <form method="post" id="handlepost" action="{:U('System/handle')}">
+            <input type="hidden" name="inc_type" value="{$inc_type}">
+            <div class="ncap-form-default" >
+                <dl class="row imgtr">
+                    <dt class="tit">
+                        <label >海报名称</label>
+                    </dt>
+                    <dd class="opt">
+                        <input type="text" maxlength="10" value="{$poster.poster_name}" name="poster_name" class="poster_name">
+                    </dd>
+                </dl>
+                <dl class="row imgtr">
+                    <dt class="tit">
+                        <label for="background_img">背景图片</label>
+                    </dt>
+                    <dd class="opt">
+                        <div class="input-file-show">
+                        <span class="show">
+                            <a id="img_a" class="nyroModal" rel="gal" href="{$poster.back_url}">
+                                <i id="img_i" class="fa fa-picture-o" onmouseover="layer.tips('<img src={$poster.back_url}>',this,{tips: [1, '#fff']});" onmouseout="layer.closeAll();"></i>
+                            </a>
+                        </span>
+           	            <span class="type-file-box">
+                            <input type="text"  name="background_img" id="background_img" value="{$poster.back_url}" class="type-file-text">
+                            <input type="button" name="button" id="button1" value="选择上传..." class="type-file-button">
+                            <input class="type-file-file" onClick="GetUploadifyPoster(1,'','poster','call_back');" size="30" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+                        </span>
+                        </div>
+                        <span class="err"></span>
+                        <p class="notic">自定义海报建议尺寸640*1008像素</p>
+                    </dd>
+                </dl>
+                <dl class="row imgtr">
+                    <dt class="tit">
+                        <label for="background_img">模拟二维码</label>
+                    </dt>
+                    <dd class="opt">
+                            <input type="checkbox" <if condition="$poster.back_url neq '' ">checked='checked'</if> class="enableQrcode"  style="margin-top: 5px"><span style="margin-left: 10px; vertical-align: top">启用</span>
+                        <p class="notic">该二维码图片仅供调试作用</p>
+                    </dd>
+                </dl>
+                <dl class="row imgtr">
+                    <dt class="tit">
+                        <label for="background_img">二维码位置</label>
+                    </dt>
+                    <dd class="opt">
+                        <input type="text" value="0,0" onkeyup="keyup(this)" class="keyup_qrcode">
+                        <p class="notic" style="color:red;">输入像素数值可移动模拟二维码在海报背景图上的位置</p>
+                    </dd>
+                </dl>
+				<dl class="row imgtr">
+                    <dt class="tit">
+                        <label for="background_img">二维码大小</label>
+                    </dt>
+                    <dd class="opt">
+                        <input type="text" value="" onkeyup="keyup_qrcode_size(this)" id="qrcode_size" >
+                        <p class="notic" style="color:red;">数值越大，二维码图片越大</p>
+                    </dd>
+                </dl>
+                <dl class="row imgtr upload-img" style="display: none;">
+                    <dt class="tit">
+                        <label for="background_img">图片尺寸</label>
+                    </dt>
+                    <dd class="opt">
+                        <p class="notic" style="color:red;">当前上传的图片宽高像素为<span class="upload-width">0</span>*<span class="upload-height">0</span>,可根据该数据对二维码位置进行调整</p>
+                    </dd>
+
+                </dl>
+
+
+                <!--<dl class="row imgtr">-->
+                    <!--<dt class="tit">-->
+                        <!--<label for="background_img">是否启用</label>-->
+                    <!--</dt>-->
+                    <!--<dd class="opt">-->
+                       <!--<span style=" display: inline-block ">禁用：</span>  <input type="radio" style="margin-top: 0; " checked='checked' value="0" name="enabled"><span style=" display: inline-block;margin-left: 15px ">启用：</span><input type="radio" style="margin-top: 0; " <if condition="$poster.enabled eq 1">checked='checked'</if> value="1" name="enabled">-->
+                    <!--</dd>-->
+                <!--</dl>-->
+                <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" onclick="adsubmit();">确认提交</a></div>
+            </div>
+        </form>
+        </div>
+        <div class="z_user_wrap cont_fl">
+            <div class="z_user_img">
+                <!--  <img src="/public/static/images/z-ip6.png">-->
+            </div>
+            <div class="z_views_wrap" style="width: auto;height: auto">
+                <div class="z_user_views" style="width: auto;height: auto;overflow: hidden;">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div id="goTop"> <a href="JavaScript:void(0);" id="btntop"><i class="fa fa-angle-up"></i></a><a href="JavaScript:void(0);" id="btnbottom"><i class="fa fa-angle-down"></i></a></div>
+</body>
+<script>
+
+    //全局背景图
+    var img = new Image();
+    //全局二维码模型
+    var qrcode = new Image();
+    //全局海报数据
+    var data = {
+        id:"{$poster.id|default=0}",
+        poster_name:"",                                                       //海报名称
+        canvas_width: "{$poster.canvas_width|default=375}",                   //画布宽度
+        canvas_height: "{$poster.canvas_height|default=675}",                 //画布高度
+        poster_width: "{$poster.poster_width|default=0}",                     //海报宽度
+        poster_height: "{$poster.poster_height|default=0}",                   //海报高度
+        back_url: "{$poster.back_url|default=''}",                            //海报路径
+        canvas_x: "{$poster.canvas_x|default=0}",                             //canvas移动的x轴
+        canvas_y: "{$poster.canvas_y|default=0}",                             //canvas移动的y轴
+        enabled: 1,                                                           //是否启用海报
+        qrcode_size: "{$poster.qrcode_size|default=150}",                     //二维码大小
+    }
+
+
+    $(function(){
+        var canvas = document.createElement('canvas');
+        canvas.id = "myCanvas";
+        canvas.width = data.canvas_width;
+        canvas.height = data.canvas_height;
+        console.log(data);
+        $('.z_user_views').append(canvas);
+
+        //在事件外声明需要用到的变量
+        //let ax,ay,x,y;
+        var c = document.getElementById("myCanvas");
+        var t = c.getContext("2d");
+
+        //渲染海报
+        if(data.id > 0){
+            console.log(data.back_url)
+            img.src=  data.back_url;
+            qrcode.src=  '/public/images/poster/qrcode80.png';
+            img.onload = function(){
+                t.drawImage(img,0,0,data.poster_width,data.poster_height,0,0,data.canvas_width,data.canvas_height);
+                t.drawImage(qrcode,data.canvas_x,data.canvas_y,data.qrcode_size,data.qrcode_size);
+            }
+
+            $('.keyup_qrcode').val(data.canvas_x+','+data.canvas_y);
+            $('.upload-img').show();
+            $('.upload-width').text( data.poster_width);
+            $('.upload-height').text( data.poster_height);
+            $('#qrcode_size').val(data.qrcode_size);
+        }
+
+//        c.onmousedown=function (e) {
+//            c.onmousemove = function(e){
+//                x= e.clientX -100;y=e.clientY - 162;
+//                x < 295 ? x =e.clientX -100: x =295;
+//                y < 587 ? y=e.clientY -162 : y=587;
+//
+//                //canvas移动的时候记录x和y轴数据
+//                data.canvas_x = x;
+//                data.canvas_y = y;
+//                $('.keyup_qrcode').val(x+','+y);
+//
+//                //先清除之前的然后重新绘制
+//                t.clearRect(0,0,canvas.width,canvas.height);
+//                console.log(x,y)
+//                t.drawImage(img,0,0,data.canvas_width,data.canvas_height);
+//                t.drawImage(qrcode,x,y,80,80);
+//            };
+//            c.onmouseup = function(){
+//                c.onmousemove = null;
+//                c.onmouseup = null;
+//            };
+//        }
+
+    })
+
+    // 上传图片成功回调函数
+    function call_back(fileurl_tmp,val,img_data){
+        $('#myCanvas').attr('width',img_data.width);
+        $('#myCanvas').attr('height',img_data.height);
+
+        let cvs = document.getElementById("myCanvas");
+        let cst = cvs.getContext("2d");
+
+        data.canvas_width = (img_data.width > 680) ? 680 : img_data.width ;
+        data.canvas_height = (img_data.height > 1008) ? 1008 : img_data.height;
+        data.poster_width = img_data.width;
+        data.poster_height = img_data.height;
+        data.back_url = fileurl_tmp;
+
+        $('.upload-img').show();
+        $('.upload-width').text( data.poster_width);
+        $('.upload-height').text( data.poster_height);
+
+        cst.clearRect(0,0,cvs.width,cvs.height);
+
+        //初始化到canvas上的背景海报
+        img.src=  fileurl_tmp;
+        img.onload = function(){
+            cst.drawImage(img,0,0,img_data.width,img_data.height,0,0,data.canvas_width,data.canvas_height);
+            //判断上传海报之前是否已启用二维码,true则二维码移动的位置记录在海报上
+            qrcode.src && cst.drawImage(qrcode,data.canvas_x,data.canvas_y,data.qrcode_size,data.qrcode_size);
+        }
+
+        $("#background_img").val(fileurl_tmp);
+        $("#img_a").attr('href', fileurl_tmp);
+        $("#img_i").attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+    }
+
+
+
+    //启用二维码模板
+   $('.enableQrcode').click(function(){
+       let cvs = document.getElementById("myCanvas");
+       let cst = cvs.getContext("2d");
+       if(!!$(this).attr('checked')){
+           qrcode.src=  '/public/images/poster/qrcode80.png';
+           qrcode.onload = function(){
+               cst.drawImage(qrcode,data.canvas_x,data.canvas_y,data.qrcode_size,data.qrcode_size);
+           }
+       }else{
+           //先清除之前的然后重新绘制
+           cst.clearRect(0,0,data.canvas_width,data.canvas_height);
+           if(data.back_url != ''){
+               cst.drawImage(img,0,0,data.canvas_width,data.canvas_height);
+           }
+       }
+   })
+
+    function adsubmit(){
+        if(!data.back_url){
+            layer.alert('请上传海报背景图', {icon: 2});
+            return false;
+        }
+
+        if(!$('.enableQrcode').attr('checked')){
+            layer.alert('请启用二维码', {icon: 2});
+            return false;
+        }
+
+        //data.enabled = $("input[name='enabled']:checked").val();
+        data.poster_name = $("input[name='poster_name']").val();
+
+        $.ajax({
+            type: 'POST',
+            url: "{:U('Admin/System/poster_add')}",
+            data: data,
+            success: function (res) {
+                    layer.alert('操作成功', {icon: 1});
+            }
+        });
+    }
+
+    //手动输入x,y轴
+    function keyup(obj){
+        let cvs = document.getElementById("myCanvas");
+        let cst = cvs.getContext("2d");
+
+        let px = $(obj).val();
+        let strs = px.split(","); //字符分割
+
+        if(px.indexOf(',') == -1){
+            $('.keyup_qrcode').val(strs[0]+','+ '0');
+            return;
+        }
+        data.canvas_x = strs[0];
+        data.canvas_y = strs[1] > 0?strs[1]:0;
+		
+		data.qrcode_size = $('#qrcode_size').val();
+
+        cst.clearRect(0,0,cvs.width,cvs.height);
+        img.src && cst.drawImage(img,0,0,data.canvas_width,data.canvas_height);
+        qrcode.src && cst.drawImage(qrcode,strs[0],strs[1],data.qrcode_size,data.qrcode_size);
+    }
+	
+	//手动输入二维码大小
+    function keyup_qrcode_size(obj){
+		data.qrcode_size = $(obj).val();
+		let cvs = document.getElementById("myCanvas");
+        let cst = cvs.getContext("2d");
+		cst.clearRect(0,0,cvs.width,cvs.height);
+        img.src && cst.drawImage(img,0,0,data.canvas_width,data.canvas_height);
+        qrcode.src && cst.drawImage(qrcode,data.canvas_x,data.canvas_y,data.qrcode_size,data.qrcode_size);
+    }
+</script>
+</html>

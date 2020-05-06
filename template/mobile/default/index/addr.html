@@ -1,0 +1,72 @@
+<div class="floor list7 detailsfloo" desc="引用此处，必须有百度ak">
+
+<div class="mask-filter-div" style="z-index: 9999;"></div>
+    <!--配送至-s-->
+    <div class="container" id="addr-container" style="display: none; width: 14.4rem;" data-id="" data-iid="">
+        <div class="city" style="height: 1374px; padding-bottom: 15%;">
+            <div class="screen_wi_loc">
+                <div class="classreturn loginsignup">
+                    <div class="content">
+                        <div class="ds-in-bl return seac_retu">
+                            <a href="javascript:void(0);" onclick="closelocation();"><img
+                                    src="__STATIC__/images/return.png" alt="返回"></a>
+                        </div>
+                        <div class="ds-in-bl search center">
+                            <span class="sx_jsxz">选地区</span>
+                        </div>
+                        <div class="ds-in-bl suce_ok">
+                            <a href="javascript:void(0);">&nbsp;</a>
+                        </div>	
+                    </div>
+                </div>
+            </div>
+            <div class="province-list"></div>
+            <div class="city-list" style="display:none"></div>
+            <div class="area-list" style="display:none"></div>
+        </div>
+    </div>
+</div>
+<script src="/public/js/locationJson.js"></script>
+<script type="text/javascript" src="__STATIC__/js/mobile-location2.js"></script>
+<script type="text/javascript">
+    function locationaddress(e) {
+        $('#addr-container').attr('data-id',$(e).attr('data-id'))
+        $('#addr-container').attr('data-iid',$(e).attr('data-iid'))
+        $('#addr-container').find('.sx_jsxz').text($(e).attr('data-text'))
+        $('.container').animate({width: '14.4rem', opacity: 'show'}, 'normal', function () {
+            $('.container').show();
+        });
+        if (!$('.container').is(":hidden")) {
+            $('body').css('overflow', 'hidden')
+            cover();
+            $('.mask-filter-div').css('z-index', '9999');
+        }
+    }
+    function closelocation() {
+        var province_div = $('.province-list');
+        var city_div = $('.city-list');
+        var area_div = $('.area-list');
+        if (area_div.is(":hidden") == false) {
+            area_div.hide();
+            city_div.show();
+            province_div.hide();
+            return;
+        }
+        if (city_div.is(":hidden") == false) {
+            area_div.hide();
+            city_div.hide();
+            province_div.show();
+            return;
+        }
+        if (province_div.is(":hidden") == false) {
+            area_div.hide();
+            city_div.hide();
+            $('.container').animate({width: '0', opacity: 'show'}, 'normal', function () {
+                $('.container').hide();
+            });
+            undercover();
+            $('.mask-filter-div').css('z-index', 'inherit');
+            return;
+        }
+    }
+</script>

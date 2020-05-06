@@ -1,0 +1,145 @@
+<include file="public/layout" />
+<script type="text/javascript" src="__PUBLIC__/static/js/perfect-scrollbar.min.js"></script>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title"><a class="back" href="{:U('Guarantee/item_list')}" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+      <div class="subject">
+        <h3>消费者保障服务 - 编辑服务项目</h3>
+        <h5>消费者保障服务查看与管理</h5>
+      </div>
+    </div>
+  </div>
+  <form id="item_form" method="post" name="item_form" enctype="multipart/form-data">
+    <input type="hidden" name="form_submit" value="ok">
+    <div class="ncap-form-default">
+      <dl class="row">
+        <dt class="tit">
+          <label for="item_name"><em>*</em>项目名称</label>
+        </dt>
+        <dd class="opt">
+            <input type="text" value="{$info.grt_name}" name="grt_name" id="grt_name" class="input-txt">
+            <span class="err" id="err_grt_name"></span>
+            <p class="notic">项目名称不能为空且不能大于50个字符</p>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit">
+            <label for="item_cost"><em>*</em>保证金</label>
+        </dt>
+        <dd class="opt">
+            <input type="text" value="{$info.grt_cost}" name="grt_cost" id="grt_cost" class="input-txt">
+            <span class="err"></span>
+            <p class="notic">保证金不能为空且必须为数字</p>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit">
+            <label><em>*</em>项目图标</label>
+        </dt>
+        <dd class="opt">
+          <div class="input-file-show">
+            <span class="show">
+                <a class="nyroModal" rel="gal" id="img_a" href="{$info.grt_icon}">
+                    <i id="img_i" class="fa fa-picture-o" onmouseover="layer.tips('<img src={$info.grt_icon}>',this,{tips: [1, '#fff']});" onmouseout="layer.closeAll();"></i>
+                </a>
+            </span>
+            <span class="type-file-box">
+                <input type="text" name="grt_icon" id="grt_icon" class="type-file-text">
+                <input type="button" name="button" id="button1" value="选择上传..." class="type-file-button">
+                <input class="type-file-file" onClick="GetUploadify(1,'','guarantee','img_call_back')" size="30" hidefocus="true" nc_type="change_site_logo" title="点击前方预览图可查看大图，点击按钮选择文件并提交表单后上传生效">
+            </span>
+          </div>
+          <span class="err"></span>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit">
+            <label for="item_desc"><em>*</em>项目描述</label>
+        </dt>
+        <dd class="opt">
+            <textarea id="grt_describe" name="grt_describe" class="w300">{$info.grt_describe}</textarea>
+            <span class="err" id="err_grt_describe"></span>
+            <p class="notic">项目描述不能为空且小于200个字符</p>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit">
+            <label for="item_descurl">说明文章链接地址</label>
+        </dt>
+        <dd class="opt">
+            <input type="text" value="{$info.grt_descurl}" name="grt_descurl" id="grt_descurl" class="input-txt">
+            <span class="err"></span>
+            <p class="notic"></p>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit">
+            <label for="item_sort"><em>*</em>排序</label>
+        </dt>
+        <dd class="opt">
+            <input type="text" value="{$info.grt_sort}" name="grt_sort" id="grt_sort" class="input-txt">
+            <span class="err" id="err_grt_sort"></span>
+            <p class="notic">排序应为大于1的正整数</p>
+        </dd>
+      </dl>
+      <dl class="row">
+        <dt class="tit">
+          <label>状态</label>
+        </dt>
+        <dd class="opt">
+           <label for="item_state1"><input type="radio" value="1" id="item_state1" name="grt_state" <if condition="$info.grt_state eq 1">checked="checked" </if>>开启</label>
+           <label for="item_state0"><input type="radio" value="0" id="item_state0" name="grt_state" <if condition="$info.grt_state eq 0">checked="checked" </if>>关闭</label>
+           <span class="err"></span>
+          <p class="notic"></p>
+        </dd>
+      </dl>
+      <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+    </div>
+    <input type="hidden" name="act" value="{$act}">
+     <input type="hidden" name="grt_id" value="{$info.grt_id}">
+  </form>
+  <script type="text/javascript">
+  function img_call_back(fileurl_tmp)
+  {
+      $("#grt_icon").val(fileurl_tmp);
+      $("#img_a").attr('href', fileurl_tmp);
+      $("#img_i").attr('onmouseover', "layer.tips('<img src="+fileurl_tmp+">',this,{tips: [1, '#fff']});");
+  }
+  
+  $(document).on("click", '#submitBtn', function () {
+      verifyForm();
+  });
+  function verifyForm(){
+      $('span.err').hide();
+      $.ajax({
+          type: "POST",
+          url: "{:U('Guarantee/itemHandle')}",
+          data: $('#item_form').serialize(),
+          dataType: "json",
+          error: function () {
+              layer.alert("服务器繁忙, 请联系管理员!");
+          },
+          success: function (data) {
+              if (data.status === 1) {
+                  layer.msg(data.msg, {icon: 1,time: 1000}, function() {
+                      location.href = "{:U('Admin/Guarantee/item_list')}";
+                  });
+              } else if(data.status === 0) {
+                  layer.msg(data.msg, {icon: 2,time: 1000});
+                  $.each(data.result, function(index, item) {
+                      $('#err_' + index).text(item).show();
+                  });
+              } else {
+                  layer.msg(data.msg, {icon: 2,time: 1000});
+              }
+          }
+      });
+  }
+
+  </script>
+</div>
+</body>
+</html>

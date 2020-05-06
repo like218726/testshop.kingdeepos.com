@@ -1,0 +1,110 @@
+<table class="ncsc-default-table" data-goods-examine="{$store.goods_examine}">
+    <thead>
+    <tr nc_type="table_header" class="hDivBox">
+        <th class="sign" axis="col0">
+            <div style="width: 24px;"><i class="ico-check"></i></div>
+        </th>
+        <th class="w100"><a href="javascript:sort('goods_id');">ID</a></th>
+        <th class="w50 tl">商品名称</th>
+        <th class="w250"></th>
+        <th class="w100">货号</th>
+        <th class="w100"><a href="javascript:sort('shop_price');">价格</a></th>
+        <th class="w100"><a href="javascript:sort('store_count');">门店库存</a></th>
+        <th class="w120">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <empty name="goodsList">
+        <tr>
+            <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+        </tr>
+    <else/>
+    <volist name="goodsList" id="goods">
+        <tr class="bd-line" data-goods-id="{$goods.goods_id}">
+            <td class="sign" axis="col0">
+                <div style="width: 24px;"><i class="ico-check"></i></div>
+            </td>
+            <td>{$goods.goods_id}</td>
+            <td>
+                <div class="pic-thumb">
+                    <a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}" target="_blank">
+                        <img style="width:32px;height:32px" src="{$goods.goods_id|goods_thum_images=50,50}" />
+                    </a>
+                </div>
+            </td>
+            <td class="tl">
+                <dl class="goods-name">
+                    <dt style="max-width: 450px !important;">
+                        <a href="{:U('Home/Goods/goodsInfo',array('id'=>$goods['goods_id']))}" target="_blank">{$goods.goods_name|getSubstr=0,33}</a></dt>
+                    <dd>商品货号：{$list.goods_sn}</dd>
+                    <dd class="serve">
+                        <a href="{:U('Mobile/Goods/goodsInfo',array('id'=> $goods['goods_id']))}"><span title="手机端商品详情"><i class="icon-tablet"></i></span></a>
+                        <a onclick="ClearGoodsHtml('{$goods[goods_id]}')" title="清除静态缓存页面"><span title="清除静态缓存页面"><i class="icon-wrench"></i></span></a>
+                        <a onclick="ClearGoodsThumb('{$goods[goods_id]}')" title="清除缩略图缓存"><span title="清除缩略图缓存"><i class="icon-picture"></i></span></a>
+                    </dd>
+                </dl>
+            </td>
+            <td><span  style="<if condition='$goods.store_count lt $store_warning_storage'>color: red</if>">{$goods.store_count}</span></td>
+            <td><span>&yen;{$goods.shop_price}</span></td>
+            <td><span  style="<if condition='$list.store_count lt $store_warning_storage'>color: red</if>">{$goods.store_count}</span></td>
+            <td class="nscs-table-handle">
+                <span><a href="{:U('Goods/stock',array('goods_id'=>$goods['goods_id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>库存</p></a></span>
+            </td>
+        </tr>
+    </volist>
+    </empty>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="20">
+            {$page}
+        </td>
+    </tr>
+    </tfoot>
+</table>
+<script>
+    // 点击分页触发的事件
+    $(".pagination  a").click(function(){
+        cur_page = $(this).data('p');
+        ajax_get_table('search-form2',cur_page);
+    });
+
+    /*
+     * 清除静态页面缓存
+     */
+    function ClearGoodsHtml(goods_id)
+    {
+        $.ajax({
+            type:'GET',
+            url:"{:U('Shop/Admin/ClearGoodsHtml')}",
+            data:{goods_id:goods_id},
+            dataType:'json',
+            success:function(data){
+                if(data.status == 1){
+                    layer.msg(data.msg, {icon: 1});
+                }else{
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+    }
+    /*
+     * 清除商品缩列图缓存
+     */
+    function ClearGoodsThumb(goods_id)
+    {
+        $.ajax({
+            type:'GET',
+            url:"{:U('Shop/Admin/ClearGoodsThumb')}",
+            data:{goods_id:goods_id},
+            dataType:'json',
+            success:function(data){
+                if(data.status == 1){
+                    layer.msg(data.msg, {icon: 1});
+                }else{
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+    }
+</script>

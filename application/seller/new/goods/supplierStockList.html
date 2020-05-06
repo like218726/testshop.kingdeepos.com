@@ -1,0 +1,110 @@
+<include file="public/head"/>
+<style>
+    .txt-cen:disabled{
+        background: #ebebeb;
+        color: #999;
+        cursor: not-allowed
+    }
+</style>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>供应商<i class="icon-angle-right"></i>商品规格库存
+        </div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="active"><a href="{:U('Goods/supplierStockList')}">库存列表</a></li>
+                    <li><a href="{:U('Goods/supplierStockLog')}">库存日志</a></li>
+                </ul>
+            </div>
+            <form id="search-form2" method="post" action="">
+                <input type="hidden" name="ctime" id="ctime" value="{$ctime}">
+                <table class="search-form">
+                    <tr>
+                        <td></td>
+                        <th class="w70">商品名称</th>
+                        <td class="w100"><input style="width: 90px;" class="text" type="text" value="{$_REQUEST[goods_name]}" name="goods_name"/></td>
+                        <th>规格名称</th>
+                        <td class="w100">
+                            <input type="text" style="width: 90px;" class="text w90" id="spec_name" name="spec_name" value="{$_REQUEST[spec_name]}" />
+                        </td>
+                        <td class="w70 tc"><label class="submit-border"><input type="button" onclick="check_form();" class="submit" value="搜索" /></label></td>
+                    </tr>
+                </table>
+            </form>
+            <table class="ncsc-default-table">
+                <thead>
+                <tr>
+                    <th class="w20"></th>
+                    <th class="w50">编号</th>
+                    <th class="w200">商品名称</th>
+                    <th class="w100">商品规格</th>
+                    <th class="w100">价格</th>
+                    <th class="w100">销售商</th>
+                    <th class="w50">库存数量</th>
+                    <th class="w50">状态</th>
+                    <th class="w50">活动状态</th>
+                </tr>
+                </thead>
+                <tbody>
+					<empty name="stock_list">
+						<tr>
+							<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+						</tr>
+					<else/>
+						<volist name="stock_list" id="v">
+							<tr class="bd-line">
+								<td></td>
+								<td>{$v.goods_id}</td>
+								<td>{$v['goods_name']|getSubstr=0,30}</td>
+								<td>{$v.key_name|default="无"}</td>
+								<td>{$v.shop_price}</td>
+								<td>{$store_arr[$v['store_id']]|default='-'}</td>
+								<td>
+								<input class="txt-cen" type="text" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" 
+								onchange="updateStock(this)" old-stock="{$v.store_count}" data-goodsid="{$v.goods_id}" data-id="{$v.item_id}" value="{$v.store_count}" <if condition="$v['prom_type'] neq 0">disabled</if> />
+								</td>
+								<td><if condition="$v[store_count] lt 10"><b style="color:orange;">预警</b><else/><b style="color:green;">正常</b></if></td>
+								<td></td>
+							</tr>
+						</volist>
+					</empty>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="20">
+                        {$page}
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+<script>
+    function check_form() {
+        $('#search-form2').submit();
+    }
+    
+    function updateStock(obj){
+		var goods_id = $(obj).attr('data-goodsid');
+		var item_id = $(obj).attr('data-id');
+        $.ajax({
+            type:'GET',
+            url:"{:U('Goods/updateSupplierGoodsStock')}",
+            data:{item_id:item_id,store_count:$(obj).val(),old_stock:$(obj).attr('old-stock'),goods_id:goods_id},
+            dataType:'json',
+            success:function(data){
+                if(data.status == 1){
+                    layer.msg(data.msg, {icon: 1});
+                }else{
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

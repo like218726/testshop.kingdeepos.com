@@ -1,0 +1,108 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+<include file="public/left"/>
+<div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>商品<i class="icon-angle-right"></i>关联版式</div>
+    <div class="main-content" id="mainContent">
+      <div class="tabmenu">
+  <ul class="tab pngFix">
+  <li class="active"><a  href="{:U('Store/plate_list')}">版式列表</a></li></ul>
+  <a href="{:U('Store/plate_edit')}" class="ncbtn ncbtn-mint" title="添加关联版式">添加关联版式</a>
+</div>
+<div class="alert mt15 mb5"><strong>操作提示：</strong>
+  <ul>
+    <li>1、关联版式可以把预设内容插入到商品描述的顶部或者底部，方便商家对商品描述批量添加或修改。</li>
+  </ul>
+</div>
+<form method="get" action="{:U('Store/plate_list')}">
+<input type="hidden" name="act" value="store_plate">
+<table class="search-form">
+    <tr>
+      <td>&nbsp;</td>
+      
+      <th>版式位置</th>
+      <td class="w80">
+        <select name="p_position">
+          <option value=" ">请选择</option>
+          <option value="1" <if condition="(is_numeric($p_position)) and ($p_position eq 1)">selected="selected"</if>>顶部</option>
+          <option value="0" <if condition="(is_numeric($p_position)) and ($p_position eq 0)">selected="selected"</if>>底部</option>
+        </select>
+      </td><th>版式名称</th>
+      <td class="w160"><input type="text" class="text w150" name="p_name" value="{$p_name}"/></td>
+      <td class="w70 tc"><label class="submit-border"><input type="submit" class="submit" value="搜索" /></label></td>
+    </tr>
+</table>
+</form>
+<table class="ncsc-default-table">
+  <thead>
+    <tr>
+      <th class="tl">版式名称</th>
+      <th class="w200">版式位置</th>
+      <th class="w200">操作</th>
+    </tr>
+      </thead>
+  <tbody>
+    <empty name="list">
+        <tr>
+            <td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+        </tr>
+        <else/>
+        <foreach name="list" item="vo" key="k" >
+            <tr class="bd-line">
+                <td class="tl"><dl class="goods-name"><dt><a target="_blank" href="" >{$vo.plate_name}</a></dt></dl></td>
+                <td>
+                <if condition="$vo['plate_position'] eq 1">
+                顶部
+                <else />
+                底部
+                </if>
+                </td>
+
+                <td class="nscs-table-handle"><span><a href="{:U('Store/plate_edit',array('plate_id'=>$vo['plate_id']))}" class="btn-bluejeans"><i class="icon-edit"></i>
+                    <p> 编辑</p>
+                </a></span>
+          <span> <a href="javascript:;" data-url="{:U('Store/plate_delete')}" data-id="{$vo.plate_id}" onclick="delfun(this)" class="btn-grapefruit"><i class="icon-trash"></i>
+              <p>删除</p>
+          </a></span>
+                </td>
+
+            </tr>
+        </foreach>
+    </empty>
+  </tbody>
+
+  <tfoot>
+
+  </tfoot>
+</table>
+    </div>
+  </div>
+</div>
+
+<include file="public/foot"/>
+<script type="text/javascript">
+  function delfun(obj) {
+    // 删除按钮
+    layer.confirm('确认删除？', {
+      btn: ['确定', '取消'] //按钮
+    }, function () {
+      $.ajax({
+        type: 'post',
+        url: $(obj).attr('data-url'),
+        data : {plate_id:$(obj).attr('data-id')},
+        dataType: 'json',
+        success: function (data) {
+          layer.closeAll();
+          if (data == 1) {
+            $(obj).parent().parent().parent().remove();
+          } else {
+            layer.alert('删除失败', {icon: 2});  //alert('删除失败');
+          }
+        }
+      })
+    }, function () {
+    });
+  }
+</script>
+</body>
+</html>

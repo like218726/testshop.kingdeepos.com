@@ -1,0 +1,121 @@
+<include file="public/layout" />
+<script type="text/javascript" src="__PUBLIC__/static/js/perfect-scrollbar.min.js"></script>
+<body style="background-color: #FFF; overflow: auto;">
+<div id="toolTipLayer" style="position: absolute; z-index: 9999; display: none; visibility: visible; left: 95px; top: 573px;"></div>
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title"><a class="back" href="javascript:history.back();" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+            <div class="subject">
+                <h3>店铺等级管理 - 审核店铺等级</h3>
+                <h5>网站系统店铺等级管理</h5>
+            </div>
+        </div>
+    </div>
+    <form class="form-horizontal" id="handleposition" action="{:U('Store/grade_info_save')}" method="post">
+        <input type="hidden" name="re_id" value="{$reopen.re_id}">
+        <div class="ncap-form-default">
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_name">店铺名称</label>
+                </dt>
+                <dd class="opt">{$reopen.re_store_name}</dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_goods_limit">等级名称</label>
+                </dt>
+                <dd class="opt">{$reopen.re_grade_name}</dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_template_limit">申请期限</label>
+                </dt>
+                <dd class="opt">{:date('Y-m-d',$reopen.re_start_time)} 至 {:date('Y-m-d',$reopen.re_end_time)}</dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_template_limit">申请时间</label>
+                </dt>
+                <dd class="opt">{:date('Y-m-d',$reopen.re_create_time)}</dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_template_limit">续费时长</label>
+                </dt>
+                <dd class="opt">{$reopen.re_year}年</dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_price">收费标准</label>
+                </dt>
+                <dd class="opt">￥ {$reopen.re_grade_price} 元/年</dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">
+                    <label for="sg_sort">应付总额</label>
+                </dt>
+                <dd class="opt">￥{$reopen.re_pay_amount}</dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">支付凭证</dt>
+                <dd class="opt"><a href="{$reopen.re_pay_cert}" target="_blank"><img src="{$reopen.re_pay_cert}" style="width: 300px;height: 200px"></a></dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">付款凭证说明</dt>
+                <dd class="opt">
+                   {$reopen.re_pay_cert_explain}
+                    <span class="err"></span>
+                </dd>
+            </dl>
+            <dl class="row">
+                <dt class="tit">审核备注</dt>
+                <dd class="opt">
+                    <textarea  name="admin_note" id="admin_note" class="tarea" rows="6" maxlength="100">{$reopen.admin_note}</textarea>
+                    <span class="err"></span>
+                </dd>
+            </dl>
+            <if condition="$reopen.re_state eq 1">
+                <dl class="row">
+                    <dt class="tit">审核</dt>
+                    <dd class="opt">
+                        <input type="radio" name="re_state" value="2" checked>审核通过  &nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" name="re_state" value="-1">审核失败
+                    </dd>
+                </dl>
+                <div class="bot"><a href="JavaScript:void(0);" onclick="adsubmit();" class="ncap-btn-big ncap-btn-green" id="submitBtn">确认提交</a></div>
+            <else/>
+                <dl class="row">
+                    <dt class="tit">审核状态</dt>
+                    <dd class="opt">{$reopen.reopen_state}</dd>
+                </dl>
+            </if>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    if($('#admin_note').val().length > 100){
+        layer.msg('备注不得超过100字符', {icon: 2,time: 2000});
+    }
+    function adsubmit() {
+        $.ajax({
+            type:'post',
+            url:"{:U('Store/reopen_save')}",
+            dataType:'json',
+            data:$('#handleposition').serialize(),
+            success:function(data){
+                if(data.status == 1){
+                    layer.msg(data.msg, {icon: 1,time: 2000},function () {
+                        window.location.href= data.url;
+                    });
+                    return;
+                }else{
+                    layer.msg(data.msg, {icon: 2,time: 2000});
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

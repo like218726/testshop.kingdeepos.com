@@ -1,0 +1,142 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper"> <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单发票<i class="icon-angle-right"></i>发票列表</div>
+        <div class="main-content" id="mainContent">
+            <div class="tabmenu">
+                <ul class="tab pngFix">
+                    <li class="<if condition='$status eq -1'>active<else/>normal</if>"><a  href="{:U('Invoice/index',['status'=>-1])}">所有发票</a></li>
+                    <li class="<if condition='$status eq 0'>active<else/>normal</if>"><a  href="{:U('Invoice/index',['status'=>'0'])}">待开</a></li>
+                    <li class="<if condition='$status eq 1'>active<else/>normal</if>"><a  href="{:U('Invoice/index',['status'=>1])}">已开</a></li>
+                </ul>
+           </div>
+            <form method="get" action="{:U('seller/Invoice/index')}" target="_self">
+                <input  class="text w70" type="hidden" name="status" value="{$status}" />
+                <table class="search-form">
+                    <tr> 
+                        <td>&nbsp;</td>
+                        <th>创建时间</th>
+                        <td class="w378"><input type="text" class="text w70" name="start_time" id="start_time" value="{$start_time}" />
+                            <label class="add-on"><i class="icon-calendar"></i></label>
+                            &nbsp;&#8211;&nbsp;
+                            <input id="end_time" class="text w70" type="text" name="end_time" value="{$end_time}" />
+                            <label class="add-on"><i class="icon-calendar"></i></label></td>
+                      
+                        <th>订单编号</th>
+                        <td class="w160"><input type="text" class="text w150" name="order_sn" value="{$_GET['order_sn']}" /></td>
+                        <td class="w70 tc"><label class="submit-border">
+                                <input type="submit" class="submit" value="搜索" />
+                            </label></td>
+                    </tr>
+                </table>
+                
+            </form>
+            <table class="ncsc-default-table order">
+                <thead>
+                    <tr>
+                        <th class="w110">发票类型</th>
+                        <th class="w110">开票金额</th>
+                        <th class="w110">发票抬头</th>
+                        <th class="w120">发票内容</th>
+                        <th class="w100">发票税率</th>
+                        <th class="w150">纳税人识别号</th>
+                        <th class="w150">用户</th>
+                        <th class="w150">开票时间</th>                      
+                        <th class="w150">是否已开</th>                      
+                    </tr>
+                </thead>
+                <foreach name="list" item="vo">
+                    <tbody>
+                        <tr>
+                            <td colspan="20" class="sep-row"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="20"><span class="ml10">订单编号：<em>{$vo.order.order_sn}</em> </span> <span>创建时间：<em class="goods-time">{:date('Y-m-d H:i:s',$vo.ctime)}</em></span> </th>
+                        </tr>
+                    <assign name="goodsList" value="$goodsArr[$vo['order_id']]" />
+                    <tr>
+                        <td class="bdl"> 
+	                        <if condition="$list['invoice_type'] eq 1"> 电子发票
+	                        <elseif condition ="$list['invoice_type'] eq 2"/>增值税发票
+	                        <else />普通发票 </if>
+                        </td>
+                    <td class="bdl"><dt>{$vo.invoice_money}</dt></td>
+                    <td class="bdl"><dt>{$vo.invoice_title}</dt></td>
+                    <td class="bdl"><dt>{$vo.invoice_desc}</dt></td>
+                    <td><p>{$vo['invoice_rate']}</p></td>
+                    <td>{$vo.taxpayer}</td>
+                    <td class="bdl">{$vo.user['nickname']}</td>
+                    <td class="bdl"><p class="ncsc-order-amount"><if condition="$vo['status'] eq 1"><notempty name="$vo.atime">{$vo.atime|date='Y-m-d H:i:s',###}</notempty></if></p>
+                        <p class="goods-pay" title="支付方式："></p></td>
+                  
+                    <td class="bdl bdr">
+	                    <if condition="$vo.status eq 1">
+	                        <img width="20" height="20" src="__PUBLIC__/images/yes.png" onclick="changeTableVal2('invoice','invoice_id',{$vo[invoice_id]},'status',this);changetime({$vo[invoice_id]});"/>
+	                    <else/>
+	                        <img src="/public/images/cancel.png" onclick="changeTableVal2('invoice','invoice_id',{$vo[invoice_id]},'status',this);changetime({$vo[invoice_id]});" width="20" height="20">
+	                    </if>
+                    </td>
+                    </tr>
+                    </tbody>
+                </foreach>
+                <tfoot>
+                    <tr>
+                        <td colspan="20">{$page}</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/> 
+<script>
+    $(document).ready(function() {
+        $('#start_time').layDate();
+        $('#end_time').layDate();
+    });
+
+    function virtual_cancel(obj) {
+        layer.open({
+            type: 2,
+            title: '取消订单',
+            shadeClose: true,
+            shade: 0.2,
+            area: ['420px', '330px'],
+            skin: 'layui-layer-rim',
+            content: [$(obj).attr('data-url'), 'no'],
+        });
+    }
+
+    // 起始位置日历控件
+    $('#start_time').layDate(); 
+    $('#end_time').layDate();
+    laydate({
+        elem: '#start_time',
+        format: 'YYYY-MM-DD', // 分隔符可以任意定义，该例子表示只显示年月
+        festival: true, //显示节日
+        istime: false,
+        choose: function(datas) { //选择日期完毕的回调
+            compare_time($('#start_time').val(), $('#end_time').val());
+        }
+    });
+
+    // 结束位置日历控件
+    laydate({
+        elem: '#end_time',
+        format: 'YYYY-MM-DD', // 分隔符可以任意定义，该例子表示只显示年月
+        festival: true, //显示节日
+        istime: false,
+        choose: function(datas) { //选择日期完毕的回调
+            compare_time($('#start_time').val(), $('#end_time').val());
+        }
+    });
+    
+    function changetime(invoice_id){
+        $.post("{:U('Invoice/changetime')}",{invoice_id:invoice_id},function(){});
+    }
+    
+    //开票
+               
+
+</script>
+</body></html>

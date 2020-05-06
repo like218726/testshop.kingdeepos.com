@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="content-language" content="zh-cn"/>
+    <meta name="renderer" content="webkit|ie-comp|ie-stand"/>
+    <meta http-equiv="Cache-control" content="public" max-age="no-cache"/>
+    <title>帮助中心-{$tpshop_config['shop_info_store_title']}</title>
+    <meta name="keywords" content="{$tpshop_config['shop_info_store_keyword']}"/>
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}"/>
+    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/help.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css"/>
+    <link rel="shortcut  icon" type="image/x-icon" href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}" media="screen"/>
+</head>
+<body>
+<!--header-s-->
+<include file="public/header" w="w1224"/>
+<!--header-e-->
+<div class="l-wrap">
+    <div class="l-main">
+        <!--  /widget/h-menu/h-menu.vm -->
+        <div class="l-menu">
+   			 <h3 class="menu-title"><a href="">常见问题</a></h3>
+    		<!-- h-menu-shortcut -->
+    	<foreach name="helpType" key="k2" item='type'>
+	       <dl class="h-menu-box">
+	            <dt class="h-menu-hd" data-id="{$type[type_id]}">{$type.type_name} <i class="icon-menu-drop"></i></dt>
+	            <dd class="h-menu-bd" id="type_id_{$type[type_id]}">
+	                <ul class="h-menu-list">
+	                	<tpshop sql="select * from `__PREFIX__help_type` where pid=$type[type_id] and is_show=1" key="k3" item='v3'>
+	                       <li class="li-item  pid_{$type[type_id]}" data-name="招商规则" data-parent-id="472" data-parent-name="商家入驻" data-pid="{$type[type_id]}" hidden>
+	                           <h4 class="h-level02-title"  onclick="showTypeArticle({$v3[type_id]})">
+	                               <!--<i class="icon-menu-sh"></i>-->
+                                   &nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:;">{$v3.type_name}</a>
+	                           </h4>
+	                       </li>
+                       </tpshop>
+	                 </ul>
+	            </dd>
+	        </dl>
+        </foreach>
+        <!-- h-menu-hd -->
+		</div>
+	<div class="l-content" id="type_article">
+
+    </div>
+</div>
+</div>
+<include file="public/footer"/>
+<include file="public/sidebar_cart"/>
+<script src="__STATIC__/js/lazyload.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="__STATIC__/js/headerfooter.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(function(){
+        var type_id = "{$Request.param.type_id}";
+        showTypeArticle(type_id);
+    })
+    //分类显示隐藏
+    $(".h-menu-box .h-menu-hd").click(function(){
+        var this_id = $(this).data('id');
+        var o_parent=$(this).parent();
+        if(o_parent.hasClass("h-menu-on")){
+            o_parent.removeClass("h-menu-on")
+            $('.pid_'+this_id).hide();
+        }else{
+            $('.li-item').hide();
+            $('.pid_'+this_id).show();
+            o_parent.addClass("h-menu-on").siblings().removeClass("h-menu-on")
+        }
+    })
+    //获取分类下的文章
+    function showTypeArticle(type_id){
+        $.ajax({
+            type : 'post',
+            url : "{:U('Article/getHelpArticle')}",
+            data : {type_id:type_id},
+            dataType : 'json',
+            success : function(data){
+                if(data.status == 1){
+                    var type_article = '<div class="o-hd"><h3 id="currentCataLogName" class="title">{$typeInfo.type_name}</h3></div><div class="l-pack"><ul class="normal-list">'
+                    for (var i=0; i<data.data.length;i++){
+                        type_article +='<li class="li-item"><em class="icon-middot"></em>' +
+                                '<a href="/index.php/Home/Article/helpInfo/help_id/'+data.data[i].help_id+'">'+data.data[i].help_title+'</a></li>'
+                    }
+                    type_article +='</ul></div>';
+                    $('#type_article').html(type_article);
+                }else if(data.status == 2){
+                    var type_article ='<div class="o-hd"><h3 id="currentCataLogName" class="title">常见答疑</h3></div><div class="l-pack"><ul class="normal-list">'
+                    for (var i=0; i<data.data.length;i++){
+                        type_article +='<li class="li-item"><em class="icon-middot"></em>' +
+                                '<a href="/index.php/Home/Article/helpInfo/help_id/'+data.data[i].help_id+'">'+data.data[i].help_title+'</a></li>'
+                    }
+                    type_article +='</ul></div>';
+                    $('#type_article').html(type_article);
+                }else{
+                    layer.alert(data.msg , {icon:2, time:2000});
+                }
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown) {
+                layer.alert('网络失败，请刷新页面后重试', {icon:2, time:2000});
+            }
+        })
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,350 @@
+body{
+    padding-top: 1.87733rem;
+    margin-bottom: 2.827rem !important;
+}
+.classreturn{
+    position: fixed !important;
+    top: 0;
+}
+.oods-title{
+    font-size: .555rem;
+}
+.payit{
+    position: fixed;
+    bottom: 0;
+    width: 16rem; 
+}
+.payit .fl p,.payit .fl span{
+    display: inline-block;
+    height: 2.4rem;
+    line-height: 2.4rem;
+}
+#coupons-code .incorise{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.incorise p{
+    height: 2.25rem;
+    line-height: 2.25rem;
+}
+#user_money_button, #pay_points_button{
+    margin-top: 0.64rem;
+}
+#addressList{
+    margin-top: -1.87733rem;
+}
+.area_roll{
+    width: 100%;
+}
+.address_container {
+    position: fixed;
+    width: 100%;
+    bottom: -10.8rem;
+    padding: 0 3%;
+    background: #fff;
+    z-index: 999999;
+    font-size:0.64rem;
+}
+.show_text {
+    float: left;
+    display: block;
+    padding: 0.8em 0;
+    margin: 0px 1em 0 0;
+}
+.edit_gtfix .youjter .Mright{
+    background-image: url(../images/icon-arrowdown2.png);
+    width: .298rem;
+    height: 0.533rem;
+}
+.information_dr .xx-list{
+    padding-top: 0.213rem;
+    padding-bottom: .427rem;
+}
+.edit_gtfix .namephone .bot{
+    color: #999;
+}
+
+
+.sel_show {
+    border-bottom: 2px solid red;
+    color:red;
+}
+.no_sel {
+    border-bottom: '';
+    color:#000;
+}
+.close_add {
+    float: right;
+    display: block;
+    padding: 0.8em;
+    color: #999;
+}
+.sel_info {
+    padding: 1em 0;
+    border-top: 1px solid #e5e5e5;
+    color: #666;
+    cursor:pointer;
+}
+.Mrightt{
+    float: right;
+    width: .2033rem;
+    height: .3733rem;
+    margin-top: -0.8em;
+    margin-right: 1em;
+}
+.add_select {
+    height: 9rem;
+    bottom: 0px;
+    overflow: auto;
+}
+
+.city-list2, .province-list2, .area-list2, .twon-list2{
+    animation: bounceInLeft 1s 1
+}
+@keyframes bounceInLeft {
+    0% {
+        /*opacity: 0;*/
+        transform: translate3d(100px, 0, 0);
+    }
+    25% {
+        /*opacity: 1;*/
+        transform: translate3d(10px, 0, 0);
+    }
+    50% {
+        transform: translate3d(5px, 0, 0);
+    }
+    75% {
+        transform: translate3d(1px, 0, 0);
+    }
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+}
+/* 选择地址-s */
+.jd_listaddle{
+    margin: .427rem;
+    background: #fff;
+    padding: .55rem;
+    border-radius: .213rem;
+}
+.jd_listaddle .maleri30{
+    background-color: #fff;
+    border-radius: .213rem;
+    padding: .55rem;
+}
+.jd_listaddle .address_top{
+    display: flex;
+    font-size: .64rem;
+    color: #333;
+    margin-bottom: .427rem;
+}
+.jd_listaddle .address_top .address_name{
+    max-width: 9.5rem;
+    white-space: nowrap;
+    margin-right: 0.213rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.jd_listaddle .address_top .address_phone{
+    font-size: .597rem;
+}
+.jd_listaddle .editdiv .eedit{
+    display: inline-block;
+    background-image: url(../images/edit.png);
+    background-repeat: no-repeat;
+    background-size: .683rem .725rem;
+    width: .683rem;
+    height: .725rem;
+    margin-right: .213rem;
+    cursor: pointer;
+}
+.jd_listaddle .address_mid{
+    height: 1.024rem;
+    overflow: hidden;
+    font-size: .512rem;
+    color: #999;
+    width: 100%;
+    line-height: 1.024rem;
+    margin-bottom: .213rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.jd_listaddle .footbox{
+    display: flex;
+    justify-content: space-between;
+    border-top:.03rem solid #f3f3f3;
+    color: #999;
+    font-size: .512rem;
+    padding-top: .427rem;
+}
+.jd_listaddle .footbox .f_default{
+    display: flex;
+    align-items: center;
+}
+.jd_listaddle .footbox .editdiv a{
+    display: flex;
+    align-items: center;
+    color: #999;
+}
+.jd_listaddle .footbox .f_default .s_default{
+    display: inline-block;
+    background: url(../images/nocheck.png) no-repeat;
+    background-size: .683rem .683rem;
+    width: 0.683rem;
+    height: 0.683rem;
+    margin-right: 0.213rem;
+}
+.jd_listaddle .footbox .f_default .s_default.check{
+    background: url(../images/ischeck.png) no-repeat;
+    background-size: .683rem .683rem;
+}
+.jd_listaddle .footbox .address_item{
+    display: flex;
+    align-items: center;
+}
+/* 选择地址-e */
+/* 添加/编辑地址-s */
+.edit.new .myorder .order .fl span{
+    font-size: .555rem;
+    color: #999;
+}
+.myorder .order .two {
+    width: 11rem;
+}
+#area {
+    width: 9rem;
+}
+.myorder .order .fl.bot {
+    width: 11rem;
+}
+/* 添加/编辑地址-e */
+/*六位密码输入框*/
+.pwd-box{
+    min-width: 7.8rem;
+    height: 1.5rem;
+    display: inline-block;
+    position: relative;
+    border: 1px solid #9f9fa0;
+    border-radius: .1rem;
+    overflow: hidden;
+    top:.5rem;
+}
+.pwd-box .fake-box{
+    height: 1.5rem;;
+}
+.pwd-box input[type="tel"]{
+    width: 99%;
+    height: 1.5rem;
+    color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: none;
+    font-size: 1.3rem;
+    opacity: 0;
+    z-index: 999;
+    letter-spacing: 1.34rem;
+}
+.fake-box input{
+    width: 1.28rem !important;
+    height: 1.5rem !important;
+    border: none !important;
+    border-right: 1px solid #e5e5e5 !important;
+    text-align: center;
+    font-size: 1.3rem;
+}
+.fake-box input:nth-last-child(1){
+    border:none !important;
+}
+/*使用余额，积分右侧按钮*/
+.z-toggle {
+    padding: 0.1066rem;
+    display: block;
+    position: relative;
+}
+.z-toggle input {
+    display: none;
+}
+input[type="checkbox"], input[type="radio"] {
+    box-sizing: border-box;
+    padding: 0;
+}
+.z-toggle.z-toggle-royal input:checked + .z-tarck {
+    border-color: #ef4e3a;
+    background-color: #ef4e3a;
+}
+.order .fr .z-toggle .z-tarck {
+    -webkit-transition-timing-function: ease-in-out;
+    -moz-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-property: background-color,border;
+    -moz-transition-property: background-color,border;
+    transition-property: background-color,border;
+    display: inline-block;
+    box-sizing: border-box;
+    width: 2.176rem;
+    height: 1.386rem;
+    border: solid 2px #E5E5E5;
+    border-radius: 50px;
+    background-color: #fff;
+    content: ' ';
+    cursor: pointer;
+}
+.z-toggle.z-toggle-royal input:checked + .z-tarck .z-handle {
+    -webkit-transform: translate3d(0.832rem,0,0);
+    -moz-transform: translate3d(0.832rem,0,0);
+    transform: translate3d(0.832rem,0,0);
+    background-color: #fff;
+}
+.z-toggle .z-handle {
+    transition: 0.3s cubic-bezier(0,1.1,1,1.1);
+    transition-property: background-color,-webkit-transform;
+    transition-property: background-color,transform;
+    position: absolute;
+    display: block;
+    width: 1.2373rem;
+    height: 1.2373rem;
+    border-radius: 50px;
+    background-color: #fff;
+    top: 0.1615rem;
+    left: 0.1493rem;
+    box-shadow: 0 0.0426rem 0.1493rem rgba(0,0,0,0.35), 0 0.0213rem 0.0213rem rgba(0,0,0,0.15);
+}
+.z-toggle .z-handle:before {
+    position: absolute;
+    top: 0.1066rem;
+    left: -0.4693rem;
+    padding: 0.4053rem 0.7466rem;
+    content: " ";
+}
+.classreturn .content .menu img {
+    width: .85333rem;
+    height: auto;
+    margin-top: 0.5206667rem;
+}
+.classreturn .content .return a img {
+    margin-top: 0.520667rem;
+}
+.xx-list .red {
+    font-weight: bold;
+}
+.xx-list .red span {
+    vertical-align: -0.0rem;
+}
+#payables,.payables{
+    font-weight: bold;
+    color: #ff2e2e;
+    font-size: .64rem;
+}
+.newchoosecar {
+    top: 9.13333rem;
+    bottom: 0 !important;
+    padding-top: 0.5rem;
+}
+.chooseebitcard {
+    overflow-x: hidden !important;
+}

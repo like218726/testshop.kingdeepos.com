@@ -1,0 +1,309 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>供应商<i class="icon-angle-right"></i>供应商品</div>
+<div class="main-content" id="mainContent">
+      
+	<div class="tabmenu">
+	  <ul class="tab pngFix">
+	  <li class="{$_GET[is_supply] == 2 ? 'normal' : 'active'}"><a href="{:U('Seller/Goods/supplierGoodsList')}">供应商品</a></li>
+	  <li class="{$_GET[is_supply] == 2 ? 'active' : 'normal'}"><a href="{:U('Seller/Goods/supplierGoodsList',['is_supply' => 2])}">违规供应商品</a></li>
+	  </ul>
+	</div>
+	<div class="alert mt15 mb5">
+		操作提示：
+		<ul>
+			<li>1、当选择停止供应时，对应的销售商的商品会同时下架，之后如果重新恢复供应商，则销售商需要选择上架才能再次上架</li>
+		</ul>
+	</div>
+	<form method="get" action="">
+		<if condition="$store_type eq 2">
+			<div style="float:left;">
+				<div style="margin-top:8px;margin-bottom:-6px;float:left;margin-left:8px;">
+					<label>全选</label><input style="margin-left:8px;" id="all" type="checkbox" value="" title="全选" onchange="choiceAll(this)">
+				</div>
+				<div style="margin-top:6px;margin-bottom:-6px;float:left;margin-left:25px">
+					<a href="javascript:void(0)" class="ncbtn-mini" title="一键铺货" style="background-color:#48CFAE" onclick="addDealerGoods()">一键铺货</a>
+				</div>
+			</div>
+		</if>
+	  <table class="search-form">
+	    <input type="hidden" name="act" value="goods_offline" />
+	    <tr>
+	      <td>&nbsp;</td>
+	      <if condition="$_GET[is_supply] neq 2">
+	      <th>审核状态</th>
+	      <td class="w90">
+	        <select name="goods_state">
+	          	<option value="">请选择...</option>
+	            <option value="0" <if condition="$Request.param.goods_state heq 0">selected</if>>待审核</option>
+	            <option value="1" <if condition="$Request.param.goods_state eq 1">selected</if>>审核通过</option>
+	            <option value="2" <if condition="$Request.param.goods_state eq 2">selected</if>>未通过</option>
+	          </select>
+	      </td>
+	      </if>
+	      <td class="w160"><input type="text" class="text" name="key_word" value="{$Request.param.key_word}" placeholder="搜索词"/></td>
+	      <td class="tc w70"><label class="submit-border"><input type="submit" class="submit" value="搜索" /></label></td>
+	    </tr>
+	  </table>
+	</form>
+	<if condition="$_GET[is_supply] eq 2">
+	<table class="ncsc-default-table">
+	  <thead>
+	    <tr nc_type="table_header">
+	      <th class="w50">ID</th>
+	      <th class="w50"></th>
+	      <th>商品名称</th>
+	      <th class="w180">违规禁售原因</th>
+	      <th class="w100">供货价</th>
+	      <th class="w200">操作</th>
+	    </tr>
+	      </thead>
+	  	  <tbody>
+	  	  	  <foreach name="goodsList" item="vo">
+		      <tr>
+		      <td class="trigger">
+                  <!--<i class="icon-plus-sign" nctype="ajaxGoodsList"></i>-->
+                  {$vo.goods_id}
+              </td>
+		      <td><div class="pic-thumb"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$vo['goods_id']))}" target="_blank">
+		      	<img src="{$vo.goods_id|goods_thum_images=50,50}"/></a></div>
+		      </td>
+		      <td class="tl">
+		      	<dl class="goods-name">
+		          <dt style="max-width: 450px !important;">
+		          <a href="{:U('Home/Goods/goodsInfo',array('id'=>$vo['goods_id']))}" target="_blank">{$vo.goods_name|getSubstr=0,33}</a></dt>
+		          <dd>商家货号：{$vo.goods_sn}</dd>
+		        </dl>
+		      </td>
+		      <td>{$vo.close_reason}</td>
+		      <td><span>&yen;{$vo.cost_price}</span></td>
+		      <td class="nscs-table-handle tr">
+			  	<span><a href="{:U('Goods/goodsUpLine',array('goods_ids'=>$vo['goods_id']))}" class="btn-bluejeans"><i class="icon-refresh"></i><p>重新申请审核</p> </a></span>
+		      	<span><a href="{:U('Goods/addEditGoods',array('goods_id'=>$vo['goods_id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p> </a></span>
+		        <span><a href="javascript:void(0);" onclick="del('{$vo[goods_id]}')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+		      </td>
+		      </tr>
+		      </foreach>
+	      </tbody>
+	      <tfoot>
+		    <tr>
+		       <td colspan="20">{$page}</td>
+		    </tr>
+		  </tfoot>
+	  </table>
+	  <else/>
+	  <table class="ncsc-default-table">
+	  <thead>
+	    <tr nc_type="table_header">
+	    	<th></th>
+	      <th class="w80">ID</th>
+	      <th class="w50"></th>
+	      <th>商品名称</th>
+	      <th class="w80">供应</th>
+	      <th class="w80">审核状态</th>
+	      <th class="w100">供货价</th>
+	      <th class="w100">销售商数</th>
+	      <th class="w270">操作</th>
+	    </tr>
+	      <!--<tr>
+	      <td class="tc"><input type="checkbox" id="all" class="checkall"/></td>
+	      <td colspan="10"><label for="all">全选</label>
+	        <a href="javascript:void(0);" class="ncbtn-mini" nc_type="batchbutton" uri="" name="commonid" confirm="您确定要删除吗?"><i class="icon-trash"></i>删除</a>
+	      </tr>-->
+	      </thead>
+	  	  <tbody>
+	  	  	  <foreach name="goodsList" item="vo">
+		      <tr id="list_{$vo[goods_id]}">
+		      	<td>
+                  <input style="margin-left:8px;" value="{$vo.goods_id}" type="checkbox">
+              </td>
+		      <td class="trigger">
+                  <!--<i class="icon-plus-sign" nctype="ajaxGoodsList"></i>-->
+                  {$vo.goods_id}</td>
+		      <td>
+				<div class="pic-thumb">
+					<img src="{$vo.goods_id|goods_thum_images=50,50}"/>
+				</div>
+			  </td>
+		      <td class="tl">
+		      	<dl class="goods-name">
+		          <dt style="max-width: 450px !important;">
+		          {$vo.goods_name|getSubstr=0,33}</dt>
+		          <dd>商家货号：{$vo.goods_sn}</dd>
+		        </dl>
+		      </td>
+		      <td><img width="20" height="20" src="__PUBLIC__/images/<if condition='$vo[is_supply] eq 1'>yes.png<else />cancel.png</if>" <if condition="$vo[goods_state] neq 1">onclick="layer.msg('该商品需通过审核才能上架供应',{icon:2});"<else/>onclick="changeGoodsSupply(this,{$vo.goods_id})"</if> /></td>
+		      <td>{$state[$vo[goods_state]]}</td>
+		       <td>{$vo.cost_price}</td>
+		      <td>{$goods_count[$vo[goods_id]] ? $goods_count[$vo[goods_id]] : 0}</td>
+			  <td class="nscs-table-handle tr">
+		      	<span><a href="{:U('Goods/addEditGoods',array('goods_id'=>$vo['goods_id'], 'purpose'=>2))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p> </a></span>
+		      	<span><a href="{:U('Goods/lookGoodsDealer',array('goods_id'=>$vo['goods_id']))}" class="btn-bluejeans"><i class="icon-group"></i><p>销售商</p> </a></span>
+		      	<span><a href="{:U('Goods/supplierStockList',array('goods_id'=>$vo['goods_id']))}" class="btn-bluejeans"><i class="icon-dropbox"></i><p>库存</p> </a></span>
+		      	<span><a href="javascript:void(0);" class="btn-bluejeans" onclick="sendToDealer({$vo[goods_id]}, {$vo[goods_state]}, {$vo[is_supply]})"><i class="icon-inbox"></i><p>供应</p> </a></span>
+		        <span><a href="javascript:void(0);" onclick="del('{$vo[goods_id]}')" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+		      </td>
+		      </tr>
+		      </foreach>
+	      </tbody>
+	      <tfoot>
+		    <tr>
+		       <td colspan="20">{$page}</td>
+		    </tr>
+		  </tfoot>
+	  </table>
+	  </if>
+   </div>
+  </div>
+</div>
+<include file="public/foot"/>
+<script>
+// 删除操作
+function del(id) {
+	layer.confirm('确定要删除吗？', {
+				btn: ['确定','取消'] //按钮
+			}, function(){
+				// 确定
+				$.ajax({
+					url: "/index.php?m=Seller&c=goods&a=delSupplierGoods&id=" + id,
+                    dataType:'json',
+					success: function (data) {
+						layer.closeAll();
+						if (data.status == 1){
+                            layer.msg(data.msg, {icon: 1, time: 1000},function () {
+                               $('#list_'+id).remove();
+                            });
+
+                        }else{
+                            layer.msg(data.msg, {icon: 2, time: 1000}); //alert(v.msg);
+                        }
+
+					}
+				});
+			}, function(index){
+				layer.close(index);
+			}
+	);
+}
+// 向销售商申请供应商品
+function sendToDealer(id, state, is_supply) {
+	if (state != 1) {
+		layer.msg('此商品正在审核或审核不通过', {icon: 2, time: 2000});
+		return false;
+	}
+	if (is_supply != 1) {
+		layer.msg('此商品未上架', {icon: 2, time: 2000});
+		return false;
+	}
+	layer.open({
+		  type: 2,
+		  title: '派送销售商',
+	      shadeClose: true,
+	      shade: 0.2,
+	      skin: 'layui-layer-rim',
+	      area: ['450px', '550px'],
+		  content: ['{:U("Goods/sendToDealer")}' + '?goods_id=' + id, 'no']
+	}); 
+}
+
+// 改变商品的供应商状态
+function changeGoodsSupply(obj, goods_id)
+{
+	var src = "";
+	if($(obj).attr('src').indexOf("cancel.png") > 0 )
+	{          
+		src = '/public/images/yes.png';
+		var value = 1;
+		var title = "确定恢复供应商？";
+		var txt = "恢复供应商后，销售商的对应商品需要等待销售商自己选择上架后才能继续售卖";
+	}else{                    
+		src = '/public/images/cancel.png';
+		var value = 0;
+		var title = "确定暂停供应商？";
+		var txt = "暂停供应商后，销售商的对应商品也会同时下架";
+	}
+	layer.confirm(txt, {
+		title: title,
+		btn: ['确定','取消'] //按钮
+		}, function(){
+		// 确定
+			$.ajax({
+				url: "/index.php?m=Seller&c=goods&a=changeGoodsSupply&goods_id=" + goods_id + "&is_supply=" + value,
+				dataType:'json',
+				success: function (data) {
+					layer.closeAll();
+					if (data.status == 1){
+						$(obj).attr('src',src);
+						layer.msg(data.msg, {icon: 1, time: 2000});
+					}else{
+						layer.msg(data.msg, {icon: 2, time: 2000}); //alert(v.msg);
+					}
+
+				}
+			});
+		}, function(index){
+			layer.close(index);
+		}
+	);	
+}
+
+function choiceAll(obj){
+	if($(obj).attr("checked")=='checked'){
+		$("input[type='checkbox']").attr("checked","checked");
+	}else{
+		$("input[type='checkbox']").removeAttr("checked"); 
+	}
+} 
+
+var idDoning = false;
+// 一键铺货
+function addDealerGoods()
+{
+	var ids='';
+	$(".ncsc-default-table input[type='checkbox']:checkbox:checked").each(function(){ 
+	ids+=$(this).val()+',';
+	}) 
+
+    if(!ids){
+  	  layer.msg('未选择商品', {icon: 2, time: 1000});
+  	  return false;
+    }
+	layer.confirm('', {
+		title: '一键铺货',
+		content: '将把所选供应商品在本店铺售卖吗？',
+		btn: ['确定','取消'] //按钮
+		}, function(){
+		// 确定
+			if (!idDoning) {
+				$.ajax({
+					url: "/index.php?m=Seller&c=goods&a=addDealerGoods&goods_ids=" + ids.slice(0,-1),
+					dataType:'json',
+					success: function (data) {
+						layer.closeAll();
+						if (data.status == 1){
+							layer.msg(data.msg, {icon: 1, time: 2000});
+						}else{
+							layer.msg(data.msg, {icon: 2, time: 2000}); //alert(v.msg);
+						}
+
+					},
+					beforeSend: function () {
+						idDoning = true;
+					},
+					complete: function () {
+						idDoning = false;
+					}
+				});
+			} else {
+				layer.msg('正在生成...', {icon: 1, time: 2000});
+			}
+		}, function(index){
+			layer.close(index);
+		}
+	);
+}
+</script>
+</body>
+</html>

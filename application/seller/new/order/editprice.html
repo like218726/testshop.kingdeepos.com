@@ -1,0 +1,81 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>订单物流<i class="icon-angle-right"></i>修改订单<i class="icon-angle-right"></i>修改价格</div>
+        <div class="main-content" id="mainContent">
+            <div class="item-publish">
+                <form method="post" id="edit_price">
+                    <input name="order_id" value="{$order['order_id']}" id="order_id" type="hidden">
+                    <div class="ncsc-form-goods active" id="tab_tongyong">
+                        <h3 id="demo1">修改订单价格</h3>
+                        <dl>
+                            <dt>商品总价:</dt>
+                            <dd>{$order.goods_price}</dd>
+                        </dl>
+                        <dl>
+                            <dt>物流运费：</dt>
+                            <dd>
+                            	<input type="text" class="text" id="shipping_price" name="shipping_price" value="{$order.shipping_price}" onkeyup="this.value=this.value.replace(/[^\d.]/g,0)">
+                                <p class="hint">请直接输入运费金额，原物流费用为：{$order.shipping_price}</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>订单价格微调：</dt>
+                            <dd>
+                            	  <input type="text" value="{$order.discount}" id="discount" name="discount" onkeyup="this.value=this.value.replace(/[^-?\d.]/g,0)" onpaste="this.value=this.value.replace(/[^-?\d.]/g,'')" class="text">
+                            	  <p class="hint">请直接输入要调整的金额, 如果是正数价格上调, 负数价格下调</p>
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>订单总金额：</dt>
+                            <dd>{$order.total_amount}</dd>
+                        </dl>
+                        <dl>
+                            <dt>使用余额：</dt>
+                            <dd>{$order.user_money}</dd>
+                        </dl>
+                        <dl>
+                            <dt>使用积分：</dt>
+                            <dd>{$order.integral}</dd>
+                        </dl>
+                        <dl>
+                            <dt>应付金额：</dt>
+                            <dd>{$order.order_amount}</dd>
+                        </dl>
+                    </div>
+                    <div class="bottom tc hr32">
+                    	<!--<a class="ncbtn ncbtn-lightgray" href="javascript:void(0)" onclick="javascript:history.go(-1)"><p>取消</p></a>-->
+                        <label class="submit-border">
+                            <input nctype="formSubmit" class="submit" style="min-width:70px; width:70px" value="保存" type="button" onclick="checkFrom()">
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public/foot"/>
+<script>
+    function checkFrom() {
+        var id = $('#order_id').val();
+        $.ajax({
+            type:'post',
+            url:"{:U('Order/editOrderPrice')}",
+            data:$('#edit_price').serialize(),
+            dataType:'json',
+            success:function(data){
+                if(data.status == 1){
+                    layer.msg(data.msg,{icon:1},function(){
+                        window.location.href = "/index.php/seller/Order/detail/order_id/"+id;
+                    })
+                }else{
+                    layer.msg(data.msg,{icon:1});
+                }
+            }
+        })
+    }
+ 
+</script>
+</body>
+</html>

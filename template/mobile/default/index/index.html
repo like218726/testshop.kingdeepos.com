@@ -1,0 +1,412 @@
+<link rel="stylesheet" href="__STATIC__/css/home.css">
+<include file="public/header" title="首页"/>
+    <!--顶部搜索栏-s-->
+    <header>
+        <div class="content">
+            <div class="ds-in-bl search">
+                <div class="sea-box">
+                    <span ></span>
+                    <form action=""  method="post">
+                        <div class="sear-input">
+                            <a href="{:U('Goods/ajaxSearch')}">
+                                <input type="text" name="q" id="search_text" class="search_text"   value="" placeholder="请输入您所搜索的商品">
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--顶部搜索栏-e-->
+
+    <!--顶部滚动广告栏-s-->
+    <div class="banner banner_auto">
+        <div class="banner_bg"></div>
+        <div class="mslide" id="slideTpshop">
+            <ul>
+                <!--广告表-->
+                <adv pid="2" limit="5" item="v">
+                    <li><a href="{$v.ad_link}{$edit_ad ? '&suggestion=710*340' : ''}">
+                        <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}" alt="">
+                    </a></li>
+                </adv>
+            </ul>
+        </div>
+    </div>
+    <!--顶部滚动广告栏-e-->
+
+    <!--菜单-start-->
+    <div class="floor">
+        <nav>
+            <a href="{:U('Index/street')}">
+                <span>
+                    <img src="__STATIC__/images/icon_05.png" alt="店铺街" />
+                    <span>店铺街</span>
+                </span>
+            </a>
+            <a href="{:U('Index/brand')}">
+                <span>
+                    <img src="__STATIC__/images/icon_07.png" alt="品牌街" />
+                    <span>品牌街</span>
+                </span>
+            </a>
+            <a href="{:U('Activity/promote_goods')}">
+                <span>
+                    <img src="__STATIC__/images/icon_09.png" alt="优惠活动" />
+                    <span>优惠活动</span>
+                </span>
+            </a>
+            <a href="{:U('Activity/group_list')}">
+                <span>
+                    <img src="__STATIC__/images/icon_15.png" alt="团购" />
+                    <span>团购</span>
+                </span>
+            </a>
+            <a href="{:U('Activity/coupon_list')}">
+                <span>
+                    <img src="__STATIC__/images/icon_16.png" alt="领券中心" />
+                    <span>领券中心</span>
+                </span>
+            </a>
+            <a href="{:U('Goods/integralMall')}">
+                <span>
+                    <img src="__STATIC__/images/icon_17.png" alt="积分商城" />
+                    <span>积分商城</span>
+                </span>
+            </a>
+			
+            <a href="{:U('Team/index')}">
+                <span>
+                    <img src="__STATIC__/images/icon_19.png" alt="拼团" />
+                    <span>拼团</span>
+                </span>
+            </a>
+            <a href="{:U('Goods/categoryList')}">
+                <span>
+                    <img src="__STATIC__/images/icon_03.png" alt="全部分类" />
+                    <span>全部分类</span>
+                </span>
+            </a>
+        </nav>
+    </div>
+    <!--菜单-end-->
+<!--秒杀-start-->
+<if condition="$flash_sale_list">
+    <div class="secondkill">
+        <div class="content_1">
+            <div class="time p">
+                <div class="djs lightning fl">
+                    <span class="add fl"><img src="__STATIC__/images/mszc.png" alt=""></span>
+                    <div class="fl fl_seckill"><span class="red fl" id="">{:date('H',$start_time)}点场</span><span class="hms fl"></span></div>
+                </div>
+                <div class="xsxl fr">
+                    <a href="{:U('Mobile/Activity/flash_sale_list')}">
+                        <span>限时抢购</span>
+                    </a>
+                </div>
+            </div>
+            <div class="shop_p clearfix">
+                <foreach name="flash_sale_list" item="v">
+                    <a class="mian_width_3" href="{:U('Mobile/Activity/flash_sale_list')}">
+                        <div class="timerBox shopnum">
+                            <img src="{$v[goods_id]|goods_thum_images=200,200}"/>
+                            <p>￥<span>{$v[price]}</span>元</p>
+                        </div>
+                    </a>
+                </foreach>
+            </div>
+        </div>
+    </div>
+</if>
+<if condition="!$flash_sale_list">
+    <div class="flash_none content_1 mian_width_3">
+        <div class="qiag_1"><img src="__STATIC__/images/mszc.png" alt=""></div>
+        <div class="xsxl fr">
+            <img src="__STATIC__/images/icon_flash_sale.png" alt="">
+            <a href="{:U('Mobile/Activity/flash_sale_list')}">
+                <span>限时抢购<img src="__STATIC__/images/z-package-left.png" alt="" /></span>
+            </a>
+        </div>
+    </div>
+</if>
+<!--秒杀-end-->
+<style>
+    .advertisement {
+        margin-top: 0.42677rem;
+    }
+</style>
+    <!--广告位-start-->
+    <div class="advertisement">
+        <div class="content_2">
+            <div class="le lefhe fl">
+                <adv  limit="1" item="v" pid="301">
+                    <a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*150' : ''}">
+                        <div class="td" style="margin-bottom: 0.213rem">
+                            <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}">
+                        </div>
+                    </a>
+                </adv>
+                <adv  limit="1" item="v" pid="302">
+                    <a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*150' : ''}">
+                        <div class="td">
+                            <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}">
+                        </div>
+                    </a>
+                </adv>
+            </div>
+            <div class="le lefhe fr">
+                <adv  limit="1" item="v" pid="300">
+                    <a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*150' : ''}">
+                        <div class="td" style="margin-bottom: 0.213rem">
+                            <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}">
+                        </div>
+                    </a>
+                </adv>
+                <adv  limit="1" item="v" pid="303">
+                    <a href="{$v.ad_link}{$edit_ad ? '&suggestion=350*150' : ''}">
+                        <div class="td">
+                            <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}">
+                        </div>
+                    </a>
+                </adv>
+            </div>
+        </div>
+    </div>
+    <div class="banner mian_width_3 width_an">
+        <adv limit="1" item="v" pid="400">
+            <a href="{$v.ad_link}{$edit_ad ? '&suggestion=710*190' : ''}">
+                <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
+            </a>
+        </adv>
+    </div>
+    <!--广告位-end-->
+    <!--热销商品-start-->
+    <if condition="$hot_goods">
+    <div class="plate">
+        <img class="plate_img" src="__STATIC__/images/hotgoods.png" alt="">
+        <div class="plate_item">
+            <ul>
+                <volist name="hot_goods" id="vo">
+                    <li>
+                        <div class="mian_width_1">
+                            <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo.goods_id))}" title="{$vo.goods_name}">
+                                <img class="mian_img" src="{$vo.original_img}">
+                                <div class="mian_h2 mian_hidde">{$vo.goods_name}</div>
+                                <div class="goods_name_cen mian_flex_4">
+                                    <span class="big-price"><b>¥</b>{$vo.shop_price}</span>
+                                    <span class="has-sold">已售出{$vo.sales_sum}件</span>
+                                </div>
+                            </a>
+                        </div>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    </if>
+    <!--热销商品-end-->
+    <!--特色推荐-start-->
+    <if condition="$favourite_goods">
+    <div class="plate">
+        <img class="plate_img" src="__STATIC__/images/feature.png" alt="">
+        <div class="hot_sell">
+            <ul>
+                <volist name="favourite_goods" id="vo">
+                    <li>
+                        <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo.goods_id))}" title="{$vo.goods_name}">
+                            <div class="hot_img">
+                                <img class="hot_img" src="{$vo.original_img}">
+                            </div>
+                            <div class="hot_right">
+                                <div class="mian_h2 mian_hidde">{$vo.goods_name}</div>
+                                <div class="goods_name_cen mian_flex_4">
+                                    <span class="big-price"><b>¥</b>{$vo.shop_price}</span>
+                                    <span class="has-sold">已售出{$vo.sales_sum}件</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    </if>
+    <!--特色推荐-end-->
+    <!--拼团列表-start-->
+    <if condition="$team_goods_items">
+    <div class="plate team">
+        <img class="plate_img" src="__STATIC__/images/team.png" alt="">
+        <div class="hot_sell">
+            <ul>
+                <volist name="team_goods_items" id="vo" offset="0" length="2">
+                    <li>
+                        <!-- /index.php?m=Mobile&c=Team&a=info&team_id=" + data.result[i].team_id + "&goods_id=" + data.result[i].goods_id -->
+                        <!-- <a href="{:U('Mobile/Team/info',array('id'=>$vo.goods_id,'team_id'=>$vo.team_id))}" title="{$vo.goods_name}"> -->
+                        <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo.goods_id))}" title="{$vo.goods_name}">
+                            <div class="hot_img">
+                                <img class="hot_img" src="{$vo.share_img}">
+                            </div>
+                            <div class="hot_right">
+                                <div class="mian_h2 mian_hidde">{$vo.goods_name} </div>
+                                <div class="group_img">
+                                    <volist name="vo.follow_users_head_pic" id="head_pic" length="2">
+                                        <img src="{$head_pic}" alt="">
+                                    </volist>
+                                </div>
+                                <div class="goods_name_cen mian_flex_4">
+                                    <span class="big-price"><b>¥</b>{$vo.team_price}</span>
+                                    <span class="has-sold">已拼{$vo.virtual_num}件</span>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </volist>
+
+
+            </ul>
+        </div>
+        <div class="plate_item">
+            <ul>
+                <volist name="team_goods_items" id="vo" offset="2">
+                <li>
+                    <div class="mian_width_1">
+                        <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo.goods_id))}" title="{$vo.goods_name}">
+                            <img class="mian_img" src="{$vo.share_img}">
+                            <div class="mian_h2 mian_hidde">{$vo.goods_name}</div>
+                            <div class="group_img">
+                                <volist name="vo.follow_users_head_pic" id="head_pic" length="2">
+                                    <img src="{$head_pic}" alt="">
+                                </volist>
+                            </div>
+                            <div class="goods_name_cen mian_flex_4">
+                                <span class="big-price"><b>¥</b>{$vo.team_price}</span>
+                                <span class="has-sold">已拼{$vo.virtual_num}件</span>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    </if>
+
+    <!--底部-start-->
+    <!-- <include file="public/footer"/> -->
+    <div class="c-line">
+        <p>已显示完该类商品</p>
+    </div>
+    <div class="flool3">
+        <div>
+            <span>搜豹网络提供技术支持</span>
+        </div>
+    </div>
+    <!--底部-end-->
+    <if condition="$noob_gift">
+    <!-- 新人好礼专享弹窗s -->
+    <div class="new-pople-1 clearfix">
+        <div class="alter-center clearfix">
+            <div class="bg-ams"></div>
+            <div class="ul-1">
+                <div class="li-gitl">
+                    <volist name="$noob_gift" id="vo">
+                        <div class="li-1"><span>¥<b><?php echo (int)$vo['money'];?></b>元新人红包</span></div>
+                    </volist>
+                </div>
+                <a href="javascript:;"><div class="button-1"></div></a>
+                <div class="dax-1"></div>
+            </div>
+        </div>
+    </div>
+    </if>
+    <!-- 新人好礼专享弹窗e -->
+  
+    <!--底部导航-start-->
+    <include file="public/footer_nav"/>
+    <!--底部导航-end-->
+
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    /**
+     * 秒杀模块倒计时
+     * */
+    function GetRTime(end_time){
+        var NowTime = new Date();
+        var t = (end_time*1000) - NowTime.getTime();
+        var d=Math.floor(t/1000/60/60/24);
+        var h=Math.floor(t/1000/60/60%24);
+        var m=Math.floor(t/1000/60%60);
+        var s=Math.floor(t/1000%60);
+        var temp = (d * 24 + h) < 10 ? '0' + (d * 24 + h) : d * 24 + h
+        m = m < 10 ? '0' + m : m
+        s = s < 10 ? '0' + s : s
+        if(s >= 0)
+            return temp + ':' + m + ':' +s;
+    }
+
+    function GetRTime2(){
+        var text = GetRTime('{$end_time}');
+        if (text== 0){
+            $(".hms").text('活动已结束');
+        }else{
+            $(".hms").text(text);
+        }
+    }
+    setInterval(GetRTime2,1000);
+
+    //轮播
+    $(function(){
+        $('#slideTpshop').swipeSlide({
+            continuousScroll:true,
+            speed : 3000,
+            transitionType : 'cubic-bezier(0.22, 0.69, 0.72, 0.88)',
+            firstCallback : function(i,sum,me){
+                me.find('.dot').children().first().addClass('cur');
+            },
+            callback : function(i,sum,me){
+                me.find('.dot').children().eq(i).addClass('cur').siblings().removeClass('cur');
+            }
+        });
+        //圆点
+        var ed = $('.mslide ul li').length - 2;
+        $('.mslide').append("<div class=" + "dot" + "></div>");
+        for(var i = 0; i<ed ;i++){
+            $('.mslide .dot').append("<span></span>");
+        };
+        $('.mslide .dot span:first').addClass('cur');
+        var wid = - ($('.mslide .dot').width() / 2);
+        $('.mslide .dot').css('position','absolute').css('left','50%').css('margin-left',wid);
+    });
+
+    // 判断新人专享礼包个数事件
+    <if condition="noob_gift">
+    $(function(){
+        $('.new-pople-1 .dax-1 , .button-1').on('click',function(){
+           $('.new-pople-1').hide();
+        })
+        $(' .button-1').on('click',function(){
+            $('.new-pople-1').hide();
+        $.ajax({
+                    type : "get",
+                    url:"/index.php?m=Mobile&c=User&a=getCoupon&coupon_id="<volist name='noob_gift' id="vo">+'_'+{$vo.id}</volist>,
+                    success: function(data){}
+            })
+        })
+        $(document).each(function(){
+            var youhulish = $('.new-pople-1 .li-gitl .li-1').length
+            if(youhulish <2){
+                $('.new-pople-1 .li-gitl').css({
+                    'display': 'flex',
+                    'align-items': 'center',
+                })
+            }else{
+                $('.new-pople-1 .li-gitl').removeAttr('style');
+            }
+        })
+    })
+    </if>
+
+</script>
+	</body>
+</html>
+<script> set_first_leader(); //设置推荐人 </script>

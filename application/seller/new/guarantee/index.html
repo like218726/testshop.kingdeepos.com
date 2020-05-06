@@ -1,0 +1,88 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+<div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i class="icon-angle-right"></i>消费者保障服务</div>
+    <div class="main-content" id="mainContent">
+      
+<div class="tabmenu">
+  <ul class="tab pngFix">
+  <li class="active"><a href="index.php?act=store_contract&amp;op=index">消费者保障服务</a></li></ul>
+</div>
+<div class="ncsc-form-default">
+    <div style="width:100%;">
+            <foreach name="item_list" item="vo">
+            <div style="float: left; width: 50%;">
+                <div style="border: 1px solid #f5f5f5;background: none repeat scroll 0 0 #f5f5f5; margin: 20px 20px 0px 0px; height: 60px; padding: 30px;">
+                    <div style="float: left; width: 60px; height: 60px;">
+                    <img style="width: 60px;" src="{$vo.grt_icon}">
+                    </div>
+                    <div style="float: left; margin-left: 15px; width: 320px;">
+                        <div style="height: 35px;">
+                            <em style="float:left; margin-bottom: 12px;font-size: 16px;font-weight: 700;">{$vo.grt_name}</em> 
+                            <if condition="($vo.joinstate eq 1) AND ($vo.auditstate eq 0)"><span style="float:right;">等待审核</span></if>
+                            <if condition="$vo.auditstate eq 1">
+                          	  <span style="float:right;">审核通过，<a href="{:U('Guarantee/apply_pay',array('grt_id'=>$vo.grt_id))}">点击支付保证金</a></span>
+                            </if> 
+                            <if condition="$vo.auditstate eq 2"><span style="float:right;">审核未通过，<a href="{:U('Guarantee/detail',array('grt_id'=>$vo.grt_id))}">点击查看详情</a></span></if>
+                            <if condition="$vo.auditstate eq 3"><span style="float:right;">保证金待审核</span></if>
+                            
+                            <if condition="$vo.quitstate eq 1"><span style="float:right;">退出审核中</span></if>
+                            <if condition="$vo.quitstate eq 2"><span style="float:right;">退出失败，<a href="{:U('Guarantee/apply_pay',array('grt_id'=>$vo.grt_id))}">点击查看详情</a></span></if>
+                            <if condition="$vo.auditstate eq 5"><span style="float:right;">保证金审核失败，<a href="{:U('Guarantee/apply_pay',array('grt_id'=>$vo.grt_id))}">重新提交</a></span></if>                                                                                                                                                                                                                 </div>
+                        <div style="text-align: left;">
+                          <if condition="($vo.joinstate eq 0) OR ($vo.auditstate eq 2)">
+                          	<a title="加入" class="ncbtn ncbtn-mint" nc_type="applybtn" data-type="1" data-id="{$vo.grt_id}">加入</a>
+                          </if>
+                          <if condition="$vo.joinstate eq 1">
+                             <span style="color:#5bb75b;">申请进行中</span>
+                          </if>
+                          <if condition="$vo.joinstate eq 2">
+                          	<span>已加入</span>
+                          </if>
+                          <a href="{:U('Guarantee/detail',array('grt_id'=>$vo.grt_id))}" style="margin-left: 30px;">查看服务详情</a>
+                          <if condition="($vo.joinstate eq 2) AND ($vo.quitstate neq 1)">
+                           |&nbsp;<a nc_type="applybtn"  href="javascript:void(0);" data-type="0" data-id="{$vo.grt_id}">退出</a>
+                           </if>
+                         </div>
+                    </div>
+                </div>
+                <div style="width: 100%;">
+                    <div style="min-height: 60px; margin-right: 20px; padding: 10px; color: #9c9c9c; border: 1px solid #f5f5f5;">
+                        	{$vo.grt_describe}                                            
+                    </div>
+                </div>
+            </div>
+            </foreach>
+        </div>
+</div>
+<script>
+$(document).ready(function(){
+    $("[nc_type='applybtn']").click(function(){
+        var data_type = $(this).attr('data-type');
+        var data_id = $(this).attr('data-id');
+        $.ajax({
+            type: "POST",
+            url: "{:U('Guarantee/apply')}",
+            data: {'apply_type':data_type,'grt_id':data_id},
+            dataType: "json",
+            error: function () {
+                layer.alert("服务器繁忙, 请联系管理员!");
+            },
+            success: function (data) {
+                if (data.status === 1) {
+                    layer.msg(data.msg, {icon: 1,time: 1000}, function() {
+                    	window.location.reload();
+                    });
+                } else {
+                    layer.msg(data.msg, {icon: 2,time: 1000});
+                }
+            }
+        });
+    });
+});
+</script> 
+    </div>
+  </div>
+  </div>
+<include file="public/foot"/>

@@ -1,0 +1,288 @@
+<include file="public/layout" />
+<script type="text/javascript" src="__PUBLIC__/static/js/perfect-scrollbar.min.js"></script>
+<style>
+.ncm-goods-gift {
+	text-align: left;
+}
+.ncm-goods-gift ul {
+    display: inline-block;
+    font-size: 0;
+    vertical-align: middle;
+}
+.ncm-goods-gift li {
+    display: inline-block;
+    letter-spacing: normal;
+    margin-right: 4px;
+    vertical-align: top;
+    word-spacing: normal;
+}
+.ncm-goods-gift li a {
+    background-color: #fff;
+    display: table-cell;
+    height: 30px;
+    line-height: 0;
+    overflow: hidden;
+    text-align: center;
+    vertical-align: middle;
+    width: 30px;
+}
+.ncm-goods-gift li a img {
+    max-height: 30px;
+    max-width: 30px;
+}
+
+.ncap-order-style .ncap-order-details{
+	margin:20px auto;
+}
+</style>
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title"><a class="back" href="javascript:history.back(-1)" title="返回列表"><i class="fa fa-arrow-circle-o-left"></i></a>
+      <div class="subject">
+        <h3>商品订单</h3>
+        <h5>商城实物商品交易订单查询及管理</h5>
+      </div>
+      <div class="subject" style="width:62%">
+      		<a href="{:U('Order/order_print',array('order_id'=>$order['order_id']))}" class="ncap-btn-big ncap-btn-green" ><i class="fa fa-print"></i>打印订单</a>
+      </div>
+    </div>
+     
+    
+  </div>
+  <div class="ncap-order-style">
+    <div class="titile">
+      <h3></h3>
+    </div>
+
+
+    <div class="ncap-order-details">
+      
+      <div class="tabs-panels">
+          <div class="misc-info">
+              <h3>基本信息</h3>
+              <dl>
+                  <dt>订单 ID：</dt>
+                  <dd>{$order.order_id}</dd>
+                  <dt>订单号：</dt>
+                  <dd>{$order.order_sn}</dd>
+                  <dt>会员：</dt>
+                  <dd>{$users[$order['user_id']]}  ID:{$order['user_id']}</dd>
+              </dl>
+              <dl>
+                  <dt>E-Mail：</dt>
+                  <dd>{$order.email}</dd>
+                  <dt>电话：</dt>
+                  <dd>{$order.mobile}</dd>
+                  <dt>应付金额：</dt>
+                  <dd>{$order.order_amount}</dd>
+              </dl>
+              <dl>
+                  <dt>订单状态：</dt>
+                  <dd>{$order_status[$order[order_status]]} / {$pay_status[$order[pay_status]]}
+                      <if condition="$order['pay_code'] eq 'cod'"><span style="color: red">(货到付款)</span></if>
+                      / {$shipping_status[$order[shipping_status]]}
+                  </dd>
+                  <dt>下单时间：</dt>
+                  <dd>{$order.add_time|date='Y-m-d H:i',###}</dd>
+                  <dt>支付时间：</dt>
+                  <dd>
+                      <if condition="$order.pay_time neq 0">{$order.pay_time|date='Y-m-d H:i',###}
+                          <else/>
+                          N
+                      </if>
+                  </dd>
+              </dl>
+              <dl>
+                  <dt>支付方式：</dt>
+                  <dd> <if condition="$order[pay_status] eq 1 and empty($order.pay_name)">
+                      在线支付
+                      <else/>
+                      {$order.pay_name}
+                  </if></dd>
+                  <dt>发票抬头：</dt>
+                  <dd>{$order.invoice_title|default='N'}</dd>
+                  <dt>纳税人识别号：</dt>
+                  <dd>{$order.taxpayer|default='N'}</dd>
+              </dl>
+          </div>
+        <div class="addr-note">
+          <h4>收货信息</h4>
+          <dl>
+            <dt>收货人：</dt>
+            <dd>{$order.consignee}</dd>
+            <dt>联系方式：</dt>
+            <dd>{$order.mobile}</dd>
+          </dl>
+          <dl>
+            <dt>收货地址：</dt>
+            <dd>{$order.address2}</dd>
+          </dl>
+          <dl>
+            <dt>邮编：</dt>
+            <dd><if condition="$order.zipcode neq ''"> {$order.zipcode}<else/>N</if></dd>
+          </dl>
+          <dl>
+              <dt>配送方式：</dt>
+              <if condition="$order['shop_id'] neq 0">
+                  <dd>自提</dd>
+                  <else />
+                  <foreach name="express" item="v">
+                      <dd>{$v.shipping_name} -- {$v.invoice_no}</dd>
+                  </foreach>
+              </if>
+
+          	</dl>
+        </div>
+          <if condition="$order['shipping_status'] eq 1">
+              <foreach name="express" item="v">
+                  <div class="goods-info">
+                      <h4>物流信息</h4>
+                      <table id="express_info">
+                          <thead>
+                          <tr>
+                              <th>操作时间</th>
+                              <th>状态</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+
+                      </table>
+                  </div>
+                  <script>
+                      $(function(){
+                          var shipping_code = "{$v['shipping_code']}";
+                          var invoice_no = "{$v['invoice_no']}";
+                          $.ajax({
+                              type : "GET",
+                              dataType: "json",
+                              url:"/index.php?m=Home&c=Api&a=queryExpress&shipping_code="+shipping_code+"&invoice_no="+invoice_no,//+tab,
+                              success: function(data){
+                                  var html = '';
+                                  if(typeof(data.data) != 'undefined' && data.data.length > 0 ){
+                                      $.each(data.data, function(i,n){
+                                          if(i == 0){
+                                              html += '<tr><td class="text-center">'+n.time+'</td><td class="text-center">'+n.context+'</td></tr>'
+                                          }else{
+
+                                              html += '<tr><td class="text-center">'+n.time+'</td><td class="text-center">'+n.context+'</td></tr>'
+                                          }
+                                      });
+                                  }else{
+                                      //快递鸟
+                                      if(typeof(data.Traces) != 'undefined' && data.Traces.length>0){
+                                          $.each(data.Traces, function(i,o){
+                                              html += '<tr><td class="text-center">'+o.AcceptTime+'</td><td class="text-center">'+o.AcceptStation+'</td></tr>'
+                                          });
+                                      }else{
+                                          html += "<tr><td class='text-center'>"+data.message+"</td></tr>"
+                                      }
+
+                                  }
+                                  $("#express_info").append(html);
+                              }
+                          });
+                      })
+                  </script>
+              </foreach>
+          </if>
+        <div class="contact-info">
+          <h3>费用信息</h3>
+          <dl>
+            <dt>小计：</dt>
+            <dd>{$order.goods_price}</dd>
+            <dt>运费：</dt>
+            <dd>+{$order.shipping_price}</dd>
+            <dt>积分 (-{$order.integral})：</dt>
+            <dd>-{$order.integral_money}</dd>
+          </dl>
+          <dl>
+            <dt>余额抵扣：</dt>
+            <dd>-{$order.user_money}</dd>
+            <dt>优惠券抵扣：</dt>
+            <dd>-{$order.coupon_price}</dd>
+            <dt>价格调整：</dt>
+            <dd>{$order.discount}</dd>
+          </dl>
+          <dl>
+            <dt>订单优惠：</dt>
+            <dd>-{$order.order_prom_amount}</dd>
+            <dt>应付：</dt>
+            <dd>{$order.order_amount}</dd>
+           </dl>
+        </div>
+
+        <div class="goods-info">
+          <h4>商品信息</h4>
+          <table>
+            <thead>
+              <tr>
+                <th >商品编号</th>
+                <th colspan="2">商品</th>
+                <th>规格属性</th>
+                <th>数量</th>
+                <th>单品价格</th>
+                <th>会员折扣价</th>
+                <th>单品小计</th>
+              </tr>
+            </thead>
+            <tbody>
+            <volist name="orderGoods" id="good">
+           	<tr>
+                <td class="w60">{$good.goods_sn}</td>
+                <td class="w30"><div class="goods-thumb"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$good['goods_id']))}" target="_blank"><img alt="" src="{$good['goods_id']|goods_thum_images=200,200,$good.item_id}" /> </a></div></td>
+                <td style="text-align: left;"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$good['goods_id']))}" target="_blank">{$good.goods_name}</a><br/></td>
+                <td class="w80">{$good.spec_key_name}</td>
+                <td class="w60">{$good.goods_num}</td>
+                <td class="w100">{$good.goods_price}</td>
+                <td class="w60">{$good.member_goods_price}</td>
+                <td class="w80">{$good.goods_total}</td>
+              </tr>
+              </volist>
+          </table>
+        </div>
+        <div class="total-amount contact-info">
+          <h3>订单总额：<strong class="red_common">￥{$order.goods_price}</strong></h3>
+        </div>
+        <div class="goods-info">
+          <h4>操作记录</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>操作者</th>
+                <th>操作时间</th>
+                <th>订单状态</th>
+                <th>付款状态</th>
+                <th>发货状态</th>
+                <th>描述</th>
+                <th>备注</th>
+              </tr>
+            </thead>
+            <tbody>
+            <volist name="action_log" id="log">
+	           	<tr>
+                    <if condition="$log[user_type] eq 2">
+	                    <td class="text-center">用户({$users[$log[action_user]]})</td>
+                    <elseif condition="$log[user_type] eq 1"/>
+                        <td class="text-center">商家({$sellers[$log[action_user]]})</td>
+                    <else/>
+                        <td class="text-center">平台管理员</td>
+                    </if>
+	                 <td class="text-center">{$log.log_time|date='Y-m-d H:i:s',###}</td>
+	                 <td class="text-center">{$order_status[$log[order_status]]}</td>
+	                 <td class="text-center">{$pay_status[$log[pay_status]]}<if condition="$order['pay_code'] eq 'code'"><span style="color: red">(货到付款)</span></if></td>
+	                 <td class="text-center">{$shipping_status[$log[shipping_status]]}</td>
+	                 <td class="text-center">{$log.status_desc}<if condition='$order[shop_id] neq 0 and $order[pay_status] eq 1'>/{$log[shipping_status]==1?'已自提':'待自提'}</if></td>
+	                 <td class="text-center">{$log.action_note}</td>
+	             </tr>
+              </volist>
+          </table>
+        </div>
+      </div>
+  	</div>
+  </div>
+</div>
+<script type="text/javascript">
+     
+</script>
+</body>
+</html>

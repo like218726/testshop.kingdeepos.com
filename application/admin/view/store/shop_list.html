@@ -1,0 +1,191 @@
+<include file="public/layout" />
+<script type="text/javascript" src="__PUBLIC__/static/js/perfect-scrollbar.min.js"></script>
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+<div class="page">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>店铺管理</h3>
+                <h5>网站系统店铺索引与管理</h5>
+            </div>
+            <ul class="tab-base nc-row">
+                <li><a href="{:U('Store/shop_list')}" class="current"><span>门店列表</span></a></li>
+                <li><a href="{:U('Store/shop_order')}"><span>门店订单</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 100%;">
+        <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+        </div>
+        <ul>
+            <!--<li>如果当前时间超过店铺有效期或店铺处于关闭状态，前台将不能继续浏览该店铺，但是店主仍然可以编辑该店铺</li>-->
+            <li>总平台查看店铺门店列表</li>
+        </ul>
+    </div>
+    <div class="flexigrid">
+        <div class="mDiv">
+            <div class="ftitle">
+                <h3>门店列表</h3>
+                <h5>(共{$pager->totalRows}条记录)</h5>
+            </div>
+            <div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div>
+            <form class="navbar-form form-inline" id="search-form" action="{:U('Store/shop_list')}" method="get">
+                <div class="sDiv">
+                    <div class="sDiv2" style="margin-right: 10px;border: none;">
+                        <select class="w150 w160" name="province_id" id="province_id" onchange="get_city(this)">
+                            <option value="">所有省</option>
+                            <volist name="province_list" id="province" >
+                                <option value="{$province['id']}" <if condition="$Request.param.province_id eq $province['id']">selected</if>> {$province['name']}</option>
+                            </volist>
+                        </select>
+                    </div>
+                    <div class="sDiv2" style="margin-right: 10px;border: none;">
+                        <select class="w150 w160" name="city_id" id="city" onchange="get_area(this)">
+                            <option value="">所有市</option>
+                            <volist name="city_list" id="city">
+                                <option value="{$city['id']}" <if condition="$Request.param.city_id eq $city['id']">selected</if>>{$city['name']}</option>
+                            </volist>
+                        </select>
+                    </div>
+                    <div class="sDiv2" style="margin-right: 10px;border: none;">
+                        <select class="w150 w160 di-in" name="district_id" id="district">
+                            <option value="">所有区/镇</option>
+                            <volist name="district_list" id="district">
+                                <option value="{$district['id']}" <if condition="$Request.param.district_id eq $district['id']">selected</if>>{$district['name']}</option>
+                            </volist>
+                        </select>
+                    </div>
+                    <div class="sDiv2" style="margin-right: 10px;">
+                        <input size="30" name="shop_name" value="{$Request.param.shop_name}" placeholder="自提点名称" class="qsbox" type="text">
+                    </div>
+                    <div class="sDiv2">
+                        <input class="btn" value="搜索" type="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="hDiv">
+            <div class="hDivBox">
+                <table cellspacing="0" cellpadding="0">
+                    <thead>
+                    <tr>
+                        <th class="sign" axis="col0">
+                            <div style="width: 24px;"><i class="ico-check"></i></div>
+                        </th>
+                        <th align="left" abbr="article_title" axis="col3" class="">
+                            <div style="text-align: center; width: 50px;" class="">门店编号</div>
+                        </th>
+                        <th align="left" abbr="article_title" axis="col3" class="">
+                            <div style="text-align: left; width: 120px;" class="">门店名称</div>
+                        </th>
+                        <th align="left" abbr="ac_id" axis="col4" class="">
+                            <div style="text-align: left; width: 120px;" class="">省份</div>
+                        </th>
+                        <th align="left" abbr="article_show" axis="col5" class="">
+                            <div style="text-align: center; width: 120px;" class="">城市</div>
+                        </th>
+                        <th align="center" abbr="article_time" axis="col6" class="">
+                            <div style="text-align: center; width: 80px;" class="">地区</div>
+                        </th>
+                        <th align="center" abbr="article_time" axis="col6" class="">
+                            <div style="text-align: center; width: 100px;" class="">自提点名称</div>
+                        </th>
+                        <th align="center" abbr="article_time" axis="col6" class="">
+                            <div style="text-align: center; width: 100px;" class="">自提点地址</div>
+                        </th>
+                        <th align="center" abbr="article_time" axis="col6" class="">
+                            <div style="text-align: center; width: 100px;" class="">联系电话</div>
+                        </th>
+                        <th align="center" abbr="article_time" axis="col6" class="">
+                            <div style="text-align: center; width: 50px;" class="">供应商</div>
+                        </th>
+                        <th align="center" axis="col1" class="">
+                            <div style="text-align: center; width: 270px;">操作</div>
+                        </th>
+                        <th style="width:100%" axis="col7">
+                            <div></div>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="bDiv" style="height: auto;">
+            <div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+                <table>
+                    <tbody>
+                    <foreach name="list" item="vo" key="k" >
+                        <tr>
+                            <td class="sign">
+                                <div style="width: 24px;"><i class="ico-check"></i></div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: center; width:50px;">{$vo.shop_id}</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 120px;">{$vo.shopper_name}</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 120px;">{$vo['area_list'][0]['name']}</div>
+                            </td>
+                            <td align="left" class="">
+                                <div style="text-align: left; width: 120px;">{$vo['area_list'][1]['name']}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 80px;">{$vo['area_list'][2]['name']}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">{$vo.shop_name}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">{$vo.shop_address}</div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 100px;">
+                                    {$vo['shop_phone_code']}{$vo['shop_phone']}
+                                </div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 50px;">
+                                    {$vo['suppliers']['suppliers_name']|default='--'}
+                                </div>
+                            </td>
+                            <td align="center" class="">
+                                <div style="text-align: center; width: 270px;">
+                                    <a href="{:U('Store/shop_info',array('shop_id'=>$vo['shop_id']))}" class="btn blue"><i class="fa fa-search"></i>查看</a>
+                                </div>
+                            </td>
+                            <td align="" class="" style="width: 100%;">
+                                <div>&nbsp;</div>
+                            </td>
+                        </tr>
+                    </foreach>
+                    </tbody>
+                </table>
+            </div>
+            <div class="iDiv" style="display: none;"></div>
+        </div>
+        <!--分页位置-->
+        {$page} </div>
+</div>
+<script>
+    $(document).ready(function(){
+        // 表格行点击选中切换
+        $('#flexigrid > table>tbody >tr').click(function(){
+            $(this).toggleClass('trSelected');
+        });
+
+        // 点击刷新数据
+        $('.fa-refresh').click(function(){
+            location.href = location.href;
+        });
+
+    });
+</script>
+</body>
+</html>

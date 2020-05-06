@@ -1,0 +1,266 @@
+<include file="public/header" title="团购" body="g4"/>
+<include file="public/header_nav" title="团购" href="javascript:history.back(-1)"/>
+<style>
+    body{
+        padding-top: 1.87733rem;
+    }
+    .classreturn {
+        position: fixed;
+        top: 0;
+    }
+    .guesslike ul li {
+        width: 15.146rem !important;
+        height: 5.333rem !important;
+        margin-top: 0;
+        margin-bottom: 0.427rem;
+    }
+    .guesslike ul li .similer-product{
+        height: 5.333rem !important;
+    }
+    .similer-product .contentt {
+        display: inline-block;
+        position: absolute;
+        left: 5.3rem;
+        height: 5.33rem;
+    }
+
+    .sg_g_time.last_g_time {
+        border: .03rem solid #FF3030;
+        font-size: .47rem;
+        color: #ff3b3b;
+        display: inline-block;
+        height: 1rem;
+        line-height: 1rem;
+        position: absolute;
+        bottom: 1.55rem;
+        left: .512rem;
+        padding-left: 1.7rem;
+        padding-right: .213rem;
+        box-sizing:border-box;
+        -moz-box-sizing:border-box; /* Firefox */
+        -webkit-box-sizing:border-box; /* Safari */
+    }
+
+    .similar-product-price {
+        position: absolute !important;
+        bottom: .427rem;
+        left: .427rem;
+    }
+
+    .sg_g_time.last_g_time .a {
+        display: inline-block;
+        height: .97rem;
+        position: absolute;
+        top: 0;
+        left: -.03rem;
+        background: #FF3030;
+        color: #fff;
+        font-size: .55rem;
+        padding: 0 .213rem;
+        margin-right: .213rem;
+    }
+    .mian_h2{
+        width: 9.8rem;
+        padding-right: 1.8rem;
+    }
+</style>
+<!--倒计时-->
+<script>
+    var Tday = new Array();
+    var daysms = 24 * 60 * 60 * 1000
+    var hoursms = 60 * 60 * 1000
+    var Secondms = 60 * 1000
+    var microsecond = 1000
+    var DifferHour = -1
+    var DifferMinute = -1
+    var DifferSecond = -1
+    function clock11(key) {
+        var time = new Date()
+        var hour = time.getHours()
+        var minute = time.getMinutes()
+        var second = time.getSeconds()
+        var timevalue = "" + ((hour > 12) ? hour - 12 : hour)
+        timevalue += ((minute < 10) ? ":0" : ":") + minute
+        timevalue += ((second < 10) ? ":0" : ":") + second
+        timevalue += ((hour > 12 ) ? " PM" : " AM")
+        var convertHour = DifferHour
+        var convertMinute = DifferMinute
+        var convertSecond = DifferSecond
+        var Diffms = Tday[key].getTime() - time.getTime()
+        DifferHour = Math.floor(Diffms / daysms)
+        Diffms -= DifferHour * daysms
+        DifferMinute = Math.floor(Diffms / hoursms)
+        Diffms -= DifferMinute * hoursms
+        DifferSecond = Math.floor(Diffms / Secondms)
+        Diffms -= DifferSecond * Secondms
+        var dSecs = Math.floor(Diffms / microsecond)
+
+        if (convertHour != DifferHour) e = "<span class=hour>" + DifferHour + "</span>天";
+        if (convertMinute != DifferMinute) f = "<span class=min>" + DifferMinute + "</span>时";
+        if (convertSecond != DifferSecond) g = "<span class=sec>" + DifferSecond + "</span>分";
+        h = "<span class=msec>" + dSecs + "</span>秒";
+        if (DifferHour > 0) {
+            e = e
+        }
+        else {
+            e = ''
+        }
+        document.getElementById("jstimerBox" + key).innerHTML = '<span class="a">剩余</span>' + e + f + g + h;
+    }
+</script>
+<nav class="storenav grst p">
+    <ul>
+        <li
+        <if condition="$Request.param.type eq ''">class='red'</if>
+        >
+        <a href="{:U('Mobile/Activity/group_list')}">
+            <span>默认</span>
+        </a>
+        </li>
+        <li
+        <if condition="$Request.param.type eq 'new'">class='red'</if>
+        >
+        <a href="{:U('Mobile/Activity/group_list',array('type'=>'new'))}">
+            <span>最新</span>
+            <i></i>
+        </a>
+        </li>
+        <li
+        <if condition="$Request.param.type eq 'comment'">class='red'</if>
+        >
+        <a href="{:U('Mobile/Activity/group_list',array('type'=>'comment'))}">
+            <span>评论数</span>
+            <i></i>
+        </a>
+        </li>
+    </ul>
+</nav>
+
+<!--广告图片-s-->
+<div class="banner">
+    <adv pid="204" limt="1" item="v1">
+        <a href="{$v.ad_link}">
+            <img src="{$v1[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
+        </a>
+    </adv>
+</div>
+<!--中间广告图（2张）-s-->
+<div class="gg2">
+    <ul>
+        <adv pid="205" limt="1" item="v">
+            <li>
+                <a href="{$v.ad_link}">
+                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
+                </a>
+            </li>
+        </adv>
+        <adv pid="206" limt="1" item="v">
+            <li>
+                <a href="{$v.ad_link}">
+                    <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
+                </a>
+            </li>
+        </adv>
+    </ul>
+</div>
+<!--中间广告图（2张）-e-->
+
+<!--底部广告图-s-->
+<div class="banner borltrt">
+    <adv pid="207" limit="1" item="v">
+        <a href="{$v.ad_link}">
+            <img class="bor" src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
+        </a>
+    </adv>
+</div>
+<div class="th3 p">
+    <ul>
+        <!--广告小图（3张）-s-->
+        <adv limit="3" item="v" pid="208">
+            <li>
+                <a href="{$v.ad_link}">
+                    <div class="around">
+                        <img src="{$v[ad_code]}" title="{$v[title]}" style="{$v[style]}"/>
+                    </div>
+                </a>
+            </li>
+        </adv>
+        <!--广告小图（3张）-e-->
+    </ul>
+</div>
+<!--底部广告图-e-->
+<!--广告图片-e-->
+
+<!--底部商品列表-s-->
+<div class="floor guesslike groupquess dic">
+    <div class="likeshop">
+        <ul>
+            <volist name="list" id="group">
+                <li>
+                    <a href="{:U('Goods/goodsInfo',array('id'=>$group[goods_id],'item_id'=>$group['groupBuyGoodsItem'][0][item_id]))}">
+                        <div class="similer-product">
+                            <div class="zjj close">
+                                <img src="{$group.goods_id|goods_thum_images=200,200,$group.item_id}">
+
+                                <div class="contentt">
+                                    <span class="mian_h2 mian_hidde">{$group[goods_name]}</span>
+                                    <span class="sg_g_time last_g_time" id="jstimerBox{$group[goods_id]}"></span>
+                                    <span class="cy"><i>{$group['groupBuyGoodsItem'][0][virtual_num] +
+                                        $group['groupBuyGoodsItem'][0][order_num]}</i>人参与</span>
+                                             <span class="similar-product-price">
+                                                ¥
+                                            <span class="big-price">{$group['groupBuyGoodsItem'][0][price]}</span>
+                                        </span>
+                                </div>
+                                <div class="sale onsale">
+                                    <p>{$group['groupBuyGoodsItem'][0][rebate]}折</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+
+                <script>
+                    Tday['{$group[goods_id]}'] = new Date('{$group.end_time|date="Y/m/d H:i:s",###}');
+                    window.setInterval(function () {
+                        clock11('{$group[goods_id]}');
+                    }, 1000);
+                </script>
+            </volist>
+        </ul>
+    </div>
+</div>
+<!--底部商品列表-e-->
+
+<!--底部导航-start-->
+<include file="public/footer_nav"/>
+<!--底部导航-end-->
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+    //倒计时
+    function goTop() {
+        $('html,body').animate({'scrollTop': 0}, 600);
+    }
+
+    //加载更多商品
+    var page = 1;
+    function ajax_sourch_submit() {
+        ++page;
+        $.ajax({
+            type: 'GET',
+            url: "/index.php?m=Mobile&c=Activity&is_ajax=1&a=group_list&p=" + page,
+            success: function (data) {
+                if (data) {
+                    $(".likeshop>ul").append(data);
+                    $('.get_more').hide();
+                } else {
+                    $('.get_more').hide();
+                    $('#getmore').remove();
+                }
+            }
+        })
+    }
+</script>
+</body>
+</html>

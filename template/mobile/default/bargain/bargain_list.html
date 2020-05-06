@@ -1,0 +1,96 @@
+<include file="public/header" title="{$tpshop_config['shop_info_store_name']}砍价" body="g4"/>
+<include file="public/header_nav" title="{$tpshop_config['shop_info_store_name']}砍价" href="javascript:history.back(-1);"/>
+<div class="bargain-banner">
+    <img src="__STATIC__/images/kj-banner.png" alt="">
+</div>
+<div class="bargain-tab">
+    <ul>
+        <li data-type="0" style="width: 33%" onclick="ajax_sourch_submit(this,1)">综合推荐</li>
+        <!--<li data-type="1" onclick="ajax_sourch_submit(this,1)">精品排行</li>-->
+        <li data-type="2" style="width: 33%"  onclick="ajax_sourch_submit(this,1)">价格</li>
+        <li data-type="3" style="width: 33%"  onclick="ajax_sourch_submit(this,1)">热销榜</li>
+    </ul>
+    <div class="bt-tool" style="width: 2.3rem"></div>
+</div>
+<div class="pro-list">
+    <ul id="page">
+
+    </ul>
+</div>
+<div class="bargain-accounts">
+    <span class="gradient"><a href="" style="display: block;color: #fff">砍价商品列表</a></span>
+    <span><a href="{:U('Bargain/order_list')}" style="display: block;">我的砍价</a></span>
+</div>
+<script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $('.bargain-tab').on('click','li',function () {
+        $(this).css('color','#FF0000').siblings().css('color','#666666').parent().next().css('left',$(this).index()*$(this).width())
+    })
+    $('.bargain-accounts').on('click','span',function () {
+        $('.bargain-accounts').find('a').css('color','#333333');
+        $(this).addClass('gradient').css('color','#ffffff').siblings().removeClass().css('color','#333333');
+    })
+
+
+    var  page = 1;
+    var ajax_status = 1;
+    type = 0;
+    ajax_sourch_submit(-1,1);
+    /**
+     *加载更多
+     */
+    function ajax_sourch_submit(obj,num)
+    {
+        if($(obj).data('type') > -1){
+            type = $(obj).data('type');
+        }
+        page += 1;
+        if(num == 1){
+            page=1;
+            ajax_status =1;
+        }
+        if(ajax_status == 0){
+            return ;
+        }
+        ajax_status =0;
+
+        $.ajax({
+            type : "POST",
+            dataType:'JSON',
+            url:"/index.php?m=mobile&c=Bargain&a=bargain_list&type="+type+"&is_ajax=1&p="+page,//+tab,
+            success: function(data)
+            {
+                console.log(data);
+                if(data.status == 1) {
+                    if(data.result.length >0){
+                        ajax_status = 1;
+                        var html = '';
+                        $.each(data.result,function (i,o) {
+                            html +='<li><div class="pl-left"><a href="javascript:;"><img src="'+o.original_img+'"/></a></div><div class="pl-right">' +
+                                '<p class="pr-title">'+o.goods_name+'</p><div class="pr-price"><p>最低可砍至 <i>¥'+o.end_price+'</i></p><span>原价 ¥'+o.shop_price+'</span>' +
+                                '<span>剩余 '+o.remain_num+'件</span></div><span class="pr-btn">';
+                            if(o.bargain_first.id){
+                                html +='<a href="/index.php/Mobile/Bargain/index/id/'+o.bargain_first.id+'" style="color: #fff">砍价中</a>';
+                            }else{
+                                html +='<a href="/index.php/Mobile/Goods/goodsInfo/id/'+o.goods_id+'" style="color: #fff">去砍价</a>';
+                            }
+                            html +='</span></div></li>';
+                        });
+                        if(num == 1){
+                            $('#page').html(html);
+                        }else{
+                            $('#page').append(html);
+                        }
+                    }else{
+                        if(num == 1){
+                            $('#page').html('');
+                        }
+                    }
+
+                }else {
+                }
+            }
+        });
+    }
+</script>

@@ -1,0 +1,134 @@
+<include file="public/header" title="重置密码" body=""/>
+<link rel="stylesheet" href="__STATIC__/css/sign_in.css"/>
+<div class="classreturn loginsignup">
+    <div class="content">
+        <div class="ds-in-bl return">
+            <a href="javascript:history.back(-1);"><img src="__STATIC__/images/return.png" alt="返回"></a>
+        </div>
+        <div class="ds-in-bl search center">
+            <span>重置密码</span>
+        </div>
+        <!--<div class="ds-in-bl menu">
+            <a href="javascript:void(0);"><img src="__STATIC__/images/class1.png" alt="菜单"></a>
+        </div>-->
+    </div>
+</div>
+
+<!-- 流程三 -->
+<div class="password_process_all"><img src="__STATIC__/images/sign_in/perwor_3.png" alt=""></div>
+
+<div class="loginsingup-input ma-to-20">
+    <form action="" method="post" onsubmit="return submitverify(this)">
+        <div style="margin-top: 1.28rem;" class="content30">
+            <div class="lsu lsus">
+                <p style="background-position: 0 -0.8533rem;"></p>
+                <input id="new_password" style="padding-right: 0.8rem;" type="password" onBlur="check_password(this.value);" name="password" id="password" value="" placeholder="请输入密码"/>
+                <i class="eye" style="right:0.2rem;"></i>
+            </div>
+            <notempty name="first_login">
+                <div class="lsu lsus">
+                    <p style="background-position: 0 -0.8533rem;"></p>
+                    <input id="confirm_password" name="password2" style="padding-right: 0.8rem;" type="password" onBlur="check_password(this.value);" name="password" id="password" value="" placeholder="请再次输入密码"/>
+                    <i class="eye" style="right:0.2rem;"></i>
+                </div>
+            </notempty>
+            <div class="lsu submit retrieve">
+                <input type="submit" id="btn_submit"  value="下一步" />
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    // 密码
+    function check_password(password) {
+        var password = $.trim(password);
+        if(password == ''){
+            $('#password').after(after_msg('* 登录密码不能包含空格'))
+            $('#password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#password').addClass('asd_color')
+            // showErrorMsg("*登录密码不能包含空格");
+           flag = false;
+        }else if (password.length < 6) {
+            $('#password').after(after_msg('* 登录密码不能少于 6 个字符。'))
+            $('#password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#password').addClass('asd_color')
+            // showErrorMsg('*登录密码不能少于 6 个字符。');
+           flag = false;
+        }
+    }
+    //切换密码框的状态
+    $(function(){
+        $('.loginsingup-input .lsu i').click(function(){
+            $(this).toggleClass('eye');
+            if ($(this).hasClass('eye')) { 
+                $(this).siblings('input').attr('type','password')
+            } else{
+                $(this).siblings('input').attr('type','text')
+            }
+        });
+    })
+    //验证表单
+    function submitverify(obj){
+        var newpass = $.trim($('#new_password').val());
+        var confirmpass = $.trim($('#confirm_password').val());
+        var nub = 0;
+        if(newpass == ''){
+            $('#new_password').after(after_msg('密码不能为空'))
+            $('#new_password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#new_password').addClass('asd_color')
+            nub = 1;
+        }
+        if(confirmpass == ''){
+            $('#confirm_password').after(after_msg('密码不能为空'))
+            $('#confirm_password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#confirm_password').addClass('asd_color')
+            nub = 1;
+        }
+        if(newpass.length < 6 && newpass !== ''){
+            $('#new_password').after(after_msg('密码长度不能少于6位'))
+            $('#new_password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#new_password').addClass('asd_color')
+            nub = 1;
+        }
+        if(newpass !== confirmpass && confirmpass !== ''){
+            $('#confirm_password').after(after_msg('两次密码不一致'))
+            $('#confirm_password').siblings('.z_tipi_1').eq(0).show().siblings('.z_tipi_1').remove();
+            $('#confirm_password').addClass('asd_color')
+            nub = 1;
+        }
+        if(nub == 1){
+            return false;
+        }
+        $(obj).onsubmit();
+    }
+
+    /**
+     * 提示弹窗
+     */
+    //添加输入框提示
+    function after_msg(msg=''){
+      var p = '<div class="z_tipi_1"><b></b><h1>' + msg + '</h1></div>';
+      return p;
+    }
+    function alter_ab(ele){
+        $('.alter-shoucan-1').show();
+        $('.alter-an').children('.p-1').children('p').text(ele);
+        if(!$('.alter-shoucan-1').is(':hidden')){
+            setTimeout(function(){
+            $('.alter-shoucan-1').fadeOut();
+            },1000);
+        }
+    }
+    //去除输入表格提示
+    $('input').keydown(function(){
+　　　　 $(this).siblings('.z_tipi_1').remove();
+		$(this).removeClass('asd_color');
+　　});
+    $('input').click(function(){
+　　　　 $(this).siblings('.z_tipi_1').remove();
+		$(this).removeClass('asd_color');
+　　});
+</script>
+</body>
+</html>

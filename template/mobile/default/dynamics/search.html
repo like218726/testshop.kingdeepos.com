@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-sacle=1,user-scalable=no">
+    <title>搜索页</title>
+     <link rel="stylesheet" href="__STATIC__/css/base.css">
+     <link rel="stylesheet" href="__STATIC__/css/search.css">    
+     <style>
+         .wrap .back{
+            background: url(__STATIC__/images/back@2x-1.png) no-repeat left center;
+            background-size: 0.29333333rem 0.53333333rem;
+         }
+     </style>
+</head>
+<body>
+<!--头部开始-->
+<header>
+    <div class="wrap">
+        <a href="javascript:history.back(-1);" class="back"></a>
+        <div class="search">
+            <form action="#">
+                <input type="search" placeholder="请输入你想搜索的用户名或动态内容">
+                <input type="button" onclick="search()" value="搜索">
+            </form>
+        </div>
+    </div>
+</header>
+<!--头部结束-->
+<div class="sepatrate"></div>
+
+<include file="public/news_footer"/>
+<script >
+function search(){
+	window.open("{:U('Dynamics/search_list')}"+'?keywords=' + $('input[type=search]').val());
+	window.close();
+}
+</script>
+</body>
+</html>

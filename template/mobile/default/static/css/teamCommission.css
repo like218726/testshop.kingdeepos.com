@@ -1,0 +1,179 @@
+header {
+  height: 1.17333333rem;
+  width: 100%;
+  background-color: #fff;
+}
+header .back {
+  float: left;
+  width: 0.29333333rem;
+  height: 1.17333333rem;
+  background: url("../images/distrbut/back@2x-1.png") no-repeat left center;
+  background-size: contain;
+}
+header .details {
+  float: right;
+  height: 100%;
+  line-height: 1.17333333rem;
+  font-size: 0.34666667rem;
+  color: #333;
+}
+header h1 {
+  padding-left: 1.22666667rem;
+  padding-right: 1.22666667rem;
+  font-size: 0.48rem;
+  color: #333;
+  text-align: center;
+  height: 1.17333333rem;
+  line-height: 1.17333333rem;
+}
+.accumulative {
+  height: 2.3rem;
+  background: #ff3b3b;
+  background-size: cover;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 .427rem;
+}
+.accumulative .presentation{
+  color: #fff;
+  border: .015rem solid #fff;
+  border-radius: 1rem;
+  height: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+}
+.accumulative em {
+  display: block;
+  margin-top: 0.2rem;
+  text-align: center;
+  color: #fff;
+  font-size: 0.64rem;
+}
+.accumulative span {
+  display: block;
+  font-size: 0.47rem;
+  text-align: center;
+  margin-top: 0.06666667rem;
+  color: #fff;
+}
+.commission_list ul {
+  background-color: #fff;
+  margin-bottom: .25rem;
+  padding: 0 .427rem;
+}
+.commission_list ul li {
+  height: 1.41333333rem;
+  border-bottom: .0125rem solid #f3f3f3;
+}
+.other_commission.wrap li{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.other_commission.wrap .need_know{
+  padding-bottom: 0.2rem;
+  font-size: 0.375rem;
+  color: #333;
+  display: none;
+  padding: .2rem 0;
+}
+.other_commission.wrap .need_know span{
+  color: #ff3b3b;
+}
+.commission_list ul li:last-child {
+  border-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.other_commission .index_r {
+  background-image: url(../images/yr.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: .427rem;
+  height: .427rem;
+  display: inline-block;
+  float: right;
+}
+.other_commission .index_r.rotate{
+  transform: rotate(90deg);
+}
+.commission_list ul li .commission_list_title {
+  font-size: 0.375rem;
+  color: #333;
+  float: left;
+  height: 1.41333333rem;
+  line-height: 1.41333333rem;
+  position: relative;
+}
+.commission_list ul li .commission_list_data {
+  color: #666;
+  font-size: 0.375rem;
+  float: right;
+  height: 1.41333333rem;
+  line-height: 1.41333333rem;
+}
+/* .commission_list ul .commission_list_title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 1.41333333rem;
+  width: 0.53333333rem;
+  background: url("../images/distrbut/charge_icon@2x.png") no-repeat center center;
+  background-size: contain;
+}
+.commission_list .using_commission li:nth-child(1) .commission_list_title::before {
+  background-image: url("../images/distrbut/apply_icon@2x.png");
+}
+.commission_list .using_commission li:nth-child(2) .commission_list_title::before {
+  background-image: url("../images/distrbut/circle_icon@2x.png");
+}
+.commission_list .using_commission li:nth-child(3) .commission_list_title::before {
+  background-image: url("../images/distrbut/noavail_icon@2x.png");
+}
+.commission_list .using_commission li:nth-child(4) .commission_list_title::before {
+  background-image: url("../images/distrbut/cash_icon@2x.png");
+}
+.commission_list .other_commission li:nth-child(1) .commission_list_title::before {
+  background-image: url("../images/distrbut/delivery_icon@2x.png");
+} */
+.commission_list .other_commission li:nth-child(2) .commission_list_title::before {
+  background-image: url("../images/distrbut/wind_icon@2x.png");
+}
+.using_commission.wrap,.withdrawable.wrap{
+  padding: 0 .427rem;
+}
+.apply_cash {
+  padding-top: 0.48rem;
+  height: 5.06666667rem;
+}
+.apply_cash .wrap{
+  padding: 0 .64rem;
+}
+.apply_cash .wrap a{
+  border-radius: 2rem;
+}
+.apply_cash p {
+  color: #666;
+  font-size: 0.32rem;
+}
+.apply_cash p span {
+  color: #ff3b3b;
+}
+.apply_cash a {
+  display: block;
+  height: 1.06666667rem;
+  width: 100%;
+  border-radius: .125rem;
+  background-color: #ff3b3b;
+  color: #fff;
+  font-size: 0.45rem;
+  line-height: 1.06666667rem;
+  text-align: center;
+}
+/*# sourceMappingURL=teamCommission.css.map */

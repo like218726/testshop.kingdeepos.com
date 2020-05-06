@@ -1,0 +1,24 @@
+2020-04-29 16:44:13--普通注册-获取缓存-上级是--{"openid":"oZ8h85Tyad7wSoyjyuBQgCVhFleI","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-04-29 16:44:13--普通注册--{"mobile_validated":1,"mobile":"18577332425","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/MrShFJklLjibOuNsh6YxGib62uO0b941heqRelvljVAyhkj3DGJS5AjbNaaicu7NNicT8MaIpw8nQOe1mQWnylH8DQ\/132","password":"eb9c4287277ca89ccc14aabc4bad6eaa","reg_time":1588149853,"first_leader":0,"is_entry":1,"is_store_member":0,"is_distribut":1,"push_id":0,"token":"f2567a378f13bc19a951ddd40bfe71b8","last_login":1588149853,"discount":1}
+
+2020-04-29 16:44:13--普通注册结果--"2"
+
+2020-04-30 13:49:28--普通注册-获取缓存-上级是--null
+
+2020-04-30 13:49:28--普通注册--{"mobile_validated":1,"mobile":"18620888755","nickname":"18620888755","head_pic":"\/public\/images\/icon_goods_thumb_empty_300.png","password":"51d7b325ea4b6024747e7ec24560a8d9","reg_time":1588225768,"first_leader":0,"is_store_member":0,"is_distribut":1,"push_id":0,"token":"5bf44c26bd50dc77bb0d082baffa6398","last_login":1588225768,"discount":1}
+
+2020-04-30 13:49:28--普通注册结果--"3"
+
+2020-04-30 13:49:59--普通注册-获取缓存-上级是--null
+
+2020-04-30 13:49:59--普通注册--{"email_validated":1,"email":"like218726@vip.qq.com","nickname":"like218726@vip.qq.com","head_pic":"\/public\/images\/icon_goods_thumb_empty_300.png","password":"51d7b325ea4b6024747e7ec24560a8d9","reg_time":1588225799,"first_leader":0,"is_store_member":0,"is_distribut":1,"push_id":0,"token":"bc5876ba50d133203e3ac7802afa3e67","last_login":1588225799,"discount":1}
+
+2020-04-30 13:49:59--普通注册结果--"4"
+
+2020-05-02 16:34:17--普通注册-获取缓存-上级是--{"openid":"oY4R55O0x4HQUnSw8UY_9DtR5F1I","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","unionid":null,"push_id":"","sex":"1","oauth":"miniapp","versionCode":"2.0.0","first_leader":""}
+
+2020-05-02 16:34:17--普通注册--{"mobile_validated":1,"mobile":"17722531507","nickname":"Vylan","head_pic":"https:\/\/wx.qlogo.cn\/mmopen\/vi_32\/ocflrdAQh3OtkrjrJK3QzCBfhk2WWnssmjy0HusDibt6xIamOOlKBHBIJ9N2PxShzQG947a1c1XsG1njKAaK45A\/132","password":"519475228fe35ad067744465c42a19b2","reg_time":1588408457,"first_leader":0,"is_entry":1,"is_store_member":0,"is_distribut":1,"push_id":0,"token":"565caa4f71b2169a82d8637631abde56","last_login":1588408457,"discount":1}
+
+2020-05-02 16:34:17--普通注册结果--"8"
+

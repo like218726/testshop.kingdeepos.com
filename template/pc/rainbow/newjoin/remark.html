@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>商家入驻</title>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/tpshop.css"/>
+    <script src="__STATIC__/js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__PUBLIC__/js/layer/layer-min.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/pc_common.js"></script>
+    <link href="__STATIC__/css/qt_style.css" rel="stylesheet" type="text/css"/>
+    <link href="__STATIC__/css/join.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut  icon" type="image/x-icon"
+          href="{$tpshop_config.shop_info_store_ico|default='/public/static/images/logo/storeico_default.png'}"
+          media="screen"/>
+    <link href="__STATIC__/css/remark.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<include file="public/sign-header"/>
+<div class="main-header show-center-1224 clearfix">
+    <div class="header-l clearfix">
+        <a class="logo" href="/"><img
+                src="{$tpshop_config['shop_info_store_logo']|default='__PUBLIC__/static/images/logo/pc_home_logo_default.png'}"
+                alt=""/></a>
+
+        <p class="des">商家入驻</p>
+    </div>
+    <ul class="header-r children-a-100 clearfix">
+        <li class="active"><a href="{:U('Newjoin/index')}">入驻首页</a></li>
+        <tpshop sql="select * from `__PREFIX__help` where type_id = 2 and is_show=1" key="k2" item='v2'>
+            <li><a href="{:U('Article/helpInfo',array('help_id'=>$v2['help_id']))}">{$v2.help_title}</a></li>
+        </tpshop>
+    </ul>
+</div>
+
+<div class="gome-layout-area pb50 clearfix">
+    <ul class="steps clearfix">
+        <li class="first prev ok"><a href="{:U('newjoin/agreement')}"><b>1</b><span class="going"></span><em class="f">入驻须知</em></a></li>
+        <li class="prev ok"><a href="{:U('newjoin/basic_info',['apply_type'=>0])}"><b>2</b><span class="going"></span><em class="f">填写公司信息</em></a></li>
+        <li class="prev ok"><a href="{:U('newjoin/seller_info')}"><b>3</b><span class="going"></span><em class="f">填写店铺信息</em></a></li>
+        <li class="cur ok"><b>4</b><span class="going"></span><em class="f">资质上传</em></li>
+        <li class="last"><b>5</b><em class="f">等待审核</em></li>
+    </ul>
+    <form id="remark_info" action="" method="post" enctype="multipart/form-data">
+        <div class="radiobox">
+            <label><input name="is_three" type="radio" value="1" <if condition="!empty($apply['is_three'])">checked</if>/>三证合一 </label>
+            <label><input name="is_three" type="radio" value="0" <if condition="empty($apply['is_three'])">checked</if>/>非三证合一 </label>
+        </div>
+        <div class="formbox">
+            <h5>基本资质</h5>
+
+            <div class="line">
+                <div class="left">企业营业执照：</div>
+                <div class="right">
+                    <div class="upbox " data-id="id_business_licence_cert">
+                        <div class="icon img_business_licence_cert">
+                            <if condition="!empty($apply['business_licence_cert'])"><img src="{$apply['business_licence_cert']}"></if>
+                        </div>
+                        <div class="word">
+                            上传照片
+                        </div>
+
+                    </div>
+                    <p class="note">
+                        1，必须上传jpg或者png格式的图片，ip不能超过4m
+                    </p>
+
+                    <p class="note">
+                        2，请上传清晰完整无遮挡的营业执照
+                    </p>
+
+                    <p class="note">
+                        3，要求原件红章清晰，如为复印则加盖公司章，可参考范笨图片：<span>查看范本</span>
+                    </p>
+                </div>
+            </div>
+            <div class="line noThree">
+                <div class="left">税务机构证：</div>
+                <div class="right">
+                    <div class="upbox" data-id="id_taxpayer_cert">
+                        <div class="icon img_taxpayer_cert">
+                            <if condition="!empty($apply['taxpayer_cert'])"><img src="{$apply['taxpayer_cert']}"></if>
+                        </div>
+                        <div class="word">
+                            上传照片
+                        </div>
+                    </div>
+                    <p class="note">
+                        1，必须上传jpg或者png格式的图片，ip不能超过4m
+                    </p>
+
+                    <p class="note">
+                        2，请上传清晰完整无遮挡的营业执照
+                    </p>
+
+                    <p class="note">
+                        3，要求原件红章清晰，如为复印则加盖公司章，可参考范笨图片：<span>查看范本</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="line noThree">
+                <div class="left">组织机构代码证：</div>
+                <div class="right">
+                    <div class="upbox" data-id="id_orgnization_cert">
+                        <div class="icon img_orgnization_cert">
+                            <if condition="!empty($apply['orgnization_cert'])"><img src="{$apply['orgnization_cert']}"></if>
+                        </div>
+                        <div class="word">
+                            上传照片
+                        </div>
+
+                    </div>
+                    <p class="note">
+                        1，必须上传jpg或者png格式的图片，ip不能超过4m
+                    </p>
+
+                    <p class="note">
+                        2，请上传清晰完整无遮挡的营业执照
+                    </p>
+
+                    <p class="note">
+                        3，要求原件红章清晰，如为复印则加盖公司章，可参考范笨图片：<span>查看范本</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="line">
+                <div class="left">法人身份证：</div>
+                <div class="right">
+                    <div class="topbox">
+                        <div class="upbox" data-id="id_legal_identity1">
+                            <div class="icon img_legal_identity1">
+                                <if condition="!empty($apply['legal_identity1'])"><img src="{$apply['legal_identity1']}"></if>
+                            </div>
+                            <div class="word">
+                                正面
+                            </div>
+                        </div>
+
+                        <div class="upbox" data-id="id_legal_identity2">
+                            <div class="icon img_legal_identity2">
+                                <if condition="!empty($apply['legal_identity2'])"><img src="{$apply['legal_identity2']}"></if>
+                            </div>
+                            <div class="word">
+                                反面
+                            </div>
+                        </div>
+                    </div>
+                    <p class="note">
+                        1，必须上传jpg或者png格式的图片，ip不能超过4m
+                    </p>
+
+                    <p class="note">
+                        2，请上传清晰完整无遮挡的营业执照
+                    </p>
+
+                    <p class="note">
+                        3，要求原件红章清晰，如为复印则加盖公司章，可参考范笨图片：<span>查看范本</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="line">
+                <div class="left">法人店铺负责人身份证：</div>
+                <div class="right">
+                    <div class="topbox">
+                        <div class="upbox" data-id="id_store_identity1">
+                            <div class="icon img_store_identity1">
+                                <if condition="!empty($apply['store_identity1'])"><img src="{$apply['store_identity1']}"></if>
+                            </div>
+                            <div class="word">
+                                正面
+                            </div>
+                        </div>
+
+                        <div class="upbox" data-id="id_store_identity2">
+                            <div class="icon img_store_identity2">
+                                <if condition="!empty($apply['store_identity2'])"><img src="{$apply['store_identity2']}"></if>
+                            </div>
+                            <div class="word">
+                                反面
+                            </div>
+                        </div>
+                    </div>
+                    <p class="note">
+                        1，必须上传jpg或者png格式的图片，ip不能超过4m
+                    </p>
+
+                    <p class="note">
+                        2，请上传清晰完整无遮挡的营业执照
+                    </p>
+
+                    <p class="note">
+                        3，要求原件红章清晰，如为复印则加盖公司章，可参考范笨图片：<span>查看范本</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="line">
+                <div class="left">行业资质补充证：</div>
+                <div class="right">
+                    <div class="topbox">
+                        <div class="upbox" data-id="id_industry_cert1">
+                            <div class="icon img_industry_cert1">
+                                <if condition="!empty($apply['industry_cert1'])"><img src="{$apply['industry_cert1']}"></if>
+                            </div>
+                            <div class="word">
+                                补充资质证件1
+                            </div>
+                        </div>
+
+                        <div class="upbox" data-id="id_industry_cert2">
+                            <div class="icon img_industry_cert2">
+                                <if condition="!empty($apply['industry_cert2'])"><img src="{$apply['industry_cert2']}"></if>
+                            </div>
+                            <div class="word">
+                                补充资质证件2
+                            </div>
+                        </div>
+                    </div>
+                    <p class="note">
+                        1，必须上传jpg或者png格式的图片，大小不能超过4m
+                    </p>
+
+                    <p class="note">
+                        2，请上传清晰完整无遮挡的相关资质证件，如代工生产，需要提交委托方和受委托双方资质。
+                    </p>
+
+                    <p class="note">
+                        3，要求原件红章清晰，如为复印则加盖公司章，
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div hidden>
+            <input type="file" name="file" accept="image/*" onchange="changefile(this)" id="id_business_licence_cert"
+                   data-id="business_licence_cert" desc="企业营业执照"/>
+            <input type="hidden" id="business_licence_cert" name="business_licence_cert" value="{$apply['business_licence_cert']}">
+
+            <input type="file" name="file" accept="image/*" onchange="changefile(this)" id="id_legal_identity1"
+                   data-id="legal_identity1" desc="法人身份证正面"/>
+            <input type="hidden" id="legal_identity1" name="legal_identity1" value="{$apply['legal_identity1']}">
+
+            <input type="file" name="file" accept="image/*" onchange="changefile(this)" id="id_legal_identity2"
+                   data-id="legal_identity2" desc="法人身份证反面"/>
+            <input type="hidden" id="legal_identity2" name="legal_identity2" value="{$apply['legal_identity2']}">
+
+            <input type="file" name="file" accept="image/*" onchange="changefile(this)" id="id_store_identity1"
+                   data-id="store_identity1" desc="法人店铺身份证正面"/>
+            <input type="hidden" id="store_identity1" name="store_identity1" value="{$apply['store_identity1']}">
+
+            <input type="file" name="file" accept="image/*" onchange="changefile(this)" id="id_store_identity2"
+                   data-id="store_identity2" desc="法人店铺身份证反面"/>
+            <input type="hidden" id="store_identity2" name="store_identity2" value="{$apply['store_identity2']}">
+
+            <input type="file" name="file" accept="image/*" onchange="changefile(this)" id="id_taxpayer_cert"
+                   data-id="taxpayer_cert" desc="税务机构证"/>
+            <input type="hidden" id="taxpayer_cert" name="taxpayer_cert" value="{$apply['taxpayer_cert']}">
+
+            <input type="file" name="file" accept="image/*" onchange="changefile(this)" id="id_orgnization_cert"
+                   data-id="orgnization_cert" desc="组织机构代码证"/>
+            <input type="hidden" id="orgnization_cert" name="orgnization_cert" value="{$apply['orgnization_cert']}">
+
+            <input type="file" name="file" accept="image/*" onchange="changefile(this)" id="id_industry_cert1"
+                   data-id="industry_cert1" desc="行业资质补充证1"/>
+            <input type="hidden" id="industry_cert1" name="industry_cert1" value="{$apply['industry_cert1']}">
+            <input type="file" name="file" accept="image/*" onchange="changefile(this)" id="id_industry_cert2"
+                   data-id="industry_cert2" desc="行业资质补充证2"/>
+            <input type="hidden" id="industry_cert2" name="industry_cert2" value="{$apply['industry_cert2']}">
+
+        </div>
+        <div class="gome-btn">
+            <a href="javascript:preStep();" class="gome-btn-gray">上一步</a>
+            <a href="javascript:nextStep();" class="gome-btn-red">保存资料</a>
+        </div>
+    </form>
+</div>
+
+<include file="public/footer"/>
+
+<script>
+
+    var changefile = function (o) {
+        var to_id = $(o).attr('data-id')
+        console.log(to_id, '--changefile')
+        var file = event.target.files[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function () {
+            var result = this.result;
+            var blob = new Blob([result], {type: file.type});
+            var formData = new FormData();
+            formData.append('file', blob, file.name);
+
+            $.ajax({
+                type: "post",
+                url: "{:U('Home/Uploadify/imageUp',['savepath'=>'store'])}",
+                async: false,
+                dataType: "json",
+                processData: false, //因为data值是FormData对象，不需要对数据做处理
+                contentType: false,
+                data: formData,
+                timeout: 6000,
+                success: function (data) {
+                    if (data.state == 'SUCCESS') {
+                        // data.url 返回的图片地址
+                        $("#" + to_id).val(data.url)
+                        $('.icon.img_' + to_id).html('<img src="' + data.url + '">');
+                        layer.open({content: '上传成功', time: 2});
+                    } else {
+                        layer.open({content: data.state, time: 2});
+                    }
+                },
+                error: function (xhr, text) {
+                    if (text === 'timeout') {
+                        xhr.abort();
+                    }
+                }
+            });
+        }
+        fileReader.readAsArrayBuffer(file);
+    }
+
+    function preStep() {
+        window.location.href = "{:U('Newjoin/seller_info')}";
+    }
+
+    function nextStep() {
+
+        document.getElementById('remark_info').submit();
+    }
+
+    //提示弹窗
+    function showErrorMsg(msg) {
+        layer.alert(msg, {icon: 2});
+    }
+
+    $(document).on("click", ".upbox", function () {
+        var id = $(this).attr('data-id')
+        if (id) {
+            console.log('#' + id)
+            $('#' + id).trigger('click')
+        }
+    })
+
+    $('.radiobox label').bind('click', function () {
+        var v = $(this).index();
+        if (v == 0) {
+            // 三证合一
+            $(".noThree").hide();
+        } else {
+            $(".noThree").show();
+        }
+
+    })
+
+    $(function () {
+        var nothree = "{$apply['is_three']|default="1"}";
+        if(nothree == 1){
+            $(".noThree").hide();
+        }else{
+            $(".noThree").show();
+        }
+
+    })
+</script>
+
+</body>
+</html>

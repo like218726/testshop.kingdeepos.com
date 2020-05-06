@@ -1,0 +1,500 @@
+<include file="public/header" title="发布"/>
+<link rel="stylesheet" href="__STATIC__/css/shopdes.css"/>
+<script src="__STATIC__/js/jquery.cookie.js"></script>
+<script src="__STATIC__/js/webuploader.js"></script>
+<style>
+/* 修改尾部导航阴影  */
+.footer {
+    box-shadow: 0 0 9px 0px rgba(0,0,0,0.2);
+}
+.header-all-yan {
+    background-color: #fff;
+}
+.header-all-yan h1{
+    color: #333;
+}
+</style>
+<!--顶部-->
+<div class="header-all-yan">
+    <div class="wrap">
+        <a href="javascript:;" onClick="javascript:history.back(-1);" class="back2"></a>
+        <h1>发贴</h1>
+    </div>
+</div>
+<!--顶部结束-->
+<div class="fabu-all-cent">
+    <!-- 发贴 -->
+    <div class="fabu-alla">
+        <form action="{:U('Dynamics/addMoments')}">
+            <!-- 发帖内容 -->
+            <div class="fabu-li">
+                <input class="biaoti" placeholder="请输入标题..." type="text">
+                <textarea class="text" name="content_c" placeholder="输入要发布的内容..."></textarea>
+            </div>
+            <!-- 我的定位 -->
+            <a class="pad-1" onclick="current_location()"><img src="__STATIC__/images/map-1.png" alt="">我的定位</a>
+            <!-- 上传文件 -->
+            <input type="hidden" value="" id="subImg">
+            <input type="hidden" value="0" id="sort">
+            <input type="hidden" value="" id="city">
+            <div class="picture-1 clearfix">
+                <div class="file-1" id="file">
+<!--                    <label for="uploadImage" class="lab-file">-->
+<!--                        <img src="__STATIC__/images/yesu-9.png" alt="">-->
+<!--                    </label>-->
+<!--                    <input id="uploadFile" class="upload" type="file" accept="image/*"/>-->
+                    <div class="lab-file"><span id="uploadImage"></span></div>
+                </div>
+            </div>
+            <style>
+                #uploadImage{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    height: 100%;
+                    width: 100%;
+                }
+                .webuploader-container .webuploader-pick{
+                    width: 1.194667rem;
+                    height: 1.194667rem;
+                    background: url("__STATIC__/images/yesu-9.png") no-repeat;
+                    background-size: 100%;
+                }
+                .webuploader-container .webuploader-element-invisible{
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    display: none;
+                }
+            </style>
+
+            <!-- 发贴类型 -->
+            <div class="fabu-lei clearfix">
+                <h3><b></b>发布类型</h3>
+                <div class="type-1">
+                    <?php $abss=1;?>
+                    <volist name="cats" id="cat">
+                        <a <if condition="$abss eq '1'">class="abss"</if> href="javascript:;" cat-id="{$cat.classify_id}">{$cat.name}</a>
+                        <if condition="$abss eq '1'">
+                            <script>
+                                $('#sort').val({$cat.classify_id})
+                            </script>
+                        </if>
+                        <?php $abss=0;?>
+                    </volist>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 签订协议 -->
+    <div class="fatie-footer">
+        <div class="fat-tex">
+            <div class="left"><div class="cooke"></div>我已阅读并同意<a class="read-1" href="javarcript:;">《{$system_article.doc_title}》</a></div>
+            <button class="right publish-fb" onclick="fbtex()">立即发布</button>
+        </div>
+    </div>
+</div>
+
+<!-- 《平台用户服务协议》 -->
+<div class="agreement-alter clearfix">
+    <div class="agreement-am clearfix">
+        <div class="agreement-1 clearfix">
+            <div class="dax-han"></div>
+            <h1>{$system_article.doc_title}</h1>
+            {$system_article.doc_content}
+        </div>
+    </div>  
+</div>
+
+<!-- 提示弹窗 -->
+<div class="alter-shoucan-1">
+    <div class="alter-an">
+        <div class="p-1">
+            <p></p>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //判断内容是否为空
+    function fbtex(){
+        var fabu_ = $("textarea[name='content_c']").val();
+        var chokk = $('.cooke');
+        var nub = 1;
+        if(fabu_ == ''){  
+            $('.alter-shoucan-1 p').text('请填写发布的内容')
+            $('.alter-shoucan-1').show();
+            nub = 0;
+        }
+        else if(!chokk.hasClass('cooke-1')){  
+            $('.alter-shoucan-1 p').text('请勾选服务协议')
+            $('.alter-shoucan-1').show();
+            nub = 0;
+        }
+        // 判断弹框的隐藏
+        if(!$('alter-shoucan-1').is(':hidden')){
+            setTimeout(function(){
+                $('.alter-shoucan-1').fadeOut();
+            },1500);
+        }
+        if(nub == 0){
+            return false
+        }
+        submit()
+    }
+    
+
+    $(function(){
+        //遍历是否满足发布条件
+        $(document).change(function(){
+            var fabu_ = $("textarea[name='content_c']").val();
+            var chokk = $('.cooke');
+            if(!fabu_ == '' && chokk.hasClass('cooke-1')){
+                $('.publish-fb').addClass('xieyi')
+            }else{
+                $('.publish-fb').removeClass('xieyi')
+            }
+        })
+        //遍历是否满足发布条件
+        $(document).on('click',function(){
+            var fabu_ = $("textarea[name='content_c']").val();
+            var chokk = $('.cooke');
+            if(!fabu_ == '' && chokk.hasClass('cooke-1')){
+                $('.publish-fb').addClass('xieyi')
+            }else{
+                $('.publish-fb').removeClass('xieyi')
+            }
+        })
+        //发贴类型
+        $('.type-1 a').on('click',function(){
+            $('#sort').val($(this).attr('cat-id'))
+            $(this).addClass('abss').siblings('a').removeClass('abss');
+        })
+        //服务协议事件
+        $('.fat-tex .left').on('click',function(){
+            if($(this).find('.cooke').hasClass('cooke-1')){
+                $(this).find('.cooke').removeClass('cooke-1');
+            }else{
+                $(this).find('.cooke').addClass('cooke-1');
+            }
+        })
+        // 服务协议绑定事件
+        $('.read-1').on('click',function(){
+            $('.agreement-alter').show(); 
+        })
+        $('.agreement-alter').on('click',function(){
+            $(this).hide();
+        })
+        $('.agreement-1 .dax-han').on('click',function(){
+            $('.agreement-alter').hide(); 
+        })
+
+       
+    })
+
+</script>
+
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak={$tpshop_config.basic_bd_ak}"></script>
+<script>
+    var data = {};
+
+    $(document).ready(function(){
+        //预加载获取用户当前地理位置
+    });
+
+    $(function(){
+        $("input[name='file']").attr('accept','image/*')
+        $("input[name='file']").addClass('a')
+    })
+    // 百度定位
+    var cur_lng = 114.02597366; // 获取当前坐标 lng
+    var cur_lat = 22.54605355; // 获取当前坐标 lat
+    var map = new BMap.Map("BDmap");
+    function current_location() {
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function (r) {
+            if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+                cur_lng = r.point.lng;
+                cur_lat = r.point.lat;
+                // 当前地址
+                var geoc = new BMap.Geocoder();
+                geoc.getLocation(r.point, function (rs) {
+                    data = rs.addressComponents;
+
+                    if($('.pad-1').text()=='我的定位'){
+                        $('#city').val(data.city)
+                        $('.pad-1').text(data.city+' '+data.district)
+                    }else{
+                        $('#city').val('')
+                        $('.pad-1').text('我的定位')
+                    }
+
+                });
+            }
+            else {
+                console.log('getCurrentPosition failed:' + this.getStatus());
+            }
+        }, {enableHighAccuracy: true})
+
+    }
+    function picker() {
+        if ($('.upImg').length >= 9) {
+            return layer.open({content:'最多只能上传9张图片',time:1});
+        }
+        return true;
+    }
+
+    timeOutEvent = 0;
+
+    function touch_del(id) {
+        // $('.touchMe').on({
+        $('#img_' + id).on({
+            touchstart: function (e) {
+                console.log($(this));
+                var that = $(this);
+                var index = $(this).index();
+// 将当前元素的索引作为参数进行传递
+//                timeOutEvent = setTimeout("longPress("+that+")",500);
+                timeOutEvent = setTimeout(function () {
+                    longPress(that)
+                }, 500);
+                // timeOutEvent = longPress($(this));
+                e.preventDefault();
+            },
+            touchmove: function () {
+                clearTimeout(timeOutEvent);
+                timeOutEvent = 0;
+            },
+            touchend: function () {
+                clearTimeout(timeOutEvent);
+                // if(timeOutEvent!=0){
+                //     alert('你这是点击，不是长按');
+                // }
+                return false;
+            }
+        });
+    }
+
+
+    function longPress(t) {
+        timeOutEvent = 0;
+        var Thisid = t.attr('data-id'); //img标签的data-id
+        // console.log(Thisid)
+        if (confirm('您确定要删除？')) {
+
+            var imgStr = $('#subImg').val();
+            imgStr = imgStr.substr(1);
+            //转数组
+            var imgArr = imgStr.split(',');
+            //删除数组
+            imgArr.splice(t.index(), 1)
+
+            // console.log(imgArr)
+            // console.log(imgArr);
+            imgStr = imgArr.join(',');
+            console.log(',,,')
+            //转字符串
+            $('#subImg').val(imgStr)
+// 用传递过来的参数定位当前元素
+            t.parent().remove();
+//            console.log('已删除');
+        }
+    }
+
+
+    function playVideo(e) {
+        window.location.href = $(e).attr('src');
+    }
+</script>
+
+<script>
+
+    // function up() {
+    //     uploader.upload();
+    // }
+    //给图片标记
+    imgId = 0;
+
+    //上传图片
+    var uploader;
+    uploader = WebUploader.create({
+
+        // 不压缩image
+        resize: false,
+        // swf文件路径
+        //swf: 'Uploader.swf',
+        // 文件接收服务端。
+        server: "/index.php/mobile/Dynamics/upImg",
+        // 选择文件的按钮。可选。
+        // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+        pick: '#uploadImage',
+        // pick:{id: '#picker',multiple:false},
+        chunked: true,
+        chunkSize: 5 * 1024 * 1024,
+        threads: 5,
+        auto: true,
+        fileVal: 'moments_imgs',
+        formData: {token: $.cookie('user_id')},
+        fileNumLimit: 9
+        // accept: {
+        //   title: 'Images',
+        // extensions: 'gif,jpg,jpeg,bmp,png',
+        //mimeTypes: 'image/*'
+        // }
+    });
+    uploader.on('uploadSuccess', function (file, response) {
+        //这里返回. response
+        // $('#img').val(response.filePaht);
+        // $('#imgShow').attr('src','/'+response.filePaht);
+        // $img.attr( 'src', src );
+        if (response['status'] == 1) {
+            // alert(response['result'])
+            // $('#subImg').after('<div class="file-1 file-2"><img src="'+response['result']+'"></div>');
+            if (file.ext.indexOf('mp4') >= 0) {
+                $('#uploadImage').css('display', 'none')
+                $('.add-img').html("<a href=\"javascript:void(0);\" style='margin: 1%' >" +
+                    "<video  onclick='playVideo(this)'  loop=\"loop\" height='300' width='300' src='" + response['result'] + "' data-id='" + imgId + "' class='upImg touchMe' id='img_" + imgId + "' ></video></a>");
+                $('#subImg').val(response['result']);
+            } else {
+
+                if($('#subImg').val().indexOf('mp4')<0){
+
+                    $('#subImg').val($('#subImg').val() + ',' + response['result']);
+                }
+            }
+
+        }
+
+    });
+
+    // 当有文件添加进来的时候
+    uploader.on('fileQueued', function (file) {
+        console.log(file)
+
+        var $li = $(
+            '<div id="' + file.id + '" class="file-item thumbnail">' +
+            '<img class="info" src ="' + file.name + '"/>' +
+            '</div>'
+            ),
+            $img = $li.find('img');
+
+        // $list为容器jQuery实例
+        $("#thelist").append($li);
+        // 如果为非图片文件，可以不用调用此方法。
+        // thumbnailWidth x thumbnailHeight 为 100 x 100
+        uploader.makeThumb(file, function (error, src) {
+            if (error) {
+                $img.replaceWith('<span>不能预览</span>');
+                return;
+            }
+            $('#file').after("<div class=\"file-1 file-2\"><a href=\"javascript:void(0);\" style='margin: 1%' ><img src='" + src + "' data-id='" + imgId + "' class='upImg touchMe' id='img_" + imgId + "' /></a><div></div>");
+            //先加载完再加载事件
+            touch_del(imgId);
+            imgId++;
+
+
+        }, 160, 160);
+
+        // uploader.on( 'uploadComplete', function( file) {
+        //     console.log(file.ext)
+        //     if(file.ext.indexOf('mp4')>=0){
+        //         console.log('mp4');
+        //     }else{
+        //         console.log('不是mp4');
+        //
+        //     }
+        //
+        // });
+
+    });
+
+
+</script>
+
+
+<script>
+    function is_login() {
+        if ($.cookie('user_id') <= 0 || !$.cookie('user_id')) {
+            if (confirm("请先登录！！")) {
+                window.location.href = "/mobile/User/login.html";
+                return false;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function submit() {
+        if (!is_login()) {
+            return false;
+        }
+
+        var title=$('.biaoti').val()
+        var textarea = $('textarea').val();
+        var text = textarea.replace(/\s/ig, '');
+        if (text == '') {
+            return layer.open({
+                content: '请输入要发布的内容',
+                style: 'font-size: 0.6rem',
+                time:1
+            });
+        }
+        if (textarea.length >= 255) {
+            return layer.open({content: '请输入长度小于255字节',style: 'font-size: 0.6rem',time:1});
+        }
+
+        var img = $('#subImg').val();
+
+        var cat_id = $('#sort').val()
+
+        $.ajax({
+            type: "POST",
+            url: "{:U('Dynamics/addMoments')}",
+            data: {moments_content: textarea, moments_imgs: img,province:data.province,city:data.city,title:title,cat_id:cat_id},
+            dataType: "json",
+            success: function (data) {
+
+                if (data.status == 1) {
+                    //$(e).parent().parent().parent().remove();
+
+                    //刷新父窗口
+                    window.location.reload;
+                    //返回上一页
+                    history.back(-1)
+
+                } else if (data.status == -101) {
+                    return layer.open({content:data.msg,time:1});
+                }
+                else if(data.status == -1){
+                    return layer.open({content:data.msg,time:1,end:function(){
+                            window.location.href = "{:U('User/login')}";
+                        }});
+                }
+                else {
+                    return layer.open({content:data.msg,time:1});
+                }
+
+            }
+        });
+
+    };
+</script>
+
+<style>
+.foohi {
+    height: 2.34667rem;
+    display: none;
+}
+</style>
+<!--底部导航-start-->
+<include file="public/footer_nav"/>
+<!--底部导航-end--> 
+</body>
+</html>

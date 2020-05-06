@@ -1,0 +1,407 @@
+<link rel="stylesheet" href="__STATIC__/css/bargain.css">
+<include file="public/header" title="{$data['bargain_info']['title']}" body="g4"/>
+<if condition="empty($Request.param.app)">
+    <include file="public/header_nav" title="{$data['bargain_info']['title']}" titles="Tpshop砍价购" href="javascript:history.back();" back="back"/>
+</if>
+<div class="bargain-wd" style="display: none;background: url('__STATIC__/images/bargain-bg1.png') no-repeat;background-size: 100% 100%">
+    <div class="bargain-wdkj" style="background: url('__STATIC__/images/bargain-bg2.png') no-repeat;background-size: 100% 100%">
+        <p>您已成功帮好友砍掉</p>
+        <p class="bw-price">￥0.00</p>
+        <p class="get-chance">并且获得一次发起砍价的机会</p>
+        <a href="javascript:void(0);" hrefs="{:U('Goods/goodsInfo',array('id'=>$data['bargain_info']['goods_id'],'item_id'=>$data['bargain_first_info']['item_id']))}"
+           goods_id="{$data['bargain_info']['goods_id']}" item_id="{$data['bargain_first_info']['item_id']}" app="{$Request.param.app}" onclick="toapp(this)">
+            <span>我也要砍价{$data['bargain_info']['end_price']}元购</span>
+        </a>
+    </div>
+    <span class="bg-close">
+        <img src="__STATIC__/images/bargain-close.png" alt="">
+    </span>
+</div>
+<div class="bargain-rule">
+    <div class="br-window">
+        <div class="rule-top">
+            <img src="__STATIC__/images/bargain-rule.png" alt="">
+        </div>
+        <div class="rule-bottom" style="background: url(__STATIC__/images/rule-content.png)">
+            <p class="rb-title">—  活动说明  —</p>
+            <p>1、选择想买的商品分享到好友让他们帮你砍价；</p>
+            <p>2、每位好友砍掉的金额随机；</p>
+            <p>3、消费者须在有效期内购买砍价商品，逾期商品将恢复原价；</p>
+            <p>4、砍价商品数量有限，商品售罄后，将无法购买，即使您已经发起了砍价；</p>
+            <p>5、同一商品，同一用户仅可享受一次优惠价格；</p>
+            <p>6、砍价活动不与其它优惠共享；</p>
+            <p>7、订单提交后，未支付的订单超时将自动取消；</p>
+        </div>
+    </div>
+    <div class="bg-close">
+        <img src="__STATIC__/images/bargain-close.png" alt="">
+    </div>
+</div>
+<div class="bargain-ed" style="display: none">
+    <div class="ed-sharee">
+        <p>点击右上角按钮，然后在弹出的菜单中，点击发送给朋友，即分享成功</p>
+        <img src="__STATIC__/images/icon_jiantou.png" alt="">
+    </div>
+    <div class="ed-box" style="background: url(__STATIC__/images/kjh3306.png);background-size: 100% 100%">
+        <p>你已经砍掉了<i>0.00元</i></p>
+        <p class="ed-share">点击右上角分享，邀请更多好友来给你砍价吧 !</p>
+        <span class="close-ed">知道了</span>
+    </div>
+</div>
+<div class="bargain-bd">
+    <div class="active-rule"><span>活动规则</span></div>
+    <div class="bargain-user">
+        <div class="head-img">
+            <img src="{$data['bargain_first_info']['users']['head_pic']?$data['bargain_first_info']['users']['head_pic']:'__STATIC__/images/packeg.png'}" alt="">
+        </div>
+        <p class="uname">{$data['bargain_first_info']['users']['nickname']?$data['bargain_first_info']['users']['nickname']:$data['bargain_first_info']['users']['mobile']}</p>
+        <p class="it-bargain">我在{$tpshop_config['shop_info_store_name']}发现一个好货,马上邀请好友来砍价~</p>
+        <div class="c-details">
+            <a href="{:U('Goods/goodsInfo',array('id'=>$data['bargain_info']['goods_id'],'item_id'=>$data['bargain_first_info']['item_id']))}">
+                <img src="{$data['bargain_info']['goods_id']|goods_thum_images=400,400,$data.bargain_info.item_id}" alt="">
+                <div class="c-details-right">
+                    <p class="cd-title">{$data['bargain_info']['goods_name']} {$data['bargain_first_info']['spec_goods_price']['key_name']}</p>
+                    <div class="no-price">
+                        <span>现价 {$data['bargain_first_info']['end_price']}</span>
+                        <span>原价 {$data['bargain_info']['start_price']}</span>
+                        <span>数量 {$data['bargain_first_info']['goods_num']}</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="c-down">
+        <input type="hidden" name="bargain_first_user_id" value="{$data['bargain_first_info']['user_id']}">
+        <input type="hidden" name="bargain_end_price" value="{$data['bargain_info']['end_price']}">
+        <input type="hidden" name="bargain_start_price" value="{$data['bargain_info']['start_price']}">
+        <input type="hidden" name="user_cut_price" value="{$data['user_cut_price']['cut_price']}">
+
+        <form name="buy_goods_form" method="post" id="buy_goods_form">
+            <input type="hidden" name="count_cut_price" value="{$data['count_cut_price']}">
+            <input type="hidden" name="end_time" value="{$data['bargain_info']['end_time']}">
+            <input type="hidden" name="bargain_first_end_price" value="{$data['bargain_first_info']['end_price']}">
+            <input type="hidden" name="goods_num" value="{$data['bargain_first_info']['goods_num']}">
+            <input type="hidden" name="order_id" value="{$data['bargain_first_info']['order_id']}">
+            <input type="hidden" name="goods_id" value="{$data['bargain_info']['goods_id']}">
+            <input type="hidden" name="item_id" value="{$data['bargain_first_info']['item_id']}">
+            <input type="hidden" name="store_count" value="{$data['bargain_info']['goods_num']}">
+        </form>
+        <p id="kanjia_time">距活动结束还剩&nbsp&nbsp<span>00</span> : <span>00</span> : <span>00</span> : <span>00</span></p>
+        <p class="bargain-price">- 已砍 ￥{$data['count_cut_price']|default="0.00"} X {$data['bargain_first_info']['goods_num']}-</p>
+        <div class="rail">
+            <div class="bg-scale" style="width: 0rem"></div>
+            <div class="roundel" style="left: 0rem"><img src="__STATIC__/images/bargain-local.png" alt=""></div>
+            <div class="bargain-select">
+                <div class="bs-self" >
+                    <span style="cursor:pointer;{$data['bargain_first_info']['order_id'] == 0?'':'background: #999999'}" id="buy_now" onclick="{$data['bargain_first_info']['order_id'] == 0?'buy_now(this)':''};">
+
+                        {$data['bargain_first_info']['order_id'] == 0?'直接要了':'已购买'}
+                    </span>
+                    <span style="cursor:pointer" id="call_cut">喊人帮砍</span>
+                </div>
+                <div class="bs-gf" >
+
+                    <span style="cursor:pointer">
+                        <a href="{:U('Goods/goodsInfo',array('id'=>$data['bargain_info']['goods_id'],'item_id'=>$data['bargain_first_info']['item_id']))}" style="color: #fff">
+                            我也要{$data['bargain_info']['end_price']}元拿
+                        </a>
+                    </span>
+                    <a style="cursor: pointer" id="cuthref" href="javascript:void(0);" data-id="{$data['user_cut_price']['user_id']}"  data-first="{$data['bargain_first_info']['id']}" id="cut" onclick="help_cut(this)">
+                        <span class="help-bargain" style="cursor:pointer;" >帮好友砍价</span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bargain-list">
+        <div class="my-list" style="background: url(__STATIC__/images/hengxian1.png) no-repeat 3.648rem 0.268rem;background-size: 7.3813rem 0.1066rem">
+            <p>砍价榜</p>
+        </div>
+        <ul>
+            <volist name="data['cut_actor_info']" id="v" >
+                <li>
+                    <div class="bg-left">
+                        <img src="{$v['head_pic']}" alt="">
+                        <span>{$v['nickname']}</span>
+                    </div>
+                    <div class="bg-right">
+                        <img src="__STATIC__/images/kj1.png" alt="">
+                        <span>砍掉 <i>{$v['cut_price']}元</i></span>
+                    </div>
+                </li>
+            </volist>
+
+        </ul>
+    </div>
+    <div class="clearboth"></div>
+    <div style="display: none" class="anzhuo">
+        <div class="content">
+            <div class="title">即将离开微信打开APP</div>
+            <div class="operation">
+                <a onclick="close()" class="close">取消</a>
+                <!--安卓-->
+                <a style="display: none" onclick="user(0)" class="anzhuo1" href="tpshopb2c://com.tpshop.malls/openwith?bargainId={$Request.param.id}&firstLaderId={$Request.param.first_leader}">确定</a>
+                <!--IOS-->
+                <a style="display: none" onclick="user(1)" class="IOS" href="https://b2t.tp-shop.cn?bargainId={$Request.param.id}&firstLaderId={$Request.param.first_leader}">确定</a>
+                <script>
+                    function user(a){
+                        if(a==0){
+                            setTimeout(function() {
+                                window.location.href = 'https://sj.qq.com/myapp/detail.htm?apkName=com.tpshop.malls'
+                            },500)
+                        }else{
+                            setTimeout(function() {
+                                window.location.href = 'https://sj.qq.com/myapp/detail.htm?apkName=com.tpshop.malls'
+                            },500)
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+    <div class="IOS"></div>
+
+</div>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    // app跳转
+    function toapp(obj){
+        var app = $(obj).attr('app');
+        var goods_id = $(obj).attr('goods_id');
+        var item_id = $(obj).attr('item_id');
+        if(app == 2){
+            window.webkit.messageHandlers.goProductDetail.postMessage({"item_id":item_id,"goods_id":goods_id})
+        }else if(app == 1){
+            tpshop.goProductDetail(goods_id,item_id)
+        }else{
+            location.href=$(obj).attr('hrefs');
+        }
+    }
+    $(function(){
+
+        var user_id = '{$user_id}'; // base里有 parseInt(getCookie('user_id'));
+        if($('#cut').data('id') == user_id){
+            $('#cut').attr('onclick','');
+            $('#cut').text('已帮好友砍过价');
+            $('#cut').css('background-color','#999999');
+            $('#cut').css('box-shadow','0 0.064rem 0.32rem 0 #999999');
+        }
+
+        var bargain_first_user_id = $("input[name='bargain_first_user_id']").val();
+        var user_cut_price = $("input[name='user_cut_price']").val();
+        if(bargain_first_user_id == user_id && user_id>0 && user_cut_price > 0){
+            $('.bargain-ed').css('display','block');
+            $('.bargain-ed').find('i').text('￥'+user_cut_price+'元');
+            $('.bs-self').css('display','block');
+            $('.bs-gf').css('display','none');
+        }else{
+
+            if(user_cut_price > 0){
+                $('.bargain-wd').css('display','block');
+                $('.bw-price').text('￥'+user_cut_price);
+            }
+            $('.bs-self').css('display','none');
+            $('.bs-gf').css('display','block');
+        }
+
+        //计算进度
+        var bargain_first_end_price = Number($("input[name='bargain_first_end_price']").val());
+        var bargain_end_price = Number($("input[name='bargain_end_price']").val());
+        var bargain_start_price = Number($("input[name='bargain_start_price']").val());
+        var count_cut_price = Number($("input[name='count_cut_price']").val());
+
+        var order_id = Number($("input[name='order_id']").val());
+        var w = 13.4/(bargain_start_price-bargain_end_price);
+        var l = 12.66/(bargain_start_price-bargain_end_price);
+
+        if(bargain_first_end_price == bargain_end_price){
+            $('.bg-scale').css('width','13.4rem');
+            $('.roundel').css('left','12.66rem');
+            $('#cut').text('砍价已完成');
+            $('#cut').attr('onclick','');
+            $('#cut').css('background-color','#999999');
+            $('#cut').css('box-shadow','0 0.064rem 0.32rem 0 #999999');
+            $('#call_cut').text('砍价已完成');
+            $('#call_cut').attr('onclick','');
+            $('#call_cut').css('background-color','#999999');
+            $('#call_cut').css('box-shadow','0 0.064rem 0.32rem 0 #999999');
+
+        }else{
+            $('.bg-scale').css('width',w * count_cut_price+'rem');
+            $('.roundel').css('left',l * count_cut_price+'rem');
+        }
+        //判断是否已购买
+        if(order_id > 0){
+            $('#cut').text('已完成');
+            $('#cut').attr('onclick','');
+            $('#cut').css('background-color','#999999');
+            $('#cut').css('box-shadow','0 0.064rem 0.32rem 0 #999999');
+            $('#call_cut').text('已完成');
+            $('#call_cut').attr('onclick','');
+            $('#call_cut').css('background-color','#999999');
+            $('#call_cut').css('box-shadow','0 0.064rem 0.32rem 0 #999999');
+            $('#buy_now').text('已购买');
+            $('#buy_now').attr('onclick','');
+            $('#buy_now').css('background-color','#999999');
+            $('#buy_now').css('box-shadow','0 0.064rem 0.32rem 0 #999999');
+        }
+
+    });
+
+
+    //总高度与遮挡高度自适应
+    var chushi = parseInt($('.bargain-bd').height());
+    var windowHeight = parseInt($(window).height() - $('.content').height() - parseInt($('.bargain-bd').css('padding-bottom')));
+    $('.bargain-wd').height($(window).height())
+    $('.bargain-rule').height($(window).height())
+    $('.bargain-ed').height($(window).height())
+    if(chushi < windowHeight){
+        $('.bargain-bd').height(windowHeight)
+    }else{
+        $('.bargain-bd').height(chushi)
+    }
+    //点击X按钮关闭砍价窗口
+    $('.bg-close').on('click',function () {
+        $(this).parent().css('display','none')
+    })
+    //弹出活动规则窗口
+    $('.active-rule').on('click','span',function () {
+        $('.bargain-rule').css('display','block')
+    })
+    $('#call_cut').click(function () {
+        $('.bargain-ed').css('display','block')
+    })
+    $('.close-ed').click(function () {
+        $('.bargain-ed').css('display','none')
+    })
+    var ajax_status = 1;
+    //    关闭弹窗
+    $(".close").click(function(){
+        $(".anzhuo").hide();
+    })
+
+    function help_cut(obj) {
+        var ua = navigator.userAgent.toLowerCase();
+        /*暂时在浏览器也可以砍价
+        if(ua.match(/MicroMessenger/i)=="micromessenger") {
+            // 在微信打开，则可以继续砍价
+        }else{
+            // 不是在微信打开，则要提示去app访问
+            var app2 = '{$Request.param.app}'; // 1苹果，2安卓app app打开的页面
+            if(app2==1 || app2==2){
+                // 在app打开，继续砍价
+                $(".anzhuo").hide();
+            }else{
+                $(".anzhuo").show();
+                var u = navigator.userAgent, app = navigator.appVersion;
+                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //g
+                var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                if (isAndroid) {
+                    $(".anzhuo1").css({'display':'inline-block'});
+                    return false;
+                }
+
+                if (isIOS ) {
+                    $(".IOS").css({'display':'inline-block'});
+                    return false;
+                }
+                // 提示去app访问
+                return false;
+            }
+        }*/
+
+
+        if(ajax_status == 0 ){
+            return false;
+        }
+
+        ajax_status = 0;
+        $.ajax({
+            type : "POST",
+            dataType: "json",
+            url:"/index.php?m=mobile&c=Bargain&a=bargain_cut&user_id={$Request.param.user_id}&token={$Request.param.token}",//+tab,
+            data: {bargain_first_id:$(obj).attr('data-first')},
+            success: function(data){
+
+                if(data.status == 1){
+                    location.reload();
+                    $(obj).text('已帮好友砍过价');
+                    $(obj).css('background-color','#999999');
+                    $(obj).css('box-shadow','0 0.064rem 0.32rem 0 #999999');
+                }else{
+                    if(data.status == -1 || data.status == -101){
+                        layer.open({
+                            content: data.msg
+                            ,btn: ['去登录', '取消']
+                            ,yes: function(index){
+                                window.location.href = "{:U('Mobile/User/login')}";
+                                return;
+                                layer.close(index);
+                            }
+                        });
+                        ajax_status = 1;
+                    }else{
+                        layer.open({icon: 2, content: "您已砍过价！", time: 2});
+                        ajax_status = 1;
+                    }
+                }
+            }
+        });
+    }
+    var time_status =   setInterval(kanjiaTimes, 1000);//调用时间
+    // 砍价倒计时
+    function kanjiaTimes() {
+        var end_time = parseInt($("input[name='end_time']").attr('value'));
+        var timestamp = Date.parse(new Date());
+        var now = timestamp/1000;
+        // //活动时间到了就刷新页面重新载入
+        if(now > end_time){
+            $('#buy_now').text('活动已结束');
+            $('#buy_now').css('background-color','#999999');
+            $('#buy_now').css('box-shadow','0 0.064rem 0.32rem 0 #999999');
+            clearInterval(time_status);
+            layer.open({content:'该商品活动已结束',time: 2});
+            return;
+        }
+        GetRTime(end_time);
+    }
+    function GetRTime(end_time){
+        var NowTime = new Date();
+        var t = (end_time*1000) - NowTime.getTime();
+        var d=Math.floor(t/1000/60/60/24);
+        var h=Math.floor(t/1000/60/60%24);
+        var m=Math.floor(t/1000/60%60);
+        var s=Math.floor(t/1000%60);
+        if(s >= 0)
+            if(d <10){d = '0'+d;}
+        if(h <10){ h = '0'+h;}
+        if(m <10){ m = '0'+m;}
+        if(s <10){ s = '0'+s;}
+        $("#kanjia_time").find('span').eq(0).text(d);
+        $("#kanjia_time").find('span').eq(1).text(h);
+        $("#kanjia_time").find('span').eq(2).text(m);
+        $("#kanjia_time").find('span').eq(3).text(s);
+        return (d * 24 + h) + '时' + m + '分' +s+'秒';
+    }
+
+    //直接要了
+    function buy_now () {
+        if (getCookie('user_id') == '') {
+            window.location.href = "{:U('Mobile/User/login')}";
+            return;
+        }
+        var goods_id = $("input[name='goods_id']").val();
+        var item_id = $("input[name='item_id']").val();
+        var store_count = $("input[name='store_count']").attr('value');// 商品原始库存
+        var goods_num = parseInt($("input[name='goods_num']").val());
+        //普通流程
+        if (goods_num <= store_count) {
+            $('#buy_goods_form').attr('action', "{:U('mobile/Cart/cart2',['action'=>'buy_now','promotion_type' => 8])}").submit();
+        } else {
+            layer.open({icon: 2, content: "购买数量超过此商品购买上限", time: 2});
+        }
+    }
+
+</script>
+<include file="public/wx_share"/>

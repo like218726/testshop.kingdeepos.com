@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-sacle=1,user-scalable=no">
+    <title>设置</title>
+    <include file="public/news_header" title="首页"/>    
+    <link rel="stylesheet" href="__STATIC__/css/contribute.css">
+     <style>
+
+        .chooseebitcard {
+            display:none;
+            position:fixed;
+            z-index:999;
+            bottom:0;
+            background-color:white;
+            overflow:hidden;
+            width:100%;
+            /*max-width:16rem*/
+        }
+        .choose-titr {
+            text-align:center;
+            position:relative;
+            padding:.42667rem
+        }
+ 
+        .card {
+            padding:.42667rem 0;
+            overflow:hidden
+        }
+        .card-list .radio {
+            width:.61867rem;
+            padding-top:0rem;
+            position:relative;
+            top:.08533rem
+        }
+        .card-list p {
+            font-size:.68267rem;
+            color:#222222
+        }
+        .teuse {
+            cursor:pointer;
+            padding:.85333rem 0;
+            text-align:center;
+            clear:both;
+            font-size:.68267rem
+        }
+        .teuse .red {
+            color:#f23030
+        }
+        .card{
+            width: 33%;
+            float:left;
+            padding:0.128rem 0 0.128rem 0.384rem;
+        }
+        .checkbord{ border:1px solid #0171d9; border-radius:0.128rem;}
+        .choose-titr em{ display:block;}
+      
+        .teuse .xyz{ width:80%; height:0.92rem; border:none; background-color:#ff594a; border-radius:6px; color:#fff; margin:0 auto; }
+        .radio .check_t i {
+            background-position: -.9468rem .09rem;
+            background-size: 1.638rem;
+        }
+        .radioixy i {
+            width: .81867rem;
+            height: 0.81867rem;
+            display: block;
+            margin-top: 0.07rem;
+            float: left;
+            background-image: url(__STATIC__/images/index/checknew.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-size: 1.838rem;
+            background-position: 0;
+        }
+        .gb-close {
+            background-image: url(__STATIC__/images/index/gb.png);
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: .42667rem;
+            height: .42667rem;
+            position: absolute;
+            right: 20px;
+            top: .512rem;
+            cursor: pointer;
+        }
+        #pay-type{
+            display: flex;
+        }
+ 
+    </style>
+</head>
+<body>
+<!--顶部-->
+<header>
+    <div class="wrap">
+        <a href="javascript:history.go(-1);" class="back"></a>
+        <h1>设置</h1>
+    </div>
+</header>
+<!--顶部结束-->
+<!--捐款表单开始-->
+<section class="contribute_form">
+        <form id="form">          
+            <div class="bottom">
+               <div class="wrap">               
+                   <div class="message">
+                       <span>个人宣言</span>
+                       <textarea name="declaration" class="declaration">{$user.declaration}
+                    </textarea>
+                   </div>
+                   
+                    <div class="message">
+                       <span>兴趣爱好</span>
+                       <textarea name="hobby" class="hobby">{$user.hobby}
+                    </textarea>
+                   </div>
+                
+                   <div class="contribute_submit" onclick="submit()">
+                       <a  href="javascript:;"  >确认</a>
+                   </div>
+               </div>
+            </div>  
+        </form>
+    </div>
+</section>
+
+
+
+<script>
+var before_request = 1;
+    function submit(){	
+		if($('.declaration').val() == ''){
+			return layer.open({content: '请输入您的个人宣言',time:1});				  
+		}
+		if($('.hobby').val() ==''){
+			return layer.open({content: '请输入您的兴趣爱好',time:1});	
+		}
+		if(before_request == 0)
+			return 
+			before_request = 0
+		   $.ajax({
+	            type: "POST",
+	            url: "{:U('Dynamics/set')}",
+	            data: $('#form').serialize(),
+	            dataType: "json",
+	            success: function (data) {
+	              	before_request = 1;              	
+	                if (data.status == 1) {
+	                	return layer.open({content: data.msg,time:1 ,end:function(){
+	                		 window.history.go(-1);
+	                	}});	  
+	                } else {
+	                	return layer.open({content: data.msg,time:1});	    
+	                }
+
+	            }
+	        });
+			
+	}
+</script>
+</body>
+</html>

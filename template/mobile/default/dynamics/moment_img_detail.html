@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>图片详情</title>
+    <link rel="stylesheet" href="__STATIC__/css/scale.css"/>
+    <script src="__STATIC__/js/scale.js"></script>
+</head>
+<style>
+    .imgzoom_pack {
+        background: rgba(0,0,0,1);
+        display: flex;
+        justify-content: center;
+        position: relative;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+    }
+    .imgzoom_pack .imgzoom_x{
+        position: absolute;
+    }
+    .imgzoom_pack .imgzoom_img {
+        width: 100%;
+        height: auto;
+        position: static;
+        left: 0;
+        top: 0;
+        overflow: hidden;
+        display: block;
+    }
+    .imgzoom_pack .imgzoom_img img{
+        position: static;
+    }
+</style>
+<body>
+<!-- 双指缩放 -->
+<!--<div class="list">-->
+<!--    <img src="__STATIC__/images/tupain.png" />-->
+<!--</div>-->
+<section class="imgzoom_pack">
+    <a href="" class="imgzoom_x">X</a>
+    <div class="imgzoom_img"><img src="__STATIC__/images/tupain.png"/></div>
+</section>
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event){
+                ImagesZoom.init({
+                    "elem": ".list"
+                });
+            }, false);
+        </script>
+
+</body>
+</html>

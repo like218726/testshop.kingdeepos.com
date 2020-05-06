@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>商家中心</title>
+<link href="__PUBLIC__/static/css/base.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/static/css/seller_center.css" rel="stylesheet" type="text/css">
+<link href="__PUBLIC__/static/font/css/font-awesome.min.css" rel="stylesheet" />
+<script type="text/javascript" src="__PUBLIC__/static/js/jquery.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/js/layer/layer.js"></script>
+</head>
+<body>
+<div class="" style="overflow-y: auto;">
+	<div class="eject_con">
+	  <div id="warning" class="alert alert-error"></div>
+	  <form method="post" onsubmit="javascript:return false;" action="" id="apply_form">
+		<input type="hidden" name="goods_id" value="{$Request.param.goods_id}">
+	    <table class="ncsc-default-table">
+		<table cellspacing="0" cellpadding="0">
+					<thead>
+					<tr>
+						<th>
+							<div></div>
+						</th>
+						<th class="w100">
+							<div>活动ID</div>
+						</th>
+						<th class="w120">
+							<div>头像</div>
+						</th>
+						<th class="w150">
+							<div>参与者</div>
+						</th>
+						<th class="w150">
+							<div>帮砍价格</div>
+						</th>
+						<th class="w150">
+							<div>帮砍时间</div>
+						</th>
+						<th>
+							<div></div>
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+					<empty name="prom_list">
+						<tr>
+							<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+						</tr>
+					<else/>
+						<foreach name="prom_list" item="vo" key="k" >
+							<tr>
+								<td class="sign">
+									<div style="width: 24px;"><i class="ico-check"></i></div>
+								</td>
+								<td align="left" class="">
+									<div style="text-align: left; width: 100px;">{$vo.id}</div>
+								</td>
+								<td align="left" class="">
+									<div style="text-align: left; width: 120px;">
+										<img src="{$vo['head_pic']}" style="width: 50px;height: 50px">
+									</div>
+								</td>
+								<td align="left" class="">
+									<div style="text-align: left; width: 240px;">{$vo['nickname']}</div>
+								</td>
+								<td align="left" class="">
+									<div style="text-align: left; width: 120px;">{$vo.cut_price}</div>
+								</td>
+								<td align="left" class="">
+									<div style="text-align: left; width: 120px;">{$vo.add_time|date='Y-m-d H:i:s',###}</div>
+								</td>
+
+								<td align="" class="" style="width: 100%;">
+									<div>&nbsp;</div>
+								</td>
+							</tr>
+						</foreach>
+						</empty>
+					</tbody>
+		</table>
+	</table>
+</div>
+<script>
+</script>
+</body>
+</html>

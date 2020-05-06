@@ -1,0 +1,29 @@
+<footer>
+    <a href="{:U('Index/index')}">
+        <img src="<if condition="ACTION_NAME eq 'index' ">__STATIC__/images/home_active@2x.png<else/>__STATIC__/images/index/home@2x.png</if>"  alt="">
+        <span class="<if condition="ACTION_NAME eq 'index' ">active<else/></if>">首页</span>
+    </a>
+    <a href="{:U('News/news_list')}">
+        <img src="<if condition="ACTION_NAME eq 'news_list' ">__STATIC__/images/index/info_active@2x.png<else/>__STATIC__/images/info@2x.png</if>" alt="">
+        <span class="<if condition="ACTION_NAME eq 'news_list' ">active<else/></if>">资讯</span>
+    </a>
+    <a href="{:U('Foundation/foundation_list')}">
+        <img src="<if condition="ACTION_NAME eq 'foundation_list' ">__STATIC__/images/index/offer_active@2x.png<else/>__STATIC__/images/offer@2x.png</if>" alt="">
+        <span class="<if condition="ACTION_NAME eq 'foundation_list' ">active<else/></if>">基金会</span>
+    </a>
+    <a href="{:U('Dynamics/find')}">
+        <img src="<if condition="ACTION_NAME eq 'find' ">__STATIC__/images/search_active@2x.png<else/>__STATIC__/images/search@2x.png</if>" alt="">
+        <span class="<if condition="ACTION_NAME eq 'find' ">active<else/></if>">发现</span>
+    </a>
+    <a href="{:U('User/index')}">
+        <img src="__STATIC__/images/user@2x.png" alt="">
+        <span>我的</span>
+    </a>
+</footer>
+<!--公众号分享-->
+ <include file="public/wx_share"/>
+<!--公众号分享-->
+
+<script type="text/javascript">
+
+</script>

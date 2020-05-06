@@ -1,0 +1,360 @@
+<include file="public/head"/>
+<style>
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb{width: 180px;height:180px; display: inline-block;}
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb img{ height: 160px; width: 160px;}
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb{line-height: 20px;margin-right: 6px;}
+    .ncsc-goods-default-pic .goodspic-uplaod .upload-thumb:nth-child(5n){margin-right: 0;}
+    .ncsc-goods-default-pic{display: inherit;}
+    /*.ncsc-form-goods dl dd{width: 98%;}*/
+    .text-warning {color: #8a6d3b;}a{ color:#3BAEDA}
+    /*.ncsc-form-goods{padding: 10px;}*/
+    .table-bordered {border: 1px solid #f4f4f4;}
+    .table { width: 100%;max-width: 100%;margin-bottom: 20px;}
+    ul.group-list {width: 96%;min-width: 1000px; margin: auto 5px;list-style: disc outside none;}
+    ul.group-list li { white-space: nowrap;float: left; width: 150px; height: 25px;padding: 3px 5px;list-style-type: none;list-style-position: outside;border: 0px;margin: 0px;}
+    .row .table-bordered td .btn,.row .table-bordered td img{vertical-align: middle;}
+    .row .table-bordered td{padding: 8px;line-height: 1.42857143;}
+    .table-bordered{width: 100%}
+    .table-bordered tr td{border: 1px solid #f4f4f4;}
+    .btn-success {color: #fff;background-color: #48CFAE;border-color: #398439 solid 1px;}
+    .btn {display: inline-block;padding: 6px 12px;margin-bottom: 0;font-size: 14px;
+        font-weight: 400;line-height: 1.42857143;text-align: center;white-space: nowrap; vertical-align: middle;
+        -ms-touch-action: manipulation;touch-action: manipulation;cursor: pointer;-webkit-user-select: none;-moz-user-select: none;
+        -ms-user-select: none;user-select: none;background-image: none;border: 1px solid transparent; border-radius: 4px;
+    }
+    .col-xs-8 {width: 66.66666667%;}
+    .col-xs-4 {width: 33.33333333%;}
+    .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9 {float: left;}
+    .row .tab-pane h4{padding: 10px 0;}
+    .row .tab-pane h4 input{vertical-align: middle;}
+    .table-striped>tbody>tr:nth-of-type(odd) {background-color: #f9f9f9;}
+    .ncap-form-default .title{border-bottom: 0}
+    .ncap-form-default dl.row, .ncap-form-all dd.opt{/*border-color: #F0F0F0;*/border: none;}
+    .ncap-form-default dl.row:hover, .ncap-form-all dd.opt:hover{border: none;box-shadow: inherit;}
+    a:hover {color: #3BAEDA;text-decoration: none;}
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+        padding: 8px;line-height: 1.42857143;vertical-align: top; border-top: 1px solid #ddd;}
+    ul.group-list{min-width: 100%;}
+    input{vertical-align:middle;}
+    .ncsc-form-goods h4{margin: 10px 0 10px 10px;}
+    .clabackkj{background-color: #F5F5F5;border-bottom: solid 1px #E7E7E7;overflow: hidden;}
+    .clabackkj h3{border-bottom: 0;display: inline-block;}
+    .clabackkj .ncbtn{float: right;margin-right: 15px;height: 12px;line-height: 12px;}
+    #tab_goods_images dl dd{width: 99%;}
+    .alert-block{margin-top: 0;}
+    select{min-width:120px;}
+    .ui-tabs-nav{height:30px;padding-top:5px;background:#f5f5f5;}
+    .ui-tabs-nav>li{float:left;height:30px;padding:0 10px;}
+    .ui-tabs-nav>.ui-tabs-selected{background:#ddd;}
+    .btn{margin-bottom: 10px!important;}
+	.bottom .submit, input.submit{display: inline-block;}
+</style>
+<!--以下是在线编辑器 代码 -->
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+var url="{:url('Uploadify/index',array('savepath'=>'goods'))}";
+var ue = UE.getEditor('goods_content',{
+    toolbars: [[
+        'fullscreen'
+    ]],
+    serverUrl :url,
+    zIndex: 999,
+    initialFrameWidth: "100%", //初化宽度
+    initialFrameHeight: 300, //初化高度            
+    focus: false, //初始化时，是否让编辑器获得焦点true或false
+    maximumWords: 99999, removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+    pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+    autoHeightEnabled: true
+});
+ue.ready(function() {
+	//不可编辑
+	ue.setDisabled();
+});
+</script>
+<!--以上是在线编辑器 代码  end-->
+<div class="ncsc-layout wrapper">
+    <include file="public/left"/>
+    <div id="layoutRight" class="ncsc-layout-right">
+        <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>供应商品<i class="icon-angle-right"></i>查看供应商品</div>
+        <div class="main-content" id="mainContent">
+            <div class="item-publish">
+				<div class="ncsc-form-goods active" id="tab_tongyong">
+					<h3 id="demo1">商品基本信息</h3>
+					<dl>
+						<dt>商品分类：</dt>
+						<dd id="gcategory">
+							{$goods_cat[2][name]} &gt;{$goods_cat[1][name]} &gt;{$goods_cat[0][name]}&nbsp;
+							<if condition="$store.bind_all_gc eq 1">
+							<elseif condition="$goodsInfo.bind_class_state eq -1">
+								<input class="submit" onclick="applyClass()" value="一键申请" type="submit">
+							<elseif condition="$goodsInfo.bind_class_state eq 0">
+								（类目申请中）
+							</if>
+						</dd>
+					</dl>
+					<dl>
+						<dt>商品名称：</dt>
+						<dd>{$goodsInfo.goods_name}</dd>
+					</dl>
+					<dl>
+						<dt>商品简介：</dt>
+						<dd>{$goodsInfo.goods_remark}&nbsp;</dd>
+					</dl>
+					<dl>
+						<dt>SPU：</dt>
+						<dd>{$goodsInfo.spu}&nbsp;</dd>
+					</dl>
+					<dl>
+						<dt>SKU：</dt>
+						<dd>{$goodsInfo.sku}&nbsp;</dd>
+					</dl>
+					<dl>
+						<dt>商品品牌：</dt>
+						<dd>{$goodsInfo['brand_name']}&nbsp;</dd>
+					</dl>
+					<dl>
+						<dt>市场价：</dt>
+						<dd>{$goodsInfo.market_price} 元</dd>
+					</dl>
+					<dl>
+						<dt>成本价：</dt>
+						<dd>{$goodsInfo.cost_price} 元</dd>
+					</dl>
+					<dl>
+						<dt>商品图片：</dt>
+						<dd>
+							<div class="upload-thumb">
+								<img id="original_img2" src="{$goodsInfo.original_img|default='/public/images/default_goods_image_240.gif'}">
+							</div>
+						</dd>
+					</dl>
+					<dl>
+						<dt>商品视频：</dt>
+						<dd>
+							<div class="upload-thumb" id="video1">
+								<video width="174" height="174" controls="controls">
+									<source src="{$goodsInfo.video}" TYPE="video/mp4"/>
+								</video>
+							</div>
+						</dd>
+					</dl>
+					<dl class="goods_shipping">
+						<dt>商品重量：</dt>
+						<dd>{$goodsInfo.weight} 克</dd>
+					</dl>
+					<dl class="goods_shipping">
+						<dt>商品体积：</dt>
+						<dd>{$goodsInfo.volume} 立方米</dd>
+					</dl>
+					<if condition="$goodsInfo[is_free_shipping] eq 1">
+						<dl class="goods_shipping">
+							<dt>是否包邮：</dt>
+							<dd>是</dd>
+						</dl>
+					<else />
+						<dl class="goods_shipping">
+							<dt>运费：</dt>
+							<dd>
+								<div class="tp-around-wraps">
+                    <div class="tp-left-tips">计价方式：{$template.type_desc}</div>
+                </div>
+						<table class="ncsc-default-table">
+							<thead>
+							<tr>
+								<th class="w80">配送区域</th>
+								<th class="w100">首{$template.type_desc}({$template.unit_desc})</th>
+								<th class="w100">运费(元)</th>
+								<th class="w100">续{$template.type_desc}({$template.unit_desc})</th>
+								<th class="w80">运费(元)</th>
+							</tr>
+							</thead>
+							<tbody>
+							<volist name="template[freightConfig]" id="config">
+								<tr class="bd-line">
+									<td>
+										<if condition="$config[is_default] eq 1">
+											中国
+											<else/>
+											<volist name="config[freightRegion]" id="freight_region">
+												{$freight_region.region.name},
+											</volist>
+										</if>
+									</td>
+									<td>{$config.first_unit}</td>
+									<td>{$config.first_money}</td>
+									<td>{$config.continue_unit}</td>
+									<td>{$config.continue_money}</td>
+								</tr>
+							</volist>
+							</tbody>
+						</table>
+							</dd>
+						</dl>
+					</if>
+					<dl>
+						<dt>商品关键词：</dt>
+						<dd>{$goodsInfo.keywords}&nbsp;</dd>
+					</dl>
+					<h3 id="demo2">商品详情描述</h3>
+					<dl>
+						<dt>商品详情描述：</dt>
+					   <dd id="ncProductDetails">
+					   <div class="tabs ui-tabs ui-widget ui-widget-content ui-corner-all">
+						<ul class="ui-tabs-nav">
+						  <li class="ui-tabs-selected"><a href="javascript:;" data-anchor="#panel-1" onclick="setTab(this);"><i class="icon-desktop"></i> 电脑端</a></li>
+						  <li class="selected"><a href="javascript:;" data-anchor="#panel-2" onclick="setTab(this);"><i class="icon-mobile-phone"></i>手机端</a></li>
+						</ul>
+						</div>
+						   <div id="panel-1" class="ui-tabs-panel">
+								<textarea id="goods_content" name="goods_content" class="txt">{$goodsInfo.goods_content}</textarea>
+							</div>
+							<div id="panel-2" class="ui-tabs-panel" style="display: none;">
+								  <div class="ncsc-mobile-editor">
+									<div class="pannel">
+									  <div class="control-panel" nctype="mobile_pannel">
+									  <notempty name="goodsInfo.mobile_content">
+										<foreach name="goodsInfo.mobile_content" item="mb">
+											<if condition="$mb['type'] eq 'text'">
+											<div class="module m-text">
+											  <div class="content">
+												<div class="text-div">{$mb.value}</div>
+											  </div>
+											  <div class="cover"></div>
+											</div>
+											<else/>
+											<div class="module m-image">
+											  <div class="content">
+												<div class="image-div"><img src="{$mb.value}"></div>
+											  </div>
+											  <div class="cover"></div>
+											</div>
+											</if>
+										</foreach>  
+									  </notempty>
+									  </div>
+									</div>
+									<div class="explain">
+									</div>
+								  </div>
+							</div>
+						</dd>
+					</dl>
+					<h3>其它商品信息</h3>
+					<dl>
+						<dt>商品相册：</dt>
+						<dd>
+							<ul nctype="ul0" class="goods-pic-list">
+								<foreach name="goodsImages" item="vo" key="k" >
+									<li class="ncsc-goodspic-upload">
+									<div class="upload-thumb">
+									<img nctype="file_{$k}" src="{$vo['image_url']}">
+									</div>
+									</li>
+								</foreach>
+							</ul>
+						</dd>
+					</dl>
+					<dl>
+						<dt>商品规格：</dt>
+						<dd>
+							<table>
+								<thead>
+									<tr nc_type="table_header">
+									  <th class="w200">规格键名</th>
+									  <th class="w200">SKU</th>
+									  <th class="w200">供货价</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="spec_goods_price" item="vo">
+										<tr>
+											<td class="tl">
+												{$vo.key_name}
+											</td>
+											<td>{$vo.sku ?: '—'}</td>
+											<td>{$vo.cost}</td>
+										</tr>
+									</foreach>
+								</tbody>
+							</table>
+						</dd>
+					</dl>
+					<dl>
+						<dt>商品属性：</dt>
+						<dd>
+							<foreach name="goods_attr" item="vo">
+								<dl>
+									<dt>{$vo.attr_name}：</dt>
+									<dd>{$vo.attr_value}</dd>
+								</dl>
+							</foreach>
+						</dd>
+					</dl>
+				</div>
+				<div class="bottom tc hr32">
+					<label class="submit-border">
+						<input nctype="formSubmit" class="submit" id="submit1" value="同意" type="submit">
+						<input nctype="formSubmit" class="submit" id="submit2" value="拒绝" type="submit">
+					</label>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="public/foot"/>
+<script>
+	
+	function applyClass(){
+		var cat_id = {$goodsInfo.cat_id1};
+		var cat_id2 = {$goodsInfo.cat_id2};
+		var cat_id3 = {$goodsInfo.cat_id3};
+		$.ajax({
+			type:'post',
+			url:"/index.php/seller/Store/get_bind_class",
+			data:{class_1:cat_id,class_2:cat_id2,class_3:cat_id3},
+			dataType : 'json',
+			success : function(data){
+				if(data.status==1){
+					layer.msg('操作成功', {icon: 1});
+					window.location.reload();
+				}else{
+					layer.alert(data.msg, {icon: 2});
+				}
+			}
+		});
+	}
+
+    function setTab(obj){
+    	$('.ui-tabs-panel').hide();
+    	$(obj).parents('li').addClass('ui-tabs-selected').siblings().removeClass('ui-tabs-selected')
+    	$($(obj).attr('data-anchor')).show();
+    }
+	$('#submit1').click(function(){
+		layer.confirm('同意后，将复制商品信息，同时生成相应的品牌、运费模板、商品规格等数据。', {
+			title: '确认同意？',
+			  btn: ['确认','取消'] //按钮
+			}, function(){
+				$.ajax({
+					url: "{:U('Seller/Goods/agreeSupplierGoods',['goods_id' => $goodsInfo['goods_id'], 'apply_id' => $Request.param.apply_id])}",
+					dataType:'json',
+					success: function (data) {
+						layer.closeAll();
+						if (data.status == 1){
+							layer.msg(data.msg, {icon: 1, time: 2000, end: function () {
+							   window.parent.location.href = data.url;
+							}});
+						}else{
+							layer.msg(data.msg, {icon: 2, time: 2000});
+						}
+
+					}
+				});
+			}, function(){}
+		);
+	});
+</script>
+</body>
+</html>

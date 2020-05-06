@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>商家中心</title>
+    <link href="__PUBLIC__/static/css/base.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/static/css/seller_center.css" rel="stylesheet" type="text/css">
+    <link href="__PUBLIC__/static/font/css/font-awesome.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="__PUBLIC__/static/js/jquery.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/static/js/layer/layer.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/js/global.js"></script>
+</head>
+<body>
+<div class="upload-box">
+    <div class="eject_con">
+        <div id="warning" class="alert alert-error"></div>
+        <form id="handlepost" method="post" target="_parent" action="">
+            <input name="re_grade_name" id="re_grade_name" value="{$store_grade.sg_name}" hidden>
+            <dl>
+                <dt>当前店铺等级：</dt>
+                <dd>{$store_grade.sg_name}</dd>
+            </dl>
+            <dl>
+                <dt>申请等级：</dt>
+                <dd>
+                    <select name="re_grade_id" id="re_grade_id" value="{$menu.parent_id}" onchange="selectSrade()">
+                        <foreach name="grade" item="v">
+                            <option value="{$v.sg_id}" sgname="{$v.sg_name}" sgmoney="{$v.sg_price}" <if condition="$v.sg_id eq $store_grade.sg_id"> selected="selected"</if>>{$v.sg_name}</option>
+                        </foreach>
+                    </select>
+                </dd>
+            </dl>
+            <dl>
+                <dt>费用(元/年)：</dt><dd id="sg_price">{$store_grade.sg_price}</dd>
+            </dl>
+            <dl>
+                <dt>续签时长：</dt>
+                <dd>
+                    <select name="re_year" id="re_year"  value="{$menu.parent_id}" onchange="selectReYear()">
+                        <option value="1">1年</option>
+                        <option value="2">2年</option>
+                        <option value="3">3年</option>
+                        <option value="5">5年</option>
+                        <option value="10">10年</option>
+                    </select>
+                </dd>
+            </dl>
+            <dl>
+                <dt>应付总额：</dt>
+                <dd><input class="text w60" type="text" name="re_pay_amount" id="re_pay_amount" value="" disabled></dd>
+            </dl>
+            <dl>
+                <dt><i class="required">*</i>支付凭证：</dt>
+                <dd>
+                    <div class="ncsc-goods-default-pic">
+                        <div class="goodspic-uplaod">
+                            <div class="upload-thumb">
+                                <img id="re_pay_cert2" src="/public/images/default_goods_image_240.gif">
+                            </div>
+                            <input name="re_pay_cert" id="re_pay_cert" value="" type="hidden">
+                            <p class="hint">支持jpg、gif、png格式</p>
+                            <div class="handle">
+                                <div class="ncsc-upload-btn">
+                                    <a onclick="GetUploadify3(1,'','reopen','call_back');">
+                                        <p><i class="icon-upload-alt"></i>图片上传</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="demo"></div>
+                </dd>
+            </dl>
+            <dl>
+                <dt>支付说明：</dt>
+                <dd>
+                    <textarea name="re_pay_cert_explain" rows="2" class="textarea w400"  maxlength="100" ></textarea>
+                    <p class="hint">关键字最多可输入100字，</p>
+                </dd>
+            </dl>
+            <div class="bottom">
+                <label class="submit-border"><input type="button" onclick="dataSave()" class="submit" value="提交"></label>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    function call_back(fileurl_tmp){
+        $("#re_pay_cert").val(fileurl_tmp);
+        $("#re_pay_cert2").attr('src', fileurl_tmp);
+    }
+
+    /**
+     * 选择等级
+     */
+    function selectSrade(){
+        var obj = $("#re_grade_id option:selected");
+        var sg_name = obj.attr('sgname');
+        var sg_money = parseInt(obj.attr('sgmoney'));
+        var re_year = parseInt($("#re_year option:selected").val());
+        $('#re_pay_amount').val(sg_money*re_year);
+        $('#re_grade_name').val(sg_name);
+        $('#sg_price').html(sg_money);
+    }
+    function selectReYear() {
+        var re_year = parseInt($("#re_year option:selected").val());
+        var sg_money = parseInt($("#re_grade_id option:selected").attr('sgmoney'));
+        $('#re_pay_amount').val(sg_money*re_year);
+    }
+
+    function dataSave(){
+        if ($('#re_pay_cert').val() == ''){
+            layer.msg('请上传支付凭证！！',{icon:2})
+            return false;
+        }
+        $.ajax({
+            url : "{:U('Store/applyStoreGrade')}",
+            data : $('#handlepost').serialize(),
+            type : 'post',
+            dataType : 'json',
+            success :function(data){
+                if(data.status==1){
+                    window.parent.call_back(1,data.msg);
+                }else{
+                    window.parent.call_back(0,data.msg);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>

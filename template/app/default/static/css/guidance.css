@@ -1,0 +1,28 @@
+.mainbox{
+    min-height: 100vh;
+    background: #fff;
+}
+.itembox{
+    border-bottom: .426rem solid #f3f3f3;
+    background: #fff;
+    padding: .853rem 1.28rem;
+}
+.itembox h3{
+    line-height: 1.28rem;
+    font-size: .64rem;
+    color: #e42626;
+}
+.itembox p{
+    line-height: .768rem;
+    font-size: .49rem;
+    color: #666;
+}
+.bottombox{
+    background: #fff;
+    padding: .853rem 1.28rem;
+}
+.bottombox p{
+    color: #333;
+    line-height: .768rem;
+    font-size: .49rem;
+}

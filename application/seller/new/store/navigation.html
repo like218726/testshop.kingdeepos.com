@@ -1,0 +1,117 @@
+<include file="public/head"/>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="__ROOT__/public/plugins/Ueditor/lang/zh-cn/zh-cn.js"></script>
+<div class="ncsc-layout wrapper">
+<include file="public/left"/>
+  <div id="layoutRight" class="ncsc-layout-right">
+    <div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>店铺<i class="icon-angle-right"></i>店铺导航</div>
+    <div class="main-content" id="mainContent">
+      
+<div class="tabmenu">
+  <ul class="tab pngFix">
+  <li class="normal"><a  href="{:U('Store/navigation_list')}">导航列表</a></li><li class="active"><a  href="http://www.tpshop.cn/index.php?act=store_navigation&op=navigation_add">添加导航</a></li></ul>
+</div>
+<div class="ncsc-form-default">
+  <form method="post" id="handleposition" action="{:U('Store/navigationHandle')}" target="_parent" name="store_navigation_form" enctype="multipart/form-data">
+      <input type="hidden" name="sn_id" value="{$info.sn_id}">
+    <dl>
+      <dt><i class="required">*</i>导航名称：</dt>
+      <dd>
+        <input type="text" class="w150 text" name="sn_title" value="{$info.sn_title}" /><span></span>
+      </dd>
+    </dl>
+    <dl>
+      <dt>是否显示：</dt>
+      <dd>
+        <ul class="ncsc-form-radio-list">
+          <li>
+            <label for="sn_is_show_0"><input type="radio" class="radio" name="sn_is_show" id="sn_is_show_0" value="1" <if condition="$info[sn_is_show] eq 1"> checked="checked"</if>/>
+            是</label></li>
+          <li>
+            <label for="sn_is_show_1"><input type="radio" class="radio" name="sn_is_show" id="sn_is_show_1" value="0" <if condition="$info[sn_is_show] eq 0"> checked="checked"</if>/>
+            否</label></li>
+        </ul>
+      </dd>
+    </dl>
+    <dl>
+      <dt>排序：</dt>
+      <dd>
+        <input type="text" class="w50 text" name="sn_sort" value="{$info.sn_sort}" maxlength="3"/>
+          <p class="hint">排序最大值为255</p>
+      </dd>
+    </dl>
+    <dl>
+      <dt>内容：</dt>
+      <dd>
+        <textarea id="post_content" name="sn_content" style="height:300px;">{$info.sn_content}</textarea>
+	    </dd>
+    </dl>
+    <dl>
+      <dt>导航URL地址：</dt>
+      <dd>
+        <p>
+          <input type="text" class="w300 text" name="sn_url" value="{$info.sn_url}" />
+        </p>
+        <p class="hint">请填写包含http://的完整URL地址,如果填写此项则点击该导航会跳转到该链接</p>
+    </dl>
+    <dl>
+      <dt>新窗口打开：</dt>
+      <dd>
+        <ul class="ncsc-form-radio-list">
+          <li>
+            <label for="sn_new_open_1"><input type="radio" class="radio" name="sn_new_open" id="sn_new_open_1" value="1"  <if condition="$info[sn_new_open] eq 1"> checked="checked"</if>>
+            是</label></li>
+          <li>
+            <label for="sn_new_open_0"><input type="radio" class="radio" name="sn_new_open" id="sn_new_open_0" value="0"  <if condition="$info[sn_new_open] eq 0"> checked="checked"</if>>
+            否</label></li>
+        </ul>
+      </dd>
+    </dl>
+    <div class="bottom">
+      <label class="submit-border"><input type="button" onclick="adsubmit()" class="submit" value="提交" /></label>
+    </div>
+  </form>
+</div>
+<script>
+function adsubmit(){
+  var title=$.trim($('input[name=sn_title]').val());
+
+    if(parseInt($('input[name=sn_sort]').val()) > 255){
+        layer.msg('排序值不得大于255',{icon:2});
+        return false;
+    }
+    if($('input[name=sn_title]').val() ==''){
+        layer.msg('请填写导航名称',{icon:2});
+        return false;
+    }
+    if(!title){
+        layer.msg('请填写正确的导航名称',{icon:2});
+        return false;
+    }
+//    if($('input[name=sn_url]').val() ==''){
+//        layer.msg('请填写http://开头的地址',{icon:2});
+//        return false;
+//    }
+	$('#handleposition').submit();
+}
+
+var url="{:url('Uploadify/index',array('savepath'=>'nav'))}";
+var ue = UE.getEditor('post_content',{
+    serverUrl :url,
+    zIndex: 999,
+    initialFrameWidth: "100%", //初化宽度
+    initialFrameHeight: 300, //初化高度            
+    focus: false, //初始化时，是否让编辑器获得焦点true或false
+    maximumWords: 99999, removeFormatAttributes: 'class,style,lang,width,height,align,hspace,valign',//允许的最大字符数 'fullscreen',
+    pasteplain:false, //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+    autoHeightEnabled: true
+});
+
+</script>
+    </div>
+  </div>
+</div>
+<include file="public/foot"/>
+</body>
+</html>

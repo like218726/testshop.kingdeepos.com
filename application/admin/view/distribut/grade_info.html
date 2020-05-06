@@ -1,0 +1,71 @@
+<include file="public/layout" />
+<script type="text/javascript" src="__PUBLIC__/static/js/perfect-scrollbar.min.js"></script>
+<div class="ncap-form-default">
+  <form id="admin_form" method="post" action="" name="admin_form">
+    <input type="hidden" name="level_id" value="{$info.level_id}">
+    <dl class="row">
+      <dt class="tit"><label for="level_name"><em>*</em>等级名称</label></dt>
+      <dd class="opt"><input id="level_name" name="level_name" class="txt valid" type="text" value="{$info.level_name}">
+          <span class="err"></span></dd>
+    </dl>
+    <dl class="row">
+      <dt class="tit"><label for="rate1"><em></em>一级佣金比例</label></dt>
+      <dd class="opt"><input id="rate1" name="rate1" class="txt valid" type="text" value="{$info.rate1}">
+      <label for="isuse_0" class="cb-disable " title="百分比">%</label>
+          <span class="err"></span></dd>
+    </dl>
+    <dl class="row">
+      <dt class="tit"><label for="rate2"><em></em>二级佣金比例</label></dt>
+      <dd class="opt"><input id="rate2" name="rate2" class="txt" type="text" value="{$info.rate2}">
+      <label for="isuse_0" class="cb-disable" title="百分比">%</label>
+          <span class="err"></span></dd>
+    </dl>
+    <dl class="row">
+      <dt class="tit"><label for="rate3"><em></em>三级佣金比例</label></dt>
+      <dd class="opt"><input id="rate3" name="rate3" class="txt" type="text" value="{$info.rate3}">
+      <label for="isuse_0" class="cb-disable" title="百分比">%</label>
+          <span class="err"></span></dd>
+    </dl>
+    <dl class="row">
+      <dt class="tit"><label for="order_money"><em></em>升级条件</label></dt>
+      <dd class="opt"><input type="button" name="button" id="button1" value="分销获佣金额满" class="type-file-button"><input id="order_money" name="order_money" class="txt" type="text" value="{$info.order_money}">元
+       <p class="help-block">分销商升级条件，不填写默认为不自动升级</p>
+          <span class="err"></span></dd>
+    </dl>
+    <div class="bot"><a href="JavaScript:void(0);" class="ncap-btn-big ncap-btn-green" id="submitBtn"><span>确认提交</span></a></div>
+  </form>
+</div>
+<script type="text/javascript">
+$(function () {
+ 
+	$('#submitBtn').click(function(){
+		if($('#level_name').val() == ''){
+            layer.alert('等级名称不能为空', {icon: 2});
+			return;
+		}
+        var rate1 = parseInt($('#rate1').val());
+        var rate2 = parseInt($('#rate2').val());
+        var rate3 = parseInt($('#rate3').val());
+         if((rate1+rate2+rate3) > 100 || (rate1+rate2+rate3) < 0){
+            layer.alert('分佣比例之和比例必须在1~100之间', {icon: 2});
+            return;
+        } 
+    	$.ajax({
+			url:"{:U('Distribut/gradeInfoSave')}",
+			type:'post',
+			dataType:'json',
+			data: $("#admin_form").serialize(),
+			success:function(obj){
+				  if(obj.status !=1){
+					layer.alert(obj.msg, {icon: 2});
+				}else{
+					var dialog = DialogManager.get('grade_info');
+					dialog.close();
+					window.location.reload();
+				}  
+			}
+		});
+	});	
+});
+
+</script>

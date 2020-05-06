@@ -1,0 +1,160 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>促销<i class="icon-angle-right"></i>拼团管理
+            <a href="http://help.tp-shop.cn/Index/Help/info/cat_id/24/id/218.html" class="seller_help" target="_blank">帮助</a>
+		</div>
+		<div class="main-content" id="mainContent">
+			<div class="tabmenu">
+				<ul class="tab pngFix">
+					<li class="active"><a href="{:U('Team/index')}">拼团列表</a></li>
+				</ul>
+				<a href="{:U('Team/info')}" class="ncbtn ncbtn-mint" title="新增拼团"><i class="icon-plus-sign"></i>新增拼团</a>
+
+			</div>
+			<div class="alert alert-block mt10">
+				<ul class="mt5">
+					<li>1、点击新增拼团按钮可以添加拼团活动</li>
+                    <li>2、只有在总平台设置了推荐，对应的活动才会显示在前台</li>
+					<li>3、每个商品，只能参与一种活动，但积分商品不能参与活动。</li>
+                    <li style="color: red;font-weight: bold;font-size: 16px;">4、注意：对已经下单的拼团，设计模式原本是不允许修改的，如需修改，请慎重修改敏感信息</li>
+				</ul>
+			</div>
+			<form action="" id="search-form2" method="post" >
+				<table class="search-form">
+					<input type="hidden" name="orderby1" value="goods_id" />
+					<input type="hidden" name="orderby2" value="desc" />
+					<tr>
+						<td>&nbsp;</td>
+						<td class="w160"><input type="text" class="text w150" name="key_word" value="{$key_word}" placeholder="搜索词" /></td>
+						<td class="tc w70"><label class="submit-border">
+							<input type="submit" class="submit" value="搜索"/>
+						</label></td>
+					</tr>
+				</table>
+			</form>
+			<table class="ncsc-default-table">
+				<thead>
+				<tr>
+					<th class="w80">拼团ID</th>
+					<th class="w100">拼团标题</th>
+					<th class="w100">拼团商品</th>
+					<!--<th class="w100">商品规格</th>-->
+					<th class="w80">拼团类型</th>
+					<th class="w80">成团有效期</th>
+					<th class="w80">需要成团人数</th>
+					<th class="w80">购买限制数</th>
+					<th class="w80">状态</th>
+					<th class="w210">操作</th>
+				</tr>
+				</thead>
+				<empty name="list">
+			  		<tbody>
+			  		<tr>
+			      		<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+			    	</tr>
+			      </tbody>
+			  <else/>
+				<tbody>
+				<volist name="list" id="team">
+					<tr class="bd-line">
+						<td>{$team.team_id}</td>
+						<td><a href="{:U('Mobile/Team/info',['goods_id'=>$team.goods_id,'team_id'=>$team.team_id])}" target="_blank">{$team.act_name|getSubstr=0,20}</a></td>
+						<td><a href="{:U('Mobile/Goods/goodsInfo',['id'=>$team.goods_id,'item_id'=>$team['team_goods_item'][0]['item_id']])}" target="_blank">{$team.goods_name|getSubstr=0,20}</a></td>
+						<td>{$team.team_type_desc}</td>
+						<td>{$team.time_limit_hours}小时</td>
+						<td>{$team.needer}</td>
+						<td>{$team.buy_limit}</td>
+						<td>{$team.status_desc}</td>
+						<td class="nscs-table-handle tr">
+							<if condition="$team[team_type] eq 2 AND $team[is_lottery] eq 0">
+								<span><a class="btn-bluejeans gift_button" data-team-id="{$team['team_id']}" href="javascript:void (0)"><i class="icon-gift"></i><p>抽奖</p></a></span>
+							</if>
+							<if condition="$team[team_type] eq 2 AND $team[is_lottery] eq 1">
+								<span><a class="btn-bluejeans" href="{:U('Mobile/Team/lottery',['team_id'=>$team['team_id']])}"><i class="icon-gift"></i><p>中奖名单</p></a></span>
+							</if>
+							<span><a href="{:U('Order/team_list',array('team_id'=>$team['team_id']))}" class="btn-bluejeans" target="_blank"><i class="icon-search"></i><p>订单</p></a></span>
+							<span><a href="{:U('Team/info',array('team_id'=>$team['team_id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
+							<span><a data-url="{:U('Team/delete')}" data-id="{$team.team_id}" onclick="delfun(this)" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+						</td>
+					</tr>
+				</volist>
+				</tbody>
+				</empty>
+				<tfoot>
+				<tr>
+					<td colspan="20">
+						{$page}
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+<script>
+	function delfun(obj) {
+		layer.confirm('确认删除？', {
+					btn: ['确定', '取消'] //按钮
+				}, function () {
+					$.ajax({
+						type: 'post',
+						url: $(obj).attr('data-url'),
+						data: {team_id: $(obj).attr('data-id')},
+						dataType: 'json',
+						success: function (data) {
+							layer.closeAll();
+							if (data.status == 1) {
+								layer.msg(data.msg, {icon: 1});
+								$(obj).parent().parent().parent().remove();
+							} else {
+								layer.msg(data.msg, {icon: 2, time: 2000});
+							}
+						}
+					})
+				}, function (index) {
+					layer.close(index);
+				}
+		);
+	}
+
+	//抽奖
+	$(function () {
+		$(document).on("click", '.gift_button', function (e) {
+			var team_id = $(this).data('team-id');
+			layer.open({
+				content: '确认抽奖将从该拼团活动下拼团成功的订单里抽取，并把中奖的订单确认，未中奖的订单都执行退款操作,并且结束该活动。该操作不可逆，确定要执行吗？'
+				,btn: ['确定', '取消']
+				,yes: function(index, layero){
+					layer.close(index);
+					$.ajax({
+						type: "POST",
+						url: "{:U('Seller/Team/lottery')}",//+tab,
+						data: {team_id: team_id},
+						dataType: 'json',
+						success: function (data) {
+							if (data.status == 1) {
+								layer.msg(data.msg, {icon: 1, time: 2000}, function(){
+									window.location.reload();
+								});
+							} else {
+								layer.msg(data.msg, {icon: 2, time: 2000});
+							}
+						}
+					});
+				}
+				,btn2: function(index, layero){
+					layer.close(index);
+				}
+				,cancel: function(){
+					//右上角关闭回调
+					layer.close();
+				}
+			});
+		})
+	})
+</script>
+</body>
+</html>

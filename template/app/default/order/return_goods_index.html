@@ -1,0 +1,97 @@
+<include file="public/header" title="退换货列表" body="g4"/>
+    <div class="two-bothshop rechange">
+        <div class="maleri30">
+            <ul>
+                <a href="{:U('Order/return_goods_index')}"><li class="red"><span class="tab_head">售后申请</span></li></a>
+                <a href="{:U('Order/return_goods_list')}"><li><span class="tab_head">进度查询</span></li></a>
+            </ul>
+        </div>
+    </div>
+    <div class="attention-shoppay">
+        <!--没有售后-s-->
+        <!--<div class="comment_con p">
+                <div class="none"><img src="__STATIC__/images/none.png"><br><br>亲，此处还没有申请的售后哦~</div>
+        </div>-->
+        <!--没有售后-e-->
+<!--临时屏蔽        <div class="searchsh">
+            <form action="" method="post" id="searchform">
+                <div class="seac_noord">
+                    <img src="__STATIC__/images/search.png" onclick="return $('#searchform').submit()"/>
+                    <input type="text" name="keywords" value="{$_POST['keywords']}" placeholder="商品名称、订单编号" />
+                </div>
+            </form>
+        </div>-->
+        <foreach name="order_list" item="vo">
+        <div class="orderlistshpop tuharecha mabo20 p">
+            <div class="maleri30">
+                <div class="returntolist">
+                    <div class="list-top-re">
+                        <span class="fl">订单编号：{$vo.order_sn}</span>
+                        <span class="red fr">{$vo.order_status_desc}</span>
+                    </div>
+                    <div class="list-top-re als">
+                        <span>下单时间：{$vo.add_time|date='Y-m-d H:i:s',###}</span>
+                    </div>
+                </div>
+                <foreach name="vo.goods_list" item="goods">
+                <div class="sc_list se_sclist paycloseto">
+                    <div class="shopimg fl">
+                        <img src="{$goods.goods_id|goods_thum_images=100,100,$goods.item_id}">
+                    </div>
+                    <div class="deleshow fr">
+                        <div class="deletes">
+                            <a class="daaloe">{$goods.goods_name}</a>
+                        </div>
+                        <div class="qxatten">
+                            <p class="weight"><span>数量：</span><span>x{$goods.goods_num}</span></p>
+                            <a class="closeannten" href="javascript:return_goods({$goods.rec_id})">申请售后</a>
+                        </div>
+                    </div>
+                </div>
+                </foreach>
+            </div>
+        </div>
+        </foreach>
+    </div>
+    <div id="notmore"  style="font-size:.32rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both;display: none">
+        <a style="font-size:.50rem;">没有更多了</a>
+    </div>
+    <script type="text/javascript" src="__STATIC__/js/sourch_submit.js"></script>
+<script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('.two-bothshop ul li').click(function(){
+                $(this).addClass('red').siblings().removeClass('red');
+                var gs = $('.two-bothshop ul li').index(this);
+                $('.attention-shoppay').eq(gs).show().siblings('.attention-shoppay').hide();
+            })
+        })
+        var page = 1;
+        var finish = 0;
+        function ajax_sourch_submit() {
+            if (finish) {
+                return true;
+            }
+            page += 1;
+            $.ajax({
+                type : "get",
+                url:"{:U('api/Order/return_goods_index')}?is_ajax=1&p=" + page,
+                success: function(data) {
+                    if ($.trim(data) === '') {
+                        finish = 1;
+                        $('#notmore').show();
+                        return false;
+                    } else {
+                        $(".attention-shoppay").append(data);
+                    }
+                }
+            });
+        }
+       
+        function return_goods(rec_id){
+        	TPshop.apply_return(rec_id);
+        }
+   		
+    </script>
+    </body>
+</html>

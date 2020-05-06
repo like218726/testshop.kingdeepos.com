@@ -1,0 +1,348 @@
+/*默认首页-s*/
+html{
+    background: #f5f5f5;
+}
+/* 轮播图 */
+.banner_bg{
+    position: absolute;
+    top: 0;
+    height: 5.930rem;
+    background: #ff3b3b;
+    width: 100%;
+}
+.banner_auto{
+    padding-top: 1.877333rem;
+    background: #fff;
+    position: relative;
+}
+.mslide{
+    height: 7.2533rem;
+    overflow: hidden;
+}
+.mslide li a{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    height: 7.2533rem;
+    border: none;
+    object-fit: cover;
+    border-radius: 0.2133rem;
+}
+.mslide li a img{ 
+    width: 15.14667rem !important;
+    height: 7.2533rem;
+    margin: 0 auto;
+    display: block;
+    position: unset !important;
+    border-radius: 0.2133rem;
+}
+/* .mslide li{
+    width: 15.1467rem;
+    margin: 0 auto;
+    position: relative !important;
+} */
+/* 菜单 */
+.floor{
+    background: #fff;
+    padding-bottom: 0.8533rem;
+}
+.floor nav a{
+    width: 25%;
+    float: left;
+    font-size: 0.512rem;
+    text-align: center;
+    color: #666;
+    margin-top: 0.8533rem;
+    display: block;
+}
+.floor nav a span img {
+    width: 1.92rem;
+    height: 1.92rem;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.42667rem;
+}
+/* 秒杀 */
+.secondkill .time{
+    height: 2.133rem;
+    line-height: 2.133rem;
+    background: #fff;
+    border-radius: 0.2133rem 0.2133rem 0 0;
+    padding: 0 0.42667rem;
+    box-sizing: border-box;
+    position: relative;
+}
+.secondkill .time::after {
+    content: '';
+    position: absolute;
+    top: 0.92rem;
+    right: 0.42667rem;
+    display: inline-block;
+    width: 0.256rem;
+    height:0.256rem;
+    border-top: 0.042667rem solid #999;
+    border-right: 0.042667rem solid #999;
+    transform: rotate(45deg);
+    margin-left: 0.42667rem;
+}  
+.secondkill .time .xsxl{
+    padding-right: 0.42667rem;
+}  
+.secondkill .time .lightning > div {
+    margin-top: 0.7245rem;
+}
+.secondkill .lightning .fl_seckill{
+    border-radius: 0.08533rem;
+    overflow: hidden;
+}
+/* 秒杀商品 */
+.content_1{
+    margin: .42667rem .42667rem 0 .42667rem !important;
+}
+.secondkill .shop_p{
+    background: #fff;
+    border-radius:  0 0 0.2133rem 0.2133rem;
+    padding: 0.5333rem 0;
+    border-top: 0.02133rem solid #f5f5f5;
+}
+.secondkill .shop_p a .shopnum {
+    position: relative;
+}
+.secondkill .shop_p a{
+    display: block;
+    width: 4.7573rem;
+    float: left;
+    text-align: center;
+    overflow: hidden;
+    margin-left: 0.2133rem;
+}
+.secondkill .shop_p a img{
+    width: 100%;
+    height: 4.7573rem !important;
+    border-radius: 0.2133rem;
+    overflow: hidden;
+    display: block;
+}
+.secondkill .shop_p a .shopnum p {
+    font-size: .512rem;
+    color: red;
+    margin: .21333rem;
+}
+/* 没有商品秒杀 */
+.secondkill .time .lightning .add{
+    display: inline-block;
+    height: 100%;
+    line-height: 2.133rem;
+}
+.secondkill .time .lightning .add img{
+    height: 1.1733rem;
+    display: block;
+    margin-top: 0.4798rem;
+    width: 3.562rem;
+}
+.secondkill .time .xsxl a span{
+    color: #999;
+    font-size: 0.512rem;
+}
+.flash_none .xsxl>img{
+    width: .6rem;
+    margin-top: .03rem;
+    margin-right: .2133rem;
+}
+.flash_none .xsxl span{
+    display:inline-block;
+    font-size: .512rem;
+    padding-right: .42667rem;
+    color: #999;
+}
+.flash_none .xsxl a img{
+    padding-left: .2133rem;
+    width: 0.65rem;
+    margin-top: -0.2rem;
+}
+.flash_none{
+    height: 2.133rem;
+    line-height: 2.133rem;
+}
+.flash_none .qiag_1:nth-child(1){
+    display:inline-block;
+    font-size: .64rem;
+    font-weight: 600;
+    padding-left: .42667rem;
+    height: 100%;
+    line-height: 2.133rem;
+}
+.qiag_1 img{
+    height: 1.1733rem;
+    display: block;
+    margin-top: 0.4798rem;
+    width: 3.562rem;
+}
+/* 广告位 */
+.advertisement .content_2{
+    margin: 0 0.426933rem !important;
+    padding-bottom: 0.213rem;
+}
+.content_2:before, .content_2:after {
+    content: "";
+    clear: both;
+    display: block;
+    font-size: 0;
+    height: 0;
+}
+.advertisement .le .td {
+    overflow: hidden;
+    border-radius: 0.2133rem;
+}
+.width_an{
+    width: 15.146rem;
+    height: 4.052rem;
+    margin: 0 0.42667rem;
+}
+.advertisement .le .td img{
+    width: 7.46rem;
+}
+/* 标题 */
+.guesslike{
+    background: #f5f5f5 !important;
+}
+.guesslike .banner{
+    margin-top: 0.42667rem!important;
+    background: #fff;
+}
+/* 猜你喜欢商品 */
+.guesslike .likeshop{
+    background: none !important;
+}
+.guesslike ul li{
+    position: relative;
+    width: 7.36rem !important;
+    margin-top: .42667rem !important;
+    margin-left: 0.42667rem;
+    height: auto !important; 
+    position: relative;
+}
+.goods_name_cen{
+    position: absolute;
+    bottom: 0;
+    padding: 0.64rem 0.42667rem 0.42667rem;
+    line-height: 0.682667rem;
+    height: auto;
+    box-sizing: border-box;
+    width: 100%;
+    color: #ff3b3b;
+    font-size: 0.59733rem;
+} 
+.goods_name_cen .big-price{
+    font-weight: 600;
+}
+.goods_name_cen .big-price b{
+    font-size: 0.46933rem; 
+}
+.goods_name_cen .has-sold{
+    font-size: 0.46933rem;
+    color: #999999;
+    float: right;
+}
+/*首页-e*/
+/* 首页板块-s */
+.plate{
+    margin-top: .427rem;
+}
+.plate .plate_img{
+    width: 16rem;
+    height: 1.707rem;
+}
+.plate .plate_item ul li{
+    position: relative;
+    float: left;
+    width: 7.36rem !important;
+    margin-top: .42667rem !important;
+    margin-left: 0.42667rem;
+    height: auto !important;
+}
+.plate .plate_item ul{
+    zoom: 1;
+    overflow: hidden;
+}
+.plate .plate_item ul::before{
+    content: '';
+    display: inline-block;
+    clear: both;
+}
+.plate .hot_sell{
+    width: 15.146rem;
+    margin: .427rem 0 0 .427rem;
+    border-radius: .213rem;
+}
+.plate .hot_sell .hot_img{
+    width: 4.693rem;
+    height: 4.693rem;
+    border-radius: .213rem 0 0 0.213rem;
+    float: left;
+}
+.plate .hot_sell ul li{
+    margin-bottom: 0.427rem;
+    height: 4.693rem;
+    background: #fff;
+    border-radius: .213rem;
+}
+.plate .hot_sell .hot_right{
+    position: relative;
+    width: 10.453rem;
+    height: 4.693rem;
+    float:right;
+}
+.plate.team .plate_item ul li,.plate.team .mian_width_1{
+    height: 11.86rem !important;
+}
+.plate.team .mian_h2{
+    height: 1.707rem;
+}
+.plate.team .group_img{
+    padding: 0.555rem 0.512rem 0 0.512rem;
+}
+.plate.team .hot_sell ul li:last-child{
+    margin-bottom: 0;
+}
+.plate.team .plate_item .group_img img,.plate.team .hot_sell .group_img img{
+    width: 0.768rem;
+    height: 0.768rem;
+    border-radius: 50%;
+}
+.plate.team .plate_item .group_img img:nth-child(1),.plate.team .hot_sell .group_img img:nth-child(1){
+    margin-right: -0.213rem;
+}
+.c-line{
+    width: 100%;
+    text-align: center;
+    font-size: 0.512rem;
+    color: #999999;
+    margin-top: 1rem;
+}
+.flool3 {
+    position: relative;
+    border-top: none;
+    overflow: hidden;
+    margin: 0.8rem 0;
+}
+.flool3 div {
+    width: 100%;
+    text-align: center;
+}
+.flool3 span {
+    font-size: 0.47rem;
+    width: auto;
+    height: 0.94rem;
+    display: inline-block;
+    line-height: 0.94rem;
+    text-align: center;
+    padding-left: 2rem;
+    background-image: url(../images/TPstore.png);
+    background-size: 1.8rem;
+    color: #999;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+/* 首页板块-e */

@@ -1,0 +1,153 @@
+<include file="public/head"/>
+<div class="ncsc-layout wrapper">
+	<include file="public/left"/>
+	<div id="layoutRight" class="ncsc-layout-right">
+		<div class="ncsc-path"><i class="icon-desktop"></i>商家管理中心<i class="icon-angle-right"></i>门店<i class="icon-angle-right"></i>门店管理
+		</div>
+		<div class="main-content" id="mainContent">
+			<div class="tabmenu">
+				<ul class="tab pngFix">
+					<li class="active"><a href="{:U('Shop/index')}">门店列表</a></li>
+				</ul>
+				<a href="{:U('Shop/info')}" class="ncbtn ncbtn-mint" title="新增门店"><i class="icon-plus-sign"></i>新增门店</a>
+
+			</div>
+
+			<form method="get" action="{:U('seller/Shop/index')}" id="search-form2">
+				<table class="search-form">
+						<th>省</th>
+						<td class="w160">
+								<select class="w150 w160" name="province_id" id="province_id" onchange="get_city(this)">
+									<option value="">所有省</option>
+									<volist name="province_list" id="province" >
+										<option value="{$province['id']}" <if condition="$Request.param.province_id eq $province['id']">selected</if>> {$province['name']}</option>
+									</volist>
+								</select>
+						</td>
+						<th>市</th>
+						<td class="w160">
+								<select class="w150 w160" name="city_id" id="city" onchange="get_area(this)">
+									<option value="">所有市</option>
+									<volist name="city_list" id="city">
+										<option value="{$city['id']}" <if condition="$Request.param.city_id eq $city['id']">selected</if>>{$city['name']}</option>
+									</volist>
+								</select>
+						</td>
+						<th>区/镇</th>
+						<td>
+								<select class="w150 w160 di-in" name="district_id" id="district">
+									<option value="">所有区/镇</option>
+									<volist name="district_list" id="district">
+										<option value="{$district['id']}" <if condition="$Request.param.district_id eq $district['id']">selected</if>>{$district['name']}</option>
+									</volist>
+								</select>
+						</td>
+					<th style="width: 64px;">自提点名称</th>
+					<td class="w378">
+						<input class="text w150" size="30" name="shop_name" value="{$Request.param.shop_name}" placeholder="自提点名称" class="qsbox" type="text">
+						<label class="submit-border">
+							<input type="submit" class="submit" value="搜索">
+						</label>
+					</td>
+					</tr>
+					<!--tr>
+                      <td style="width:160px"><a id="S1" href="javascript:void(0)" class="ncbtn-mini" title="批量打印配货单"><span><i class="icon-print"></i>批量打印配货单</a></span></td>
+                    </tr-->
+				</table>
+			</form>
+
+			<div class="alert alert-block mt10">
+				<ul class="mt5">
+					<li>1、点击新增门店按钮可以添加门店</li>
+				</ul>
+			</div>
+			<table class="ncsc-default-table">
+				<thead>
+				<tr>
+					<th class="w80">编号</th>
+					<th class="w80">自提点名称</th>
+					<th class="w80">省份</th>
+					<th class="w80">城市</th>
+					<th class="w80">地区</th>
+					<th class="w100">自提点地址</th>
+					<th class="w200">联系电话</th>
+					<th class="w100">供应商</th>
+					<th class="w200">营业时间</th>
+					<th class="w210">操作</th>
+				</tr>
+				</thead>
+				<empty name="list">
+			  		<tbody>
+			  		<tr>
+			      		<td colspan="20" class="norecord"><div class="warning-option"><i class="icon-warning-sign"></i><span>暂无符合条件的数据记录</span></div></td>
+			    	</tr>
+			      </tbody>
+			  <else/>
+				<tbody>
+				<volist name="list" id="shop">
+					<tr class="bd-line">
+						<td>{$shop.shop_id}</td>
+						<td>{$shop.shop_name}</td>
+						<td>{$shop['area_list'][0]['name']}</td>
+						<td>{$shop['area_list'][1]['name']}</td>
+						<td>{$shop['area_list'][2]['name']}</td>
+						<td>{$shop.shop_address}</td>
+						<td>{$shop['shop_phone_code']}{$shop['shop_phone']}</td>
+						<td>{$shop['suppliers']['suppliers_name']|default='--'}</td>
+						<td>{$shop['work_day']}<br/>{$shop['work_start_time']} - {$shop['work_end_time']}</td>
+						<td class="nscs-table-handle">
+							<span>
+								<if condition="$shop.shop_status eq 1">
+								<img width="20" height="20" src="__PUBLIC__/images/yes.png" onclick="changeTableVal2('shop','shop_id',{$shop[shop_id]},'shop_status',this)"/>
+								<else/>
+								<img src="/public/images/cancel.png" onclick="changeTableVal2('shop','shop_id',{$shop[shop_id]},'shop_status',this)" width="20" height="20">
+							    </if>
+							</span>
+							<span><a href="{:U('Shop/info',array('shop_id'=>$shop['shop_id']))}" class="btn-bluejeans"><i class="icon-edit"></i><p>编辑</p></a></span>
+							<span><a data-url="{:U('Shop/delete')}" data-id="{$shop.shop_id}" onclick="delfun(this)" class="btn-grapefruit"><i class="icon-trash"></i><p>删除</p></a></span>
+						</td>
+					</tr>
+				</volist>
+				</tbody>
+				</empty>
+				<tfoot>
+				<tr>
+					<td colspan="20">
+						{$page}
+					</td>
+				</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+</div>
+<include file="public/foot"/>
+<script>
+    function delfun(obj) {
+        layer.confirm('确认删除？', {
+                btn: ['确定', '取消'] //按钮
+            }, function () {
+                $.ajax({
+                    type: 'post',
+                    url: $(obj).attr('data-url'),
+                    data: {shop_id: $(obj).attr('data-id')},
+                    dataType: 'json',
+                    success: function (data) {
+                        layer.closeAll();
+                        if (data.status == 1) {
+                            layer.msg(data.msg, {icon: 1});
+                            $(obj).parent().parent().parent().remove();
+                        } else {
+                            layer.msg(data.msg, {icon: 2, time: 2000});
+                        }
+                    }
+                })
+            }, function (index) {
+                layer.close(index);
+            }
+        );
+    }
+
+</script>
+</body>
+</html>

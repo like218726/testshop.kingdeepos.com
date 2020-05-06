@@ -1,0 +1,122 @@
+<include file="public/layout" />
+<body style="background-color: #FFF; overflow: auto;">
+<div id="append_parent"></div>
+<div id="ajaxwaitid"></div>
+
+<div class="page">
+  <div class="fixed-bar">
+    <div class="item-title">
+      <div class="subject">
+        <h3>消费者保障服务</h3>
+        <h5>消费者保障服务查看与管理</h5>
+      </div>
+      <ul class="tab-base nc-row">
+      <li><a href="{:U('Guarantee/index',array('apply_type'=>1))}" class="<if condition='$apply_type eq 1'>current</if>"><span>加入申请</span></a></li>
+      <li><a href="{:U('Guarantee/index',array('apply_type'=>0))}" class="<if condition='$apply_type eq 0'>current</if>"><span>退出申请</span></a></li>
+      <li><a href="{:U('Guarantee/join_list')}"><span>店铺保障服务</span></a></li>
+      <li><a href="{:U('Guarantee/item_list')}"><span>保障服务管理</span></a></li>
+      </ul>    
+   	</div>
+  </div>
+  <!-- 操作说明 -->
+  <div class="explanation" id="explanation">
+    <div class="title" id="checkZoom"><i class="fa fa-lightbulb-o"></i>
+      <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+      <span id="explanationZoom" title="收起提示"></span> </div>
+    <ul>
+      <li>列表为店铺申请加入各项消费者保障服务记录</li>
+      <li>当店铺提出的申请记录状态为“等待审核”、“保证金待审核”的时候，可以编辑申请；否则只能查看申请详情。</li>
+    </ul>
+  </div>
+   <div class="flexigrid">
+		<div class="mDiv">
+			<div class="ftitle">
+				<h3>加入申请列表</h3>
+				<h5>(共{$pager->totalRows}条记录)</h5>
+			</div>
+			<a href=""><div title="刷新数据" class="pReload"><i class="fa fa-refresh"></i></div></a>
+		</div>
+		<div class="hDiv">
+			<div class="hDivBox">
+				<table cellspacing="0" cellpadding="0">
+					<thead>
+					<tr>
+						<th class="sign" axis="col0">
+							<div style="width: 24px;"><i class="ico-check"></i></div>
+						</th>
+						<th align="center" abbr="article_title" axis="col3" class="">
+							<div style="text-align: center; width: 100px;" class="">店铺名称</div>
+						</th>
+						<th align="center" abbr="ac_id" axis="col4" class="">
+							<div style="text-align: center; width: 100px;" class="">保障服务</div>
+						</th>
+						<th align="center" abbr="article_show" axis="col5" class="">
+							<div style="text-align: center; width: 150px;" class="">添加时间</div>
+						</th>
+						<th align="center" abbr="article_time" axis="col6" class="">
+							<div style="text-align: center; width: 150px;" class="">状态</div>
+						</th>
+						<th align="center" axis="col1" class="handle">
+							<div style="text-align: center; width: 100px;">操作</div>
+						</th>
+						<th style="width:100%" axis="col7">
+							<div></div>
+						</th>
+					</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div class="bDiv" style="height: auto;">
+			<div id="flexigrid" cellpadding="0" cellspacing="0" border="0">
+				<table>
+					<tbody>
+					<foreach name="lists" item="vo" key="k" >
+						<tr>
+							<td class="sign">
+								<div style="width: 24px;"><i class="ico-check"></i></div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 100px;">{$vo.store_name}</div>
+							</td>
+							<td align="left" class="">
+								<div style="text-align: center; width: 150px;">{$guarantee_item[$vo.grt_id]}</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 150px;">{$vo.add_time|date='Y-m-d H:i:s',###}</div>
+							</td>
+							<td align="center" class="">
+								<div style="text-align: center; width: 150px;">
+								<if condition="($vo.apply_type eq 0) AND ($vo.auditstate eq 1)">
+								审核通过
+								<else/>
+								{$auditstate[$vo.auditstate]}
+								</if>
+								</div>
+							</td>
+							<td align="center" class="handle">
+								<div style="text-align: center; width: 170px; max-width:170px;">
+									<if condition="($vo.auditstate eq 0) OR ($vo.auditstate eq 3)">
+									<a class="btn blue" href="{:U('Guarantee/apply_edit',array('id'=>$vo['id']))}"><i class="fa fa-pencil-square-o"></i>编辑</a>
+									<else/>
+									<a class="btn green" href="{:U('Guarantee/apply_info',array('id'=>$vo['id']))}"><i class="fa fa-list-alt"></i>查看</a>
+									</if>
+								</div>
+							</td>
+							<td align="" class="" style="width: 100%;">
+								<div>&nbsp;</div>
+							</td>
+						</tr>
+					</foreach>
+					</tbody>
+				</table>
+			</div>
+			<div class="iDiv" style="display: none;"></div>
+		</div>
+		<!--分页位置-->{$page} 
+	</div>
+</div>
+<script type="text/javascript">
+</script> 
+</body>
+</html>

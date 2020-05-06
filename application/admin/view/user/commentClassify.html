@@ -1,0 +1,251 @@
+<include file="public/layout" />
+<body style="background-color: rgb(255, 255, 255); overflow: auto; cursor: default; -moz-user-select: inherit;">
+<div class="page" style="padding-top:10px;">
+    <div class="fixed-bar">
+        <div class="item-title">
+            <div class="subject">
+                <h3>动态分类管理</h3>
+                <h5>动态分类管理以及列表</h5>
+            </div>
+            <ul class="tab-base nc-row">
+                <li><a href="{:U('user/momentsList')}" data-state="" ><span>动态审核</span></a></li>
+                <li><a  class="current"href="{:U('user/commentClassify')}" data-state="0"  ><span>动态分类管理</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 操作说明 -->
+    <div id="explanation" class="explanation" style="color: rgb(44, 188, 163); background-color: rgb(237, 251, 248); width: 99%; height: 10%;">
+        <div id="checkZoom" class="title"><i class="fa fa-lightbulb-o"></i>
+            <h4 title="提示相关设置操作时应注意的要点">操作提示</h4>
+            <span title="收起提示" id="explanationZoom" style="display: block;"></span>
+        </div>
+        <ul>
+            <li>审核：通过审核科看到别人的评论（自己的评论自己看不需要通过审核）</li>
+            <li>排序规则：先到显示状态 -> 在按审核状态 -> 最后到时间 都是升序（先来后到）</li>
+        </ul>
+    </div>
+    
+    
+    <form method="post">
+    <input type="hidden" name="form_submit" value="ok">
+    <div class="flexigrid">
+      <div class="mDiv">
+        <div class="ftitle">
+          <h3>文章分类列表</h3>
+          <h5></h5>
+        </div>
+      </div>
+      <div class="hDiv">
+        <div class="hDivBox">
+          <table cellpadding="0" cellspacing="0">
+            <thead>
+              <tr>
+                <th align="center" class="sign" axis="col0">
+                  <div style="text-align: center; width: 24px;"><i class="ico-check"></i></div>
+                </th>
+                <th align="center" class="handle" axis="col1">
+                  <div style="text-align: center; width: 150px;">操作</div>
+                </th>
+                <th align="center" axis="col2">
+                  <div style="text-align: center; width: 60px;">排序</div>
+                </th>
+                <th align="center" axis="col3" class="">
+                  <div class="sundefined" style="text-align: center; width: 250px;">分类名称</div>
+                </th>
+                <th axis="col4">
+                  <div></div>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+      <div class="tDiv">
+        <div class="tDiv2">
+         <a href="{:U('user/classify')}">
+          <div class="fbutton">
+            <div class="add" title="新增分类">
+              <span><i class="fa fa-plus"></i>新增分类</span>
+            </div>
+          </div>
+         </a> 
+         <!-- <div class="fbutton">
+            <div class="add" title="收缩分类">
+              <span onclick="tree_open(this);"><i class="fa fa-angle-double-up"></i>收缩分类</span>
+            </div>
+          </div> -->
+        </div>
+        <div style="clear:both"></div>
+      </div>      
+      <div class="bDiv" style="height: auto;">
+        <table class="flex-table autoht" cellpadding="0" cellspacing="0" border="0" id="article_cat_table">
+          <tbody id="treet1">
+          <foreach name="list" item="vo" key="k" >
+            <tr nctype="0" class="classify_id" >
+              <td class="sign">
+                <div style="text-align: center; width: 24px;"> 
+                	           
+                </div>
+              </td>
+              <td class="handle">
+                <div style="text-align:center;min-width:150px !important; max-width:inherit !important;">
+                  <span class="btn" style="padding-left:4em"><em><i class="fa fa-cog"></i>设置<i class="arrow"></i></em>
+                  <ul>
+                     <li><a href="{:U('user/classify',array('act'=>'edit','classify_id'=>$vo['classify_id']))}">编辑分类信息</a></li>                  
+	                 <li><a href="javascript:void(0)" data-url="{:U('user/classify')}" data-id="{$vo.classify_id}" onClick="delfun(this)">删除当前分类</a></li>                                       
+                  </ul>
+                  </span>
+                </div>
+              </td>
+              <td class="sort">
+                <div style="text-align: center; width: 60px;">
+                  <input type="text" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onblur="changeTableVal('moments_classify','classify_id','{$vo.classify_id}','sort_order',this)" size="4" value="{$vo.sort_order}" />
+                </div>
+              </td>
+              <td class="name">
+                <div style="text-align: center; width: 250px;">
+                  <!--<input type="text" value="{$vo.name}" onblur="changeTableVal('article_cat','classify_id',{$vo.classify_id},'cat_name',this)" <in name="vo.classify_id" value="$article_system_id">readonly="readonly"</in>/>-->
+                    {$vo.name}
+                </div>
+              </td>
+              <td style="width: 100%;">
+                <div>&nbsp;</div>
+              </td>
+            </tr>
+            </foreach>                    
+          </tbody>
+        </table>        
+      </div>
+    </div>
+  </form>
+</div>
+<script>
+    $(document).ready(function(){
+        // 表格行点击选中切换
+        $('#flexigrid > table>tbody >tr').click(function(){
+            //点击选中,否则相反
+            var checked = $(this).find('input').is(':checked');
+            if(checked){
+                $(this).find('input').attr("checked",null);
+            }else{
+                $(this).find('input').attr("checked","checked");
+            }
+
+            $(this).toggleClass('trSelected');
+        });
+
+        // 点击刷新数据
+        $('.fa-refresh').click(function(){
+            location.href = location.href;
+        });
+
+    });
+
+    //批量操作提交
+    function act_submit(wst) {
+        var chks = [];
+        $('input[name*=selected]').each(function(i,o){
+            if($(o).is(':checked')){
+                chks.push($(o).val());
+            }
+        })
+
+
+        if(chks.length == 0){
+            layer.alert('少年，请至少选择一项', {icon: 2});return;
+        }
+        var can_post = false;
+        var remark = "审核通过";
+        if(wst != 1 ){
+            layer.prompt({title: '请填写备注', formType: 2}, function(text, index){
+                layer.close(index);
+                remark = text;
+                audit(chks , wst ,  remark);
+            });
+        }else{
+            audit(chks , wst ,  remark);
+        }
+    }
+
+    function audit(chks , wst ,  remark){
+        $.ajax({
+            type: "POST",
+            url: "/index.php?m=Admin&c=User&a=comment_update",//+tab,
+            data: {id:chks,status:wst,remark:remark},
+            dataType: 'json',
+            success: function (data) {
+                if(data.status == 1){
+                    layer.alert(data.msg, {
+                        icon: 1,
+                        closeBtn: 0
+                    }, function(){
+                        window.location.reload();
+                    });
+                }else{
+                    layer.alert(data.msg, {icon: 2,time: 3000});
+                }
+            },
+            error:function(){
+                layer.alert('网络异常', {icon: 2,time: 3000});
+            }
+        });
+    }
+
+
+
+
+    function delfun(obj) {
+        // 删除按钮
+        layer.confirm('确认删除？', {
+            btn: ['确定', '取消'] //按钮
+        }, function () {
+            $.ajax({
+                type: 'post',
+                url: $(obj).attr('data-url'),
+                data : {act:'del',classify_id:$(obj).attr('data-id')},
+                dataType: 'json',
+                success: function (data) {
+                    layer.closeAll();
+                    if (data.status == 1) {
+                        layer.msg(data.msg, {icon: 1});
+                        $(obj).parent().parent().parent().remove();
+                    } else {
+                        layer.alert(data.msg, {icon: 2});
+                    }
+                }
+            })
+        }, function () {
+            layer.closeAll();
+        });
+    }
+
+    // 修改指定表的指定字段值 包括有按钮点击切换是否(虚拟删除，1为删除，0未删除)
+    function isDelete(table,id_name,id_value,field,obj)
+    {
+        var src = "";
+        if($(obj).hasClass('no')) // 图片点击是否操作
+        {
+            //src = '/public/images/yes.png';
+            $(obj).removeClass('no').addClass('yes');
+            $(obj).html("<i class='fa fa-check-circle'></i>是");
+            var value = 0;
+
+        }else if($(obj).hasClass('yes')){ // 图片点击是否操作
+            $(obj).removeClass('yes').addClass('no');
+            $(obj).html("<i class='fa fa-ban'></i>否");
+            var value = 1;
+        }else{ // 其他输入框操作
+            var value = $(obj).val();
+        }
+
+        $.ajax({
+            url:"/index.php?m=Admin&c=Index&a=changeTableVal&table="+table+"&id_name="+id_name+"&id_value="+id_value+"&field="+field+'&value='+value,
+            success: function(data){
+                if(!$(obj).hasClass('no') && !$(obj).hasClass('yes'))
+                    layer.msg('更新成功', {icon: 1});
+            }
+        });
+    }
+</script>
+</body>
+</html>

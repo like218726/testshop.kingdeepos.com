@@ -1,0 +1,236 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>新闻详情页</title>
+    <link rel="stylesheet" href="__STATIC__/css/news-detal.css?v=0.1">
+    <meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+    <script>
+    //通过window.screen.width获取屏幕的宽度
+    var offWidth = window.screen.width / 16; //这里用宽度/16表示1rem取得的px
+    document.getElementsByTagName("html")[0].style.fontSize = offWidth + 'px'; //把rem的值复制给顶级标签html的font-size
+    </script>
+    <script src="__STATIC__/js/jquery-3.1.1.min.js"></script>
+    <script src="__STATIC__/js/style.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__STATIC__/js/swipeSlide.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div class="wrap">
+        <!-- 头部 -->
+        <div class="header">
+            <a href="{:U('News/news_list')}" class="return fl"><div class="back-icon"></div></a>
+            <h1>新闻详情</h1>
+            <!--<div class="share-icon" id="share_button"></div>-->
+        </div>
+
+        <!-- 主体 -->
+        <div class="main">
+            <!-- 文章标题 -->
+            <div class="title-article">
+                <p class="p1">{$news.title}</p>
+                <p class="p2">
+                    <span>发布时间：{$news.time}</span>
+                    <span>浏览量：{$news.click}</span>
+                </p>
+            </div>
+            <!-- 文章内容 -->
+            <div class="content">
+                {$news.content}
+            </div>
+            <div class="last-next">
+                <p style="display: {$down?'':'none'}"><if condition="$down"><a href="{:U('News/news_detail',array('article_id'=>$down['article_id']))}">上一篇：{$down.title}</a><else/><a href="javascript:void(0);">上一篇：暂无</a></if></p>
+                <p style="display: {$up?'':'none'}"><if condition="$up"><a href="{:U('News/news_detail',array('article_id'=>$up['article_id']))}">下一篇：{$up.title}</a><else/><a href="javascript:void(0);">下一篇：暂无</a></if></p>
+            </div>
+
+            <!-- 猜你喜欢 -->
+            <div class="like-article">
+                <div class="title">猜你喜欢</div>
+                <div class="like-list">
+                    <volist name="like" id="vo">
+                    <div class="list">
+                        <a href="{:U('News/news_detail',array('article_id'=>$vo['article_id']))}">
+                            <div class="list-l">
+                                <p class="p1">{$vo.title}</p>
+                                <p class="p2"><span>{$vo.time}</span><span>浏览量：{$vo.click}</span></p>
+                            </div>
+                            <div class="list-r"><img src="{$vo.thumb ? $vo.thumb : ' __STATIC__/images/user68.jpg '}" alt=""></div>
+                        </a>
+                    </div>
+                    </volist>
+                </div>
+            </div>
+
+            <!-- 评论列表 -->
+            <div class="comment-list">
+                <volist name="comment" id="vo">
+                <div class="list">
+                    <div class="head-portrait">
+                        <img src="{$vo.head_pic ? $vo.head_pic : '__STATIC__/images/list-icon01.png'}" alt="">
+                    </div>
+                    <div class="list-middle">
+                        <p class="p1">
+                            <span>{$vo.nickname ? $vo.nickname : $vo.mobile}</span>
+                            <span>·</span>
+                            <span><if condition="$vo.time lt 60">{$vo.time}分钟<elseif condition="$vo.time lt 1440 && $vo.time egt 60">{$vo.time/60 | floor}小时<else/>{$vo.time/1440 | floor}天</if>前</span>
+                            <span class="zan-icon {$vo.like_id ? 'on' : ''}" onclick="newsLike(this,{$vo.comment_id})">{$vo.like_num}</span>
+                        </p>
+                        <p class="p2">{$vo.content}</p>
+                    </div>
+                </div>
+                </volist>
+            </div>
+        </div>
+        <!-- 底部 -->
+        <div class="footer">
+            <div class="input on" id="comment-input">
+                <input id="comment-text" type="text" placeholder="给你留沙发了">
+                <div class="btn">发送</div>
+            </div>
+            <!-- 微信分享 -->
+            <!--<div class="wx-icon"></div>-->
+            <!-- 收藏/关注 -->
+            <!--<div class="collection-icon {$collection ? 'on' : ''}"></div>-->
+        </div>
+    </div>
+    <!--所选弹窗-e-->
+    <!--&lt;!&ndash;分享弹窗-s&ndash;&gt;-->
+    <div class="share-bottom-wrap" id="share_bottom">
+        <!--&lt;!&ndash; 百度分享 Button BEGIN &ndash;&gt;-->
+        <div class="bdsharebuttonbox" data-tag="share_1">
+            <a class="ico-share-wechat" data-cmd="weixin"></a>
+            <a class="ico-share-qq" data-cmd="sqq"></a>
+            <a class="ico-share-kj" data-cmd="qzone" href="#"></a>
+            <a class="ico-share-weibo" data-cmd="tsina"></a>
+        </div>
+        <!-- &lt;!&ndash; 百度分享 Button END &ndash;&gt; -->
+        <i class="xxgro" id="share_bottom_close"></i>
+    </div>
+    <!--&lt;!&ndash;分享弹窗-e&ndash;&gt;-->
+    <div class="mask-filter-div" style="display: none;"></div>
+    <script>
+        <!--//分享-->
+        var share_desc="{$news.description ? $news.description : ''}";
+        var share_title="{$news.title ? $news.title : ''}";
+        var bd_url="{:U('News/news_detail',array('article_id'=>$news.article_id))}";
+        var bd_pic="{$news.thumb ? $news.thumb : ''}";
+        $(function () {
+            $('#share_button,.wx-icon').click(function () {
+                cover();
+                $('#share_bottom').addClass('share-bottom-show');
+            })
+            $('#share_bottom_close').click(function () {
+                undercover();
+                $('#share_bottom').removeClass('share-bottom-show');
+            })
+        });
+        function setShareConfig(id,config){
+            config.bdText = share_desc;
+            config.bdDesc = share_title;
+            config.bdUrl = bd_url;
+            config.bdPic = bd_pic;
+            return config;
+        }
+        window._bd_share_config = {
+            common : {
+                //此处放置通用设置
+                onBeforeClick:setShareConfig,
+                bdText : "",
+                bdDesc : "",
+                bdUrl : "",
+                bdPic : ""
+            },
+            share : [{
+                <!--"bdSize" : 32
+            }],
+            image : [{
+                viewType : 'list',
+                viewPos : 'top',
+                viewColor : 'black',
+                viewSize : '32',
+                viewList : ['weixin','sqq','qzone','tsina']
+            }],
+            selectShare : [{
+               "bdselectMiniList" : ['weixin','sqq','qzone','tsina']
+            }]
+        }
+        with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+    <script>
+        $(function(){
+            $('.btn').on("click",function(){
+                var content=$("#comment-text").val();
+                var article_id={$news.article_id};
+                if(!content){
+                    alert('内容不能为空！');
+                    return
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "{:U('News/newsComment')}",
+                    data: {article_id:article_id,content:content},
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.status==1){
+                            location.reload()
+                        }
+                        alert(data.msg);
+                    }
+                });
+            });
+        })
+        $(function(){
+            $('.collection-icon').on("click",function(){
+                var article_id={$news.article_id};
+                $.ajax({
+                    type: "POST",
+                    url: "{:U('News/newsCollection')}",
+                    data: {article_id:article_id},
+                    dataType: "json",
+                    success: function (data) {
+                        if(data.status==1){
+                           $('.collection-icon').addClass('on')
+                        }
+                        if(data.status==2){
+                           $('.collection-icon').removeClass('on')
+                        }
+                        alert(data.msg);
+                    }
+                });
+            });
+        })
+        // $(function(){
+        //     $('#comment-text').on("focus",function(){
+        //         $('#comment-input').addClass('on');
+        //     });
+        // })
+        // $(function(){
+        //     $('#comment-text').on("blur",function(){
+        //         var content=$("#comment-text").val();
+        //         if(!content){
+        //             $('#comment-input').removeClass('on');
+        //         }
+        //     })
+        // })
+        function newsLike(obj,comment_id) {
+            var like_num=$(obj).text()
+            $.ajax({
+                type: "POST",
+                url: "{:U('News/newsLike')}",
+                data: {comment_id:comment_id},
+                dataType: "json",
+                success: function (data) {
+                    if(data.status==1){
+                       $(obj).addClass('on')
+                       $(obj).text(parseInt(like_num)+1)
+                    }
+                    if(data.status==2){
+                       $(obj).removeClass('on')
+                       $(obj).text(parseInt(like_num)-1)
+                    }
+                    alert(data.msg);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
